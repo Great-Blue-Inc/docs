@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+<title>CamNet Bid Quoting — Engineering Dossier</title>
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="light"]{
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec; --ink:#16201d; --ink-soft:#3c4a45;
+    --ink-faint:#6d7b75; --line:#d7ddd4; --line-soft:#e5e9e1; --accent:#0d7a6e; --accent-2:#0a5f56;
+    --accent-wash:#e2efeb; --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee; --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+  }
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:52px 0 40px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
+    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .meta-cell{background:var(--surface); padding:14px 16px;}
+  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
+  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
+  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
+    border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
+    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
+  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
+  h4{font-size:.95rem; font-weight:700; margin:22px 0 8px; color:var(--ink);}
+  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
+  a.inl:hover{border-bottom-color:var(--accent);}
+  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
+  .card.flush{padding:0; overflow:hidden;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
+  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
+  td.name{color:var(--ink); font-weight:600;}
+  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
+  .up{color:var(--accent-2); font-weight:600;} .down{color:var(--rose); font-weight:600;}
+  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
+  .metric{background:var(--surface); padding:18px 16px;}
+  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
+  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
+  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+  .fields{display:flex; flex-direction:column; gap:0;}
+  .field-row{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,2fr); gap:18px; padding:13px 0; border-bottom:1px solid var(--line-soft);}
+  .field-row:last-child{border-bottom:none;}
+  .field-row .api{font-family:var(--mono); font-size:.8rem; color:var(--accent-2); word-break:break-word;}
+  .field-row .api .obj{color:var(--ink-faint);}
+  .field-row .desc{font-size:.88rem; color:var(--ink-soft);}
+  @media (max-width:640px){ .field-row{grid-template-columns:1fr; gap:4px;} }
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
+  .src-list{display:grid; gap:10px;}
+  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
+  .src:hover{border-color:var(--accent); transform:translateX(2px);}
+  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
+  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
+  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
+  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+  hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
+</style>
+
+
+</head>
+<body>
+<header class="mast">
+  <div class="wrap mast-inner">
+    <p class="eyebrow"><span class="dot"></span> CamNet · Bid Quoting (SpecQuote) · Engineering Dossier</p>
+    <h1 class="title">Spec PDF to Draft Quote, <span>Grounded in Won History</span></h1>
+    <p class="lede">The current, validated state of CamNet's AI bid-quoting system. This supersedes the 2026-06-30 writeup: everything marked "next" there has since shipped or changed, and this dossier reconciles each claim against the repo and production deploy receipts.</p>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="k">Prod org</div><div class="v mono">camnetProd</div></div>
+      <div class="meta-cell"><div class="k">App version</div><div class="v mono">v0.54</div></div>
+      <div class="meta-cell"><div class="k">Repo</div><div class="v mono">camnet-agent @ a8bc90c</div></div>
+      <div class="meta-cell"><div class="k">Latest deploy</div><div class="v mono">0Af...jG7V · 610/610</div></div>
+      <div class="meta-cell"><div class="k">Compiled</div><div class="v">2026-07-07</div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap toc-inner">
+    <a href="#flow"><span class="num">01</span>How it works</a>
+    <a href="#changes"><span class="num">02</span>Since 6/30</a>
+    <a href="#arch"><span class="num">03</span>Architecture</a>
+    <a href="#trust"><span class="num">04</span>Trust &amp; gaps</a>
+    <a href="#boom"><span class="num">05</span>Boom V1</a>
+    <a href="#sources"><span class="num">06</span>Sources</a>
+    <span class="spacer"></span>
+    <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="stream" id="flow">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">How It Works, End to End</h2>
+      <span class="pill live">Live in camnetProd</span>
+    </div>
+    <p class="sec-sub">Turns a construction spec PDF into a draft sales quote where every line is a real product from the Salesforce catalog. An estimator reviews and edits the draft, then creates the quote. Everything runs inside Salesforce.</p>
+
+    <h3>The pipeline <span class="tag">high level</span></h3>
+    <ul class="tight">
+      <li><strong>Upload.</strong> The estimator uploads the spec PDF. Digital PDFs have their text layer extracted in the browser first, so most books never pay for an AI read of the raw PDF. A <code>Spec_Ingest__c</code> record tracks the whole run: status, result, cost, and any error. Before anything spends money, a confirm gate shows the estimated cost of the run, and a stop button can cancel cooperatively at any phase boundary.</li>
+      <li><strong>Read.</strong> Background jobs split the book into chunks and extract the Division 27 / 28 products sections ("Part 2 - Products") in parallel. Claude pulls out required products, approved brands, and demanded systems per chunk, and the results merge into one requirements set. A full 220 page book completes in minutes, not hours.</li>
+      <li><strong>Find candidates.</strong> For each requirement, a deterministic catalog search (SOSL over <code>Product2</code>) builds a candidate list, filtered to the spec's approved brands, with products from CamNet's Closed Won Opportunities ranked higher.</li>
+      <li><strong>Pick.</strong> Claude selects the candidate that best fits the requirement's technical details, under hard server-side gates: the pick must match the product type and performance category, must be an approved brand, and won-bid history breaks ties. If nothing genuinely fits, the line abstains with a stated reason instead of guessing.</li>
+      <li><strong>Price.</strong> Unit prices come from what CamNet actually charged on Closed Won Opportunities, not catalog list price. Cable is priced per foot and asks for footage before it joins the total.</li>
+      <li><strong>Review and create.</strong> The draft is fully editable. The estimator picks an Account and creates a CPQ quote or a standard Quote. Products the catalog was missing can be saved back to the catalog from the review screen.</li>
+    </ul>
+
+    <div class="metrics">
+      <div class="metric"><div class="val">$0.08</div><div class="cap">measured live run cost, Part 2 section, digital PDF (SI-00060)</div></div>
+      <div class="metric"><div class="val">220<small> pg</small></div><div class="cap">full spec book runs end to end (SI-00059, $2.77 text path)</div></div>
+      <div class="metric"><div class="val">610<small>/610</small></div><div class="cap">tests green on the v0.54 production deploy</div></div>
+      <div class="metric"><div class="val">~3.3<small> min</small></div><div class="cap">parallel chunk extract wall clock, measured live</div></div>
+    </div>
+  </section>
+
+  <section class="stream" id="changes">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">What Changed Since the 6/30 Writeup</h2>
+      <span class="pill live">v0.50 through v0.54 · deployed</span>
+    </div>
+    <p class="sec-sub">The 2026-06-30 gist was accurate then and stale now. Each of its claims, reconciled against the repo and deploy receipts.</p>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>6/30 said</th><th>Current reality (with receipt)</th></tr></thead>
+        <tbody>
+          <tr><td class="name">"Full book chunking is the plan"</td><td><span class="up">Shipped.</span> Parallel per-chunk extract and parse with batch fan-out (<code>Spec_Match_Batch__c</code>), merge, and idempotent assemble. SI-00059 ran a full 220 page book to Done: 49 matched, 196 honest abstains, $2.77.</td></tr>
+          <tr><td class="name">"Cost records (LLM_Call_Log__c) now save"</td><td><span class="up">Superseded in v0.53.</span> SpecQuote now owns its LLM plumbing: <code>SpecLlmService</code> with its own <code>Spec_LLM_Call_Log__c</code> log and config metadata. 8 spec call sites repointed, 30 non-spec callers untouched. Per-upload cost now surfaces in the UI.</td></tr>
+          <tr><td class="name">"AI reads the PDF" (a ~$2 Claude read per book)</td><td><span class="up">Eliminated for digital PDFs.</span> The browser extracts the PDF text layer and the server accepts pre-extracted text. Measured live: the extract leg went to 0 calls and the demo section ran at $0.0799. Scanned PDFs fall back to the AI read automatically.</td></tr>
+          <tr><td class="name">"Matching picks the right product" (approved brands + won history)</td><td><span class="up">Hardened well past 6/30.</span> Product type and performance category are now hard server-side gates, not prompt hopes. Won-bid history is a decisive tiebreaker. Same-product lines dedupe. Abstains carry reasons into the unmatched list. The live smoking gun (a won cable ladder heading a cable-manager shortlist) is dead.</td></tr>
+          <tr><td class="name">"A bad file shows a clear error"</td><td><span class="up">Extended to the whole pipeline.</span> The "Done but silently thinner" failure class is closed: a failed chunk now fails the book loudly with one fast retry, dropped jobs re-drive, enqueues are idempotent, and deadline backstops re-arm on live progress instead of killing running work.</td></tr>
+          <tr><td class="name">Not mentioned</td><td><span class="up">New in v0.50 to v0.54:</span> catalog write-back from review, deterministic extraction cache (same bytes, same requirements, ~$0 re-runs, addendum-proof content keys), temperature pinned to 0 on all spec legs, upload confirm gate with cost estimate, cooperative cancel button, per-chunk estimator recalibration.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="lbl">Deploy state · verified</div>
+      <p>v0.54 is deployed to camnetProd: quick-deploy <code>0Af7y000002jG7VCAU</code>, 610/610 tests. A portability port to the copilot-devhub org is validated green (619/619, <code>0Afg8000007lXHRCA2</code>) and awaits the owner's word to deploy. The app compiles and runs without Salesforce CPQ (dynamic CPQ branch in the quote writer).</p>
+    </div>
+  </section>
+
+  <section class="stream" id="arch">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Architecture: Claude Reads, Apex Grounds</h2>
+    </div>
+    <p class="sec-sub">The design rule that makes it fast and trustworthy: the LLM does language understanding, deterministic Apex does platform work. The LLM never invents a SKU or a price. Code never guesses at what only reading can tell you.</p>
+
+    <h3>Key components <span class="tag">low level</span></h3>
+    <div class="card flush"><div style="padding:20px 24px"><div class="fields">
+      <div class="field-row"><div class="api">SpecIngestQueueable<span class="obj">.cls</span></div><div class="desc">The async orchestrator. Chunk fan-out, per-chunk extract and parse, merge, match batches, idempotent assemble, election locks, re-arming backstops.</div></div>
+      <div class="field-row"><div class="api">SpecQuoteBuilder<span class="obj">.cls</span></div><div class="desc">Per-slice match (expand, retrieve, select) plus global assembly and pricing. Abstain threshold 0.34: below it a line goes to unmatched with a reason, never onto the quote.</div></div>
+      <div class="field-row"><div class="api">SpecCatalogSearch<span class="obj">.cls</span> · SpecMatchSelector<span class="obj">.cls</span></div><div class="desc">Deterministic candidate retrieval (SOSL, type and category classifiers, won-history merge and boost) and the gated LLM pick (type, category, approved brand as hard constraints, won history as tiebreaker).</div></div>
+      <div class="field-row"><div class="api">SpecQuoteHistoryGrounding<span class="obj">.cls</span></div><div class="desc">Won-bid grounding: recovers SKUs the catalog search misses and fills prices from Closed Won <code>OpportunityLineItem</code> history via bounded queries.</div></div>
+      <div class="field-row"><div class="api">SpecLlmService<span class="obj">.cls</span> · Spec_LLM_Call_Log__c</div><div class="desc">SpecQuote-owned LLM transport and cost logging (v0.53), decoupled from the shared copilot engine so the two products can evolve independently.</div></div>
+      <div class="field-row"><div class="api">specQuoteReview<span class="obj"> (LWC)</span></div><div class="desc">Upload with confirm gate and cancel, live progress, editable draft review, add-product with catalog write-back, quote creation. Client-side PDF text-layer extraction and 20 page chunk splitting.</div></div>
+      <div class="field-row"><div class="api">SpecQuote_Brand__mdt · SpecQuote config</div><div class="desc">Brand aliases (for example LANMARK to Berk-Tek) and field mappings live in custom metadata. Admins extend coverage without code.</div></div>
+    </div></div></div>
+
+    <h3>Capability map <span class="tag">status</span></h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Capability</th><th>6/26 roadmap said</th><th>Now</th></tr></thead>
+        <tbody>
+          <tr><td class="name">Requirements from spec text</td><td>Live</td><td class="up">Live</td></tr>
+          <tr><td class="name">Native PDF upload</td><td>Building</td><td class="up">Live (text layer + AI fallback)</td></tr>
+          <tr><td class="name">Full-document ingest (chunk, parse, merge)</td><td>Phase 2</td><td class="up">Live</td></tr>
+          <tr><td class="name">History-grounded matching and pricing</td><td>Live</td><td class="up">Live, hardened (hard gates, tiebreaker, dedupe)</td></tr>
+          <tr><td class="name">Quote output (CPQ or standard)</td><td>Phase 3</td><td class="up">Live, CPQ optional</td></tr>
+          <tr><td class="name">Drawing takeoffs (vision device counting)</td><td>Phase 2, hardest</td><td><span style="color:var(--amber);font-weight:600">In flight</span> (legend-aware vision viable, external counter tool building)</td></tr>
+          <tr><td class="name">Auditor ("check my quote vs the spec")</td><td>After real data</td><td><span style="color:var(--rose);font-weight:600">Planned</span></td></tr>
+          <tr><td class="name">Labor estimation</td><td>Stays human</td><td>Stays human, by design</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="stream" id="trust">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Trust Model &amp; Honest Gaps</h2>
+    </div>
+    <p class="sec-sub">Why the output is safe to hand an estimator, and what is deliberately not claimed.</p>
+
+    <h3>The three traps the spec hides <span class="tag">why it exists</span></h3>
+    <ul class="tight">
+      <li><strong>Manufacturer rigidity.</strong> "Panduit horizontal cabling, no exceptions." The wrong brand means CamNet eats the cost. Mandated manufacturers and no-exception flags are extracted and enforced as a hard gate on every pick.</li>
+      <li><strong>Ghost scope.</strong> A narrative that demands a full VoIP system with no symbol on the drawings. Demanded-systems extraction surfaces these. Cross-checking against drawings arrives with the takeoff work.</li>
+      <li><strong>Responsibility matrix.</strong> Door hardware "by others," patch cables "owner installed." Responsibility extraction keeps lines CamNet should not buy off the quote.</li>
+    </ul>
+
+    <h3>Why it will not hallucinate</h3>
+    <ul class="tight">
+      <li><strong>Grounded, not generated.</strong> Every line is a real catalog or history match, or an explicit flagged abstain with a reason. Worst case is a flagged gap, never an invented line. Proven live: the Cat 6 line matches the exact product from CamNet's $1.1M Closed Won Zuni Opportunity, byte-identical through the entire hardening wave.</li>
+      <li><strong>Human in the loop.</strong> The estimator reviews everything. The floor is human quality, so the system can only be faster, not worse.</li>
+      <li><strong>An honest grader.</strong> The accuracy grader was itself audited and fixed (won-SKU resolution, precision metric, non-tautological hallucination check), so measured accuracy numbers mean what they say.</li>
+    </ul>
+
+    <div class="callout warn">
+      <div class="lbl">Open work · queued, not claimed</div>
+      <p>Match quality on the full book is the active thrust: a $0 diagnosis of SI-00059's 196 abstains (correct abstains vs genuine misses) and a table-of-contents isolation activation are staged, with the paid full-book validation run held for explicit approval. A known root cause is queued for fix: the per-requirement approved-brand list can over-restrict via token overlap, causing correct-family products to abstain. Quantities and labor remain the estimator's. Some abstains are the system being right, for example a 15A power strip refused against a required 20A UL 1363 spec.</p>
+    </div>
+  </section>
+
+  <section class="stream" id="boom">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Boom V1: Scrape to Match to Quote</h2>
+      <span class="pill sandbox">Companion build · bid-scout</span>
+    </div>
+    <p class="sec-sub">The scope expanded on 2026-07-03: the end-to-end demo target is now the full arc from finding the bid to drafting the quote.</p>
+    <ul class="tight">
+      <li><strong>bid-scout</strong> (separate repo) scouts bid boards, prefilters at $0, scores postings against CamNet's ideal customer profile, and hands qualified postings to Salesforce as <code>Bid_Lead__c</code> records. Runs against the copilot-devhub org.</li>
+      <li><strong>Email ingest</strong> landed: drop-folder intake with a bidnet parser profile is live (M1). Mailbox polling via Microsoft Graph (M2) is built but blocked on tenant admin consent for the sign-in.</li>
+      <li><strong>Quoter independence proven.</strong> <code>Bid_Lead__c</code> was cleanly removed from camnetProd and the quoter smoke-passed without it, so the scout and the quoter ship on their own schedules.</li>
+      <li><strong>Zero-spend defaults.</strong> Scheduled scans run prefilter-only at $0. Paid scoring happens only on explicit input.</li>
+    </ul>
+  </section>
+
+  <section class="stream" id="sources" style="border-bottom:none">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2 class="sec-title">Source Index</h2>
+    </div>
+    <p class="sec-sub">What this dossier consolidates and corrects. The 6/30 gist remains the best plain-language walkthrough of the core flow. This dossier is the current state.</p>
+
+    <p class="kicker">Primary (superseded by this dossier where they conflict)</p>
+    <div class="src-list">
+      <a class="src" href="https://gist.github.com/br5692/5d1681b543087c3e483a0be1946356d4"><span class="gid">5d1681b5</span><span class="st"><div class="nm">Bid Quoting (SpecQuote): how it works end to end, what we fixed, logging, next steps</div><div class="dt">gist · secret · 2026-06-30</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://gist.github.com/br5692/7fde43e980cc5ed82584972f12c721c1"><span class="gid">7fde43e9</span><span class="st"><div class="nm">Bid Quoting (SpecQuote): Roadmap &amp; Process Map</div><div class="dt">gist · secret · 2026-06-26</div></span><span class="arr">→</span></a>
+    </div>
+
+    <p class="kicker">Supporting gists</p>
+    <div class="src-list">
+      <a class="src" href="https://gist.github.com/br5692/60df036e04c6d1d933e46735bef2cd1e"><span class="gid">60df036e</span><span class="st"><div class="nm">Bid Quoting: Requirements &amp; Ownership (Security Suite Boom V1)</div><div class="dt">gist · secret · 2026-06-26</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://gist.github.com/br5692/5e02ecfc5cc6da43803f972f6bb591d7"><span class="gid">5e02ecfc</span><span class="st"><div class="nm">Bid Quoting: Team Overview (one-pager)</div><div class="dt">gist · secret · 2026-06-27</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://gist.github.com/br5692/4c6d17afe03fa66d1d4308646c8d7c1a"><span class="gid">4c6d17af</span><span class="st"><div class="nm">Bid Quoting: Live Demo Walkthrough (Zuni Cabling)</div><div class="dt">gist · secret · 2026-06-26</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://gist.github.com/br5692/70fac513c77cc7165ce8e3fe73a476e6"><span class="gid">70fac513</span><span class="st"><div class="nm">SpecQuote / Construction Bid Quoting: End-to-End Glossary</div><div class="dt">gist · secret · 2026-06-26</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://gist.github.com/br5692/b60d7abc3f598230d9e9f682f8ffa872"><span class="gid">b60d7abc</span><span class="st"><div class="nm">CamNet AI Spec-Audit: Marquise deep-dive takeaways</div><div class="dt">gist · secret · 2026-06-25</div></span><span class="arr">→</span></a>
+    </div>
+
+    <p class="kicker">Repo living docs (camnet-agent, current state of record)</p>
+    <div class="card" style="margin-top:12px">
+      <div class="fields">
+        <div class="field-row"><div class="api">docs/strategy/SpecQuote_Build_Tracker.md</div><div class="desc">The living handoff. Status snapshot, per-slice history, queued thrusts. Read first on resume.</div></div>
+        <div class="field-row"><div class="api">docs/session-summaries/</div><div class="desc">Dated session records: async pivot (6/29), chunking + create + accuracy (6/30), full-book matcher (7/01), plus the v0.50 to v0.54 commit trail through 7/06.</div></div>
+        <div class="field-row"><div class="api">docs/reviews/PORTABILITY_AUDIT_specquote_2026-07-06.md</div><div class="desc">The devhub port audit: CPQ coupling dynamic, config seams, the shared-LLM dependency that v0.53 resolved.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="fmono">CamNet Bid Quoting engineering dossier · compiled 2026-07-07 · sources: 8 gists + camnet-agent @ a8bc90c + bid-scout</p>
+    <p>Core pipeline live in camnetProd at v0.54 (610/610). Full-book quality validation and the devhub deploy await explicit approval. Takeoffs in flight, auditor planned, labor stays human.</p>
+  </footer>
+</main>
+
+<script>
+  (function () {
+    var btn = document.getElementById('themeToggle');
+    var root = document.documentElement;
+    btn.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme');
+      if (!current) {
+        current = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      btn.textContent = next === 'dark' ? 'Light' : 'Dark';
+    });
+  })();
+</script>
+
+</body>
+</html>
