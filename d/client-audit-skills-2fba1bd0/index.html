@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<title>client-audit-skills — Engineering Dossier</title>
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="light"]{
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec; --ink:#16201d; --ink-soft:#3c4a45;
+    --ink-faint:#6d7b75; --line:#d7ddd4; --line-soft:#e5e9e1; --accent:#0d7a6e; --accent-2:#0a5f56;
+    --accent-wash:#e2efeb; --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee; --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+  }
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:52px 0 40px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
+    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .meta-cell{background:var(--surface); padding:14px 16px;}
+  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
+  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+
+  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
+  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
+    border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+
+  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
+    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
+  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
+  h4{font-size:.95rem; font-weight:700; margin:22px 0 8px; color:var(--ink);}
+  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
+  a.inl:hover{border-bottom-color:var(--accent);}
+  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
+  .card.flush{padding:0; overflow:hidden;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+
+  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:16px 18px; overflow-x:auto; margin:16px 0;}
+  pre code{background:none; border:none; padding:0; font-size:.82rem; line-height:1.7; color:var(--ink);}
+  .cm{color:var(--ink-faint);} .kw{color:var(--accent-2); font-weight:600;}
+
+  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
+  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
+  td.name{color:var(--ink); font-weight:600;}
+  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
+  .up{color:var(--accent-2); font-weight:600;} .down{color:var(--rose); font-weight:600;}
+
+  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
+  .metric{background:var(--surface); padding:18px 16px;}
+  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
+  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
+  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+
+  .fields{display:flex; flex-direction:column; gap:0;}
+  .field-row{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,2fr); gap:18px; padding:13px 0; border-bottom:1px solid var(--line-soft);}
+  .field-row:last-child{border-bottom:none;}
+  .field-row .api{font-family:var(--mono); font-size:.8rem; color:var(--accent-2); word-break:break-word;}
+  .field-row .api .obj{color:var(--ink-faint);}
+  .field-row .desc{font-size:.88rem; color:var(--ink-soft);}
+  @media (max-width:640px){ .field-row{grid-template-columns:1fr; gap:4px;} }
+
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
+  .src-list{display:grid; gap:10px;}
+  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
+  .src:hover{border-color:var(--accent); transform:translateX(2px);}
+  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
+  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
+  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
+  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+
+  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+  hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
+</style>
+</head>
+<body>
+
+
+<header class="mast"><div class="wrap mast-inner">
+  <p class="eyebrow"><span class="dot"></span> Great Blue · Salesforce Metadata Audits · Engineering Dossier</p>
+  <h1 class="title">The audit toolkit that turns a 30 to 40 hour review into a <span>mostly-automated pass</span></h1>
+  <p class="lede">A read-only set of Claude Skills that audit a Salesforce org from its metadata. This is the shareable overview of what the toolkit covers, how a run works end to end, and exactly where it stands today. Written for Dan.</p>
+  <div class="meta-grid">
+    <div class="meta-cell"><div class="k">Repo</div><div class="v mono">client-audit-skills</div></div>
+    <div class="meta-cell"><div class="k">HEAD</div><div class="v mono">827a7c5 · main</div></div>
+    <div class="meta-cell"><div class="k">Skills</div><div class="v">10 audit + 1 orchestrator</div></div>
+    <div class="meta-cell"><div class="k">Scope</div><div class="v">Read-only metadata</div></div>
+    <div class="meta-cell"><div class="k">Compiled</div><div class="v mono">2026-07-08</div></div>
+  </div>
+</div></header>
+
+<nav class="toc"><div class="wrap toc-inner">
+  <a href="#s1"><span class="num">01</span>What it is</a>
+  <a href="#s2"><span class="num">02</span>The skills</a>
+  <a href="#s3"><span class="num">03</span>Safety gate</a>
+  <a href="#s4"><span class="num">04</span>Report system</a>
+  <a href="#s5"><span class="num">05</span>Status</a>
+  <a href="#sources"><span class="num">06</span>Sources</a>
+  <span class="spacer"></span>
+  <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+</div></nav>
+
+<main class="wrap">
+
+  <section class="stream" id="s1">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">What the toolkit is</h2>
+      <span class="pill live">Shipped</span>
+      <span class="pill sandbox">Sandbox-validated</span>
+    </div>
+    <p class="sec-sub">Claude Skills that read a Salesforce org's metadata and hand back a client-presentable audit, without a human clicking through Setup for a week.</p>
+
+    <h3>The idea <span class="tag">high level</span></h3>
+    <p>A manual Salesforce health review is 30 to 40 hours of clicking through Flows, validation rules, profiles, packages, reports, and field usage. This toolkit reads that same metadata directly and drafts the findings, so the reviewer spends their time judging results instead of gathering them. The README frames it honestly as a <strong>multi-day, mostly-automated process</strong>, not a one-click miracle. The real time cost is validating each skill against a live org, which is hours rather than weeks.</p>
+    <p>Everything in v1 is <strong>read-only metadata</strong>. It reads Flow XML, validation rules, profiles and permission sets, installed packages, report and dashboard usage, and aggregate field usage. It never writes, and it never reads raw record values.</p>
+
+    <div class="metrics">
+      <div class="metric"><div class="val">10</div><div class="cap">read-only audit skills shipped</div></div>
+      <div class="metric"><div class="val">3</div><div class="cap">client sandboxes validated against</div></div>
+      <div class="metric"><div class="val">0</div><div class="cap">records written or modified, ever</div></div>
+      <div class="metric"><div class="val">v4</div><div class="cap">report template (dossier system)</div></div>
+    </div>
+
+    <div class="callout warn">
+      <div class="lbl">Honest state</div>
+      <p>Nothing here has run against a real paying client yet. "Validated" means the mechanics work and generalize across three sandboxes with real client metadata, not that it is invoice-ready. Two guardrails from the README hold everywhere: never share skill source or scripts with clients, only the final report, and validate each skill against a live engagement before generalizing it.</p>
+    </div>
+  </section>
+
+  <section class="stream" id="s2">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">The audit skills</h2>
+      <span class="pill live">10 shipped</span>
+      <span class="pill pending">1 descoped</span>
+    </div>
+    <p class="sec-sub">Ten focused skills, each reading one slice of metadata, plus an orchestrator that chains them into one report. One skill is deliberately held back for v1.</p>
+
+    <h3>What each one covers <span class="tag">high level</span></h3>
+    <p>Every skill answers one question a reviewer would otherwise dig for by hand, and every finding it produces carries an insight, not just a raw list. The orchestrator runs them together and renders a single summary with one drill-down page per area.</p>
+
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Skill</th><th>Reads</th><th>What it surfaces</th></tr></thead>
+      <tbody>
+        <tr><td class="name">audit-flow-catalog</td><td>Flow XML</td><td>Every Flow with purpose, trigger, key logic, and risk flags. No Flow Builder clicking.</td></tr>
+        <tr><td class="name">audit-validation-rules</td><td>Validation rule metadata</td><td>Every rule and stage-advancement or required-field gate, plus stale or conflicting ones.</td></tr>
+        <tr><td class="name">audit-automation-summary</td><td>Workflow + Process metadata</td><td>Legacy Workflow Rules and Process Builder still active, overlaps with Flows, migration candidates.</td></tr>
+        <tr><td class="name">audit-field-usage</td><td>Aggregate field data</td><td>Population percentage per field across core objects. Which fields are live vs dead weight.</td></tr>
+        <tr><td class="name">audit-field-hygiene</td><td>Field metadata</td><td>Unused fields and naming-convention violations across core and custom objects.</td></tr>
+        <tr><td class="name">audit-report-hygiene</td><td>Report + dashboard usage</td><td>Stale reports and dashboards not opened in a window (default 12 months) as deletion candidates.</td></tr>
+        <tr><td class="name">audit-installed-packages</td><td>Installed package metadata</td><td>Packages with versions, out-of-date flags, best-effort usage cross-reference.</td></tr>
+        <tr><td class="name">audit-integration-users</td><td>Profiles, perm sets, users</td><td>Integration users and their permission hierarchy. Elevated, orphaned, over-permissioned accounts.</td></tr>
+        <tr><td class="name">audit-api-usage</td><td>API usage limits</td><td>Org API usage over the trailing 24 hours against the org limit. One bounded query.</td></tr>
+        <tr><td class="name">audit-storage-trend</td><td>Storage usage</td><td>Year-over-year file and data storage growth as a trend.</td></tr>
+        <tr><td class="name">audit-report-orchestrator</td><td>All of the above</td><td>Chains every audit skill and renders one client HTML summary plus a drill-down page per area.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>The one held back <span class="tag">low level</span></h3>
+    <div class="callout">
+      <div class="lbl">Descoped for v1 · decision 2026-06-30</div>
+      <p><code>audit-duplicates</code> flags likely duplicate Contacts and Leads. It is the one skill that would touch actual record data rather than metadata, so it needs real script engineering. Per the README, that is "not worth blocking the rest, which are genuinely hours-not-weeks work." It is descoped, not deleted. The file is kept as a design record with stricter rules: a deterministic script and aggregate-only output (group counts plus record IDs, never raw PII).</p>
+    </div>
+  </section>
+
+  <section class="stream" id="s3">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">The org-identity safety gate</h2>
+      <span class="pill sandbox">Sandbox-default</span>
+    </div>
+    <p class="sec-sub">Before any skill runs, the toolkit proves which org it is pointed at and refuses to touch production without an explicit go.</p>
+
+    <h3>Why it exists <span class="tag">high level</span></h3>
+    <p>These skills read client orgs. Running the wrong one, or running against production by accident, is the failure that matters most. So every run starts by stating the org identity out loud and stopping cold if it is not a sandbox.</p>
+
+    <h3>The gate, exactly <span class="tag">low level</span></h3>
+    <p>Both commands run first, and their results are recorded in the run notes:</p>
+    <pre><code><span class="cm"># 1. identity: record username + instanceUrl</span>
+sf org display --target-org &lt;alias&gt; --json
+
+<span class="cm"># 2. sandbox check: record Name + IsSandbox</span>
+sf data query --query "SELECT Name, IsSandbox FROM Organization" \
+  --target-org &lt;alias&gt; --json</code></pre>
+    <div class="callout warn">
+      <div class="lbl">The stop rule (quoted)</div>
+      <p>"State the org Name and IsSandbox in the run notes. If IsSandbox=false, STOP and get explicit approval before proceeding. These skills default to sandbox-only." A non-zero exit code or a <code>"status" != 0</code> in any <code>sf --json</code> output is treated as a failed step, and partial output is never parsed.</p>
+    </div>
+  </section>
+
+  <section class="stream" id="s4">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">The report and dossier output system</h2>
+      <span class="pill live">v4 live</span>
+    </div>
+    <p class="sec-sub">A run ends in one self-contained HTML report plus a drill-down page per area, in the same house dossier style as this document, with zero external requests.</p>
+
+    <h3>What a client sees <span class="tag">high level</span></h3>
+    <p>Report template v4, adopted 2026-07-06, is the Great Blue engineering dossier system, the same identity you are reading now, ported into the audit report generator. It is a restrained token system with no ornament. It replaced a minimal v3 template and is not the earlier rejected ornate style. The report opens as a single HTML file, renders in light and dark, and works offline with no fonts or scripts fetched from the network.</p>
+
+    <h3>How a run becomes a report <span class="tag">low level</span></h3>
+    <p>Each run writes a <code>run.json</code> data file, and one parameterized generator turns it into the HTML. The schema has been stable across v3 and v4:</p>
+    <div class="card flush"><div style="padding:20px 24px"><div class="fields">
+      <div class="field-row"><div class="api">org_alias<span class="obj"> · client_name · date</span></div><div class="desc">Run identity, echoed into the masthead.</div></div>
+      <div class="field-row"><div class="api">title<span class="obj"> · dek</span></div><div class="desc">Report headline and standfirst.</div></div>
+      <div class="field-row"><div class="api">stats</div><div class="desc">List of <code>[value, label]</code> pairs, rendered as metric tiles.</div></div>
+      <div class="field-row"><div class="api">pop</div><div class="desc">Dict of population and bucket-chart context.</div></div>
+      <div class="field-row"><div class="api">findings</div><div class="desc">List of 10 objects, one per audit area, each with <code>slug</code>, <code>title</code>, <code>sev</code>, <code>sev_label</code>, <code>metric</code>, <code>metric_label</code>, <code>body</code>, and <code>detail</code>.</div></div>
+    </div></div></div>
+
+    <h4>The build pipeline</h4>
+    <ul class="tight">
+      <li><code>scripts/generate_report.py</code> is the single generator. Everything below its template marker is the dossier token system.</li>
+      <li>Output is standalone HTML with system font stacks only, a full doctype, charset, viewport, and a data-URI favicon. No webfont link, no CDN. This fixed a real v3 defect where a Google Fonts dependency fell back silently from <code>file://</code>.</li>
+      <li>Light and dark both, via token-level <code>prefers-color-scheme</code> plus a <code>data-theme</code> override and a working per-page toggle, drill-downs included.</li>
+      <li>Severity pills are derived from each skill's own flags: teal for clean, amber for watch, rose for risk, neutral for limited.</li>
+      <li>One drill-down page per audit area, and every table carries an insight column rather than a bare identifier dump.</li>
+      <li><code>html.escape()</code> runs on every run.json string, with one whitelisted exception for bare <code>&lt;code&gt;</code> spans.</li>
+    </ul>
+
+    <h4>Verification and output locations</h4>
+    <p>A Playwright headless harness, <code>scripts/verify-ui.mjs</code>, screenshots the report over <code>file://</code>. v4 added a <code>--colorScheme</code> flag so both themes are verified. Outputs live in predictable places:</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Path</th><th>Holds</th></tr></thead>
+      <tbody>
+        <tr><td class="name">docs/runs/&lt;org&gt;-&lt;date&gt;/</td><td>Per-run folder: SUMMARY.md, report.html, drilldowns, and raw per-skill output.</td></tr>
+        <tr><td class="name">docs/RUNS-INDEX.md</td><td>The index of every org run and where its report lives. Check this first.</td></tr>
+        <tr><td class="name">docs/drilldowns/</td><td>The original top-level drill-down set from the first org, predating the per-run convention.</td></tr>
+        <tr><td class="name">docs/sample-run-2026-07-06/</td><td>The regenerated v4 sample: report plus 10 drill-downs.</td></tr>
+        <tr><td class="name">skills/assets/style-reference-dossier-report.html</td><td>The canonical v4 style reference.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="stream" id="s5">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Where it stands</h2>
+      <span class="pill live">Core shipped</span>
+      <span class="pill sandbox">Cross-org tests pending</span>
+    </div>
+    <p class="sec-sub">The ten skills and the report system are built and validated on sandboxes. A few finishing items and one repo-wiring gap remain.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4>Shipped</h4>
+        <ul class="tight">
+          <li>All 10 metadata audit skills, validated against three live client sandboxes (an original target, a cross-industry generalization check, and a real ongoing engagement sandbox), all read-only.</li>
+          <li>Each skill surfaced at least one real bug or scope correction on the first org, and most ran clean on the later orgs, confirming the fixes generalized.</li>
+          <li>The orchestrator, screenshot-verified and now covering all 10 areas.</li>
+          <li>Report template v4, the dossier system, landed 2026-07-06 with three defects fixed.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>In progress and queued</h4>
+        <ul class="tight">
+          <li>Orchestrator is cross-org tested on only the first org so far.</li>
+          <li>Pop-chart bucket severity class is escaped but not yet validated against the allowed set.</li>
+          <li>Two legacy per-org generator forks are superseded and pending a delete decision.</li>
+          <li>The <code>audit-report-hygiene</code> query was revised 2026-07-02 and needs a sandbox re-test.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <div class="lbl">Repo wiring · as of 2026-07-08</div>
+      <p>Dual-push is not wired on the working clone. The README describes a single <code>git push</code> writing both <code>br5692</code> (primary) and <code>Great-Blue-Inc</code> (mirror), but this clone's origin points only at Great-Blue-Inc, and the mirror was last pushed by explicit URL. Running <code>/dual-push</code> in the repo restores the single-push-hits-both setup. Worth doing before the next round of commits so the two remotes do not drift.</p>
+    </div>
+
+    <div class="callout">
+      <div class="lbl">Descoped</div>
+      <p><code>audit-duplicates</code> stays out of v1 by decision. It is the only record-data skill and needs real script engineering. Design is preserved in its file for whenever it is picked back up.</p>
+    </div>
+  </section>
+
+  <section class="stream" id="sources" style="border-bottom:none">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Source Index</h2></div>
+    <p class="sec-sub">Everything here is drawn from the repo. Links point at the Great-Blue-Inc mirror on <code>main</code>.</p>
+
+    <p class="kicker">Orientation</p>
+    <div class="src-list">
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/README.md"><span class="gid">md</span><span class="st"><div class="nm">README.md</div><div class="dt">purpose · scope · decisions · org gate · skills table</div></span><span class="arr">&#8594;</span></a>
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/docs/RUNS-INDEX.md"><span class="gid">md</span><span class="st"><div class="nm">docs/RUNS-INDEX.md</div><div class="dt">index of every run and its report location</div></span><span class="arr">&#8594;</span></a>
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/docs/SKILLS-STATUS-2026-06-30.md"><span class="gid">md</span><span class="st"><div class="nm">docs/SKILLS-STATUS-2026-06-30.md</div><div class="dt">per-skill validation detail and status</div></span><span class="arr">&#8594;</span></a>
+    </div>
+
+    <p class="kicker">Session summaries</p>
+    <div class="src-list">
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/docs/session-summaries/2026-06-30_audit-skills-buildout.md"><span class="gid">md</span><span class="st"><div class="nm">2026-06-30 buildout</div><div class="dt">buildout · two-org validation</div></span><span class="arr">&#8594;</span></a>
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/docs/session-summaries/2026-07-02_full-suite-audit-and-hardening.md"><span class="gid">md</span><span class="st"><div class="nm">2026-07-02 full-suite audit and hardening</div><div class="dt">hardening pass</div></span><span class="arr">&#8594;</span></a>
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/docs/session-summaries/2026-07-06_report-template-v4-dossier.md"><span class="gid">md</span><span class="st"><div class="nm">2026-07-06 report template v4</div><div class="dt">dossier system landing · defects fixed · queue</div></span><span class="arr">&#8594;</span></a>
+    </div>
+
+    <p class="kicker">The system</p>
+    <div class="src-list">
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/skills/audit-report-orchestrator.md"><span class="gid">md</span><span class="st"><div class="nm">skills/audit-report-orchestrator.md</div><div class="dt">the report and dossier design spec</div></span><span class="arr">&#8594;</span></a>
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/skills/audit-duplicates.md"><span class="gid">md</span><span class="st"><div class="nm">skills/audit-duplicates.md</div><div class="dt">the descope decision and design record</div></span><span class="arr">&#8594;</span></a>
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/scripts/generate_report.py"><span class="gid">py</span><span class="st"><div class="nm">scripts/generate_report.py</div><div class="dt">the single parameterized report generator</div></span><span class="arr">&#8594;</span></a>
+      <a class="src" href="https://github.com/Great-Blue-Inc/client-audit-skills/blob/main/scripts/verify-ui.mjs"><span class="gid">mjs</span><span class="st"><div class="nm">scripts/verify-ui.mjs</div><div class="dt">Playwright screenshot harness, --colorScheme</div></span><span class="arr">&#8594;</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <p class="fmono">Compiled 2026-07-08 · 11 sources · commit 827a7c5 (main)</p>
+    <p>Ten read-only audit skills and the v4 dossier report are built and sandbox-validated across three client orgs. Remaining work is cross-org report testing, a few queued cleanups, and wiring dual-push on the clone. Nothing has run against a paying client yet, and no run has ever written a record.</p>
+  </footer>
+</main>
+
+<script>
+  (function(){
+    var btn=document.getElementById('themeToggle'), root=document.documentElement;
+    btn.addEventListener('click', function(){
+      var cur=root.getAttribute('data-theme');
+      if(!cur) cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+      var next=cur==='dark'?'light':'dark';
+      root.setAttribute('data-theme', next);
+      btn.textContent=next==='dark'?'Light':'Dark';
+    });
+  })();
+</script>
+
+</body>
+</html>
