@@ -181,6 +181,26 @@
   td.name{color:var(--ink); font-weight:600;}
   tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
 
+  /* drill-down table -- collapsible roll-up with aligned numeric columns (native details/summary, no JS).
+     .drill-head labels the columns even when every group is collapsed. Fixed-width right-aligned
+     .dnums .c/.v keep numbers in one straight column at every depth; left-padding steps (20 -> 34 -> 46)
+     signal hierarchy while right padding stays 20 so the number columns line up across all levels.
+     Inherits every dossier token, so it themes light/dark for free. Ported from the /dossier skill
+     (claude-skills/dossier.md §7/§8), do not restyle without re-checking that source. */
+  .drill-head{display:flex; justify-content:flex-end; gap:22px; padding:2px 20px 8px; color:var(--ink-faint);
+    font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
+  .dnums{font-family:var(--mono); font-variant-numeric:tabular-nums; display:inline-flex; gap:22px;}
+  .dnums .c,.drill-head .c{width:56px; text-align:right;} .dnums .v,.drill-head .v{width:132px; text-align:right;}
+  details.drill{border:1px solid var(--line); border-radius:12px; margin:12px 0; background:var(--surface); box-shadow:var(--shadow); overflow:hidden;}
+  details.drill>summary{cursor:pointer; padding:14px 20px; font-family:var(--serif); font-size:1.15rem; font-weight:600;
+    color:var(--ink); list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:baseline; background:var(--surface-2);}
+  details.drill>summary::-webkit-details-marker{display:none;} details.drill>summary .dnums{color:var(--ink-soft);}
+  details.drill-2>summary{cursor:pointer; padding:10px 20px 10px 34px; font-weight:600; color:var(--ink-soft);
+    list-style:none; display:flex; justify-content:space-between; gap:16px; border-top:1px solid var(--line-soft);}
+  details.drill-2>summary::-webkit-details-marker{display:none;} details.drill-2[open]>summary{color:var(--ink);}
+  .drill-leaf{display:flex; justify-content:space-between; gap:16px; padding:8px 20px 8px 46px;
+    border-top:1px solid var(--line-soft); color:var(--ink-soft); font-size:.9rem;}
+
   footer{padding:38px 0 56px; color:var(--ink-faint); font-size:.84rem;}
   .foot-lockup{display:flex; align-items:center; gap:9px; margin-bottom:10px;}
   .foot-lockup img{width:22px; height:22px; display:block;}
