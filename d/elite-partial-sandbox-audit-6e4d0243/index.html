@@ -233,10 +233,10 @@
     <div class="f-num">02</div>
     <div>
       <div class="f-head"><span class="f-title">Process Automation Migration</span><span class="pill watch">Watch</span></div>
-      <p class="f-body">Not fully migrated to Flow Builder. All 13 Workflow Rules on Case are active, all 4 non-inactive Opportunity Workflow Rules are active, and 6 of 7 Process Builder processes are active. All 3 automation generations (Workflow Rules, Process Builder, and Flow) are running side by side on overlapping objects.</p>
+      <p class="f-body">Not fully migrated to Flow Builder. Workflow Rule active-state is now fully verified across all 10 objects carrying rule definitions: 29 of 37 Workflow Rules are active, and 6 of 7 Process Builder processes are active. All 3 automation generations (Workflow Rules, Process Builder, and Flow) are running side by side on overlapping objects.</p>
       <a class="f-link" href="drilldowns/process-automation.html">View detail &rarr;</a>
     </div>
-    <div class="f-metric"><b>19</b><span>active legacy automations (spot-checked)</span></div>
+    <div class="f-metric"><b>35</b><span>active legacy automations (full verification, all 10 objects)</span></div>
   </div>
 
   <div class="finding">
@@ -361,7 +361,7 @@
       <span class="count">150</span>
       <span class="pct">28.0%</span>
     </div>
-    <p class="note">Flow catalog and Workflow Rule active-state were sampled/spot-checked, not fully cataloged, per standard test-run scoping (90 active flows, 145 validation rules, 4,615 accounts). Validation rules and installed packages ARE full counts (145 and 25 respectively). Duplicate-record detection (audit-duplicates) remains descoped for v1 per repo convention, not run.</p>
+    <p class="note">Flow catalog was sampled (90 active flows), per standard test-run scoping. Workflow Rule active-state is now a full 10/10-object verification (37 of 37 definitions), not a sample. Validation rules and installed packages ARE full counts (145 and 25 respectively). Duplicate-record detection (audit-duplicates) remains descoped for v1 per repo convention, not run.</p>
   </section>
 
   <footer>
