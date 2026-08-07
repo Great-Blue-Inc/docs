@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>WTA Email + Text Matching — Internal Call Brief</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128231;</text></svg>">
+</head>
+<body>
+
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="light"]{
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec; --ink:#16201d; --ink-soft:#3c4a45;
+    --ink-faint:#6d7b75; --line:#d7ddd4; --line-soft:#e5e9e1; --accent:#0d7a6e; --accent-2:#0a5f56;
+    --accent-wash:#e2efeb; --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee; --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+  }
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:52px 0 40px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
+    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .meta-cell{background:var(--surface); padding:14px 16px;}
+  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
+  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
+  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
+    border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
+    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
+  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
+  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
+  a.inl:hover{border-bottom-color:var(--accent);}
+  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+  blockquote.q{margin:0 0 14px; padding:14px 18px; background:var(--surface); border:1px solid var(--line);
+    border-left:3px solid var(--accent); border-radius:0 10px 10px 0; font-family:var(--serif);
+    font-size:1.02rem; color:var(--ink); line-height:1.55;}
+  blockquote.q .who{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:8px;}
+  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
+  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
+  td.name{color:var(--ink); font-weight:600;}
+  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
+  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
+  .metric{background:var(--surface); padding:18px 16px;}
+  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
+  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
+  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
+  .src-list{display:grid; gap:10px;}
+  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
+  .src:hover{border-color:var(--accent); transform:translateX(2px);}
+  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
+  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
+  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
+  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+</style>
+
+<header class="mast"><div class="wrap mast-inner">
+  <p class="eyebrow"><span class="dot"></span> WTA · Custom Software · Internal Call Brief</p>
+  <h1 class="title">Email and text capture, <span>matched to the Opportunity</span></h1>
+  <p class="lede">Where the WTA email/text matching opportunity stands, what the client asked for in his own words, what the market charges, what our demo already proves, and the two contract shapes we should put in front of them. Internal only.</p>
+  <div class="meta-grid">
+    <div class="meta-cell"><div class="k">Client</div><div class="v">Washington Talent</div></div>
+    <div class="meta-cell"><div class="k">Client demo</div><div class="v">Thu 8/13, 12:30</div></div>
+    <div class="meta-cell"><div class="k">Demo org</div><div class="v mono">agentforce-poc</div></div>
+    <div class="meta-cell"><div class="k">Demo state</div><div class="v">Built, 17/17 tests</div></div>
+    <div class="meta-cell"><div class="k">Compiled</div><div class="v mono">2026-08-07</div></div>
+  </div>
+</div></header>
+
+<nav class="toc"><div class="wrap toc-inner">
+  <a href="#s1"><span class="num">01</span>Status</a>
+  <a href="#s2"><span class="num">02</span>What Jeff needs</a>
+  <a href="#s3"><span class="num">03</span>Market + pricing</a>
+  <a href="#s4"><span class="num">04</span>Demo + build</a>
+  <a href="#s5"><span class="num">05</span>Architecture</a>
+  <a href="#s6"><span class="num">06</span>Commercials</a>
+  <a href="#sources"><span class="num">07</span>Sources</a>
+  <span class="spacer"></span>
+  <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+</div></nav>
+
+<main class="wrap">
+
+<section class="stream" id="s1">
+  <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Where things stand</h2>
+    <span class="pill sandbox">Demo built in dev org</span><span class="pill pending">Pricing decision open</span></div>
+  <p class="sec-sub">Everything is in place for Thursday except the numbers.</p>
+  <ul class="tight">
+    <li><strong>Working demo is built and verified</strong> in our dev org: email matching and SMS matching through one engine, deployed green, 17/17 Apex tests, four proof scenarios verified independently.</li>
+    <li><strong>Proposal draft</strong> written with two engagement options and $X placeholders awaiting Josh's pricing. <strong>Design-lock doc</strong> records every approved technical decision.</li>
+    <li><strong>Competitor pricing research complete</strong> with sources (section 03).</li>
+    <li><strong>Client demo target: Thursday 8/13 at 12:30</strong> (Jeff moved the regular Friday meeting).</li>
+  </ul>
+</section>
+
+<section class="stream" id="s2">
+  <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">What Jeff needs, in his words</h2>
+    <span class="pill live">From the 8/7 call transcript</span></div>
+  <p class="sec-sub">Every requirement below is a direct quote from the recorded call. Transcript is in the repo.</p>
+
+  <blockquote class="q">"Our big thing is trying to log the messages on the opportunity."<span class="who">The core ask. Not the contact record: "we're rarely ever looking on the contact record."</span></blockquote>
+  <blockquote class="q">"Estimating forty percent of the time... when you're dealing with the planner... it rarely, you know, very rarely finds the correct opportunity."<span class="who">Today's Gmail plugin accuracy, and the planner disambiguation problem.</span></blockquote>
+  <blockquote class="q">"If it can't, or if the probability's low or something, then it's up for the agent to review and say, hey, this message... is this the opportunity you wanted on or not?"<span class="who">The review queue requirement, in his own design.</span></blockquote>
+  <blockquote class="q">"You're automatically gonna log in the email of a customer says okay or thanks or something stupid like that. Like, who really cares?"<span class="who">Junk filtering.</span></blockquote>
+  <blockquote class="q">"Our number one priority right now is trying to get emails... and texts captured into Salesforce."<span class="who">Email AND text. No vendor he is evaluating does both.</span></blockquote>
+  <blockquote class="q">"Probably in the neighborhood of, I'm guessing, you know, maybe ten or fifteen of our users."<span class="who">Scope: customer-facing users only, not the whole org.</span></blockquote>
+  <blockquote class="q">"Are we now reliant on Great Blue staying in business for the next, you know, forty years?"<span class="who">The stability objection our ownership structure must answer.</span></blockquote>
+  <blockquote class="q">"Now you're gonna tell me, hey, Jeff, I can make one for you. Great. Maybe we should do that."<span class="who">On replacing Report Upgrade. He also floated eSign replacement. The beachhead is real.</span></blockquote>
+</section>
+
+<section class="stream" id="s3">
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Market and pricing research</h2>
+    <span class="pill live">Verified 8/6–8/7</span></div>
+  <p class="sec-sub">What they would pay without us, and how solid each number is.</p>
+
+  <h3>The alternatives <span class="tag">high level</span></h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Product</th><th>Model</th><th class="num">12 users / yr</th><th>Retention</th><th>SMS</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Match My Email</td><td>$10.75/user/mo (annual, published)</td><td class="num">~$1,548</td><td>Unmatched email expires ~45 days (external portal)</td><td>No</td></tr>
+      <tr><td class="name">Einstein Activity Capture</td><td>Free tier (Flow-customizable matching)</td><td class="num">$0</td><td>~6 months rolling, then deleted</td><td>No</td></tr>
+      <tr><td class="name">Cirrus Insight</td><td>$14–21/user/mo</td><td class="num">$2,016–3,024</td><td>Syncs into Salesforce</td><td>No</td></tr>
+      <tr><td class="name">Texting apps (360 SMS, SMS-Magic)</td><td>$7–17/user/mo</td><td class="num">$1,008–2,448</td><td>Native records</td><td>Store only, no Opp matching</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="lbl">Pricing accuracy caveats</div>
+    <p>The $10.75 is MME's own published Business tier and matches Jeff's ~$10 guess. But their setup/onboarding fee is not published, minimum seats are not published, and WTA's custom matching rules may require the quote-only Enterprise tier. Treat $1,548/yr as MME's best case, not their real quote. Jeff's upcoming MME demo will produce the actual number we compete against. The 12-user count is Jeff's own estimate ("ten or fifteen").</p></div>
+
+  <h3>Their ROI math <span class="tag">high level</span></h3>
+  <div class="metrics">
+    <div class="metric"><div class="val">$2.5–4K<small>/yr</small></div><div class="cap">The no-custom path: MME plus any texting app, forever, still without text-to-Opp matching</div></div>
+    <div class="metric"><div class="val">~2.5 <small>yrs</small></div><div class="cap">Jeff's own break-even framing on a ~$10K build</div></div>
+    <div class="metric"><div class="val">$0</div><div class="cap">Per-seat licensing after break-even. They pay service hours only and own the asset</div></div>
+  </div>
+
+  <div class="callout"><div class="lbl">The honest EAC position</div>
+    <p>EAC is free and its matching became Flow-customizable in Summer '25. Do not claim otherwise. Two verified facts keep us in the game: EAC is not enabled in WTA prod today (the ActivityMetric object does not exist in their org, checked 8/7), and its retention deletes captured email after ~6 months. Either way somebody has to build and tune the matching logic. That somebody is us, and EAC still does nothing for texts.</p></div>
+
+  <h3>Our side of the trade <span class="tag">high level</span></h3>
+  <p>Build hours now, a recurring service retainer, resale rights to the matching engine if co-owned, and the beachhead into WTA custom software as their standard Salesforce hours taper. Jeff explicitly floated eSign replacement and a Report Upgrade rebuild as follow-ons.</p>
+</section>
+
+<section class="stream" id="s4">
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">The demo and the build</h2>
+    <span class="pill sandbox">Demo live in dev org</span></div>
+  <p class="sec-sub">The hard part is already working. What remains for production is hardening, tuning, and real ingestion.</p>
+
+  <h3>What the demo proves today <span class="tag">low level</span></h3>
+  <ul class="tight">
+    <li><strong>Channel-agnostic matching engine:</strong> sender (email address or phone number) → Contact/Lead → their open Opportunities → scored by event-date signals and word-boundary name/venue tokens → confidence plus ranked candidates.</li>
+    <li><strong>Proof (a):</strong> single-opp client email auto-matched, confidence 1.00.</li>
+    <li><strong>Proof (b):</strong> planner email across two clients lands in the review queue with ranked candidates.</li>
+    <li><strong>Proof (c):</strong> SMS from <code>+12025550143</code> matched a contact whose phone is stored as <code>(202) 555-0143</code>. Phone normalization proven with mismatched formats.</li>
+    <li><strong>Proof (d):</strong> "Park Plaza" scored 55 vs "Parkinson" 25. A naive substring match would have false-matched. Ours did not.</li>
+    <li><strong>Review dashboard LWC</strong> shows both channels with one-click "Confirm this Opp." Synthetic WTA-shaped data only. No WTA org was touched.</li>
+  </ul>
+
+  <h3>Production estimate <span class="tag">low level</span></h3>
+  <div class="metrics">
+    <div class="metric"><div class="val">55–65 <small>hrs</small></div><div class="cap">Production build: live ingestion, matching tuned on real mailboxes, junk filter, config layer Jeff can tune, security testing, handoff</div></div>
+    <div class="metric"><div class="val">2–4 <small>hrs/mo</small></div><div class="cap">Ongoing service: rule tuning, edge cases, monitoring</div></div>
+    <div class="metric"><div class="val">~4–6 <small>wks</small></div><div class="cap">Part-time calendar estimate from approval to email production</div></div>
+  </div>
+</section>
+
+<section class="stream" id="s5">
+  <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Architecture: Twilio and AWS</h2>
+    <span class="pill live">Twilio findings verified</span></div>
+  <p class="sec-sub">Email stays native in Salesforce. Twilio powers SMS. AWS only enters if we productize.</p>
+
+  <div class="grid-2">
+    <div class="card"><h3 style="margin-top:0">Twilio, for SMS</h3>
+      <ul class="tight">
+        <li>~$0.011/message all-in, roughly <strong>$12/mo at WTA volume</strong>, number rental ~$1.15/mo.</li>
+        <li><strong>Key verified finding: inbound texts work the day the number is provisioned.</strong> A2P 10DLC registration gates outbound only (Twilio changelog, quoted in research).</li>
+        <li>Outbound production sending waits on brand + campaign approval: officially 1–5 business days, realistically 1–3 weeks at current queues. One-time fees ~$4 + $15.</li>
+        <li>Never promise live outbound SMS in week one. Inbound capture can go early.</li>
+      </ul></div>
+    <div class="card"><h3 style="margin-top:0">AWS, only if we productize</h3>
+      <ul class="tight">
+        <li>Not needed for the MVP. At 12 users, native Apex handles matching trivially.</li>
+        <li>If we take the co-own/resell path, an AWS-backed matching service becomes the right production architecture: multi-tenant scale, ML headroom, one backbone for email and text.</li>
+        <li>Email capture stays native in Salesforce either way. Permanence in their org is our differentiator against MME's 45-day external window.</li>
+      </ul></div>
+  </div>
+</section>
+
+<section class="stream" id="s6">
+  <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Commercial structure</h2>
+    <span class="pill pending">Numbers needed from Josh</span></div>
+  <p class="sec-sub">Both options are drafted in the client proposal with $X placeholders. Offering both lets WTA self-select on ownership versus simplicity.</p>
+
+  <h3>Option A: build fee + co-owned IP + retainer <span class="tag">recommended lead</span></h3>
+  <p>One-time build fee, WTA and Great Blue jointly own the IP, small monthly service retainer. This directly answers Jeff's "reliant on Great Blue for forty years" objection (the code lives in their org and they own it) while keeping our right to resell the matching engine to other clients. This was Josh's instinct and the call transcript supports it.</p>
+
+  <h3>Option B: subscription <span class="tag">alternative</span></h3>
+  <p>Low monthly fee undercutting Match My Email (roughly $10/user territory, or a flat per-org rate). We own, host, and maintain. No upfront cost for WTA. Wins if Robert balks at a build fee.</p>
+
+  <div class="callout"><div class="lbl">Decisions needed on this call</div>
+    <p>1. Josh's $X figures for both options. 2. Confirm the co-ownership contract language ("both of us can do whatever we want with this"). 3. Greenlight showing the demo Thursday 8/13.</p></div>
+</section>
+
+<section class="stream" id="sources" style="border-bottom:none">
+  <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Source index</h2></div>
+
+  <p class="kicker">Client record</p>
+  <div class="src-list">
+    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/transcripts/2026-08-07_EAC-EMAIL-MATCHING-CALL.txt"><span class="gid">transcript</span><span class="st"><div class="nm">Call recording transcript (Pocket), source of all quotes</div><div class="dt">wta-salesforce · 2026-08-07</div></span><span class="arr">→</span></a>
+    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-07_EMAIL-MATCHING-EAC-ALTERNATIVE-SCOPING.md"><span class="gid">scoping</span><span class="st"><div class="nm">Requirements + architecture + hours scoping doc</div><div class="dt">wta-salesforce · 2026-08-07</div></span><span class="arr">→</span></a>
+    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-07_EMAIL-TEXT-MATCHING-PROPOSAL-DRAFT.md"><span class="gid">proposal</span><span class="st"><div class="nm">Client proposal draft with $X placeholders</div><div class="dt">wta-salesforce · 2026-08-07</div></span><span class="arr">→</span></a>
+    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-07_EMAIL-TEXT-MATCHING-DESIGN-LOCK.md"><span class="gid">design</span><span class="st"><div class="nm">Design-lock: approved technical decisions</div><div class="dt">wta-salesforce · 2026-08-07</div></span><span class="arr">→</span></a>
+  </div>
+
+  <p class="kicker">Pricing research</p>
+  <div class="src-list">
+    <a class="src" href="https://www.matchmyemail.com/pricing/"><span class="gid">mme</span><span class="st"><div class="nm">Match My Email published pricing ($10.75/user/mo annual)</div><div class="dt">vendor page · checked 2026-08-06</div></span><span class="arr">→</span></a>
+    <a class="src" href="https://www.salesforceben.com/ultimate-guide-to-einstein-activity-capture-sync-email-as-activity-and-more/"><span class="gid">eac</span><span class="st"><div class="nm">EAC tiers, retention, and Flow-customizable matching</div><div class="dt">Salesforce Ben · checked 2026-08-06</div></span><span class="arr">→</span></a>
+    <a class="src" href="https://help.salesforce.com/s/articleView?id=005134931&amp;language=en_US&amp;type=1"><span class="gid">sf-kb</span><span class="st"><div class="nm">Salesforce KB: customize email matching with Flow (default flow ≠ EAC enabled)</div><div class="dt">Salesforce Help · checked 2026-08-07</div></span><span class="arr">→</span></a>
+    <a class="src" href="https://www.twilio.com/docs/messaging/compliance/a2p-10dlc"><span class="gid">twilio</span><span class="st"><div class="nm">A2P 10DLC registration, fees, and inbound-not-gated finding</div><div class="dt">Twilio docs + changelog · checked 2026-08-07</div></span><span class="arr">→</span></a>
+    <a class="src" href="https://www.salesforce.com/products/digital-engagement-pricing/"><span class="gid">sms</span><span class="st"><div class="nm">SMS market: Digital Engagement $75/u, 360 SMS from $7/u, SMS-Magic from $17/u</div><div class="dt">vendor pages · checked 2026-08-07</div></span><span class="arr">→</span></a>
+  </div>
+</section>
+
+<footer>
+  <p class="fmono">Compiled 2026-08-07 · 9 sources · demo verified in agentforce-poc, 17/17 tests</p>
+  <p>Demo is built and proven, research is sourced, the proposal is drafted. The only open items are Josh's numbers, the contract shape, and the Thursday greenlight.</p>
+</footer>
+
+</main>
+
+<script>
+  (function(){
+    var btn=document.getElementById('themeToggle'), root=document.documentElement;
+    btn.addEventListener('click', function(){
+      var cur=root.getAttribute('data-theme');
+      if(!cur) cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+      var next=cur==='dark'?'light':'dark';
+      root.setAttribute('data-theme', next);
+      btn.textContent=next==='dark'?'Light':'Dark';
+    });
+  })();
+</script>
+
+</body>
+</html>
