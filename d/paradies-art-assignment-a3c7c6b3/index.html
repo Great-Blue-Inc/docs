@@ -148,7 +148,7 @@
 <header class="mast"><div class="wrap mast-inner">
   <p class="eyebrow"><span class="dot"></span> Paradies &amp; Company · Art Operations · Dossier</p>
   <h1 class="title">The art assignment board and the <span>path to AI-assisted routing</span></h1>
-  <p class="lede">One reference for where the art request workflow stands: the assignment board built for Wayne's team, what five months of real completed art requests tell us about workload and capability, and the concrete plan for classifying new requests automatically and suggesting the right artist.</p>
+  <p class="lede">A single reference on the state of the art request workflow: the assignment board, what five months of completed art requests show about workload and capability, and the plan for classifying new requests automatically and suggesting the right artist.</p>
   <div class="meta-grid">
     <div class="meta-cell"><div class="k">Org</div><div class="v">Paradies &amp; Company</div></div>
     <div class="meta-cell"><div class="k">Data window</div><div class="v mono">Mar 10 to Aug 10, 2026</div></div>
@@ -182,14 +182,14 @@
     <div class="metric"><div class="val">13/13</div><div class="cap">automated tests passing after the hardening pass</div></div>
   </div>
   <h3>Where it stands <span class="tag">low level</span></h3>
-  <p>The board is fully built and tested in the sandbox environment. It went through six rounds of code review with 28 fixes applied, covering accessibility, double-click protection, stale-data races, and permission enforcement. A narrated demo video of the complete assign workflow is recorded and ready to share. The remaining step is a walkthrough with your team, then deployment to production so it can be used day to day.</p>
+  <p>The board is fully built and tested in the sandbox environment. It went through six rounds of code review with 28 fixes applied, covering accessibility, double-click protection, stale-data races, and permission enforcement. A narrated demo video of the complete assign workflow is recorded and ready to share. The remaining steps are a team walkthrough and deployment to production for day-to-day use.</p>
   <div class="callout warn"><div class="lbl">Deploy state</div><p>Sandbox only. Nothing is in production yet, and no production data has been modified at any point in this work.</p></div>
 </section>
 
 <section class="stream" id="s2">
   <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">What five months of real requests show</h2>
   <span class="pill live">Analysis complete</span></div>
-  <p class="sec-sub">Every number below comes from actual completed art requests in your Salesforce, read directly with no changes made.</p>
+  <p class="sec-sub">Every number below comes from completed art requests in the Paradies Salesforce org, read directly with no changes made.</p>
   <h3>The dataset <span class="tag">high level</span></h3>
   <div class="metrics">
     <div class="metric"><div class="val">1,900</div><div class="cap">art requests total since March 10</div></div>
@@ -197,7 +197,7 @@
     <div class="metric"><div class="val">792</div><div class="cap">completed with artist and design direction, analyzed in full</div></div>
     <div class="metric"><div class="val">634</div><div class="cap">of those also carry the finished comp image</div></div>
   </div>
-  <p>We classified all 792 into Easy, Medium, and Hard using the rubric drafted from your team's own descriptions of the work. The result: <strong>59% Easy, 29% Medium, 12% Hard</strong>. A second pass looked at the finished artwork itself on a 52-request sample, and the picture held: text alone and text plus the finished art agreed <strong>81%</strong> of the time, with most differences being one tier apart.</p>
+  <p>All 792 requests were classified into Easy, Medium, and Hard using a rubric drafted from the art team's own descriptions of the work. The result: <strong>59% Easy, 29% Medium, 12% Hard</strong>. A second pass reviewed the finished artwork itself on a 52-request sample, and the picture held: text alone and text plus the finished art agreed <strong>81%</strong> of the time, with most differences one tier apart.</p>
   <h3>Method and limits <span class="tag">low level</span></h3>
   <p>Classification ran against <code>Design_Direction__c</code>, <code>Art_Title__c</code>, and <code>Decoration_Type__c</code> on each record, with the finished comp pulled from the attached file for the image pass. These tiers are a first draft by the AI, not ground truth. The validation step in Section 05 is what turns them into numbers the team can trust. Turnaround timing data from the new date-stamp automation began collecting on July 27 and will be ready to factor into workload balancing after a few more weeks of use.</p>
 </section>
@@ -232,14 +232,14 @@ NO Full American Flag. There is a rule that we cannot use a full version of the 
   <p class="sec-sub">The plan for new requests to arrive pre-classified with a suggested artist, with a human always making the final call.</p>
   <h3>How it fits together <span class="tag">high level</span></h3>
   <ul class="tight">
-    <li><strong>Step 1, validate.</strong> Wayne rates about 50 real requests on a simple rating sheet we have already prepared. We score the AI's tiers against his answers.</li>
-    <li><strong>Step 2, calibrate.</strong> Every place he disagrees becomes a teaching example for the AI. The rubric gets refined and re-scored on a held-out set until agreement is solid.</li>
+    <li><strong>Step 1, validate.</strong> The art director rates about 50 real requests on a prepared rating sheet. The AI's tiers are scored against those answers.</li>
+    <li><strong>Step 2, calibrate.</strong> Every disagreement becomes a teaching example for the AI. The rubric is refined and re-scored on a held-out set until agreement is solid.</li>
     <li><strong>Step 3, wire it in.</strong> Once the accuracy holds up, each new art request gets classified as it arrives and the board shows a suggested artist based on who can handle that tier and who has the lightest current load. The team still clicks Assign.</li>
     <li><strong>Step 4, add speed.</strong> As the turnaround timestamps accumulate, suggestions can also weigh who actually completes that tier of work fastest.</li>
   </ul>
   <h3>What it would cost to run <span class="tag">low level</span></h3>
-  <p>Classification would use Anthropic's Claude Sonnet model, sending the request's direction text plus the reference image and getting back a tier, a confidence level, and a short reason. At current published pricing that is roughly <strong>one to two cents per request</strong>, which at your volume of about 380 requests per month comes to <strong>around $5 to $8 per month</strong>. A smaller model could cut that below $2 per month if the accuracy holds during the pilot. No spend happens until the validation step passes and you approve turning it on.</p>
-  <div class="callout"><div class="lbl">The ask</div><p>Thirty minutes of Wayne's time with the rating sheet. Everything else in the validation step runs on our side at no cost to you.</p></div>
+  <p>Classification would use Anthropic's Claude Sonnet model, sending the request's direction text plus the reference image and getting back a tier, a confidence level, and a short reason. At current published pricing that is roughly <strong>one to two cents per request</strong>, which at the current volume of about 380 requests per month comes to <strong>around $5 to $8 per month</strong>. A smaller model could cut that below $2 per month if the accuracy holds during the pilot. No API spend occurs until the validation step passes and Paradies approves enabling it.</p>
+  <div class="callout"><div class="lbl">Next step</div><p>The validation pass: about thirty minutes with the rating sheet. The scoring and rubric refinement that follow carry no cost.</p></div>
 </section>
 
 <section class="stream" id="sources" style="border-bottom:none">
@@ -253,7 +253,7 @@ NO Full American Flag. There is a rule that we cannot use a full version of the 
   </div>
   <footer>
     <p class="fmono">Compiled 2026-08-10 · 792 requests analyzed · 4 sources</p>
-    <p>The board is built and demo-ready in sandbox. The historical analysis is done. The next move is the team walkthrough and Wayne's rating pass, and both are ready to go.</p>
+    <p>The board is built and demo-ready in sandbox. The historical analysis is done. The next steps are the team walkthrough and the validation rating pass. Both are prepared.</p>
   </footer>
 </section>
 </main>
