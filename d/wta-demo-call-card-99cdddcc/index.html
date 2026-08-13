@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Demo Call Card</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<style>
+  :root{--paper:#f6f7f4;--surface:#fff;--surface-2:#eef1ec;--ink:#16201d;--ink-soft:#3c4a45;--ink-faint:#6d7b75;
+  --line:#d7ddd4;--accent:#0d7a6e;--accent-2:#0a5f56;--accent-wash:#e2efeb;--amber:#a35a12;--amber-wash:#f4e9d9;
+  --code-bg:#f0f3ee;--serif:"Charter","Iowan Old Style",Palatino,Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#101614;--surface:#161e1b;--surface-2:#1c2723;
+  --ink:#e7ede9;--ink-soft:#b3c0ba;--ink-faint:#7f8f88;--line:#2a3631;--accent:#4fd0be;--accent-2:#6fdccb;
+  --accent-wash:#16302b;--amber:#d89a4e;--amber-wash:#322414;--code-bg:#131b18;}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.5;}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 22px 80px;}
+  h1{font-family:var(--serif);font-size:1.7rem;margin:6px 0 2px;}
+  .sub{color:var(--ink-faint);font-size:.85rem;margin:0 0 14px;}
+  .beat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:12px 0;}
+  .beat h2{font-family:var(--serif);font-size:1.15rem;margin:0 0 8px;display:flex;gap:10px;align-items:baseline;}
+  .beat h2 .n{font-family:var(--mono);font-size:.8rem;color:var(--accent-2);}
+  ul{margin:0;padding-left:20px;} li{margin:5px 0;color:var(--ink-soft);}
+  li strong{color:var(--ink);}
+  .cue{display:inline-block;font-family:var(--mono);font-size:.78rem;font-weight:700;background:var(--amber-wash);color:var(--amber);
+  border-radius:6px;padding:2px 8px;letter-spacing:.03em;}
+  .say{font-family:var(--serif);color:var(--ink);}
+  .orgbtn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:650;padding:10px 18px;border-radius:9px;margin:4px 0 2px;}
+  .crow{display:flex;gap:8px;margin:8px 0;align-items:stretch;}
+  .crow .clbl{flex:0 0 56px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);align-self:center;}
+  .crow button{flex:0 0 auto;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;background:var(--accent);color:#fff;border:none;border-radius:7px;padding:0 12px;cursor:pointer;}
+  .crow pre{flex:1;min-width:0;margin:0;background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px;overflow-x:auto;}
+  .crow pre code{font-family:var(--mono);font-size:.76rem;}
+  .cues{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin:12px 0;font-family:var(--mono);font-size:.8rem;color:var(--ink-soft);}
+  .ask{border-left:3px solid var(--amber);background:var(--amber-wash);border-radius:0 8px 8px 0;padding:8px 14px;margin:8px 0;font-size:.88rem;color:var(--ink-soft);}
+  .ask b{color:var(--ink);}
+</style>
+</head>
+<body><div class="wrap">
+
+<h1>Demo Call Card</h1>
+<p class="sub">Condensed. Full script unchanged at the run-sheet link. Cues go to Claude in the session window.</p>
+
+<a class="orgbtn" href="https://cunning-wolf-jvau13-dev-ed--c.trailblaze.my.salesforce.app/app/c__Match_Review_App" target="_blank">Open Match Review (React) →</a>
+<p class="sub">If login asks: run <code>sf org open -o wta-demo-org</code> once. Never the App Launcher tab.</p>
+
+<div class="cues">CUES · "reset the queue" · "run the strong match" · "run the review case" · "run the outbound" · "fire the text" · "run the junk email" · "pull the storage numbers"</div>
+
+<div class="beat"><h2><span class="n">00</span>Before the call</h2>
+<ul><li><span class="cue">reset the queue</span> → app shows empty. Video cued as backup.</li></ul></div>
+
+<div class="beat"><h2><span class="n">01</span>Intro (say once)</h2>
+<ul>
+<li>Demoing the <strong>opportunity email matching app</strong> we put together.</li>
+        <li>Each event is its own opportunity in Salesforce. A sender with <strong>one open opportunity</strong> matches on the <strong>email address</strong>, same as any provider.</li>
+        <li>The difference is a sender with <strong>multiple open opportunities</strong>. Match My Email needs a name tag in the subject to pick one. Ours reads the content, the event date and names from the opportunity.</li>
+        <li>Suggestions come from <strong>logic we control</strong>, you give feedback, we refine it over time.</li>
+        <li>Unsure cases go to a <strong>review queue</strong>, ranked candidates with reasoning.</li>
+        <li>Agenda: single-opportunity case, multiple-opportunity case, inbound and outbound, then <strong>texts</strong>.</li>
+        <li>Texts: <strong>webhook built, not connected yet</strong>. Twilio forwards to it, outbound possible through the same service.</li>
+        <li><strong>Junk</strong> (OK / thanks) auto-filters into a Filtered section, keyword list you control in settings.</li>
+        <li><strong>Storage:</strong> messages live directly in Salesforce as records you own. No cloud provider holding your client data before it gets wiped. Full control of your own data.</li>
+</ul></div>
+
+<div class="beat"><h2><span class="n">02</span>Email inbound — LIVE</h2>
+<div class="crow"><span class="clbl">To</span><button class="copybtn" data-target="c-to">Copy</button><pre><code id="c-to">wta-match-demo@ukvryacsvbhjfvxj9kssjdy8yd90cb9fzaxnncxpjv68atq62.fj-b0vnzeay.usa1044.apex.salesforce.com</code></pre></div>
+<div class="crow"><span class="clbl">Subject</span><button class="copybtn" data-target="c-subj">Copy</button><pre><code id="c-subj">Our wedding details</code></pre></div>
+<div class="crow"><span class="clbl">Body</span><button class="copybtn" data-target="c-body">Copy</button><pre><code id="c-body">Hi! Quick question about our wedding, could we get the final ballroom timing when you have a moment?</code></pre></div>
+<ul>
+<li>Send → app → row lands matched (~15s, up to 30).</li>
+<li class="say">Matched automatically: my email is on the contact, one open booking, nothing to review.</li>
+<li>Open <strong>Why this booking</strong> → reasons.</li>
+<li>Click <strong>booking name link</strong> → new tab: opp → point at <strong>Client Contact</strong> field, <strong>timeline entry</strong> (real subject), <strong>Email Matches</strong> list → click Avery → <strong>Email field</strong>.</li>
+</ul></div>
+
+<div class="beat"><h2><span class="n">03</span>Multi-opportunity — the differentiator</h2>
+<ul>
+<li class="say">Two steps: identity finds the person and their open opportunities. Several open → it reads the message.</li>
+<li><span class="cue">run the strong match</span> → gala auto-files. Why: date lines up + name words match.</li>
+<li><span class="cue">run the review case</span> → Needs review → ranked candidates + reasons → <strong>Confirm</strong> top → point at <strong>Undo</strong>.</li>
+<li class="say">Morgan is a planner, on these bookings via the Planner Contact field, same as your org.</li>
+<li class="say">This is where MME needs the tag word and EAC picks by close date without reading. Ours shows its reasons.</li>
+</ul></div>
+
+<div class="beat"><h2><span class="n">04</span>Email outbound</h2>
+<ul>
+<li><span class="cue">run the outbound</span> → agency reply lands on Jamie's booking.</li>
+<li class="say">Mail rule copies outgoing replies in. Sender is internal → matches on who it was sent TO.</li>
+</ul></div>
+
+<div class="beat"><h2><span class="n">05</span>Texts — quick overview</h2>
+<ul>
+<li class="say">Webhook accepts texts, matches on the contact's phone number. Not connected to a number yet — that's a Twilio account setup. I'll simulate the delivery.</li>
+<li><span class="cue">fire the text</span> → SMS lands on Jamie's booking by phone.</li>
+<li class="say">Same rules as email after identity. One engine, both channels.</li>
+</ul></div>
+
+<div class="beat"><h2><span class="n">06</span>Junk + settings</h2>
+<ul>
+<li><span class="cue">run the junk email</span> → expand <strong>Filtered</strong>: "thank you" never hits the queue, nothing hidden.</li>
+<li>Open <strong>Settings</strong> → phrase list + match strictness. <span class="say">Yours to tune, no developer.</span></li>
+</ul></div>
+
+<div class="beat"><h2><span class="n">07</span>Close</h2>
+<ul>
+<li class="say">Stored permanently in your Salesforce, records you own.</li>
+<li class="say">MME: $10.75/user/month, matching in their cloud, ~45 days then you lose it. You said everything's gotta be inside Salesforce — that's this architecture.</li>
+<li class="say">You asked for the tools' features and then some. That's what you watched. Questions?</li>
+</ul></div>
+
+<div class="beat"><h2><span class="n">?</span>If asked</h2>
+<div class="ask"><b>Texting today?</b> Receiving is built and tested end to end incl. the security check. What's left is connecting a number.</div>
+<div class="ask"><b>Storage room?</b> Checked your org: 2.3 of 10.7 GB used, ~3,600 emails/month, ~2KB per record → decades of headroom. Live: Setup → Storage Usage, or cue me.</div>
+<div class="ask"><b>Where's the email on the opp?</b> On the contact — matching starts with the person, walks their lookups (Client / Billing / Planner Contact) to the bookings.</div>
+<div class="ask"><b>Reliability on your data?</b> 92% of live-booking clients have exactly one open opportunity. Where there are several, they nearly always differ by date, and ~9 in 10 client emails carry a date.</div>
+</div>
+
+<p class="sub">Full run sheet: <a href="https://great-blue-inc.github.io/docs/d/wta-demo-run-sheet-a0cff84b/" style="color:var(--accent-2)">great-blue-inc.github.io/docs/d/wta-demo-run-sheet-a0cff84b</a></p>
+
+</div>
+<script>
+document.querySelectorAll('.copybtn').forEach(function(cb){
+  cb.addEventListener('click', function(){
+    var t=document.getElementById(cb.getAttribute('data-target'));
+    navigator.clipboard.writeText(t.textContent.trim()).then(function(){
+      cb.textContent='Copied'; setTimeout(function(){cb.textContent='Copy';},1500);
+    });
+  });
+});
+</script>
+</body>
+</html>
