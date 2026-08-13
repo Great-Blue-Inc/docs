@@ -157,7 +157,7 @@
   <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Email inbound</h2><span class="pill live">Fully live, the showpiece</span></div>
   <p class="sec-sub">Open with his number, then the live send.</p>
   <div class="card">
-    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"I want to show you the matching build live in Salesforce. The problem: connecting emails to the right booking is hit or miss today, around forty percent of the time from what you have shared. So first, a real email from my Gmail, and we'll watch it match itself. Then the hard cases."</p></div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"I want to show you the matching build live in Salesforce. The problem: you told us the current plugin finds the correct record maybe forty percent of the time. So first, a real email from my Gmail, and we'll watch it match itself. Then the hard cases."</p></div></div>
     <div class="step"><span class="who do">Do</span><div class="body">From Gmail, send this (each field has its own copy button):
       <div class="crow"><span class="clbl">To</span><button class="copybtn" data-target="cv-to">Copy</button><pre><code id="cv-to">wta-match-demo@n-ayk46auws946eppn0du2clrcl8iksy6q8ipuygz0c7yc1qv2p.g8-gx5jeaq.usa1142.apex.salesforce.com</code></pre></div>
       <div class="crow"><span class="clbl">Subject</span><button class="copybtn" data-target="cv-subj">Copy</button><pre><code id="cv-subj">Our wedding details</code></pre></div>
@@ -167,7 +167,7 @@
     <div class="step"><span class="who do">Do</span><div class="body">Click the row, open <strong>Why this booking</strong>.</div></div>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"You can expand Why this booking to see why a match happened. When something lands in the review queue instead, this is where it shows why each candidate is being offered. Here it’s the simple case: one clear match."</p></div></div>
     <div class="step"><span class="who do">Do</span><div class="body">Open Avery's <strong>contact record</strong> (email field), then the <strong>opportunity</strong> from the related list.</div></div>
-    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And here in Salesforce, on the contact you can see the email it matched under. And on the opportunity side, the open bookings. In this case there's just the one, so nothing to review."</p></div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And here in Salesforce, on the contact you can see the email it matched under. And the message itself is logged on the opportunity, the booking, which is where you said you want these landing, not just on the contact. One open booking, so nothing to review."</p></div></div>
   </div>
   <div class="notebox"><label class="notelbl" for="note-s1">Your notes on this beat</label>
   <textarea id="note-s1" data-note="Email inbound" placeholder="What to change: wording, order, anything."></textarea></div>
@@ -204,7 +204,7 @@
   <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Texts</h2><span class="pill sandbox">Phase two, engine proven today</span></div>
   <p class="sec-sub">Frame it first, then fire the real delivery.</p>
   <div class="card">
-    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Text matching is something we can include here. There’s a webhook set up to accept text messages and run the same matching based on the contact’s number in Salesforce. It’s not connected to a phone number yet. You’d set up an account with a platform called Twilio, which routes text traffic to that webhook, and that’s what integrates it with Salesforce. I have a script here that simulates that inbound delivery."</p></div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"You said the number one priority is getting emails and texts captured into Salesforce. Text matching is part of this same build. There’s a webhook set up to accept text messages and run the same matching based on the contact’s number in Salesforce. It’s not connected to a phone number yet. You’d set up an account with a platform called Twilio, which routes text traffic to that webhook, and that’s what integrates it with Salesforce. I have a script here that simulates that inbound delivery."</p></div></div>
     <div class="step"><span class="who do">Cue</span><div class="body">Tell Claude: <strong>"fire the text"</strong>. Then refresh Match Review. The text lands matched to Jamie's booking.</div></div>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And in here we can see a match was made based on the phone number on the contact. It checks both phone fields and it tolerates formatting, dashes, spaces, country code. After that first step it’s the exact same rules you just saw on email: event dates, words from the booking name, the review queue when it’s unclear, the same junk filter. One engine, two channels. None of the off the shelf tools do texts at all. This piece just isn’t connected to a live number yet."</p></div></div>
   </div>
@@ -230,7 +230,7 @@
   <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Closer</h2><span class="pill live">Say, then stop talking</span></div>
   <p class="sec-sub">Ownership and price land last, then hand it to Jeff.</p>
   <div class="card">
-    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"So that's the system. Real emails and texts, matched by who sent them and what the message says, stored permanently in your Salesforce on records you own. Match My Email runs $10.75 per user per month forever and holds your match data in their cloud for about 45 days. This is an owned build, no per-seat fee, and every rule you saw is tunable in the app. What questions do you have?"</p></div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"So that's the system. Real emails and texts, matched by who sent them and what the message says, stored permanently in your Salesforce on records you own. Match My Email runs $10.75 per user per month, and like you called out, their cloud keeps messages about forty five days and then you lose them. Here nothing ever leaves Salesforce. You asked for something that does what those tools do and then some. That's what you just watched. What questions do you have?"</p></div></div>
   </div>
   <div class="notebox"><label class="notelbl" for="note-s4c">Your notes on this beat</label>
   <textarea id="note-s4c" data-note="Closer" placeholder="What to change: wording, order, anything."></textarea></div>
