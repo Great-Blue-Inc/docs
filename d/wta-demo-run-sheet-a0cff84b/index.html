@@ -123,10 +123,11 @@
 <nav class="toc"><div class="wrap toc-inner">
   <a href="#s0"><span class="num">00</span>Setup</a>
   <a href="#s1"><span class="num">01</span>Email in</a>
-  <a href="#s2"><span class="num">02</span>Email out</a>
-  <a href="#s3"><span class="num">03</span>Texts</a>
-  <a href="#s4"><span class="num">04</span>Why us</a>
-  <a href="#s5"><span class="num">05</span>Stalls</a>
+  <a href="#s1b"><span class="num">02</span>Multi-booking</a>
+  <a href="#s2"><span class="num">03</span>Email out</a>
+  <a href="#s3"><span class="num">04</span>Texts</a>
+  <a href="#s4"><span class="num">05</span>Why us</a>
+  <a href="#s5"><span class="num">06</span>Stalls</a>
   <span class="spacer"></span>
   <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
 </div></nav>
@@ -166,8 +167,24 @@
   <textarea id="note-s1" data-note="Email inbound" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
+<section class="stream" id="s1b">
+  <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Multiple bookings, the actual logic</h2><span class="pill live">The differentiator, live</span></div>
+  <p class="sec-sub">Two cases from the same problem: a sender whose address alone cannot decide.</p>
+  <div class="card">
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"So how does the matching actually work? Two steps. First identity: the email address, or for a text the phone number, finds the contact and their open bookings. One open booking, done, that's what you just saw. But when the same person has SEVERAL open bookings, identity isn't enough, so it reads the message itself: event dates, words from the booking's name, the type of event. Strong evidence files itself. Genuinely unclear goes to the review queue for a person. Let me show you both."</p></div></div>
+    <div class="step"><span class="who do">Cue</span><div class="body">Tell Claude: <strong>"run the strong match"</strong>. Then refresh Match Review. An email from a planner (riley.hayes) lands already matched to the gala booking.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"This sender is a planner with two open bookings, so the address alone can't pick one. But the message names the foundation gala and its date, so it filed itself against the gala booking. Expand Why this booking: the event date in the message lines up with that booking, and the words match the booking's name."</p></div></div>
+    <div class="step"><span class="who do">Cue</span><div class="body">Tell Claude: <strong>"run the review case"</strong>. Then refresh. An email from morgan.ellis lands in <strong>Needs review</strong> with ranked candidates.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And here's the honest case: same kind of sender, two open bookings, but this message just says checking on details for the holiday party. There's evidence, the words holiday and party match one booking's name, but it's not conclusive, so nothing gets guessed. It goes to the review queue with each candidate ranked and the reasons on each one. A person picks with one click."</p></div></div>
+    <div class="step"><span class="who do">Do</span><div class="body">Click <strong>Confirm this Opp</strong> on the top candidate. Point at <strong>Undo this match</strong> on the result.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Confirmed, and if someone ever picks wrong, undo is right there. Nothing wrong ever saves itself silently."</p></div></div>
+  </div>
+  <div class="notebox"><label class="notelbl" for="note-s1b">Your notes on this beat</label>
+  <textarea id="note-s1b" data-note="Multiple bookings" placeholder="What to change: wording, order, anything."></textarea></div>
+</section>
+
 <section class="stream" id="s2">
-  <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Email outbound</h2><span class="pill live">Live engine, one command</span></div>
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Email outbound</h2><span class="pill live">Live engine, one command</span></div>
   <p class="sec-sub">Replies your team sends out land on the booking too.</p>
   <div class="card">
     <div class="step"><span class="who do">Cue</span><div class="body">Tell Claude: <strong>"run the outbound"</strong>. Then refresh Match Review. A reply FROM the agency appears, matched to Jamie's booking.</div></div>
@@ -178,7 +195,7 @@
 </section>
 
 <section class="stream" id="s3">
-  <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Texts</h2><span class="pill sandbox">Phase two, engine proven today</span></div>
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Texts</h2><span class="pill sandbox">Phase two, engine proven today</span></div>
   <p class="sec-sub">Frame it first, then fire the real delivery.</p>
   <div class="card">
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Text matching is something we can include here. There’s a webhook set up to accept text messages and run the same matching based on the contact’s number in Salesforce. It’s not connected to a phone number yet. You’d set up an account with a platform called Twilio, which routes text traffic to that webhook, and that’s what integrates it with Salesforce. I have a script here that simulates that inbound delivery."</p></div></div>
@@ -191,7 +208,7 @@
 </section>
 
 <section class="stream" id="s4">
-  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Why us</h2><span class="pill live">From their own docs</span></div>
+  <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Why us</h2><span class="pill live">From their own docs</span></div>
   <p class="sec-sub">Fair, sourced, no trash talk.</p>
   <p><strong>vs Match My Email</strong></p>
   <ul class="tight">
@@ -209,7 +226,7 @@
 </section>
 
 <section class="stream" id="s5" style="border-bottom:none">
-  <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">If something stalls</h2></div>
+  <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">If something stalls</h2></div>
   <ul class="tight">
     <li>Email not in the queue after about 30 seconds: refresh once. Still nothing: play the video's email beat and keep going. Diagnose after, never on the call.</li>
     <li>Any doubt live: the video covers every beat.</li>
