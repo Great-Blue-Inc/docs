@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Jeff Demo Run Sheet — Thursday 8/13</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:880px; margin:0 auto; padding:0 28px;}
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:44px 0 34px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 16px; display:flex; align-items:center; gap:10px;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2rem,5vw,2.9rem);
+    line-height:1.06; letter-spacing:-.015em; margin:0 0 14px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.05rem; color:var(--ink-soft); max-width:62ch; margin:0 0 24px;}
+  .orgbtn{display:inline-flex; align-items:center; gap:10px; background:var(--accent); color:#fff;
+    text-decoration:none; font-weight:650; font-size:1rem; padding:13px 22px; border-radius:10px; box-shadow:var(--shadow);}
+  .orgbtn:hover{background:var(--accent-2);}
+  :root[data-theme="dark"] .orgbtn, .orgbtn.dk{color:#0c1512;}
+  .orgnote{font-size:.82rem; color:var(--ink-faint); margin-top:10px;}
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+  section.stream{padding:44px 0 10px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.5rem,3.2vw,1.95rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1;}
+  .sec-sub{color:var(--ink-faint); font-size:.93rem; margin:4px 0 20px; max-width:66ch;}
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px; border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  p{margin:0 0 13px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:14px 16px; overflow-x:auto; margin:12px 0;}
+  pre code{background:none; border:none; padding:0; font-size:.84rem; line-height:1.6; color:var(--ink);}
+  .step{display:grid; grid-template-columns:74px 1fr; gap:14px; padding:14px 0; border-bottom:1px solid var(--line-soft); align-items:start;}
+  .step:last-child{border-bottom:none;}
+  .step .who{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; padding:4px 0; border-radius:6px; text-align:center; margin-top:2px;}
+  .step .who.do{color:var(--accent-2); background:var(--accent-wash);}
+  .step .who.say{color:var(--amber); background:var(--amber-wash);}
+  .step .body{min-width:0;}
+  .say-text{font-family:var(--serif); font-size:1.04rem; color:var(--ink); line-height:1.55;}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:6px 22px; box-shadow:var(--shadow); margin:16px 0;}
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:12px 16px; border-radius:0 10px 10px 0; margin:16px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:5px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem;}
+  ul.tight{margin:0 0 14px; padding-left:20px;} ul.tight li{margin-bottom:8px;}
+  footer{padding:36px 0 56px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+</style>
+</head>
+<body>
+
+<header class="mast"><div class="wrap mast-inner">
+  <p class="eyebrow"><span class="dot"></span> WTA · Matching Engine · Demo Run Sheet</p>
+  <h1 class="title">Thursday demo, <span>four beats</span>, every command verified live</h1>
+  <p class="lede">Email inbound, email outbound, the text channel proof, and the positioning lines. Run top to bottom. All terminal commands run from <code>~/dev/wta-email-matching</code>.</p>
+  <a class="orgbtn" href="https://cunning-wolf-jvau13-dev-ed.trailblaze.my.salesforce.com/lightning/n/Email_Match_Demo" target="_blank">Open Match Review in the demo org →</a>
+  <p class="orgnote">If it asks for login, run <code>sf org open -o wta-demo-org</code> in the terminal instead. That signs you in and lands on the org, then use this link.</p>
+</div></header>
+
+<nav class="toc"><div class="wrap toc-inner">
+  <a href="#s0"><span class="num">00</span>Setup</a>
+  <a href="#s1"><span class="num">01</span>Email in</a>
+  <a href="#s2"><span class="num">02</span>Email out</a>
+  <a href="#s3"><span class="num">03</span>Texts</a>
+  <a href="#s4"><span class="num">04</span>Why us</a>
+  <a href="#s5"><span class="num">05</span>Stalls</a>
+  <span class="spacer"></span>
+  <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+</div></nav>
+
+<main class="wrap">
+
+<section class="stream" id="s0">
+  <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">Setup</h2><span class="pill live">Before practice and before the call</span></div>
+  <p class="sec-sub">Clean queue, right tabs open.</p>
+  <pre><code>sf apex run -f scripts/apex/demo_data.apex -o wta-demo-org
+sf org open -o wta-demo-org</code></pre>
+  <ul class="tight">
+    <li>Open <strong>Match Review</strong> (button above). Queue should show empty.</li>
+    <li>Have open: Gmail, terminal, this sheet. Video cued as backup.</li>
+    <li>Tonight: paste the intake address (section 01) into a Gmail draft so tomorrow is one click.</li>
+  </ul>
+</section>
+
+<section class="stream" id="s1">
+  <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Email inbound</h2><span class="pill live">Fully live, the showpiece</span></div>
+  <p class="sec-sub">Your real Gmail to the org, matched on camera.</p>
+  <div class="card">
+    <div class="step"><span class="who do">Do</span><div class="body">From Gmail, send to the intake address:
+      <pre><code>wta-match-demo@n-ayk46auws946eppn0du2clrcl8iksy6q8ipuygz0c7yc1qv2p.g8-gx5jeaq.usa1142.apex.salesforce.com</code></pre>
+      Subject <code>Our wedding details</code>. Body: <code>Hi! Quick question about our wedding, could we get the final ballroom timing when you have a moment?</code> Then switch to Match Review. The row lands in seconds.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"That went from an ordinary Gmail into Salesforce and matched itself. My address is on file for one client with one open booking, so there was nothing to guess and nobody had to touch it."</p></div></div>
+    <div class="step"><span class="who do">Do</span><div class="body">Click the row, open <strong>Why this booking</strong>.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Every match explains itself in plain language. Unclear ones wait in this queue for a person. One click to confirm."</p></div></div>
+    <div class="step"><span class="who do">Do</span><div class="body">Open Avery's contact record, point at the email field.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And the proof on the record itself. This email field is what it keyed on."</p></div></div>
+  </div>
+</section>
+
+<section class="stream" id="s2">
+  <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Email outbound</h2><span class="pill live">Live engine, one command</span></div>
+  <p class="sec-sub">Replies your team sends out land on the booking too.</p>
+  <div class="card">
+    <div class="step"><span class="who do">Do</span><div class="body">In the terminal:
+      <pre><code>sf apex run -f scripts/apex/stage_outbound_email.apex -o wta-demo-org</code></pre>
+      Refresh Match Review. A reply FROM the agency appears, matched to Jamie's booking.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"It also catches replies your team sends out. The shared mailbox gets copied on outgoing mail. The system sees the sender is internal, so it matches on who the message was sent TO. Both sides of the conversation land on the booking."</p></div></div>
+  </div>
+</section>
+
+<section class="stream" id="s3">
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Texts</h2><span class="pill sandbox">Phase two, engine proven today</span></div>
+  <p class="sec-sub">Frame it first, then fire the real delivery.</p>
+  <div class="card">
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Texts are phase two, but the matching is already built and proven. When a client texts the business number, the phone company delivers it as a web call to Salesforce. That address is live today. I'll send exactly what the phone company sends."</p></div></div>
+    <div class="step"><span class="who do">Do</span><div class="body">
+      <pre><code>node scripts/fire-demo-sms.mjs</code></pre>
+      Refresh Match Review. The text lands matched to Jamie's booking by phone number.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Matched by the phone number on the client's record, and it reads the message the same way email does. Phase two is a ten minute step: connect a phone number to that address. And it refuses anything that doesn't carry the phone company's security stamp."</p></div></div>
+  </div>
+  <div class="callout"><div class="lbl">If asked, does texting work today</div><p>"Receiving is built and tested end to end, including the security check. What's left is connecting the number. That's deliberately phase two so phase one ships fast."</p></div>
+</section>
+
+<section class="stream" id="s4">
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Why us</h2><span class="pill live">From their own docs</span></div>
+  <p class="sec-sub">Fair, sourced, no trash talk.</p>
+  <p><strong>vs Match My Email</strong></p>
+  <ul class="tight">
+    <li>"It files precisely only when the subject carries their special tag word. New client emails have no tag, so it falls back to address-only matching, and their own docs say that causes clutter across open bookings. Ours reads the message: dates, names, event type."</li>
+    <li>"Their match data sits in their cloud about 45 days. This stays in your Salesforce, permanently, on records you own."</li>
+    <li>"$10.75 per user per month, forever. This is an owned build, no per-seat fee."</li>
+    <li>"And they don't do texts at all."</li>
+  </ul>
+  <p><strong>vs Einstein Activity Capture</strong> (said fairly)</p>
+  <ul class="tight">
+    <li>"It's free, but with several open bookings it picks one by tiebreakers like close date, without reading the message, and it doesn't explain itself."</li>
+  </ul>
+</section>
+
+<section class="stream" id="s5" style="border-bottom:none">
+  <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">If something stalls</h2></div>
+  <ul class="tight">
+    <li>Email not in the queue after about 30 seconds: refresh once. Still nothing: play the video's email beat and keep going. Diagnose after, never on the call.</li>
+    <li>Any doubt live: the video covers every beat.</li>
+  </ul>
+</section>
+
+<footer>
+  <p class="fmono">Compiled 2026-08-12 · every command verified live against the demo org before publishing</p>
+  <p>Practice once tonight and tomorrow is a rerun, not a first take.</p>
+</footer>
+
+</main>
+
+<script>
+  (function(){
+    var btn=document.getElementById('themeToggle'), root=document.documentElement;
+    btn.addEventListener('click', function(){
+      var cur=root.getAttribute('data-theme');
+      if(!cur) cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+      var next=cur==='dark'?'light':'dark';
+      root.setAttribute('data-theme', next);
+      btn.textContent=next==='dark'?'Light':'Dark';
+    });
+  })();
+</script>
+</body>
+</html>
