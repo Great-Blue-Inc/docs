@@ -45,7 +45,7 @@
 
 <h2>What it is</h2>
 <div class="card"><ul>
-<li>A matching engine that lives <strong>inside WTA's Salesforce</strong>. Client emails and texts attach themselves to the right <strong>opportunity</strong> automatically.</li>
+<li>A matching engine that runs <strong>entirely inside Salesforce</strong>. Client emails and texts attach themselves to the right <strong>opportunity</strong> automatically. Today it lives in a Great Blue development org; on engagement it deploys into WTA's own org.</li>
 <li>It matches on the sender first, then reads the message itself when a client has several open opportunities: the <strong>event date, the event type, and words from the opportunity's name</strong>.</li>
 <li>Anything unclear goes to a <strong>review queue</strong> with ranked candidates and plain-language reasons. One click to confirm, undo available.</li>
 </ul></div>
@@ -56,7 +56,7 @@
 <tr><td class="name">Picks the right opportunity by</td><td>Address only. Multi-booking precision requires a tag word typed into the subject</td><td>Tiebreakers such as close date. Does not read the message</td><td>Reads the message: date, event type, name words</td></tr>
 <tr><td class="name">Client can tune it</td><td>No</td><td>Limited</td><td>Yes. Matching rules and thresholds are settings WTA controls</td></tr>
 <tr><td class="name">Text messages</td><td>No</td><td>No</td><td>Yes. Same engine, matched by the phone number on the contact</td></tr>
-<tr><td class="name">Where data lives</td><td>Their cloud, roughly 45 days, then gone</td><td>Not stored as Salesforce records</td><td>Permanently in WTA's own org, records they own</td></tr>
+<tr><td class="name">Where data lives</td><td>Their cloud, roughly 45 days, then gone</td><td>Not stored as Salesforce records</td><td>Salesforce records WTA would own, in their own org once deployed</td></tr>
 <tr><td class="name">Cost shape</td><td>$10.75 per user per month, forever</td><td>Free tier</td><td>Owned build, no per-seat fee</td></tr>
 </table></div>
 
@@ -70,13 +70,13 @@
 <h2>Light technical grounding (skim only)</h2>
 <div class="card"><ul>
 <li>Native Apex inside Salesforce. No third-party cloud touches the mail. Matching walks WTA's own opportunity fields (Client Contact, Planner Contact, Billing Contact).</li>
-<li>Each message is stored as a record linked to the opportunity, plus an entry on the opportunity's activity timeline. Storage was verified against their org: decades of headroom at their volume.</li>
+<li>Each message is stored as a record linked to the opportunity, plus an entry on the opportunity's activity timeline. Storage math was verified against WTA's production org read-only: decades of headroom at their volume.</li>
 <li>Auto-match fires only when enough independent signals agree, and that bar is a setting. Junk replies are filtered, visibly, with a one-click way back.</li>
 <li>Texts arrive through a secured web endpoint that rejects anything without the carrier's cryptographic signature.</li>
 </ul></div>
 
 <div class="josh"><div class="lbl">Your lanes on the call</div>
-<p><strong>IP ownership:</strong> the build lives in WTA's org either way. The ownership and licensing question is yours to frame. <strong>Proposal structure:</strong> phasing, pricing, and what phase two (live text number, outbound texting, refinements from their feedback) looks like commercially. Blair handles every technical question.</p></div>
+<p><strong>IP ownership:</strong> the build currently lives in our development org. On engagement it deploys into WTA's org, and the ownership and licensing framing of that handoff is yours. <strong>Proposal structure:</strong> phasing, pricing, and what phase two (live text number, outbound texting, refinements from their feedback) looks like commercially. Blair handles every technical question.</p></div>
 
 <p class="foot">Prepared for the WTA call · demo runs live from a development org</p>
 
