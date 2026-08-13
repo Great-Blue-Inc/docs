@@ -97,6 +97,11 @@
   .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:5px; color:var(--ink);}
   .callout p{margin:0; font-size:.92rem;}
   ul.tight{margin:0 0 14px; padding-left:20px;} ul.tight li{margin-bottom:8px;}
+  .crow{display:flex; align-items:stretch; gap:8px; margin:10px 0;}
+  .crow .clbl{flex:0 0 62px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); align-self:center;}
+  .crow .copybtn{flex:0 0 auto; font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; background:var(--accent); color:#fff; border:none; border-radius:8px; padding:0 13px; cursor:pointer;}
+  .crow .copybtn:hover{background:var(--accent-2);}
+  .crow pre{flex:1; min-width:0; margin:0; padding:9px 12px;}
   .notebox{margin:6px 0 22px;}
   .notelbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:6px;}
   .notebox textarea{width:100%; min-height:64px; background:var(--surface); color:var(--ink); border:1px solid var(--line);
@@ -151,12 +156,11 @@
   <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Email inbound</h2><span class="pill live">Fully live, the showpiece</span></div>
   <p class="sec-sub">Your real Gmail to the org, matched on camera.</p>
   <div class="card">
-    <div class="step"><span class="who do">Do</span><div class="body">From Gmail, send to the intake address:
-      <div style="display:flex;align-items:stretch;gap:10px;margin:12px 0">
-      <button id="copyAddr" style="flex:0 0 auto;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0 16px;cursor:pointer">Copy</button>
-      <pre style="flex:1;min-width:0;margin:0"><code id="intakeAddr">wta-match-demo@n-ayk46auws946eppn0du2clrcl8iksy6q8ipuygz0c7yc1qv2p.g8-gx5jeaq.usa1142.apex.salesforce.com</code></pre>
-      </div>
-      Subject <code>Our wedding details</code>. Body: <code>Hi! Quick question about our wedding, could we get the final ballroom timing when you have a moment?</code> Then switch to Match Review. The row lands in seconds.</div></div>
+    <div class="step"><span class="who do">Do</span><div class="body">From Gmail, send this (each field has its own copy button):
+      <div class="crow"><span class="clbl">To</span><button class="copybtn" data-target="cv-to">Copy</button><pre><code id="cv-to">wta-match-demo@n-ayk46auws946eppn0du2clrcl8iksy6q8ipuygz0c7yc1qv2p.g8-gx5jeaq.usa1142.apex.salesforce.com</code></pre></div>
+      <div class="crow"><span class="clbl">Subject</span><button class="copybtn" data-target="cv-subj">Copy</button><pre><code id="cv-subj">Our wedding details</code></pre></div>
+      <div class="crow"><span class="clbl">Body</span><button class="copybtn" data-target="cv-body">Copy</button><pre><code id="cv-body">Hi! Quick question about our wedding, could we get the final ballroom timing when you have a moment?</code></pre></div>
+      Then switch to Match Review. The row lands in seconds.</div></div>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"This just sent from my Gmail into Salesforce and matched automatically. My email is attached to the contact on that opportunity, and there’s only one open booking, so there was nothing to review. It’s an obvious match."</p></div></div>
     <div class="step"><span class="who do">Do</span><div class="body">Click the row, open <strong>Why this booking</strong>.</div></div>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"You can expand Why this booking to see why a match happened. When something lands in the review queue instead, this is where it shows why each candidate is being offered. Here it’s the simple case: one clear match."</p></div></div>
@@ -261,12 +265,14 @@
         setTimeout(function(){fb.textContent='Copy all feedback';},2000);
       });
     });
-    var cb=document.getElementById('copyAddr');
-    if(cb){ cb.addEventListener('click', function(){
-      navigator.clipboard.writeText(document.getElementById('intakeAddr').textContent.trim()).then(function(){
-        cb.textContent='Copied'; setTimeout(function(){cb.textContent='Copy';},1600);
+    document.querySelectorAll('.copybtn').forEach(function(cb){
+      cb.addEventListener('click', function(){
+        var t=document.getElementById(cb.getAttribute('data-target'));
+        navigator.clipboard.writeText(t.textContent.trim()).then(function(){
+          cb.textContent='Copied'; setTimeout(function(){cb.textContent='Copy';},1600);
+        });
       });
-    }); }
+    });
     var btn=document.getElementById('themeToggle'), root=document.documentElement;
     btn.addEventListener('click', function(){
       var cur=root.getAttribute('data-theme');
