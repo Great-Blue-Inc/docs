@@ -47,10 +47,10 @@
 <a class="orgbtn" href="https://cunning-wolf-jvau13-dev-ed--c.trailblaze.my.salesforce.app/app/c__Match_Review_App" target="_blank">Open Match Review (React) →</a>
 <p class="sub">If login asks: run <code>sf org open -o wta-demo-org</code> once. Never the App Launcher tab.</p>
 
-<div class="cues">CUES · "reset the queue" · "run the strong match" · "run the review case" · "run the outbound" · "fire the text" · "run the junk email" · "pull the storage numbers"</div>
+<div class="cues">EVERYTHING IS PRE-STAGED except your live Gmail send. Cues you might still need: "stage the demo" (morning reset+seed) · "pull the storage numbers"</div>
 
 <div class="beat"><h2><span class="n">00</span>Before the call</h2>
-<ul><li><span class="cue">reset the queue</span> → app shows empty. Video cued as backup.</li></ul></div>
+<ul><li>Morning of: tell Claude <span class="cue">stage the demo</span> once. All scenarios below are then already in the app. Video cued as backup.</li></ul></div>
 
 <div class="beat"><h2><span class="n">01</span>Intro (say once)</h2>
 <ul>
@@ -79,28 +79,28 @@
 <div class="beat"><h2><span class="n">03</span>Multi-opportunity — the differentiator</h2>
 <ul>
 <li class="say">Two steps: identity finds the person and their open opportunities. Several open → it reads the message.</li>
-<li><span class="cue">run the strong match</span> → gala auto-files. Why: date lines up + name words match.</li>
-<li><span class="cue">run the review case</span> → Needs review → ranked candidates + reasons → <strong>Confirm</strong> top → point at <strong>Undo</strong>.</li>
+<li>STAGED — Matched list: <strong>riley.hayes · "Gala run of show"</strong> → open it. Auto-filed to the gala. Why: date lines up + name words match.</li>
+<li>STAGED — Needs review: <strong>morgan.ellis · "Quick check-in"</strong> → ranked candidates + reasons → <strong>Confirm</strong> top (LIVE click) → point at <strong>Undo</strong>.</li>
 <li class="say">Morgan is a planner, on these bookings via the Planner Contact field, same as your org.</li>
 <li class="say">This is where MME needs the tag word and EAC picks by close date without reading. Ours shows its reasons.</li>
 </ul></div>
 
 <div class="beat"><h2><span class="n">04</span>Email outbound</h2>
 <ul>
-<li><span class="cue">run the outbound</span> → agency reply lands on Jamie's booking.</li>
+<li>STAGED — Matched list: <strong>taylor.brooks · "Re: Your wedding details"</strong> → an agency reply, matched to the booking it was sent about.</li>
 <li class="say">Mail rule copies outgoing replies in. Sender is internal → matches on who it was sent TO.</li>
 </ul></div>
 
 <div class="beat"><h2><span class="n">05</span>Texts — quick overview</h2>
 <ul>
 <li class="say">Webhook accepts texts, matches on the contact's phone number. Not connected to a number yet — that's a Twilio account setup. I'll simulate the delivery.</li>
-<li><span class="cue">fire the text</span> → SMS lands on Jamie's booking by phone.</li>
+<li>STAGED — Matched list: <strong>+1 206 555-0147 (SMS)</strong> → matched to Jamie's booking by phone.</li>
 <li class="say">Same rules as email after identity. One engine, both channels.</li>
 </ul></div>
 
 <div class="beat"><h2><span class="n">06</span>Junk + settings</h2>
 <ul>
-<li><span class="cue">run the junk email</span> → expand <strong>Filtered</strong>: "thank you" never hits the queue, nothing hidden.</li>
+<li>STAGED — expand <strong>Filtered</strong>: <strong>morgan.ellis · "Re: Quick check-in"</strong> (just says thank you). Never hits the queue, nothing hidden.</li>
 <li>Open <strong>Settings</strong> → phrase list + match strictness. <span class="say">Yours to tune, no developer.</span></li>
 </ul></div>
 
