@@ -140,7 +140,7 @@ sf org open -o wta-demo-org</code></pre>
   <p class="sec-sub">Your real Gmail to the org, matched on camera.</p>
   <div class="card">
     <div class="step"><span class="who do">Do</span><div class="body">From Gmail, send to the intake address:
-      <pre><code>wta-match-demo@n-ayk46auws946eppn0du2clrcl8iksy6q8ipuygz0c7yc1qv2p.g8-gx5jeaq.usa1142.apex.salesforce.com</code></pre>
+      <pre style="position:relative"><code id="intakeAddr">wta-match-demo@n-ayk46auws946eppn0du2clrcl8iksy6q8ipuygz0c7yc1qv2p.g8-gx5jeaq.usa1142.apex.salesforce.com</code><button id="copyAddr" style="position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;border-radius:7px;padding:6px 12px;cursor:pointer">Copy</button></pre>
       Subject <code>Our wedding details</code>. Body: <code>Hi! Quick question about our wedding, could we get the final ballroom timing when you have a moment?</code> Then switch to Match Review. The row lands in seconds.</div></div>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"That went from an ordinary Gmail into Salesforce and matched itself. My address is on file for one client with one open booking, so there was nothing to guess and nobody had to touch it."</p></div></div>
     <div class="step"><span class="who do">Do</span><div class="body">Click the row, open <strong>Why this booking</strong>.</div></div>
@@ -207,6 +207,12 @@ sf org open -o wta-demo-org</code></pre>
 
 <script>
   (function(){
+    var cb=document.getElementById('copyAddr');
+    if(cb){ cb.addEventListener('click', function(){
+      navigator.clipboard.writeText(document.getElementById('intakeAddr').textContent.trim()).then(function(){
+        cb.textContent='Copied'; setTimeout(function(){cb.textContent='Copy';},1600);
+      });
+    }); }
     var btn=document.getElementById('themeToggle'), root=document.documentElement;
     btn.addEventListener('click', function(){
       var cur=root.getAttribute('data-theme');
