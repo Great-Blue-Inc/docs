@@ -72,7 +72,7 @@
 <li>Native Apex inside Salesforce. No third-party cloud touches the mail. Matching walks WTA's own opportunity fields (Client Contact, Planner Contact, Billing Contact).</li>
 <li>Each message is stored as a record linked to the opportunity, plus an entry on the opportunity's activity timeline. Storage math was verified against WTA's production org read-only: decades of headroom at their volume.</li>
 <li>Auto-match fires only when enough independent signals agree, and that bar is a setting. Junk replies are filtered, visibly, with a one-click way back.</li>
-<li>Texts arrive through a secured endpoint that only accepts genuine deliveries from the phone provider.</li>
+<li>Texts arrive through a secured endpoint. Each delivery is verified against Twilio's account key, a secret only Twilio and the org share, so only genuine Twilio deliveries are accepted.</li>
 </ul></div>
 
 <div class="josh"><div class="lbl">Your lanes on the call</div>
