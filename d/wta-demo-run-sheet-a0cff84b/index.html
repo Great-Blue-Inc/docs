@@ -132,7 +132,7 @@
   <a href="#s2"><span class="num">03</span>Email out</a>
   <a href="#s3"><span class="num">04</span>Texts</a>
   <a href="#s3b"><span class="num">05</span>Junk + settings</a>
-  <a href="#s4"><span class="num">06</span>Why us</a>
+  <a href="#s4"><span class="num">06</span>Closer</a>
   <a href="#s5"><span class="num">07</span>Stalls</a>
   <span class="spacer"></span>
   <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
@@ -155,8 +155,9 @@
 
 <section class="stream" id="s1">
   <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Email inbound</h2><span class="pill live">Fully live, the showpiece</span></div>
-  <p class="sec-sub">Your real Gmail to the org, matched on camera.</p>
+  <p class="sec-sub">Open with his number, then the live send.</p>
   <div class="card">
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"I want to show you the matching build live in Salesforce. The problem: connecting emails to the right booking is hit or miss today, around forty percent by your team's estimate. So first, a real email from my Gmail, and we'll watch it match itself. Then the hard cases."</p></div></div>
     <div class="step"><span class="who do">Do</span><div class="body">From Gmail, send this (each field has its own copy button):
       <div class="crow"><span class="clbl">To</span><button class="copybtn" data-target="cv-to">Copy</button><pre><code id="cv-to">wta-match-demo@n-ayk46auws946eppn0du2clrcl8iksy6q8ipuygz0c7yc1qv2p.g8-gx5jeaq.usa1142.apex.salesforce.com</code></pre></div>
       <div class="crow"><span class="clbl">Subject</span><button class="copybtn" data-target="cv-subj">Copy</button><pre><code id="cv-subj">Our wedding details</code></pre></div>
@@ -182,7 +183,7 @@
     <div class="step"><span class="who do">Cue</span><div class="body">Tell Claude: <strong>"run the review case"</strong>. Then refresh. An email from morgan.ellis lands in <strong>Needs review</strong> with ranked candidates.</div></div>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And here's the honest case: same kind of sender, two open bookings, but this message just says checking on details for the holiday party. There's evidence, the words holiday and party match one booking's name, but it's not conclusive, so nothing gets guessed. It goes to the review queue with each candidate ranked and the reasons on each one. A person picks with one click."</p></div></div>
     <div class="step"><span class="who do">Do</span><div class="body">Click <strong>Confirm this Opp</strong> on the top candidate. Point at <strong>Undo this match</strong> on the result.</div></div>
-    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Confirmed, and if someone ever picks wrong, undo is right there. Nothing wrong ever saves itself silently."</p></div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Confirmed, and if someone ever picks wrong, undo is right there. Nothing wrong ever saves itself silently. And this multi-booking case is exactly where the off the shelf tools fall down. Match My Email only matches on the address, and to pick between bookings their own docs require a special tag word in the email subject. Clients never type tag words. Einstein Activity Capture picks one by tiebreakers like close date without reading the message, and it never explains itself. This reads the message and shows its reasons."</p></div></div>
   </div>
   <div class="notebox"><label class="notelbl" for="note-s1b">Your notes on this beat</label>
   <textarea id="note-s1b" data-note="Multiple bookings" placeholder="What to change: wording, order, anything."></textarea></div>
@@ -205,7 +206,7 @@
   <div class="card">
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Text matching is something we can include here. There’s a webhook set up to accept text messages and run the same matching based on the contact’s number in Salesforce. It’s not connected to a phone number yet. You’d set up an account with a platform called Twilio, which routes text traffic to that webhook, and that’s what integrates it with Salesforce. I have a script here that simulates that inbound delivery."</p></div></div>
     <div class="step"><span class="who do">Cue</span><div class="body">Tell Claude: <strong>"fire the text"</strong>. Then refresh Match Review. The text lands matched to Jamie's booking.</div></div>
-    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And in here we can see a match was made based on the phone number on the contact. It checks both phone fields and it tolerates formatting, dashes, spaces, country code. After that first step it’s the exact same rules you just saw on email: event dates, words from the booking name, the review queue when it’s unclear, the same junk filter. One engine, two channels. This piece just isn’t connected to a live number yet."</p></div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And in here we can see a match was made based on the phone number on the contact. It checks both phone fields and it tolerates formatting, dashes, spaces, country code. After that first step it’s the exact same rules you just saw on email: event dates, words from the booking name, the review queue when it’s unclear, the same junk filter. One engine, two channels. None of the off the shelf tools do texts at all. This piece just isn’t connected to a live number yet."</p></div></div>
   </div>
   <div class="callout"><div class="lbl">If asked, does texting work today</div><p>"Receiving and matching are built and tested end to end. What's left is connecting a phone number through Twilio." If asked about security: "the webhook only accepts requests carrying the phone company's cryptographic signature, so nothing fake can get in."</p></div>
   <div class="notebox"><label class="notelbl" for="note-s3">Your notes on this beat</label>
@@ -226,21 +227,13 @@
 </section>
 
 <section class="stream" id="s4">
-  <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Why us</h2><span class="pill live">From their own docs</span></div>
-  <p class="sec-sub">Fair, sourced, no trash talk.</p>
-  <p><strong>vs Match My Email</strong></p>
-  <ul class="tight">
-    <li>"It files precisely only when the subject carries their special tag word. New client emails have no tag, so it falls back to address-only matching, and their own docs say that causes clutter across open bookings. Ours reads the message: dates, names, event type."</li>
-    <li>"Their match data sits in their cloud about 45 days. This stays in your Salesforce, permanently, on records you own."</li>
-    <li>"$10.75 per user per month, forever. This is an owned build, no per-seat fee."</li>
-    <li>"And they don't do texts at all."</li>
-  </ul>
-  <p><strong>vs Einstein Activity Capture</strong> (said fairly)</p>
-  <ul class="tight">
-    <li>"It's free, but with several open bookings it picks one by tiebreakers like close date, without reading the message, and it doesn't explain itself."</li>
-  </ul>
-  <div class="notebox"><label class="notelbl" for="note-s4">Your notes on this beat</label>
-  <textarea id="note-s4" data-note="Why us" placeholder="What to change: wording, order, anything."></textarea></div>
+  <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Closer</h2><span class="pill live">Say, then stop talking</span></div>
+  <p class="sec-sub">Ownership and price land last, then hand it to Jeff.</p>
+  <div class="card">
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"So that's the system. Real emails and texts, matched by who sent them and what the message says, stored permanently in your Salesforce on records you own. Match My Email runs $10.75 per user per month forever and holds your match data in their cloud for about 45 days. This is an owned build, no per-seat fee, and every rule you saw is tunable in the app. What questions do you have?"</p></div></div>
+  </div>
+  <div class="notebox"><label class="notelbl" for="note-s4c">Your notes on this beat</label>
+  <textarea id="note-s4c" data-note="Closer" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
 <section class="stream" id="s5" style="border-bottom:none">
