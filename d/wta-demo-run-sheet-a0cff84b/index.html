@@ -96,6 +96,15 @@
   .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:5px; color:var(--ink);}
   .callout p{margin:0; font-size:.92rem;}
   ul.tight{margin:0 0 14px; padding-left:20px;} ul.tight li{margin-bottom:8px;}
+  .notebox{margin:6px 0 22px;}
+  .notelbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:6px;}
+  .notebox textarea{width:100%; min-height:64px; background:var(--surface); color:var(--ink); border:1px solid var(--line);
+    border-radius:10px; padding:10px 12px; font-family:var(--sans); font-size:.92rem; line-height:1.5; resize:vertical;}
+  .notebox textarea:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .fbbar{position:fixed; bottom:18px; right:18px; z-index:30;}
+  .fbbar button{font-family:var(--sans); font-weight:650; font-size:.92rem; background:var(--accent); color:#fff;
+    border:none; border-radius:999px; padding:12px 20px; cursor:pointer; box-shadow:var(--shadow);}
+  .fbbar button:hover{background:var(--accent-2);}
   footer{padding:36px 0 56px; color:var(--ink-faint); font-size:.84rem;}
   footer .fmono{font-family:var(--mono); font-size:.78rem;}
 </style>
@@ -133,6 +142,8 @@ sf org open -o wta-demo-org</code></pre>
     <li>Have open: Gmail, terminal, this sheet. Video cued as backup.</li>
     <li>Tonight: paste the intake address (section 01) into a Gmail draft so tomorrow is one click.</li>
   </ul>
+  <div class="notebox"><label class="notelbl" for="note-s0">Your notes on this beat</label>
+  <textarea id="note-s0" data-note="Setup" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
 <section class="stream" id="s1">
@@ -148,6 +159,8 @@ sf org open -o wta-demo-org</code></pre>
     <div class="step"><span class="who do">Do</span><div class="body">Open Avery's contact record, point at the email field.</div></div>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And the proof on the record itself. This email field is what it keyed on."</p></div></div>
   </div>
+  <div class="notebox"><label class="notelbl" for="note-s1">Your notes on this beat</label>
+  <textarea id="note-s1" data-note="Email inbound" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
 <section class="stream" id="s2">
@@ -159,6 +172,8 @@ sf org open -o wta-demo-org</code></pre>
       Refresh Match Review. A reply FROM the agency appears, matched to Jamie's booking.</div></div>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"It also catches replies your team sends out. The shared mailbox gets copied on outgoing mail. The system sees the sender is internal, so it matches on who the message was sent TO. Both sides of the conversation land on the booking."</p></div></div>
   </div>
+  <div class="notebox"><label class="notelbl" for="note-s2">Your notes on this beat</label>
+  <textarea id="note-s2" data-note="Email outbound" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
 <section class="stream" id="s3">
@@ -172,6 +187,8 @@ sf org open -o wta-demo-org</code></pre>
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Matched by the phone number on the client's record, and it reads the message the same way email does. Phase two is a ten minute step: connect a phone number to that address. And it refuses anything that doesn't carry the phone company's security stamp."</p></div></div>
   </div>
   <div class="callout"><div class="lbl">If asked, does texting work today</div><p>"Receiving is built and tested end to end, including the security check. What's left is connecting the number. That's deliberately phase two so phase one ships fast."</p></div>
+  <div class="notebox"><label class="notelbl" for="note-s3">Your notes on this beat</label>
+  <textarea id="note-s3" data-note="Texts" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
 <section class="stream" id="s4">
@@ -188,6 +205,8 @@ sf org open -o wta-demo-org</code></pre>
   <ul class="tight">
     <li>"It's free, but with several open bookings it picks one by tiebreakers like close date, without reading the message, and it doesn't explain itself."</li>
   </ul>
+  <div class="notebox"><label class="notelbl" for="note-s4">Your notes on this beat</label>
+  <textarea id="note-s4" data-note="Why us" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
 <section class="stream" id="s5" style="border-bottom:none">
@@ -196,6 +215,8 @@ sf org open -o wta-demo-org</code></pre>
     <li>Email not in the queue after about 30 seconds: refresh once. Still nothing: play the video's email beat and keep going. Diagnose after, never on the call.</li>
     <li>Any doubt live: the video covers every beat.</li>
   </ul>
+  <div class="notebox"><label class="notelbl" for="note-s5">Your notes on this beat</label>
+  <textarea id="note-s5" data-note="Stalls" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
 <footer>
@@ -205,8 +226,25 @@ sf org open -o wta-demo-org</code></pre>
 
 </main>
 
+<div class="fbbar"><button id="copyFb">Copy all feedback</button></div>
 <script>
   (function(){
+    var tas=document.querySelectorAll('textarea[data-note]');
+    tas.forEach(function(t){
+      var k='wta-runsheet-'+t.id;
+      t.value=localStorage.getItem(k)||'';
+      t.addEventListener('input', function(){ localStorage.setItem(k, t.value); });
+    });
+    var fb=document.getElementById('copyFb');
+    fb.addEventListener('click', function(){
+      var out=[];
+      tas.forEach(function(t){ if(t.value.trim()) out.push('['+t.getAttribute('data-note')+'] '+t.value.trim()); });
+      var text=out.length?('RUN SHEET FEEDBACK\n'+out.join('\n\n')):'(no notes entered yet)';
+      navigator.clipboard.writeText(text).then(function(){
+        fb.textContent=out.length?('Copied '+out.length+' note'+(out.length>1?'s':'')):'Nothing to copy yet';
+        setTimeout(function(){fb.textContent='Copy all feedback';},2000);
+      });
+    });
     var cb=document.getElementById('copyAddr');
     if(cb){ cb.addEventListener('click', function(){
       navigator.clipboard.writeText(document.getElementById('intakeAddr').textContent.trim()).then(function(){
