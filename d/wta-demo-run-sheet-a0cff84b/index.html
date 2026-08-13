@@ -131,8 +131,9 @@
   <a href="#s1b"><span class="num">02</span>Multi-booking</a>
   <a href="#s2"><span class="num">03</span>Email out</a>
   <a href="#s3"><span class="num">04</span>Texts</a>
-  <a href="#s4"><span class="num">05</span>Why us</a>
-  <a href="#s5"><span class="num">06</span>Stalls</a>
+  <a href="#s3b"><span class="num">05</span>Junk + settings</a>
+  <a href="#s4"><span class="num">06</span>Why us</a>
+  <a href="#s5"><span class="num">07</span>Stalls</a>
   <span class="spacer"></span>
   <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
 </div></nav>
@@ -204,15 +205,28 @@
   <div class="card">
     <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"Text matching is something we can include here. There’s a webhook set up to accept text messages and run the same matching based on the contact’s number in Salesforce. It’s not connected to a phone number yet. You’d set up an account with a platform called Twilio, which routes text traffic to that webhook, and that’s what integrates it with Salesforce. I have a script here that simulates that inbound delivery."</p></div></div>
     <div class="step"><span class="who do">Cue</span><div class="body">Tell Claude: <strong>"fire the text"</strong>. Then refresh Match Review. The text lands matched to Jamie's booking.</div></div>
-    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And in here we can see a match was made based on the phone number on the contact, and it reads the message the same way the email flow does. This piece just isn’t connected to a live number yet."</p></div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And in here we can see a match was made based on the phone number on the contact. It checks both phone fields and it tolerates formatting, dashes, spaces, country code. After that first step it’s the exact same rules you just saw on email: event dates, words from the booking name, the review queue when it’s unclear, the same junk filter. One engine, two channels. This piece just isn’t connected to a live number yet."</p></div></div>
   </div>
   <div class="callout"><div class="lbl">If asked, does texting work today</div><p>"Receiving and matching are built and tested end to end. What's left is connecting a phone number through Twilio." If asked about security: "the webhook only accepts requests carrying the phone company's cryptographic signature, so nothing fake can get in."</p></div>
   <div class="notebox"><label class="notelbl" for="note-s3">Your notes on this beat</label>
   <textarea id="note-s3" data-note="Texts" placeholder="What to change: wording, order, anything."></textarea></div>
 </section>
 
+<section class="stream" id="s3b">
+  <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Junk filter and settings</h2><span class="pill live">Live</span></div>
+  <p class="sec-sub">Not every message deserves the queue, and the rules are tunable in the app.</p>
+  <div class="card">
+    <div class="step"><span class="who do">Cue</span><div class="body">Tell Claude: <strong>"run the junk email"</strong>. Then refresh Match Review and expand the <strong>Filtered</strong> section.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"This client just replied with only a thank you. That never reaches the queue. The filter catches it before matching even runs, and the row shows exactly what was filtered, so nothing disappears silently. Texts get the same treatment, a text that just says okay goes straight here too."</p></div></div>
+    <div class="step"><span class="who do">Do</span><div class="body">Open <strong>Settings</strong> in the app. Point at the junk phrase list, then match strictness.</div></div>
+    <div class="step"><span class="who say">Say</span><div class="body"><p class="say-text">"And the rules live right here in the app. This phrase list is what drives the filter, add or remove phrases and it follows. Match strictness controls how much evidence a message needs before it files itself. All of this is in the org, so it’s tunable without a developer."</p></div></div>
+  </div>
+  <div class="notebox"><label class="notelbl" for="note-s3b">Your notes on this beat</label>
+  <textarea id="note-s3b" data-note="Junk filter and settings" placeholder="What to change: wording, order, anything."></textarea></div>
+</section>
+
 <section class="stream" id="s4">
-  <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Why us</h2><span class="pill live">From their own docs</span></div>
+  <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Why us</h2><span class="pill live">From their own docs</span></div>
   <p class="sec-sub">Fair, sourced, no trash talk.</p>
   <p><strong>vs Match My Email</strong></p>
   <ul class="tight">
@@ -230,7 +244,7 @@
 </section>
 
 <section class="stream" id="s5" style="border-bottom:none">
-  <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">If something stalls</h2></div>
+  <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">If something stalls</h2></div>
   <ul class="tight">
     <li>Email not in the queue after about 30 seconds: refresh once. Still nothing: play the video's email beat and keep going. Diagnose after, never on the call.</li>
     <li>Any doubt live: the video covers every beat.</li>
