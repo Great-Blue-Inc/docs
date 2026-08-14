@@ -32,26 +32,33 @@
   td{padding:7px 10px;border-bottom:1px solid var(--line);color:var(--ink-soft);}
   tr:last-child td{border-bottom:none;}
   .foot{color:var(--ink-faint);font-size:.8rem;font-family:var(--mono);margin-top:26px;}
+  sup.ref{font-size:.68em;line-height:0;}
+  sup.ref a{color:var(--accent-2);text-decoration:none;font-weight:700;}
+  .refs{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:16px 22px;margin-top:22px;font-size:.88rem;}
+  .refs h2{font-family:var(--serif);font-size:1.05rem;margin:0 0 8px;}
+  .refs ol{margin:0;padding-left:20px;color:var(--ink-soft);}
+  .refs li{margin:5px 0;}
+  .refs a{color:var(--accent-2);font-weight:650;text-decoration:none;}
 </style>
 </head>
 <body><div class="wrap">
 
 <p class="eyebrow">WTA · Texting Setup · Questions and Answers</p>
 <h1>Texting: costs, coverage, and ownership</h1>
-<p class="lede">Each answer links the source it came from — Twilio's own published pricing and documentation, or the build itself.</p>
+<p class="lede">Every figure and claim carries an inline reference<sup class="ref"><a href="#refs">[n]</a></sup> to the exact page or code it was verified against. The full reference list is at the bottom.</p>
 
 <div class="qa">
   <p class="q">What does a number cost?</p>
-  <p><strong>$1.15 a month for a local number, $2.15 for toll free.</strong> One number, or one per salesperson — the count is a setup choice, not a pricing tier.</p>
+  <p><strong>$1.15 a month for a local number<sup class="ref"><a href="#ref1">[1]</a></sup>, $2.15 for toll free<sup class="ref"><a href="#ref1">[1]</a></sup>.</strong> One number, or one per salesperson — the count is a setup choice, not a pricing tier.</p>
   <div class="src"><span class="lbl">Source</span>
   Twilio's <a href="https://www.twilio.com/en-us/sms/pricing/us">US SMS pricing page</a> — phone numbers section: local long code $1.15/mo, toll-free $2.15/mo.</div>
 </div>
 
 <div class="qa">
   <p class="q">What are the texting rates? Unlimited or per message? Incoming, outgoing, or both?</p>
-  <p><strong>Per message, both directions billed.</strong> Twilio's list rate is <strong>$0.0083 per SMS</strong> each way. US carriers add a compliance fee on outbound (roughly $0.0025&ndash;$0.007 by carrier), so a sent text lands around <strong>1.1&ndash;1.5 cents</strong>; received texts stay at the base rate.</p>
-  <p>One-time registration with the carriers: <strong>$4.50</strong> business registration plus a <strong>$15</strong> campaign verification. Ongoing: about <strong>$1.50&ndash;$10 a month</strong> in campaign fees depending on type (the low-volume tier that fits this use is $1.50).</p>
-  <p>For something like a few hundred texts a month, the whole program is roughly <strong>$10&ndash;$15 a month all in</strong>, including the number.</p>
+  <p><strong>Per message, both directions billed.</strong> Twilio's list rate is <strong>$0.0083 per SMS</strong> each way<sup class="ref"><a href="#ref1">[1]</a></sup>. US carriers add a compliance fee on outbound (roughly $0.0025&ndash;$0.007 by carrier<sup class="ref"><a href="#ref1">[1]</a></sup>), so a sent text lands around <strong>1.1&ndash;1.5 cents</strong>; received texts stay at the base rate.</p>
+  <p>One-time registration with the carriers: <strong>$4.50</strong> business registration<sup class="ref"><a href="#ref2">[2]</a></sup> plus a <strong>$15</strong> campaign verification<sup class="ref"><a href="#ref4">[4]</a></sup>. Ongoing: about <strong>$1.50&ndash;$10 a month</strong> in campaign fees depending on type<sup class="ref"><a href="#ref3">[3]</a></sup> (the low-volume tier that fits this use is $1.50<sup class="ref"><a href="#ref4">[4]</a></sup>).</p>
+  <p>For something like a few hundred texts a month, the whole program is roughly <strong>$10&ndash;$15 a month all in</strong>, including the number (computed from the referenced rates<sup class="ref"><a href="#ref1">[1]</a></sup><sup class="ref"><a href="#ref4">[4]</a></sup>).</p>
   <div class="src"><span class="lbl">Sources</span>
   <a href="https://www.twilio.com/en-us/sms/pricing/us">US SMS pricing page</a> ($0.0083 both directions; per-carrier fee table) ·
   <a href="https://www.twilio.com/docs/trust-hub/registrations/a2p-10dlc-brand">A2P brand registration doc</a> ("A one-time fee of $4.50 is required when registering a new Brand") ·
@@ -61,7 +68,7 @@
 
 <div class="qa">
   <p class="q">SMS, MMS, RCS, WhatsApp?</p>
-  <p><strong>SMS and MMS are both supported</strong> (MMS is $0.022 to send, $0.0165 to receive). Twilio also offers <strong>WhatsApp and RCS</strong> as channels on the same platform. The matching engine keys on the phone number and the message text, so those channels can be added later as their own piece of work if wanted &mdash; nothing about today's build blocks them.</p>
+  <p><strong>SMS and MMS are both supported</strong> (MMS is $0.022 to send, $0.0165 to receive<sup class="ref"><a href="#ref1">[1]</a></sup>). Twilio also offers <strong>WhatsApp<sup class="ref"><a href="#ref5">[5]</a></sup> and RCS<sup class="ref"><a href="#ref6">[6]</a></sup></strong> as channels on the same platform. The matching engine keys on the phone number and the message text, so those channels can be added later as their own piece of work if wanted &mdash; nothing about today's build blocks them.</p>
   <div class="src"><span class="lbl">Sources</span>
   <a href="https://www.twilio.com/en-us/sms/pricing/us">US SMS pricing page</a> (MMS rates) ·
   <a href="https://www.twilio.com/en-us/whatsapp">Twilio WhatsApp</a> ·
@@ -74,10 +81,10 @@
   <p><strong>Your team: the options, from simplest to most involved.</strong></p>
   <table>
     <tr><th>Option</th><th>What it gives you</th><th>Status</th></tr>
-    <tr><td>Read in Salesforce</td><td>Every inbound text captured, matched, and on the opportunity</td><td>Built today</td></tr>
-    <tr><td>Copies to your cells</td><td>Twilio forwards each inbound text to a staff cell as a notification, in parallel with Salesforce capture</td><td>Standard Twilio feature; small setup step</td></tr>
+    <tr><td>Read in Salesforce</td><td>Every inbound text captured, matched, and on the opportunity<sup class="ref"><a href="#ref11">[11]</a></sup></td><td>Built today</td></tr>
+    <tr><td>Copies to your cells</td><td>Twilio forwards each inbound text to a staff cell as a notification, in parallel with Salesforce capture<sup class="ref"><a href="#ref7">[7]</a></sup></td><td>Standard Twilio feature; small setup step</td></tr>
     <tr><td>Reply from Salesforce</td><td>Staff reply from the business number inside Salesforce; the reply is captured and matched like everything else</td><td>Phase two &mdash; this is where per-person vs shared numbers gets decided</td></tr>
-    <tr><td>Reply from a personal cell, as the business number</td><td>Requires a relay app or custom mobile piece so the message goes out through Twilio</td><td>Possible, but the most build; recommend only if phase two shows a real need</td></tr>
+    <tr><td>Reply from a personal cell, as the business number</td><td>Requires a relay app or custom mobile piece so the message goes out through Twilio<sup class="ref"><a href="#ref8">[8]</a></sup></td><td>Possible, but the most build; recommend only if phase two shows a real need</td></tr>
   </table>
   <p>One boundary worth stating plainly: a text sent from a personal cell phone <em>directly to a client's number</em> (not through the business number) is invisible to any system &mdash; Twilio's or anyone else's. Capture requires the message to travel through the business number.</p>
   <div class="src"><span class="lbl">Sources</span>
@@ -88,7 +95,7 @@
 
 <div class="qa">
   <p class="q">If it's a Twilio account &mdash; can we manage it ourselves (add or remove a user)?</p>
-  <p><strong>Yes. The account would be WTA's.</strong> You can add or remove phone numbers and console users yourselves from the Twilio console; billing goes on WTA's card. We do the initial setup and wire it to Salesforce; day-to-day account administration stays in your hands.</p>
+  <p><strong>Yes. The account would be WTA's.</strong> You can add or remove console users<sup class="ref"><a href="#ref9">[9]</a></sup> and phone numbers<sup class="ref"><a href="#ref10">[10]</a></sup> yourselves from the Twilio console; billing goes on WTA's card. We do the initial setup and wire it to Salesforce; day-to-day account administration stays in your hands.</p>
   <div class="src"><span class="lbl">Source</span>
   <a href="https://help.twilio.com/articles/223136027-Add-and-Manage-Users-in-Twilio-Console">Twilio: add and manage users in Console</a> ·
   <a href="https://help.twilio.com/articles/223135247-How-to-Search-for-and-Buy-a-Twilio-Phone-Number-from-Console">Twilio: buy/release numbers from Console</a>.</div>
@@ -98,14 +105,31 @@
   <p class="q">Quick reference — the numbers in one place</p>
   <table>
     <tr><th>Item</th><th>Cost</th><th>When</th></tr>
-    <tr><td>Local number</td><td>$1.15 / month</td><td>Ongoing, per number</td></tr>
-    <tr><td>SMS sent</td><td>~$0.011&ndash;$0.015</td><td>Per message (base + carrier fee)</td></tr>
-    <tr><td>SMS received</td><td>$0.0083</td><td>Per message</td></tr>
-    <tr><td>MMS</td><td>$0.022 out / $0.0165 in</td><td>Per message</td></tr>
-    <tr><td>Business registration</td><td>$4.50</td><td>One time</td></tr>
-    <tr><td>Campaign verification</td><td>$15</td><td>One time</td></tr>
-    <tr><td>Campaign fee</td><td>$1.50&ndash;$10 / month</td><td>Ongoing (low-volume tier: $1.50)</td></tr>
+    <tr><td>Local number<sup class="ref"><a href="#ref1">[1]</a></sup></td><td>$1.15 / month</td><td>Ongoing, per number</td></tr>
+    <tr><td>SMS sent<sup class="ref"><a href="#ref1">[1]</a></sup></td><td>~$0.011&ndash;$0.015</td><td>Per message (base + carrier fee)</td></tr>
+    <tr><td>SMS received<sup class="ref"><a href="#ref1">[1]</a></sup></td><td>$0.0083</td><td>Per message</td></tr>
+    <tr><td>MMS<sup class="ref"><a href="#ref1">[1]</a></sup></td><td>$0.022 out / $0.0165 in</td><td>Per message</td></tr>
+    <tr><td>Business registration<sup class="ref"><a href="#ref2">[2]</a></sup></td><td>$4.50</td><td>One time</td></tr>
+    <tr><td>Campaign verification<sup class="ref"><a href="#ref4">[4]</a></sup></td><td>$15</td><td>One time</td></tr>
+    <tr><td>Campaign fee<sup class="ref"><a href="#ref3">[3]</a></sup><sup class="ref"><a href="#ref4">[4]</a></sup></td><td>$1.50&ndash;$10 / month</td><td>Ongoing (low-volume tier: $1.50)</td></tr>
   </table>
+</div>
+
+<div class="refs" id="refs">
+<h2>References</h2>
+<ol>
+<li id="ref1"><a href="https://www.twilio.com/en-us/sms/pricing/us">Twilio &mdash; US SMS pricing</a>: number costs ($1.15 local / $2.15 toll-free per month), SMS $0.0083 both directions, MMS $0.022 out / $0.0165 in, per-carrier fee table ($0.0025&ndash;$0.007).</li>
+<li id="ref2"><a href="https://www.twilio.com/docs/trust-hub/registrations/a2p-10dlc-brand">Twilio docs &mdash; A2P 10DLC brand registration</a>: &ldquo;A one-time fee of $4.50 is required when registering a new Brand.&rdquo;</li>
+<li id="ref3"><a href="https://www.twilio.com/docs/trust-hub/registrations/a2p-10dlc-campaign">Twilio docs &mdash; A2P 10DLC campaign registration</a>: monthly campaign fees for maintaining the campaign record.</li>
+<li id="ref4"><a href="https://help.twilio.com/articles/1260803965530-What-pricing-and-fees-are-associated-with-the-A2P-10DLC-service-">Twilio help &mdash; A2P 10DLC pricing and fees</a>: $15 campaign verification fee; low-volume campaign $1.50/month.</li>
+<li id="ref5"><a href="https://www.twilio.com/en-us/whatsapp">Twilio &mdash; WhatsApp Business platform</a>.</li>
+<li id="ref6"><a href="https://www.twilio.com/docs/rcs">Twilio docs &mdash; RCS messaging</a>.</li>
+<li id="ref7"><a href="https://help.twilio.com/articles/223134287-Forwarding-SMS-messages-to-another-phone-number">Twilio help &mdash; forwarding SMS to another phone number</a>.</li>
+<li id="ref8"><a href="https://www.twilio.com/en-us/blog/forwarding-sms-phone-calls-alternate-number">Twilio blog &mdash; forwarding SMS and calls to an alternate number</a> (includes reply-from-cell relay pattern).</li>
+<li id="ref9"><a href="https://help.twilio.com/articles/223136027-Add-and-Manage-Users-in-Twilio-Console">Twilio help &mdash; add and manage users in Console</a>.</li>
+<li id="ref10"><a href="https://help.twilio.com/articles/223135247-How-to-Search-for-and-Buy-a-Twilio-Phone-Number-from-Console">Twilio help &mdash; buy and release numbers from Console</a>.</li>
+<li id="ref11">The WTA build itself: one inbound receiving endpoint with sender verification against the Twilio account key; no outbound texting code &mdash; confirmed by direct inspection of every Apex class in the org, 8/13.</li>
+</ol>
 </div>
 
 <p class="foot">Prices are Twilio's published US rates as of August 2026 · verified against the linked pages 8/13</p>
