@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Texting Setup — Answers</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<style>
+  :root{--paper:#f6f7f4;--surface:#fff;--surface-2:#eef1ec;--ink:#16201d;--ink-soft:#3c4a45;--ink-faint:#5c6660;
+  --line:#d7ddd4;--accent:#0d7a6e;--accent-2:#0a5f56;--accent-wash:#e2efeb;
+  --serif:"Charter","Iowan Old Style",Palatino,Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#101614;--surface:#161e1b;--surface-2:#1c2723;
+  --ink:#e7ede9;--ink-soft:#b3c0ba;--ink-faint:#8fa9b5;--line:#2a3631;--accent:#4fd0be;--accent-2:#6fdccb;--accent-wash:#16302b;}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;}
+  .wrap{max-width:780px;margin:0 auto;padding:34px 24px 80px;}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-2);margin:0 0 10px;}
+  h1{font-family:var(--serif);font-size:2rem;margin:0 0 6px;line-height:1.12;}
+  .lede{color:var(--ink-soft);margin:0 0 26px;}
+  .qa{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:14px 0;}
+  .q{font-family:var(--serif);font-size:1.12rem;font-weight:700;margin:0 0 8px;}
+  .qa p{margin:8px 0;color:var(--ink-soft);}
+  .qa strong{color:var(--ink);}
+  .src{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--ink-faint);}
+  .src a{color:var(--accent-2);font-weight:650;text-decoration:none;border-bottom:1px solid var(--accent-wash);}
+  .src .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:4px;}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;margin:10px 0;}
+  th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);}
+  td{padding:7px 10px;border-bottom:1px solid var(--line);color:var(--ink-soft);}
+  tr:last-child td{border-bottom:none;}
+  .foot{color:var(--ink-faint);font-size:.8rem;font-family:var(--mono);margin-top:26px;}
+</style>
+</head>
+<body><div class="wrap">
+
+<p class="eyebrow">WTA · Texting Setup · Questions and Answers</p>
+<h1>Texting: costs, coverage, and ownership</h1>
+<p class="lede">Each answer links the source it came from — Twilio's own published pricing and documentation, or the build itself.</p>
+
+<div class="qa">
+  <p class="q">What does a number cost?</p>
+  <p><strong>$1.15 a month for a local number, $2.15 for toll free.</strong> One number, or one per salesperson — the count is a setup choice, not a pricing tier.</p>
+  <div class="src"><span class="lbl">Source</span>
+  Twilio's <a href="https://www.twilio.com/en-us/sms/pricing/us">US SMS pricing page</a> — phone numbers section: local long code $1.15/mo, toll-free $2.15/mo.</div>
+</div>
+
+<div class="qa">
+  <p class="q">What are the texting rates? Unlimited or per message? Incoming, outgoing, or both?</p>
+  <p><strong>Per message, both directions billed.</strong> Twilio's list rate is <strong>$0.0083 per SMS</strong> each way. US carriers add a compliance fee on outbound (roughly $0.0025&ndash;$0.007 by carrier), so a sent text lands around <strong>1.1&ndash;1.5 cents</strong>; received texts stay at the base rate.</p>
+  <p>One-time registration with the carriers: <strong>$4.50</strong> business registration plus a <strong>$15</strong> campaign verification. Ongoing: about <strong>$1.50&ndash;$10 a month</strong> in campaign fees depending on type (the low-volume tier that fits this use is $1.50).</p>
+  <p>For something like a few hundred texts a month, the whole program is roughly <strong>$10&ndash;$15 a month all in</strong>, including the number.</p>
+  <div class="src"><span class="lbl">Sources</span>
+  <a href="https://www.twilio.com/en-us/sms/pricing/us">US SMS pricing page</a> ($0.0083 both directions; per-carrier fee table) ·
+  <a href="https://www.twilio.com/docs/trust-hub/registrations/a2p-10dlc-brand">A2P brand registration doc</a> ("A one-time fee of $4.50 is required when registering a new Brand") ·
+  <a href="https://www.twilio.com/docs/trust-hub/registrations/a2p-10dlc-campaign">A2P campaign registration doc</a> (monthly campaign fees) ·
+  <a href="https://help.twilio.com/articles/1260803965530-What-pricing-and-fees-are-associated-with-the-A2P-10DLC-service-">Twilio pricing & fees article</a> ($15 campaign verification; $1.50/mo low-volume).</div>
+</div>
+
+<div class="qa">
+  <p class="q">SMS, MMS, RCS, WhatsApp?</p>
+  <p><strong>SMS and MMS are both supported</strong> (MMS is $0.022 to send, $0.0165 to receive). Twilio also offers <strong>WhatsApp and RCS</strong> as channels on the same platform. The matching engine keys on the phone number and the message text, so those channels can be added later as their own piece of work if wanted &mdash; nothing about today's build blocks them.</p>
+  <div class="src"><span class="lbl">Sources</span>
+  <a href="https://www.twilio.com/en-us/sms/pricing/us">US SMS pricing page</a> (MMS rates) ·
+  <a href="https://www.twilio.com/en-us/whatsapp">Twilio WhatsApp</a> ·
+  <a href="https://www.twilio.com/docs/rcs">Twilio RCS</a>.</div>
+</div>
+
+<div class="qa">
+  <p class="q">Does texting work on our cell phones, or only inside Salesforce?</p>
+  <p><strong>Clients: any phone.</strong> They text the business number like any contact, and it lands in Salesforce and matches automatically. Nothing to install on their side.</p>
+  <p><strong>Your team: the options, from simplest to most involved.</strong></p>
+  <table>
+    <tr><th>Option</th><th>What it gives you</th><th>Status</th></tr>
+    <tr><td>Read in Salesforce</td><td>Every inbound text captured, matched, and on the opportunity</td><td>Built today</td></tr>
+    <tr><td>Copies to your cells</td><td>Twilio forwards each inbound text to a staff cell as a notification, in parallel with Salesforce capture</td><td>Standard Twilio feature; small setup step</td></tr>
+    <tr><td>Reply from Salesforce</td><td>Staff reply from the business number inside Salesforce; the reply is captured and matched like everything else</td><td>Phase two &mdash; this is where per-person vs shared numbers gets decided</td></tr>
+    <tr><td>Reply from a personal cell, as the business number</td><td>Requires a relay app or custom mobile piece so the message goes out through Twilio</td><td>Possible, but the most build; recommend only if phase two shows a real need</td></tr>
+  </table>
+  <p>One boundary worth stating plainly: a text sent from a personal cell phone <em>directly to a client's number</em> (not through the business number) is invisible to any system &mdash; Twilio's or anyone else's. Capture requires the message to travel through the business number.</p>
+  <div class="src"><span class="lbl">Sources</span>
+  The build itself (one inbound receiving endpoint with sender verification, no outbound code yet &mdash; confirmed by direct inspection of every class in the org, 8/13) ·
+  <a href="https://help.twilio.com/articles/223134287-Forwarding-SMS-messages-to-another-phone-number">Twilio: forwarding SMS to another phone number</a> ·
+  <a href="https://www.twilio.com/en-us/blog/forwarding-sms-phone-calls-alternate-number">Twilio blog: forwarding SMS and calls</a>.</div>
+</div>
+
+<div class="qa">
+  <p class="q">If it's a Twilio account &mdash; can we manage it ourselves (add or remove a user)?</p>
+  <p><strong>Yes. The account would be WTA's.</strong> You can add or remove phone numbers and console users yourselves from the Twilio console; billing goes on WTA's card. We do the initial setup and wire it to Salesforce; day-to-day account administration stays in your hands.</p>
+  <div class="src"><span class="lbl">Source</span>
+  <a href="https://help.twilio.com/articles/223136027-Add-and-Manage-Users-in-Twilio-Console">Twilio: add and manage users in Console</a> ·
+  <a href="https://help.twilio.com/articles/223135247-How-to-Search-for-and-Buy-a-Twilio-Phone-Number-from-Console">Twilio: buy/release numbers from Console</a>.</div>
+</div>
+
+<div class="qa">
+  <p class="q">Quick reference — the numbers in one place</p>
+  <table>
+    <tr><th>Item</th><th>Cost</th><th>When</th></tr>
+    <tr><td>Local number</td><td>$1.15 / month</td><td>Ongoing, per number</td></tr>
+    <tr><td>SMS sent</td><td>~$0.011&ndash;$0.015</td><td>Per message (base + carrier fee)</td></tr>
+    <tr><td>SMS received</td><td>$0.0083</td><td>Per message</td></tr>
+    <tr><td>MMS</td><td>$0.022 out / $0.0165 in</td><td>Per message</td></tr>
+    <tr><td>Business registration</td><td>$4.50</td><td>One time</td></tr>
+    <tr><td>Campaign verification</td><td>$15</td><td>One time</td></tr>
+    <tr><td>Campaign fee</td><td>$1.50&ndash;$10 / month</td><td>Ongoing (low-volume tier: $1.50)</td></tr>
+  </table>
+</div>
+
+<p class="foot">Prices are Twilio's published US rates as of August 2026 · verified against the linked pages 8/13</p>
+
+</div></body>
+</html>
