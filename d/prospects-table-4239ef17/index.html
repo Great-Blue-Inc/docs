@@ -18,9 +18,9 @@ h1{font-size:24px}
 .count{margin-left:auto;color:var(--ink-mid);font-size:13px}
 .tblwrap{overflow-x:auto;background:var(--card);border:1px solid var(--border-soft);border-radius:12px}
 table{width:100%;border-collapse:collapse;min-width:860px}
-th{position:sticky;top:0;background:var(--linen);text-align:left;font-size:12px;letter-spacing:.02em;color:var(--ink-mid);padding:10px 12px;border-bottom:1px solid var(--border-soft);cursor:pointer;user-select:none;white-space:nowrap}
+th{position:sticky;top:0;background:var(--linen);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.02em;color:var(--ink-mid);padding:10px 12px;border-bottom:1px solid var(--border-soft);cursor:pointer;user-select:none;white-space:nowrap}
 th.sorted{color:var(--teal-deep)}
-td{padding:10px 12px;border-bottom:1px solid var(--border-soft);vertical-align:top}
+td{padding:13px 12px;border-bottom:1px solid var(--border-soft);vertical-align:top}
 .row{cursor:pointer}
 .row:hover td{background:var(--linen)}
 .row-open td{background:var(--linen)}
@@ -347,31 +347,22 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
 const {createElement:h, useState, useMemo, Fragment} = React;
 const DATA = window.__PROSPECTS__;
 
-function Chip({label, active, onClick}) {
-  return h('button', {className: 'chip' + (active ? ' chip-on' : ''), onClick}, label);
-}
-
 function App() {
   const [q, setQ] = useState('');
-  const [state, setState] = useState('All');
-  const [draft, setDraft] = useState('All');
-  const [seg, setSeg] = useState('All');
   const [sort, setSort] = useState({key: 'score', dir: -1});
   const [open, setOpen] = useState(null);
 
-  const segs = useMemo(() => ['All', ...Array.from(new Set(DATA.map(r => r.segment))).sort()], []);
   const rows = useMemo(() => {
-    let r = DATA.filter(x =>
-      (state === 'All' || x.state === state) &&
-      (draft === 'All' || x.draft === draft) &&
-      (seg === 'All' || x.segment === seg) &&
-      (!q || (x.company + ' ' + x.city + ' ' + x.what).toLowerCase().includes(q.toLowerCase())));
+    const needle = q.trim().toLowerCase();
+    let r = DATA.filter(x => !needle ||
+      (x.company + ' ' + x.city + ' ' + x.state + ' ' + x.segment + ' draft ' + x.draft + ' ' + x.conf + ' ' + x.what)
+        .toLowerCase().includes(needle));
     r.sort((a, b) => {
       const va = a[sort.key], vb = b[sort.key];
       return (typeof va === 'number' ? va - vb : String(va).localeCompare(String(vb))) * sort.dir;
     });
     return r;
-  }, [q, state, draft, seg, sort]);
+  }, [q, sort]);
 
   const th = (label, key) => h('th', {
       onClick: () => setSort(s => ({key, dir: s.key === key ? -s.dir : (key === 'score' ? -1 : 1)})),
@@ -380,14 +371,8 @@ function App() {
 
   return h(Fragment, null,
     h('div', {className: 'controls'},
-      h('input', {className: 'search', placeholder: 'Search company, city, description…',
+      h('input', {className: 'search', placeholder: 'Search anything - company, city, state, segment, draft…',
         value: q, onInput: e => setQ(e.target.value)}),
-      h('div', {className: 'chips'},
-        ['All', 'CA', 'FL'].map(s => h(Chip, {key: s, label: s, active: state === s, onClick: () => setState(s)})),
-        h('span', {className: 'chipsep'}),
-        ['All', 'A', 'B'].map(d => h(Chip, {key: d, label: d === 'All' ? 'All drafts' : 'Draft ' + d, active: draft === d, onClick: () => setDraft(d)})),
-        h('span', {className: 'chipsep'}),
-        segs.map(s => h(Chip, {key: s, label: s, active: seg === s, onClick: () => setSeg(s)}))),
       h('div', {className: 'count'}, rows.length + ' of ' + DATA.length + ' accounts')),
     h('div', {className: 'tblwrap'},
       h('table', null,
