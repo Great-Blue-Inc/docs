@@ -82,7 +82,7 @@ svg .bld:hover{filter:brightness(1.18)}
 svg .bld.sel{filter:brightness(1.22) drop-shadow(0 0 10px rgba(127,192,255,.45))}
 svg .bld.dim{opacity:.22}
 svg .bld.spot{filter:brightness(1.3) drop-shadow(0 0 16px rgba(127,192,255,.7))}
-svg .zonetext{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.5em;fill:#1E2E4C;user-select:none}
+svg .zonetext{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.3em;fill:#6B81A0;opacity:.9;user-select:none}
 svg .edgep{fill:none;stroke-dasharray:4 7;stroke-linecap:round;opacity:.15;transition:opacity .3s}
 svg.focused .edgep{opacity:.05}
 svg.focused .edgep.lit{opacity:.8}
@@ -235,6 +235,7 @@ iso.append(defs,gGround,gEdges,gBld);
   const plate=(x0,y0,x1,y1,fill)=>gGround.append(poly([P(x0,y0),P(x1,y0),P(x1,y1),P(x0,y1)],fill,
     {stroke:'#1B2A44','stroke-width':1}));
   plate(-620,-620,560,-420,'rgba(21,32,52,.35)');    // entry shelf
+  plate(-700,-360,1120,480,'rgba(21,31,54,.32)');    // application band
   plate(-700,560,1120,860,'rgba(26,36,62,.6)');      // data bedrock
   plate(-160,1040,880,1220,'rgba(17,26,43,.4)');     // external shelf
   // ground-plane text: basis vectors (0.866,0.5) and (-0.866,0.5)
@@ -243,10 +244,10 @@ iso.append(defs,gGround,gEdges,gBld);
       transform:`matrix(${C30},${S30},${-C30},${S30},${sx},${sy})`});
     t.textContent=txt; gGround.append(t)};
   /* zone text lives in verified-empty ground — an object may never cover ANY text */
-  etch('ENTRY EDGE',-460,-560,30);        // north edge of entry shelf; kiosks start y=-540
-  etch('APPLICATION',-1010,320,34);       // west margin, x <= -600, no object footprint reaches
-  etch('DATA · SUPABASE POSTGRES · RLS',-780,620,24); // north of bedrock; slabs start y=660
-  etch('EXTERNAL',-380,1100,28);          // west of external row; objects start x=-84
+  etch('ENTRY EDGE',-460,-570,28);       // on entry plate NW corner; kiosks start y=-540
+  etch('APPLICATION',-680,-340,30);      // on application plate NW corner; nearest object y=-320
+  etch('DATA · SUPABASE POSTGRES · RLS',-680,582,24); // on bedrock NW corner; slabs start y=660
+  etch('EXTERNAL',-140,1062,28);         // on external plate NW corner; objects start y=1090
 }
 
 /* ---------- world layout ---------- */
