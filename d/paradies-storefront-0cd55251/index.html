@@ -69,6 +69,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit
 .subnav-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;flex-wrap:wrap}
 .crumb{font-size:13px;color:#6b6b6b}
 .crumb b{color:var(--ink);font-weight:600}
+.crumb a,.crumb-c a{color:#6b6b6b;cursor:pointer}
+.crumb a:hover,.crumb-c a:hover{color:var(--ink);text-decoration:underline}
 .steps{display:flex;align-items:center;gap:8px;font-family:var(--font-h);font-size:12px;font-weight:600;color:#9a9a9a}
 .steps .s{display:flex;align-items:center;gap:8px}
 .steps .n{width:20px;height:20px;border-radius:50%;background:#dcdcd8;color:#7a7a7a;display:flex;align-items:center;justify-content:center;font-size:11px}
@@ -252,6 +254,21 @@ table.qt-table th:last-child,table.qt-table td:last-child{text-align:right}
 table.qt-table tr.sel td{background:#eaf7ff;font-weight:600;color:var(--ink)}
 @media(max-width:900px){.quote-calc{grid-template-columns:1fr}.quote-panel{position:static}}
 
+/* ---- instant quote: "contact us" link + inline contact form ---- */
+.qt-contact-link{display:inline-flex;align-items:center;gap:3px;color:var(--blue);font-weight:600;text-decoration:underline;cursor:pointer;background:none;border:0;padding:0;font:inherit}
+.qt-contact-link svg{width:9px;height:9px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.qform{display:flex;flex-direction:column;gap:12px;padding-top:2px}
+.qform-input,.qform-textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:14px;font-family:var(--font-b);background:#fff;color:var(--ink)}
+.qform-input::placeholder,.qform-textarea::placeholder,.qform-phone-input::placeholder{color:#9a9a9a}
+.qform-textarea{min-height:104px;resize:vertical;line-height:1.5}
+.qform-phone{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:8px;background:#fff}
+.qform-flag{display:flex;align-items:center;gap:3px;padding:0 10px;border-right:1px solid var(--line);flex:none;color:#7a7a7a}
+.qform-flag svg{width:18px;height:18px;stroke:#7a7a7a;stroke-width:1.4;fill:none}
+.qform-flag .qf-chev{width:8px;height:8px;stroke-width:2}
+.qform-phone-input{flex:1;min-width:0;border:0;border-radius:0 8px 8px 0;padding:12px 14px 12px 10px;font-size:14px;font-family:var(--font-b);background:transparent;color:var(--ink)}
+.qform-cancel{align-self:center;margin-top:2px}
+.qform-confirm{font-size:12.5px;color:#1a6b3c;background:#eaf7ee;border:1px solid #bfe3ca;border-radius:8px;padding:10px 12px;text-align:center}
+
 /* ---- instant quote: lightbox overlay ---- */
 .quote-modal-overlay{position:fixed;inset:0;background:rgba(20,20,20,.6);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
 .quote-modal-overlay[hidden]{display:none}
@@ -398,7 +415,7 @@ table.rv tr:last-child td{border-bottom:0}
       <button class="menu-btn" onclick="toggleNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a></li>
           <li class="has-drop"><a href="#">About</a>
             <ul class="drop"><li><a href="#">About Us</a></li><li><a href="#">Our Process</a></li></ul>
           </li>
@@ -408,9 +425,7 @@ table.rv tr:last-child td{border-bottom:0}
           <li class="has-drop"><a href="#">Paradies Brands</a>
             <ul class="drop"><li><a href="#">Paradies &amp; Company</a></li><li><a href="#">Paradies Gifts</a></li><li><a href="#">Kid-U-Not</a></li></ul>
           </li>
-          <li class="has-drop current"><a href="#">Shop</a>
-            <ul class="drop"><li><a href="#">Apparel</a></li><li><a href="#">Headwear</a></li><li><a href="#">Bags</a></li><li><a href="#">Outdoor</a></li></ul>
-          </li>
+          <li class="current"><a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </nav>
@@ -459,7 +474,7 @@ table.rv tr:last-child td{border-bottom:0}
       <button class="menu-btn" onclick="toggleNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a></li>
           <li class="has-drop"><a href="#">About</a>
             <ul class="drop"><li><a href="#">About Us</a></li><li><a href="#">Our Process</a></li></ul>
           </li>
@@ -469,9 +484,7 @@ table.rv tr:last-child td{border-bottom:0}
           <li class="has-drop"><a href="#">Paradies Brands</a>
             <ul class="drop"><li><a href="#">Paradies &amp; Company</a></li><li><a href="#">Paradies Gifts</a></li><li><a href="#">Kid-U-Not</a></li></ul>
           </li>
-          <li class="has-drop current"><a href="#">Shop</a>
-            <ul class="drop"><li><a href="#">Apparel</a></li><li><a href="#">Headwear</a></li><li><a href="#">Bags</a></li><li><a href="#">Outdoor</a></li></ul>
-          </li>
+          <li class="current"><a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </nav>
@@ -479,7 +492,7 @@ table.rv tr:last-child td{border-bottom:0}
   </header>
 
   <div class="shop-subnav"><div class="wrap subnav-row">
-    <div class="crumb">Home / <b>Shop</b></div>
+    <div class="crumb"><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a> / <b>Shop</b></div>
     <div class="steps">
       <button type="button" class="step-btn s here" onclick="showScreen(2)"><span class="n">1</span><span class="lbl">Browse</span></button><span class="sep"></span>
       <button type="button" class="step-btn s" onclick="showScreen(3)"><span class="n">2</span><span class="lbl">Category</span></button><span class="sep"></span>
@@ -556,7 +569,7 @@ table.rv tr:last-child td{border-bottom:0}
   <div class="wrap">
     <div class="page-head-center">
       <div class="sample-tag">Sample catalog — illustrative products &amp; prices</div>
-      <div class="crumb-c">Home / <b>Products</b></div>
+      <div class="crumb-c"><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a> / <b>Products</b></div>
       <h1>All Products</h1>
       <p class="pd-sub">Browse every category we decorate, from everyday tees to bags and headwear. Pick a category or scroll the collections below, then choose a product to get a quantity-based price.</p>
     </div>
@@ -688,7 +701,7 @@ table.rv tr:last-child td{border-bottom:0}
       <button class="menu-btn" onclick="toggleNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a></li>
           <li class="has-drop"><a href="#">About</a>
             <ul class="drop"><li><a href="#">About Us</a></li><li><a href="#">Our Process</a></li></ul>
           </li>
@@ -698,9 +711,7 @@ table.rv tr:last-child td{border-bottom:0}
           <li class="has-drop"><a href="#">Paradies Brands</a>
             <ul class="drop"><li><a href="#">Paradies &amp; Company</a></li><li><a href="#">Paradies Gifts</a></li><li><a href="#">Kid-U-Not</a></li></ul>
           </li>
-          <li class="has-drop current"><a href="#">Shop</a>
-            <ul class="drop"><li><a href="#">Apparel</a></li><li><a href="#">Headwear</a></li><li><a href="#">Bags</a></li><li><a href="#">Outdoor</a></li></ul>
-          </li>
+          <li class="current"><a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </nav>
@@ -708,7 +719,7 @@ table.rv tr:last-child td{border-bottom:0}
   </header>
 
   <div class="shop-subnav"><div class="wrap subnav-row">
-    <div class="crumb">Home / Shop / <b>T-Shirts</b></div>
+    <div class="crumb"><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a> / <a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a> / <b>T-Shirts</b></div>
     <div class="steps">
       <button type="button" class="step-btn s done" onclick="showScreen(2)"><span class="n">✓</span><span class="lbl">Browse</span></button><span class="sep"></span>
       <button type="button" class="step-btn s here" onclick="showScreen(3)"><span class="n">2</span><span class="lbl">Category</span></button><span class="sep"></span>
@@ -785,7 +796,7 @@ table.rv tr:last-child td{border-bottom:0}
   <div class="wrap">
     <div class="page-head-center">
       <div class="sample-tag">Sample category — illustrative products &amp; prices</div>
-      <div class="crumb-c">Home / Products / <b>T-Shirts</b></div>
+      <div class="crumb-c"><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a> / <a href="#" onclick="event.preventDefault();showScreen(2);">Products</a> / <b>T-Shirts</b></div>
       <h1>T-Shirts</h1>
       <p class="pd-sub">Short sleeve, long sleeve and specialty tees, all ready for screen print or embroidery. Pick a style to choose colors and get a quantity-based price.</p>
     </div>
@@ -845,7 +856,7 @@ table.rv tr:last-child td{border-bottom:0}
       <button class="menu-btn" onclick="toggleNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a></li>
           <li class="has-drop"><a href="#">About</a>
             <ul class="drop"><li><a href="#">About Us</a></li><li><a href="#">Our Process</a></li></ul>
           </li>
@@ -855,9 +866,7 @@ table.rv tr:last-child td{border-bottom:0}
           <li class="has-drop"><a href="#">Paradies Brands</a>
             <ul class="drop"><li><a href="#">Paradies &amp; Company</a></li><li><a href="#">Paradies Gifts</a></li><li><a href="#">Kid-U-Not</a></li></ul>
           </li>
-          <li class="has-drop current"><a href="#">Shop</a>
-            <ul class="drop"><li><a href="#">Apparel</a></li><li><a href="#">Headwear</a></li><li><a href="#">Bags</a></li><li><a href="#">Outdoor</a></li></ul>
-          </li>
+          <li class="current"><a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </nav>
@@ -865,7 +874,7 @@ table.rv tr:last-child td{border-bottom:0}
   </header>
 
   <div class="shop-subnav"><div class="wrap subnav-row">
-    <div class="crumb">Home / Shop / T-Shirts / <b>Ultra Cotton Short Sleeve Tee</b></div>
+    <div class="crumb"><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a> / <a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a> / <a href="#" onclick="event.preventDefault();showScreen(3);">T-Shirts</a> / <b>Ultra Cotton Short Sleeve Tee</b></div>
     <div class="steps">
       <button type="button" class="step-btn s done" onclick="showScreen(2)"><span class="n">✓</span><span class="lbl">Browse</span></button><span class="sep"></span>
       <button type="button" class="step-btn s done" onclick="showScreen(3)"><span class="n">✓</span><span class="lbl">Category</span></button><span class="sep"></span>
@@ -1105,23 +1114,41 @@ table.rv tr:last-child td{border-bottom:0}
           <h2>Your instant quote:</h2>
           <div class="quote-big" id="qt-big-total">$—</div>
           <div class="quote-big-note">at <span id="qt-band-echo">50 - 99</span> units</div>
-          <div class="tbl-wrap qt-tbl-wrap">
-            <table class="rv qt-table">
-              <thead><tr><th>Quantity</th><th>Price / unit</th><th>Estimated total</th></tr></thead>
-              <tbody id="qt-tbody">
-                <tr id="qt-row-0"><td>20 - 35</td><td id="qt-rate-0">$—</td><td id="qt-total-0">$—</td></tr>
-                <tr id="qt-row-1"><td>36 - 49</td><td id="qt-rate-1">$—</td><td id="qt-total-1">$—</td></tr>
-                <tr id="qt-row-2"><td>50 - 99</td><td id="qt-rate-2">$—</td><td id="qt-total-2">$—</td></tr>
-                <tr id="qt-row-3"><td>100 - 199</td><td id="qt-rate-3">$—</td><td id="qt-total-3">$—</td></tr>
-                <tr id="qt-row-4"><td>200 - 499</td><td id="qt-rate-4">$—</td><td id="qt-total-4">$—</td></tr>
-                <tr id="qt-row-5"><td>500 - 999</td><td id="qt-rate-5">$—</td><td id="qt-total-5">$—</td></tr>
-                <tr id="qt-row-6"><td>1,000 - 1,999</td><td id="qt-rate-6">$—</td><td id="qt-total-6">$—</td></tr>
-                <tr id="qt-row-7"><td>2,000 - 4,999</td><td id="qt-rate-7">$—</td><td id="qt-total-7">$—</td></tr>
-                <tr id="qt-row-8"><td>5,000+</td><td id="qt-rate-8">—</td><td id="qt-total-8">Contact us for pricing</td></tr>
-              </tbody>
-            </table>
+          <div id="qt-table-view">
+            <div class="tbl-wrap qt-tbl-wrap">
+              <table class="rv qt-table">
+                <thead><tr><th>Quantity</th><th>Price / unit</th><th>Estimated total</th></tr></thead>
+                <tbody id="qt-tbody">
+                  <tr id="qt-row-0"><td>20 - 35</td><td id="qt-rate-0">$—</td><td id="qt-total-0">$—</td></tr>
+                  <tr id="qt-row-1"><td>36 - 49</td><td id="qt-rate-1">$—</td><td id="qt-total-1">$—</td></tr>
+                  <tr id="qt-row-2"><td>50 - 99</td><td id="qt-rate-2">$—</td><td id="qt-total-2">$—</td></tr>
+                  <tr id="qt-row-3"><td>100 - 199</td><td id="qt-rate-3">$—</td><td id="qt-total-3">$—</td></tr>
+                  <tr id="qt-row-4"><td>200 - 499</td><td id="qt-rate-4">$—</td><td id="qt-total-4">$—</td></tr>
+                  <tr id="qt-row-5"><td>500 - 999</td><td id="qt-rate-5">$—</td><td id="qt-total-5">$—</td></tr>
+                  <tr id="qt-row-6"><td>1,000 - 1,999</td><td id="qt-rate-6">$—</td><td id="qt-total-6">$—</td></tr>
+                  <tr id="qt-row-7"><td>2,000 - 4,999</td><td id="qt-rate-7">$—</td><td id="qt-total-7">$—</td></tr>
+                  <tr id="qt-row-8"><td>5,000+</td><td id="qt-rate-8">—</td><td id="qt-total-8">Contact us for pricing</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="note-box">Extended sizes (2XL, 3XL) add a small per-piece upcharge, shown next to those sizes above, on top of the rate shown here.</div>
           </div>
-          <div class="note-box">Extended sizes (2XL, 3XL) add a small per-piece upcharge, shown next to those sizes above, on top of the rate shown here.</div>
+
+          <div class="qform" id="qt-contact-form" hidden>
+            <input type="text" class="qform-input" id="qf-qty" placeholder="Estimated quantity" inputmode="numeric">
+            <input type="email" class="qform-input" id="qf-email" placeholder="Email address">
+            <div class="qform-phone">
+              <span class="qform-flag" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12 H21"/><path d="M12 3 Q16.5 12 12 21 Q7.5 12 12 3 Z"/></svg>
+                <svg class="qf-chev" viewBox="0 0 24 24"><path d="M6 9 L12 15 L18 9"/></svg>
+              </span>
+              <input type="tel" class="qform-phone-input" id="qf-phone" placeholder="Mobile phone">
+            </div>
+            <textarea class="qform-textarea" id="qf-notes" placeholder="Tell us about your project"></textarea>
+            <button type="button" class="btn block" id="qf-submit-btn" onclick="submitContactForm()">Submit</button>
+            <div class="qform-confirm" id="qf-confirm" hidden>Sample confirmation only — nothing was sent. A Paradies rep would follow up here.</div>
+            <button type="button" class="link-btn qform-cancel" onclick="cancelContactForm()">Cancel</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1150,7 +1177,7 @@ table.rv tr:last-child td{border-bottom:0}
       <button class="menu-btn" onclick="toggleNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a></li>
           <li class="has-drop"><a href="#">About</a>
             <ul class="drop"><li><a href="#">About Us</a></li><li><a href="#">Our Process</a></li></ul>
           </li>
@@ -1160,9 +1187,7 @@ table.rv tr:last-child td{border-bottom:0}
           <li class="has-drop"><a href="#">Paradies Brands</a>
             <ul class="drop"><li><a href="#">Paradies &amp; Company</a></li><li><a href="#">Paradies Gifts</a></li><li><a href="#">Kid-U-Not</a></li></ul>
           </li>
-          <li class="has-drop current"><a href="#">Shop</a>
-            <ul class="drop"><li><a href="#">Apparel</a></li><li><a href="#">Headwear</a></li><li><a href="#">Bags</a></li><li><a href="#">Outdoor</a></li></ul>
-          </li>
+          <li class="current"><a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </nav>
@@ -1170,7 +1195,7 @@ table.rv tr:last-child td{border-bottom:0}
   </header>
 
   <div class="shop-subnav"><div class="wrap subnav-row">
-    <div class="crumb">Home / Shop / T-Shirts / Ultra Cotton Short Sleeve Tee / <b>Placement</b></div>
+    <div class="crumb"><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a> / <a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a> / <a href="#" onclick="event.preventDefault();showScreen(3);">T-Shirts</a> / <a href="#" onclick="event.preventDefault();showScreen(4);">Ultra Cotton Short Sleeve Tee</a> / <b>Placement</b></div>
     <div class="steps">
       <button type="button" class="step-btn s done" onclick="showScreen(2)"><span class="n">✓</span><span class="lbl">Browse</span></button><span class="sep"></span>
       <button type="button" class="step-btn s done" onclick="showScreen(3)"><span class="n">✓</span><span class="lbl">Category</span></button><span class="sep"></span>
@@ -1267,7 +1292,7 @@ table.rv tr:last-child td{border-bottom:0}
       <button class="menu-btn" onclick="toggleNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a></li>
           <li class="has-drop"><a href="#">About</a>
             <ul class="drop"><li><a href="#">About Us</a></li><li><a href="#">Our Process</a></li></ul>
           </li>
@@ -1277,9 +1302,7 @@ table.rv tr:last-child td{border-bottom:0}
           <li class="has-drop"><a href="#">Paradies Brands</a>
             <ul class="drop"><li><a href="#">Paradies &amp; Company</a></li><li><a href="#">Paradies Gifts</a></li><li><a href="#">Kid-U-Not</a></li></ul>
           </li>
-          <li class="has-drop current"><a href="#">Shop</a>
-            <ul class="drop"><li><a href="#">Apparel</a></li><li><a href="#">Headwear</a></li><li><a href="#">Bags</a></li><li><a href="#">Outdoor</a></li></ul>
-          </li>
+          <li class="current"><a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </nav>
@@ -1287,7 +1310,7 @@ table.rv tr:last-child td{border-bottom:0}
   </header>
 
   <div class="shop-subnav"><div class="wrap subnav-row">
-    <div class="crumb">Home / Shop / T-Shirts / Ultra Cotton Short Sleeve Tee / <b>Upload Art</b></div>
+    <div class="crumb"><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a> / <a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a> / <a href="#" onclick="event.preventDefault();showScreen(3);">T-Shirts</a> / <a href="#" onclick="event.preventDefault();showScreen(4);">Ultra Cotton Short Sleeve Tee</a> / <b>Upload Art</b></div>
     <div class="steps">
       <button type="button" class="step-btn s done" onclick="showScreen(2)"><span class="n">✓</span><span class="lbl">Browse</span></button><span class="sep"></span>
       <button type="button" class="step-btn s done" onclick="showScreen(3)"><span class="n">✓</span><span class="lbl">Category</span></button><span class="sep"></span>
@@ -1375,7 +1398,7 @@ table.rv tr:last-child td{border-bottom:0}
       <button class="menu-btn" onclick="toggleNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a></li>
           <li class="has-drop"><a href="#">About</a>
             <ul class="drop"><li><a href="#">About Us</a></li><li><a href="#">Our Process</a></li></ul>
           </li>
@@ -1385,9 +1408,7 @@ table.rv tr:last-child td{border-bottom:0}
           <li class="has-drop"><a href="#">Paradies Brands</a>
             <ul class="drop"><li><a href="#">Paradies &amp; Company</a></li><li><a href="#">Paradies Gifts</a></li><li><a href="#">Kid-U-Not</a></li></ul>
           </li>
-          <li class="has-drop current"><a href="#">Shop</a>
-            <ul class="drop"><li><a href="#">Apparel</a></li><li><a href="#">Headwear</a></li><li><a href="#">Bags</a></li><li><a href="#">Outdoor</a></li></ul>
-          </li>
+          <li class="current"><a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </nav>
@@ -1395,7 +1416,7 @@ table.rv tr:last-child td{border-bottom:0}
   </header>
 
   <div class="shop-subnav"><div class="wrap subnav-row">
-    <div class="crumb">Home / Shop / <b>Review &amp; Submit</b></div>
+    <div class="crumb"><a href="#" onclick="event.preventDefault();showScreen(1);">Home</a> / <a href="#" onclick="event.preventDefault();showScreen(2);">Shop</a> / <b>Review &amp; Submit</b></div>
     <div class="steps">
       <button type="button" class="step-btn s done" onclick="showScreen(2)"><span class="n">✓</span><span class="lbl">Browse</span></button><span class="sep"></span>
       <button type="button" class="step-btn s done" onclick="showScreen(3)"><span class="n">✓</span><span class="lbl">Category</span></button><span class="sep"></span>
@@ -1538,7 +1559,11 @@ function renderQuote(){
     if(!rateEl || !totalEl || !row) continue;
     if(rate === null){
       rateEl.textContent = '—';
-      totalEl.textContent = 'Contact us for pricing';
+      if(i === 8){
+        totalEl.innerHTML = '<a href="#" class="qt-contact-link" onclick="event.preventDefault();openContactForm();">Contact us for pricing<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6 L15 12 L9 18"/></svg></a>';
+      } else {
+        totalEl.textContent = 'Contact us for pricing';
+      }
     } else {
       rateEl.textContent = money(rate);
       totalEl.textContent = money(rate * QUANT_MIN[i]);
@@ -1648,11 +1673,49 @@ function handleDrop(e){
   handleFiles(e.dataTransfer.files, 'filelist');
 }
 
+/* ---- instant quote: "contact us" inline form (swaps in for the tier table + note) ---- */
+function openContactForm(){
+  var tableView = document.getElementById('qt-table-view');
+  var form = document.getElementById('qt-contact-form');
+  if(!tableView || !form) return;
+  tableView.hidden = true;
+  form.hidden = false;
+}
+function cancelContactForm(){
+  var tableView = document.getElementById('qt-table-view');
+  var form = document.getElementById('qt-contact-form');
+  if(!tableView || !form) return;
+  form.hidden = true;
+  tableView.hidden = false;
+}
+function resetContactForm(){
+  ['qf-qty','qf-email','qf-phone','qf-notes'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.value = '';
+  });
+  var confirm = document.getElementById('qf-confirm');
+  if(confirm) confirm.hidden = true;
+  var submitBtn = document.getElementById('qf-submit-btn');
+  if(submitBtn) submitBtn.hidden = false;
+  var tableView = document.getElementById('qt-table-view');
+  var form = document.getElementById('qt-contact-form');
+  if(form) form.hidden = true;
+  if(tableView) tableView.hidden = false;
+}
+function submitContactForm(){
+  /* Sample-only: no action target, no fetch, no mailto, nothing stored or transmitted. */
+  var confirm = document.getElementById('qf-confirm');
+  var submitBtn = document.getElementById('qf-submit-btn');
+  if(confirm) confirm.hidden = false;
+  if(submitBtn) submitBtn.hidden = true;
+}
+
 /* ---- instant quote: lightbox overlay ---- */
 function openQuoteModal(){
   var overlay = document.getElementById('quote-modal-overlay');
   if(!overlay) return;
   overlay.hidden = false;
+  resetContactForm();
   renderQuote();
 }
 function closeQuoteModal(){
