@@ -665,6 +665,12 @@
       tbody tr:last-child td { border-bottom: none; }
       td.name { color: var(--ink); font-weight: 600; }
       tbody tr:hover td { background: color-mix(in srgb, var(--accent-wash) 40%, transparent); }
+
+      #tip { max-width: 340px; }
+      #tip .tip-h { margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--line-soft); }
+      #tip .tip-h b { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+        color: var(--ink-faint); display: block; margin-bottom: 2px; }
+      #tip .tip-h span { font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); line-height: 1.45; }
 </style>
   </head>
   <body>
@@ -733,7 +739,7 @@
         <div class="mapwrap">
           <div class="map" data-board="rep">
             <div
-              data-d="Every call, email and meeting the rep has logged on their target accounts since the list went live." class="t short g1" data-g="A"
+              data-h="Tasks and Events on accounts where Outbound_Target__c = true, ActivityDate on or after 8/5, owner = viewer." data-d="Every call, email and meeting the rep has logged on their target accounts since the list went live." class="t short g1" data-g="A"
               style="grid-column: 1 / span 6; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -741,7 +747,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="How many of the rep's 500 accounts have had no activity at all." class="t short g1" data-g="A"
+              data-h="Target accounts whose latest ActivityDate is before 8/5 or blank." data-d="How many of the rep's 500 accounts have had no activity at all." class="t short g1" data-g="A"
               style="grid-column: 7 / span 6; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -749,7 +755,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="The rep's activity week by week. Shows whether outreach is steady or bursty." class="t g2" data-g="B"
+              data-h="Same activity records, grouped by ActivityDate week." data-d="The rep's activity week by week. Shows whether outreach is steady or bursty." class="t g2" data-g="B"
               style="grid-column: 1 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">B</div>
@@ -757,7 +763,7 @@
               <div class="tk">column chart</div>
             </div>
             <div
-              data-d="Where the rep's untouched accounts sit across Enterprise, Mid-Market and SMB." class="t g3" data-g="C"
+              data-h="Untouched targets grouped by Account_Segment__c." data-d="Where the rep's untouched accounts sit across Enterprise, Mid-Market and SMB." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">C</div>
@@ -765,7 +771,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="Good fit, bad fit or maybe, as judged by the rep on the account record." class="t g4" data-g="D"
+              data-h="Accounts where Rep_Fit_Verdict__c is not blank, grouped by its value." data-d="Good fit, bad fit or maybe, as judged by the rep on the account record." class="t g4" data-g="D"
               style="grid-column: 1 / span 6; grid-row: 13 / span 8"
             >
               <div class="tn">D</div>
@@ -773,7 +779,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              data-d="Deals currently open on accounts from the target list." class="t short g5" data-g="E"
+              data-h="Opportunities where IsClosed = false on target accounts." data-d="Deals currently open on accounts from the target list." class="t short g5" data-g="E"
               style="grid-column: 7 / span 6; grid-row: 13 / span 4"
             >
               <div class="tn">E</div>
@@ -781,7 +787,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="New deals opened on target accounts since the list went live." class="t short g5" data-g="E"
+              data-h="Opportunities on target accounts with CreatedDate on or after 8/5." data-d="New deals opened on target accounts since the list went live." class="t short g5" data-g="E"
               style="grid-column: 7 / span 6; grid-row: 17 / span 4"
             >
               <div class="tn">E</div>
@@ -789,7 +795,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="The rep's top accounts by number of logged activities. Counts activities, not people." class="t g2" data-g="B"
+              data-h="Activity record count per account. Counts activities, not distinct contacts." data-d="The rep's top accounts by number of logged activities. Counts activities, not people." class="t g2" data-g="B"
               style="grid-column: 1 / span 12; grid-row: 21 / span 8"
             >
               <div class="tn">B</div>
@@ -797,7 +803,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="The rep's untouched accounts in priority order, worked from the top down." class="t g3" data-g="C"
+              data-h="Untouched targets sorted by List_Rank__c descending." data-d="The rep's untouched accounts in priority order, worked from the top down." class="t g3" data-g="C"
               style="grid-column: 1 / span 12; grid-row: 29 / span 10"
             >
               <div class="tn">C</div>
@@ -807,7 +813,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              data-d="All 500 of the rep's accounts by status. Updates itself as deals and sequences progress." class="t g6" data-g="F"
+              data-h="All owned targets grouped by Account_status__c." data-d="All 500 of the rep's accounts by status. Updates itself as deals and sequences progress." class="t g6" data-g="F"
               style="grid-column: 1 / span 5; grid-row: 39 / span 8"
             >
               <div class="tn">F</div>
@@ -815,7 +821,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              data-d="High-ranked accounts the rep has not touched in three months." class="t g3" data-g="C"
+              data-h="Targets with latest ActivityDate older than 90 days or blank, sorted by List_Rank__c." data-d="High-ranked accounts the rep has not touched in three months." class="t g3" data-g="C"
               style="grid-column: 6 / span 7; grid-row: 39 / span 8"
             >
               <div class="tn">C</div>
@@ -933,7 +939,7 @@
         <div class="mapwrap">
           <div class="map" data-board="mgr">
             <div
-              data-d="Every activity logged across the team on the 1,500 target accounts." class="t short g1" data-g="A"
+              data-h="All Tasks and Events on target accounts, ActivityDate on or after 8/5." data-d="Every activity logged across the team on the 1,500 target accounts." class="t short g1" data-g="A"
               style="grid-column: 1 / span 4; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -941,7 +947,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="How many of the 1,500 have had at least one activity." class="t short g1" data-g="A"
+              data-h="Distinct target accounts with at least one activity since 8/5." data-d="How many of the 1,500 have had at least one activity." class="t short g1" data-g="A"
               style="grid-column: 5 / span 4; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -949,7 +955,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="Total fit verdicts the team has recorded on target accounts." class="t short g1" data-g="A"
+              data-h="Count of target accounts where Rep_Fit_Verdict__c is not blank." data-d="Total fit verdicts the team has recorded on target accounts." class="t short g1" data-g="A"
               style="grid-column: 9 / span 4; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -957,7 +963,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="Activity volume per rep. Shows who is working the list hardest." class="t g2" data-g="B"
+              data-h="Same activity records, grouped by activity Owner." data-d="Activity volume per rep. Shows who is working the list hardest." class="t g2" data-g="B"
               style="grid-column: 1 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">B</div>
@@ -965,7 +971,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="Team activity week by week across the whole list." class="t g2" data-g="B"
+              data-h="Same activity records, grouped by ActivityDate week." data-d="Team activity week by week across the whole list." class="t g2" data-g="B"
               style="grid-column: 7 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">B</div>
@@ -973,7 +979,7 @@
               <div class="tk">column</div>
             </div>
             <div
-              data-d="Accounts each AE has worked at least once." class="t g2" data-g="B"
+              data-h="Target accounts with activity since 8/5, grouped by Account Owner." data-d="Accounts each AE has worked at least once." class="t g2" data-g="B"
               style="grid-column: 1 / span 4; grid-row: 13 / span 8"
             >
               <div class="tn">B</div>
@@ -981,7 +987,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="Accounts each AE has never touched. Reads as a pair with the chart beside it." class="t g2" data-g="B"
+              data-h="Targets with no activity since 8/5, grouped by Account Owner." data-d="Accounts each AE has never touched. Reads as a pair with the chart beside it." class="t g2" data-g="B"
               style="grid-column: 5 / span 4; grid-row: 13 / span 8"
             >
               <div class="tn">B</div>
@@ -989,7 +995,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="The team's fit judgements split into good, bad and maybe." class="t g4" data-g="D"
+              data-h="Target accounts grouped by Rep_Fit_Verdict__c value." data-d="The team's fit judgements split into good, bad and maybe." class="t g4" data-g="D"
               style="grid-column: 9 / span 4; grid-row: 13 / span 8"
             >
               <div class="tn">D</div>
@@ -997,7 +1003,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              data-d="Progress against the 500-per-segment goal, one bar per segment." class="t g3" data-g="C"
+              data-h="Touched targets grouped by Account_Segment__c, against 500 per segment." data-d="Progress against the 500-per-segment goal, one bar per segment." class="t g3" data-g="C"
               style="grid-column: 1 / span 6; grid-row: 21 / span 8"
             >
               <div class="tn">C</div>
@@ -1005,7 +1011,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="Accounts absorbing the most activity team-wide. Counts activities, not people." class="t g3" data-g="C"
+              data-h="Activity record count per account, team-wide. Counts activities, not contacts." data-d="Accounts absorbing the most activity team-wide. Counts activities, not people." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 21 / span 8"
             >
               <div class="tn">C</div>
@@ -1013,7 +1019,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="Progress toward working every target account before the quarter closes." class="t g3" data-g="C"
+              data-h="Touched target count as a gauge from 0 to 1,500." data-d="Progress toward working every target account before the quarter closes." class="t g3" data-g="C"
               style="grid-column: 1 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">C</div>
@@ -1021,7 +1027,7 @@
               <div class="tk">gauge</div>
             </div>
             <div
-              data-d="How the 1,500 accounts split across industry verticals." class="t g6" data-g="F"
+              data-h="All 1,500 targets grouped by Store_Leads_Vertical__c." data-d="How the 1,500 accounts split across industry verticals." class="t g6" data-g="F"
               style="grid-column: 4 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">F</div>
@@ -1029,7 +1035,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="Which subscription platform each target runs today." class="t g6" data-g="F"
+              data-h="Installed Apps records with category containing subscription and no uninstall date." data-d="Which subscription platform each target runs today." class="t g6" data-g="F"
               style="grid-column: 7 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">F</div>
@@ -1037,7 +1043,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="Distinct people reached per account, against the depth guide in the header." class="t g3" data-g="C"
+              data-h="Distinct count of the Contact on each activity, per account." data-d="Distinct people reached per account, against the depth guide in the header." class="t g3" data-g="C"
               style="grid-column: 10 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">C</div>
@@ -1045,7 +1051,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="Count of deals currently open across the target list." class="t short g5" data-g="E"
+              data-h="Opportunities where IsClosed = false on target accounts." data-d="Count of deals currently open across the target list." class="t short g5" data-g="E"
               style="grid-column: 1 / span 4; grid-row: 37 / span 4"
             >
               <div class="tn">E</div>
@@ -1053,7 +1059,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="Dollar value of open pipeline sourced from targets, split by stage." class="t g5" data-g="E"
+              data-h="Sum of Amount on open target Opportunities, grouped by StageName." data-d="Dollar value of open pipeline sourced from targets, split by stage." class="t g5" data-g="E"
               style="grid-column: 5 / span 4; grid-row: 37 / span 8"
             >
               <div class="tn">E</div>
@@ -1061,7 +1067,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="New deals opened on target accounts since the list went live." class="t short g5" data-g="E"
+              data-h="Opportunities on target accounts with CreatedDate on or after 8/5." data-d="New deals opened on target accounts since the list went live." class="t short g5" data-g="E"
               style="grid-column: 9 / span 4; grid-row: 37 / span 4"
             >
               <div class="tn">E</div>
@@ -1069,7 +1075,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="Every target account by status. No blanks remain." class="t g6" data-g="F"
+              data-h="All targets grouped by Account_status__c. No blanks remain." data-d="Every target account by status. No blanks remain." class="t g6" data-g="F"
               style="grid-column: 1 / span 4; grid-row: 45 / span 8"
             >
               <div class="tn">F</div>
@@ -1077,7 +1083,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              data-d="Distinct accounts carrying at least one open deal." class="t short g5" data-g="E"
+              data-h="Distinct account count across open target Opportunities." data-d="Distinct accounts carrying at least one open deal." class="t short g5" data-g="E"
               style="grid-column: 5 / span 4; grid-row: 45 / span 4"
             >
               <div class="tn">E</div>
@@ -1085,7 +1091,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-d="Pipeline value by the platform the merchant runs. Fills in as that field gets set." class="t g5" data-g="E"
+              data-h="Sum of Amount on open target Opportunities, grouped by Current_Subscription_Platform__c." data-d="Pipeline value by the platform the merchant runs. Fills in as that field gets set." class="t g5" data-g="E"
               style="grid-column: 9 / span 4; grid-row: 45 / span 8"
             >
               <div class="tn">E</div>
@@ -1093,7 +1099,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-d="High-ranked accounts with no activity in three months." class="t g3" data-g="C"
+              data-h="Targets with latest ActivityDate older than 90 days or blank." data-d="High-ranked accounts with no activity in three months." class="t g3" data-g="C"
               style="grid-column: 1 / span 6; grid-row: 53 / span 8"
             >
               <div class="tn">C</div>
@@ -1101,7 +1107,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              data-d="High-ranked accounts with no activity in six months." class="t g3" data-g="C"
+              data-h="Targets with latest ActivityDate older than 180 days or blank." data-d="High-ranked accounts with no activity in six months." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 53 / span 8"
             >
               <div class="tn">C</div>
@@ -1109,7 +1115,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              data-d="How many accounts each rep moved between statuses each week. Excludes the one-time cleanup." class="t g4" data-g="D"
+              data-h="Account field history on Account Status, grouped by who made the change. Excludes the backfill." data-d="How many accounts each rep moved between statuses each week. Excludes the one-time cleanup." class="t g4" data-g="D"
               style="grid-column: 1 / span 12; grid-row: 61 / span 8"
             >
               <div class="tn">D</div>
@@ -1327,9 +1333,9 @@
   var GC = { A:'--g1', B:'--g2', C:'--g3', D:'--g4', E:'--g5', F:'--g6' };
   var tip = document.createElement('div');
   tip.id = 'tip';
-  tip.innerHTML = '<div class="tip-t"></div><p class="tip-d"></p>';
+  tip.innerHTML = '<div class="tip-t"></div><p class="tip-d"></p><div class="tip-h"><b>How</b><span></span></div>';
   document.body.appendChild(tip);
-  var tt = tip.querySelector('.tip-t'), td = tip.querySelector('.tip-d');
+  var tt = tip.querySelector('.tip-t'), td = tip.querySelector('.tip-d'), th = tip.querySelector('.tip-h'), ths = th.querySelector('span');
 
   function place(e) {
     var pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
@@ -1344,6 +1350,8 @@
     var lab = el.querySelector('.tl');
     tt.textContent = lab ? lab.textContent.trim() : '';
     td.textContent = d;
+    var h = el.getAttribute('data-h');
+    if (h) { ths.textContent = h; th.style.display = 'block'; } else { th.style.display = 'none'; }
     var g = el.getAttribute('data-g');
     tip.style.borderLeftColor = g ? getComputedStyle(document.documentElement).getPropertyValue(GC[g]).trim() : '';
     tip.classList.add('on');
