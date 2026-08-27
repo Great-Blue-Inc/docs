@@ -642,24 +642,29 @@
       .t.short .tk { display: none; }
       .t.short .tl { font-size: 10px; margin-top: 1px; }
 
-      /* hover-to-reveal */
-      .map .t { cursor: default; transition: opacity .12s, transform .12s, box-shadow .12s; }
-      .map.hovering .t { opacity: .26; }
-      .map.hovering .t.on { opacity: 1; transform: translateY(-1px); box-shadow: 0 4px 14px -6px rgba(0,0,0,.4); }
-      .hp { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px;
-        background: var(--surface); box-shadow: var(--shadow); padding: 14px 18px; margin: 10px 0 4px; min-height: 132px; }
-      .hp-empty { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase;
-        color: var(--ink-faint); padding: 22px 0; text-align: center; }
-      .hp-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-      .hp-badge { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
-      .hp-nm { font-weight: 700; color: var(--ink); font-size: 1rem; }
-      .hp-ds { font-size: .9rem; color: var(--ink-soft); margin: 0 0 7px; }
-      .hp-tiles { font-family: var(--mono); font-size: .76rem; color: var(--ink-faint); line-height: 1.5; margin-bottom: 8px; }
-      .hp-say { font-size: .88rem; color: var(--ink); background: var(--surface-2); border-radius: 7px; padding: 8px 11px; }
-      .hp-say b { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
-        color: var(--ink-faint); display: block; margin-bottom: 3px; }
-      @media (max-width: 720px) { .hp { min-height: 168px; } }
-      @media print { .map.hovering .t { opacity: 1; } .hp { display: none; } }
+      /* floating tile tooltip */
+      .map .t { cursor: help; transition: box-shadow .12s, transform .12s; }
+      .map .t:hover, .map .t:focus-visible { transform: translateY(-1px);
+        box-shadow: 0 0 0 2px currentColor, 0 6px 18px -8px rgba(0,0,0,.45); z-index: 3; }
+      #tip { position: fixed; z-index: 999; max-width: 300px; pointer-events: none; opacity: 0;
+        transition: opacity .1s; background: var(--surface); color: var(--ink);
+        border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 9px;
+        padding: 10px 13px; box-shadow: 0 6px 26px -8px rgba(0,0,0,.45); font-size: .84rem; line-height: 1.45; }
+      #tip.on { opacity: 1; }
+      #tip .tip-t { font-weight: 700; font-size: .86rem; margin-bottom: 3px; color: var(--ink); }
+      #tip .tip-d { color: var(--ink-soft); margin: 0; }
+      @media print { #tip { display: none; } }
+
+      .tbl-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; margin: 16px 0;
+        background: var(--surface); box-shadow: var(--shadow); }
+      table { width: 100%; border-collapse: collapse; font-size: .88rem; min-width: 460px; }
+      thead th { font-family: var(--mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase;
+        color: var(--ink-faint); text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line);
+        background: var(--surface-2); font-weight: 600; }
+      tbody td { padding: 11px 16px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); vertical-align: top; }
+      tbody tr:last-child td { border-bottom: none; }
+      td.name { color: var(--ink); font-weight: 600; }
+      tbody tr:hover td { background: color-mix(in srgb, var(--accent-wash) 40%, transparent); }
 </style>
   </head>
   <body>
@@ -702,7 +707,8 @@
       <div class="wrap toc-inner">
         <a href="#s1"><span class="num">01</span>Rep board</a>
         <a href="#s2"><span class="num">02</span>Manager board</a>
-        <a href="#s3"><span class="num">03</span>How they connect</a>
+        <a href="#s3"><span class="num">03</span>Asks covered</a>
+          <a href="#s4"><span class="num">04</span>How they connect</a>
         <span class="spacer"></span>
         <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
       </div>
@@ -722,12 +728,12 @@
         </p>
 
         <p class="maphint">
-          Board layout, top to bottom. Hover any tile to see what its group is for.
+          Board layout, top to bottom. Hover any tile to see what it shows.
         </p>
         <div class="mapwrap">
           <div class="map" data-board="rep">
             <div
-              class="t short g1" data-g="A"
+              data-d="Every call, email and meeting logged on your target accounts since the list went live." class="t short g1" data-g="A"
               style="grid-column: 1 / span 6; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -735,7 +741,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t short g1" data-g="A"
+              data-d="How many of your 500 accounts have had no activity at all." class="t short g1" data-g="A"
               style="grid-column: 7 / span 6; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -743,7 +749,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t g2" data-g="B"
+              data-d="Your activity week by week. Shows whether outreach is steady or bursty." class="t g2" data-g="B"
               style="grid-column: 1 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">B</div>
@@ -751,7 +757,7 @@
               <div class="tk">column chart</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="Where your untouched accounts sit across Enterprise, Mid-Market and SMB." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">C</div>
@@ -759,7 +765,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g4" data-g="D"
+              data-d="Good fit, bad fit or maybe, as judged by you on the account record." class="t g4" data-g="D"
               style="grid-column: 1 / span 6; grid-row: 13 / span 8"
             >
               <div class="tn">D</div>
@@ -767,7 +773,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              class="t short g5" data-g="E"
+              data-d="Deals currently open on accounts from the target list." class="t short g5" data-g="E"
               style="grid-column: 7 / span 6; grid-row: 13 / span 4"
             >
               <div class="tn">E</div>
@@ -775,7 +781,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t short g5" data-g="E"
+              data-d="New deals opened on target accounts since the list went live." class="t short g5" data-g="E"
               style="grid-column: 7 / span 6; grid-row: 17 / span 4"
             >
               <div class="tn">E</div>
@@ -783,7 +789,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t g2" data-g="B"
+              data-d="Your top accounts by number of logged activities. Counts activities, not people." class="t g2" data-g="B"
               style="grid-column: 1 / span 12; grid-row: 21 / span 8"
             >
               <div class="tn">B</div>
@@ -791,7 +797,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="Your untouched accounts in priority order. Work straight down the list." class="t g3" data-g="C"
               style="grid-column: 1 / span 12; grid-row: 29 / span 10"
             >
               <div class="tn">C</div>
@@ -801,7 +807,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              class="t g6" data-g="F"
+              data-d="All 500 of your accounts by status. Updates itself as deals and sequences progress." class="t g6" data-g="F"
               style="grid-column: 1 / span 5; grid-row: 39 / span 8"
             >
               <div class="tn">F</div>
@@ -809,7 +815,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="High-ranked accounts you have not touched in three months." class="t g3" data-g="C"
               style="grid-column: 6 / span 7; grid-row: 39 / span 8"
             >
               <div class="tn">C</div>
@@ -819,8 +825,7 @@
           </div>
         </div>
 
-        <div class="hp" data-for="rep" aria-live="polite"><div class="hp-empty">Hover any tile above to see what that group is for</div><div class="hp-body" hidden><div class="hp-top"><span class="hp-badge"></span><span class="hp-nm"></span></div><p class="hp-ds"></p><div class="hp-tiles"></div><div class="hp-say"><b>On the call</b><span></span></div></div></div>
-          <div class="legend">
+        <div class="legend">
           <div class="lg lg1">
             <div class="badge">A</div>
             <div>
@@ -831,10 +836,6 @@
               </p>
               <div class="tiles">
                 Activities on my targets since 8/5 · My untouched targets
-              </div>
-              <div class="say">
-                <b>On the call</b>These two are the whole board in one line. The
-                second number is the one that should shrink week over week.
               </div>
             </div>
           </div>
@@ -854,10 +855,6 @@
                 Weekly activity on my targets · My most-worked accounts (by
                 activity)
               </div>
-              <div class="say">
-                <b>Worth flagging</b>Most-worked counts activities, not people.
-                Depth of contacts is a separate question on the manager board.
-              </div>
             </div>
           </div>
 
@@ -875,10 +872,6 @@
                 My next targets by segment · My next accounts (by List Rank) ·
                 My top targets untouched 90+ days
               </div>
-              <div class="say">
-                <b>On the call</b>This is the daily driver. Open the ranked
-                table and work top down. No sorting or thinking required.
-              </div>
             </div>
           </div>
 
@@ -891,11 +884,6 @@
                 maybe, plus the written reasoning where it was given.
               </p>
               <div class="tiles">My fit verdicts logged</div>
-              <div class="say">
-                <b>Ask of the team</b>Log verdicts on the account record from
-                here on. They feed this tile and the next list refresh
-                automatically.
-              </div>
             </div>
           </div>
 
@@ -923,11 +911,6 @@
                 opportunity, nurture, disqualified, closed lost.
               </p>
               <div class="tiles">My portfolio by account status</div>
-              <div class="say">
-                <b>Worth flagging</b>Status now updates itself as deals close
-                and contacts get sequenced, so this stays current without anyone
-                maintaining it.
-              </div>
             </div>
           </div>
         </div>
@@ -945,12 +928,12 @@
         </p>
 
         <p class="maphint">
-          Board layout, top to bottom. Hover any tile to see what its group is for.
+          Board layout, top to bottom. Hover any tile to see what it shows.
         </p>
         <div class="mapwrap">
           <div class="map" data-board="mgr">
             <div
-              class="t short g1" data-g="A"
+              data-d="Every activity logged across the team on the 1,500 target accounts." class="t short g1" data-g="A"
               style="grid-column: 1 / span 4; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -958,7 +941,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t short g1" data-g="A"
+              data-d="How many of the 1,500 have had at least one activity." class="t short g1" data-g="A"
               style="grid-column: 5 / span 4; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -966,7 +949,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t short g1" data-g="A"
+              data-d="Total fit verdicts the team has recorded on target accounts." class="t short g1" data-g="A"
               style="grid-column: 9 / span 4; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -974,7 +957,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t g2" data-g="B"
+              data-d="Activity volume per rep. Shows who is working the list hardest." class="t g2" data-g="B"
               style="grid-column: 1 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">B</div>
@@ -982,7 +965,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g2" data-g="B"
+              data-d="Team activity week by week across the whole list." class="t g2" data-g="B"
               style="grid-column: 7 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">B</div>
@@ -990,7 +973,7 @@
               <div class="tk">column</div>
             </div>
             <div
-              class="t g2" data-g="B"
+              data-d="Accounts each AE has worked at least once." class="t g2" data-g="B"
               style="grid-column: 1 / span 4; grid-row: 13 / span 8"
             >
               <div class="tn">B</div>
@@ -998,7 +981,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g2" data-g="B"
+              data-d="Accounts each AE has never touched. Reads as a pair with the chart beside it." class="t g2" data-g="B"
               style="grid-column: 5 / span 4; grid-row: 13 / span 8"
             >
               <div class="tn">B</div>
@@ -1006,7 +989,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g4" data-g="D"
+              data-d="The team's fit judgements split into good, bad and maybe." class="t g4" data-g="D"
               style="grid-column: 9 / span 4; grid-row: 13 / span 8"
             >
               <div class="tn">D</div>
@@ -1014,7 +997,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="Progress against the 500-per-segment goal, one bar per segment." class="t g3" data-g="C"
               style="grid-column: 1 / span 6; grid-row: 21 / span 8"
             >
               <div class="tn">C</div>
@@ -1022,7 +1005,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="Accounts absorbing the most activity team-wide. Counts activities, not people." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 21 / span 8"
             >
               <div class="tn">C</div>
@@ -1030,7 +1013,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="Progress toward working every target account before the quarter closes." class="t g3" data-g="C"
               style="grid-column: 1 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">C</div>
@@ -1038,7 +1021,7 @@
               <div class="tk">gauge</div>
             </div>
             <div
-              class="t g6" data-g="F"
+              data-d="How the 1,500 accounts split across industry verticals." class="t g6" data-g="F"
               style="grid-column: 4 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">F</div>
@@ -1046,7 +1029,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g6" data-g="F"
+              data-d="Which subscription platform each target runs today." class="t g6" data-g="F"
               style="grid-column: 7 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">F</div>
@@ -1054,7 +1037,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="Distinct people reached per account, against the depth guide in the header." class="t g3" data-g="C"
               style="grid-column: 10 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">C</div>
@@ -1062,7 +1045,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t short g5" data-g="E"
+              data-d="Count of deals currently open across the target list." class="t short g5" data-g="E"
               style="grid-column: 1 / span 4; grid-row: 37 / span 4"
             >
               <div class="tn">E</div>
@@ -1070,7 +1053,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t g5" data-g="E"
+              data-d="Dollar value of open pipeline sourced from targets, split by stage." class="t g5" data-g="E"
               style="grid-column: 5 / span 4; grid-row: 37 / span 8"
             >
               <div class="tn">E</div>
@@ -1078,7 +1061,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t short g5" data-g="E"
+              data-d="New deals opened on target accounts since the list went live." class="t short g5" data-g="E"
               style="grid-column: 9 / span 4; grid-row: 37 / span 4"
             >
               <div class="tn">E</div>
@@ -1086,7 +1069,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t g6" data-g="F"
+              data-d="Every target account by status. No blanks remain." class="t g6" data-g="F"
               style="grid-column: 1 / span 4; grid-row: 45 / span 8"
             >
               <div class="tn">F</div>
@@ -1094,7 +1077,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              class="t short g5" data-g="E"
+              data-d="Distinct accounts carrying at least one open deal." class="t short g5" data-g="E"
               style="grid-column: 5 / span 4; grid-row: 45 / span 4"
             >
               <div class="tn">E</div>
@@ -1102,7 +1085,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              class="t g5" data-g="E"
+              data-d="Pipeline value by the platform the merchant runs. Fills in as that field gets set." class="t g5" data-g="E"
               style="grid-column: 9 / span 4; grid-row: 45 / span 8"
             >
               <div class="tn">E</div>
@@ -1110,7 +1093,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="High-ranked accounts with no activity in three months." class="t g3" data-g="C"
               style="grid-column: 1 / span 6; grid-row: 53 / span 8"
             >
               <div class="tn">C</div>
@@ -1118,7 +1101,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              class="t g3" data-g="C"
+              data-d="High-ranked accounts with no activity in six months." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 53 / span 8"
             >
               <div class="tn">C</div>
@@ -1126,7 +1109,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              class="t g4" data-g="D"
+              data-d="How many accounts each rep moved between statuses each week. Excludes the one-time cleanup." class="t g4" data-g="D"
               style="grid-column: 1 / span 12; grid-row: 61 / span 8"
             >
               <div class="tn">D</div>
@@ -1136,8 +1119,7 @@
           </div>
         </div>
 
-        <div class="hp" data-for="mgr" aria-live="polite"><div class="hp-empty">Hover any tile above to see what that group is for</div><div class="hp-body" hidden><div class="hp-top"><span class="hp-badge"></span><span class="hp-nm"></span></div><p class="hp-ds"></p><div class="hp-tiles"></div><div class="hp-say"><b>On the call</b><span></span></div></div></div>
-          <div class="legend">
+        <div class="legend">
           <div class="lg lg1">
             <div class="badge">A</div>
             <div>
@@ -1150,11 +1132,6 @@
               <div class="tiles">
                 Activities since 8/5 · Targets touched since 8/5 · Rep fit
                 verdicts logged
-              </div>
-              <div class="say">
-                <b>On the call</b>Start here every week. If touched is flat and
-                activity is up, the team is working the same accounts over
-                again.
               </div>
             </div>
           </div>
@@ -1171,10 +1148,6 @@
               <div class="tiles">
                 Activities by team member · Weekly activity trend · Touched
                 targets by AE · Untouched targets by AE
-              </div>
-              <div class="say">
-                <b>On the call</b>The two AE bars read as a pair. A rep with
-                high touched and low untouched is through their book.
               </div>
             </div>
           </div>
@@ -1193,11 +1166,6 @@
                 Coverage by segment · Most-worked accounts · Pace gauge ·
                 Contacts engaged · Untouched 90+ and 180+ tables
               </div>
-              <div class="say">
-                <b>Worth flagging</b>Contacts engaged carries the depth guide of
-                five contacts for enterprise, three for mid-market and one for
-                SMB. The SMB number is a starting assumption and can change.
-              </div>
             </div>
           </div>
 
@@ -1212,10 +1180,6 @@
                 something to actually change.
               </p>
               <div class="tiles">Verdicts by outcome · Status moves by rep</div>
-              <div class="say">
-                <b>On the call</b>Status moves excludes the one-time data
-                cleanup, so the count reflects rep activity only.
-              </div>
             </div>
           </div>
 
@@ -1231,10 +1195,6 @@
               <div class="tiles">
                 Open deals · Open pipeline by stage · Deals created since 8/5 ·
                 Accounts with an open deal · Open pipeline by sub platform
-              </div>
-              <div class="say">
-                <b>Worth flagging</b>Pipeline by sub platform fills in as that
-                field gets populated on deals. It reads light today.
               </div>
             </div>
           </div>
@@ -1257,7 +1217,26 @@
         </div>
       </section>
 
-      <section class="stream" id="s3" style="border-bottom: none">
+      
+        <section class="stream" id="s3">
+          <div class="sec-head">
+            <span class="sec-num">03</span>
+            <h2 class="sec-title">What was asked for, and where it landed</h2>
+          </div>
+          <p class="sec-sub">Every ask from the planning call and the follow-up, traced to the tile or automation that covers it.</p>
+
+          <h3>From the planning call <span class="tag">the original asks</span></h3>
+          <div class="tbl-scroll"><table><thead><tr><th>Ask</th><th>Raised by</th><th>Where it landed</th></tr></thead><tbody><tr><td class="name">AE, BDR and manager dashboards against the target accounts, to monitor coverage</td><td>Chris</td><td>Three boards, one per audience</td></tr><tr><td class="name">A rep-facing board plus a management view</td><td>Grady</td><td>Rep board and Manager board</td></tr><tr><td class="name">Of the 500 per segment, which are being worked. A yes or no per account</td><td>Chris</td><td>Coverage by segment, touched and untouched by AE</td></tr><tr><td class="name">Contacts worked per account, around five for enterprise and three for mid-market</td><td>Chris</td><td>Contacts engaged, guide shown in the tile header</td></tr><tr><td class="name">Overall activity</td><td>Chris</td><td>Activity totals, by team member, and weekly trend</td></tr><tr><td class="name">An account status field, with a flow to keep it updated</td><td>Grady</td><td>Status automation on opps and sequences</td></tr><tr><td class="name">A graph of where the 500 accounts fall by status</td><td>Grady</td><td>Account status distribution, and portfolio by status on the rep board</td></tr><tr><td class="name">Week over week movement. How many accounts moved status each week</td><td>Grady</td><td>Status moves by rep</td></tr><tr><td class="name">Splits by current platform and by vertical</td><td>Chris</td><td>Targets by vertical, targets by current sub platform</td></tr><tr><td class="name">Sort the account lists by score</td><td>Grady</td><td>Every ranked table ordered by List Rank</td></tr><tr><td class="name">Centralise rep feedback in Salesforce rather than the sheet</td><td>Chris</td><td>Fit verdict and reasoning on the account record, feeding both boards</td></tr></tbody></table></div>
+
+          <h3>From the follow-up <span class="tag">added detail</span></h3>
+          <div class="tbl-scroll"><table><thead><tr><th>Ask</th><th>Raised by</th><th>Where it landed</th></tr></thead><tbody><tr><td class="name">An Account Owner filter at the top of the board</td><td>Grady</td><td>Owner filter on the manager board</td></tr><tr><td class="name">Make the rep board specific to whoever is logged in</td><td>Grady</td><td>Rep board runs as the viewer, no filter needed</td></tr><tr><td class="name">Top accounts not touched in ninety or a hundred and eighty days</td><td>Grady</td><td>Untouched 90+ and 180+ tables</td></tr><tr><td class="name">How many portfolio accounts have an open deal</td><td>Grady</td><td>Target accounts with an open deal, plus open pipeline tiles</td></tr><tr><td class="name">Clean up the accounts with no status set</td><td>Grady</td><td>Backfill run, all 1,500 now carry a status</td></tr><tr><td class="name">Deal closed lost should set the account status to match</td><td>Grady</td><td>Closed lost and disqualified automation</td></tr><tr><td class="name">Contact put into a sequence should move the account to working</td><td>Grady</td><td>Sequence automation, moves New accounts to Working</td></tr><tr><td class="name">An account history table showing weekly status moves per rep</td><td>Grady</td><td>Status moves by rep</td></tr></tbody></table></div>
+
+          <h3>Decisions made along the way <span class="tag">where the asks left a gap</span></h3>
+          <p>These were not asked for directly. They came up while building, and each one is easy to change.</p>
+          <div class="tbl-scroll"><table><thead><tr><th>What came up</th><th>What was decided</th></tr></thead><tbody><tr><td class="name">SMB contact depth was left open on the call, pick a number</td><td>Set to one contact per SMB account. Shown in the tile header so it is easy to change.</td></tr><tr><td class="name">BDRs could not use the AE board, since their tiles read as empty</td><td>Gave BDRs their own board with the same layout, driven by the BDR Owner field.</td></tr><tr><td class="name">Most-worked was ambiguous next to the contact depth tile</td><td>Renamed to name its measure, most-worked by activity.</td></tr><tr><td class="name">Existing sheet feedback was not visible anywhere in Salesforce</td><td>Imported it onto the accounts so it shows on the boards from day one.</td></tr><tr><td class="name">Closed Lost was missing as an account status value</td><td>Added it, so the automation has somewhere to write.</td></tr><tr><td class="name">The cleanup would have polluted the movement chart</td><td>Excluded it, so status moves reflects rep activity.</td></tr></tbody></table></div>
+        </section>
+
+        <section class="stream" id="s4" style="border-bottom: none">
         <div class="sec-head">
           <span class="sec-num">03</span>
           <h2 class="sec-title">How the two boards connect</h2>
@@ -1341,108 +1320,49 @@
       })();
     </script>
   
+
+
 <script>
 (function () {
-  var COLORS = { A:'g1', B:'g2', C:'g3', D:'g4', E:'g5', F:'g6' };
-  var D = {
-    rep: {
-      A: { nm:'Where I stand right now',
-           ds:'The two numbers at the top. How much work has gone into the target list, and how much of the book has never been touched.',
-           tiles:'Activities on my targets since 8/5 \u00b7 My untouched targets',
-           say:'These two are the whole board in one line. The second number is the one that should shrink week over week.' },
-      B: { nm:'Am I keeping pace, and where is the effort landing',
-           ds:'The weekly trend shows whether activity is steady or lumpy. The most-worked chart shows which accounts absorbed that effort, counted by number of logged activities.',
-           tiles:'Weekly activity on my targets \u00b7 My most-worked accounts (by activity)',
-           say:'Most-worked counts activities, not people. Depth of contacts is a separate question on the manager board.' },
-      C: { nm:'What to work next',
-           ds:'Three tiles that answer the same question at increasing detail. The segment bar shows where the untouched accounts sit, the ranked table names them in priority order, and the 90-day table surfaces accounts that have gone cold.',
-           tiles:'My next targets by segment \u00b7 My next accounts (by List Rank) \u00b7 My top targets untouched 90+ days',
-           say:'This is the daily driver. Open the ranked table and work top down. No sorting or thinking required.' },
-      D: { nm:'What I have judged so far',
-           ds:'Fit verdicts logged on the account record. Good fit, bad fit, or maybe, plus the written reasoning where it was given.',
-           tiles:'My fit verdicts logged',
-           say:'Log verdicts on the account record from here on. They feed this tile and the next list refresh automatically.' },
-      E: { nm:'What the work has produced',
-           ds:'Deals currently open on target accounts, and deals created since the list went live. The second number is the clearest read on whether outbound is generating pipeline.',
-           tiles:'My open deals on targets \u00b7 My deals created since 8/5',
-           say:'Deals created since 8/5 is the number that answers whether this programme is working.' },
-      F: { nm:'Shape of my book',
-           ds:'Every account in the portfolio by status. New, working, in opportunity, nurture, disqualified, closed lost.',
-           tiles:'My portfolio by account status',
-           say:'Status now updates itself as deals close and contacts get sequenced, so this stays current without anyone maintaining it.' }
-    },
-    mgr: {
-      A: { nm:'The three headline numbers',
-           ds:'Total activity on the list, how many of the 1,500 have been touched, and how many fit verdicts the team has logged. The whole programme in one row.',
-           tiles:'Activities since 8/5 \u00b7 Targets touched since 8/5 \u00b7 Rep fit verdicts logged',
-           say:'Start here every week. If touched is flat and activity is up, the team is working the same accounts over again.' },
-      B: { nm:'Who is working, and how much',
-           ds:'Activity split by team member, the weekly trend across everyone, and touched against untouched for each AE side by side. This is the per-rep accountability view.',
-           tiles:'Activities by team member \u00b7 Weekly activity trend \u00b7 Touched targets by AE \u00b7 Untouched targets by AE',
-           say:'The two AE bars read as a pair. A rep with high touched and low untouched is through their book.' },
-      C: { nm:'Coverage, depth and pace against the goal',
-           ds:'Whether the team will get through all 1,500 by quarter end, how coverage is distributed across the three segments, how deep the team goes at each account, and which top-ranked accounts have gone cold at 90 and 180 days.',
-           tiles:'Coverage by segment \u00b7 Most-worked accounts \u00b7 Pace gauge \u00b7 Contacts engaged \u00b7 Untouched 90+ and 180+ tables',
-           say:'Contacts engaged carries the depth guide of five contacts for enterprise, three for mid-market and one for SMB. The SMB number is a starting assumption and can change.' },
-      D: { nm:'Judgement and movement',
-           ds:'What the team is concluding about the list, and how many accounts each rep moved between statuses each week. Movement is the closest thing to a real activity signal, because it needs something to actually change.',
-           tiles:'Verdicts by outcome \u00b7 Status moves by rep',
-           say:'Status moves excludes the one-time data cleanup, so the count reflects rep activity only.' },
-      E: { nm:'Pipeline the list has produced',
-           ds:'Open deals sourced from target accounts, the value behind them by stage, how many distinct accounts carry a deal, and how many new deals have been created since the list went live.',
-           tiles:'Open deals \u00b7 Open pipeline by stage \u00b7 Deals created since 8/5 \u00b7 Accounts with an open deal \u00b7 Open pipeline by sub platform',
-           say:'Pipeline by sub platform fills in as that field gets populated on deals. It reads light today.' },
-      F: { nm:'Shape of the whole list',
-           ds:'Every one of the 1,500 targets by status, by vertical, and by the subscription platform they run today. Useful for planning and for messaging, less for weekly management.',
-           tiles:'Account status distribution \u00b7 Targets by vertical \u00b7 Targets by current sub platform',
-           say:'Useful for territory planning and messaging rather than the weekly review.' }
-    }
-  };
-  var maps = document.querySelectorAll('.map[data-board]');
-  Array.prototype.forEach.call(maps, function (map) {
-    var board = map.getAttribute('data-board');
-    var panel = document.querySelector('.hp[data-for="' + board + '"]');
-    var empty = panel.querySelector('.hp-empty');
-    var body = panel.querySelector('.hp-body');
-    var pinned = null;
+  var GC = { A:'--g1', B:'--g2', C:'--g3', D:'--g4', E:'--g5', F:'--g6' };
+  var tip = document.createElement('div');
+  tip.id = 'tip';
+  tip.innerHTML = '<div class="tip-t"></div><p class="tip-d"></p>';
+  document.body.appendChild(tip);
+  var tt = tip.querySelector('.tip-t'), td = tip.querySelector('.tip-d');
 
-    function show(g) {
-      var d = D[board][g];
-      if (!d) return;
-      Array.prototype.forEach.call(map.querySelectorAll('.t'), function (t) {
-        t.classList.toggle('on', t.getAttribute('data-g') === g);
-      });
-      map.classList.add('hovering');
-      var badge = panel.querySelector('.hp-badge');
-      badge.textContent = g;
-      badge.className = 'hp-badge ' + COLORS[g];
-      panel.querySelector('.hp-nm').textContent = d.nm;
-      panel.querySelector('.hp-ds').textContent = d.ds;
-      panel.querySelector('.hp-tiles').textContent = d.tiles;
-      panel.querySelector('.hp-say span').textContent = d.say;
-      empty.hidden = true; body.hidden = false;
-      panel.style.borderLeftColor = getComputedStyle(badge).color;
-    }
-    function clear() {
-      if (pinned) { show(pinned); return; }
-      map.classList.remove('hovering');
-      Array.prototype.forEach.call(map.querySelectorAll('.t'), function (t) { t.classList.remove('on'); });
-      empty.hidden = false; body.hidden = true;
-      panel.style.borderLeftColor = '';
-    }
-    Array.prototype.forEach.call(map.querySelectorAll('.t'), function (t) {
-      var g = t.getAttribute('data-g');
-      t.setAttribute('tabindex', '0');
-      t.addEventListener('mouseenter', function () { if (!pinned) show(g); });
-      t.addEventListener('focus', function () { show(g); });
-      t.addEventListener('click', function () {
-        pinned = (pinned === g) ? null : g;
-        pinned ? show(g) : clear();
-      });
+  function place(e) {
+    var pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+    var x = e.clientX + pad, y = e.clientY + pad;
+    if (x + w > window.innerWidth - 8) x = e.clientX - w - pad;
+    if (y + h > window.innerHeight - 8) y = e.clientY - h - pad;
+    if (y < 8) y = 8;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function show(el) {
+    var d = el.getAttribute('data-d'); if (!d) return;
+    var lab = el.querySelector('.tl');
+    tt.textContent = lab ? lab.textContent.trim() : '';
+    td.textContent = d;
+    var g = el.getAttribute('data-g');
+    tip.style.borderLeftColor = g ? getComputedStyle(document.documentElement).getPropertyValue(GC[g]).trim() : '';
+    tip.classList.add('on');
+  }
+  function hide() { tip.classList.remove('on'); }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.map .t[data-d]'), function (el) {
+    el.setAttribute('tabindex', '0');
+    el.addEventListener('mouseenter', function (e) { show(el); place(e); });
+    el.addEventListener('mousemove', place);
+    el.addEventListener('mouseleave', hide);
+    el.addEventListener('focus', function () {
+      show(el);
+      var r = el.getBoundingClientRect();
+      place({ clientX: r.left + r.width / 2, clientY: r.bottom });
     });
-    map.addEventListener('mouseleave', clear);
-    map.addEventListener('blur', clear, true);
+    el.addEventListener('blur', hide);
   });
+  window.addEventListener('scroll', hide, true);
 })();
 </script>
 </body>
