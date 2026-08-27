@@ -209,6 +209,10 @@ droid exec --cwd &lt;dir&gt; --auto low "..." --output-format json</code></pre>
       <li><code>~/.factory/settings.json</code> global config (BYOK models and more).</li>
       <li><code>.factory/</code> dirs at project, folder, and user levels hold <code>skills</code>, <code>droids</code>, and <code>mcp.json</code>.</li>
     </ul>
+
+    <h3>In our terminal, with the Salesforce CLI <span class="tag">low level</span></h3>
+    <p>Droid runs in the terminal on a project the same way Claude Code does now. It is not a Salesforce plugin. It executes shell commands, so it invokes the Salesforce CLI (<code>sf</code> / <code>sfdx</code>) like any other tool: pull and deploy metadata, run Apex tests, run SOQL, commit. <strong>Verified</strong> that Droid executes shell commands gated by the autonomy tier, so running <code>sf</code> is just a shell command. This is the same workflow shape we use today, and Droid can run Claude under the hood.</p>
+    <div class="callout warn"><div class="lbl">Guardrail</div><p>Point it at a sandbox. Keep deploys behind approval or <code>--auto high</code>, never full auto on an org that matters.</p></div>
   </section>
 
   <section class="stream" id="s3">
