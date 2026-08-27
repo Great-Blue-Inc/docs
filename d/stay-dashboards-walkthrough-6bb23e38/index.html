@@ -747,7 +747,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-h="Target accounts whose latest ActivityDate is before 8/5 or blank." data-d="How many of the rep's 500 accounts have had no activity at all." class="t short g1" data-g="A"
+              data-h="Target accounts whose most recent Task or Event ActivityDate is before 8/5, or that have none." data-d="How many of the rep's 500 accounts have had no activity at all." class="t short g1" data-g="A"
               style="grid-column: 7 / span 6; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -763,7 +763,7 @@
               <div class="tk">column chart</div>
             </div>
             <div
-              data-h="Untouched targets grouped by Account_Segment__c." data-d="Where the rep's untouched accounts sit across Enterprise, Mid-Market and SMB." class="t g3" data-g="C"
+              data-h="Target Accounts with no Task or Event since 8/5, grouped by Account_Segment__c." data-d="Where the rep's untouched accounts sit across Enterprise, Mid-Market and SMB." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 5 / span 8"
             >
               <div class="tn">C</div>
@@ -795,7 +795,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-h="Activity record count per account. Counts activities, not distinct contacts." data-d="The rep's top accounts by number of logged activities. Counts activities, not people." class="t g2" data-g="B"
+              data-h="Row count of Tasks and Events per account. One row per activity, not per Contact." data-d="The rep's top accounts by number of logged activities. Counts activities, not people." class="t g2" data-g="B"
               style="grid-column: 1 / span 12; grid-row: 21 / span 8"
             >
               <div class="tn">B</div>
@@ -803,7 +803,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-h="Untouched targets sorted by List_Rank__c descending." data-d="The rep's untouched accounts in priority order, worked from the top down." class="t g3" data-g="C"
+              data-h="Target Accounts with no Task or Event since 8/5, sorted by List_Rank__c descending." data-d="The rep's untouched accounts in priority order, worked from the top down." class="t g3" data-g="C"
               style="grid-column: 1 / span 12; grid-row: 29 / span 10"
             >
               <div class="tn">C</div>
@@ -813,7 +813,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              data-h="All owned targets grouped by Account_status__c." data-d="All 500 of the rep's accounts by status. Updates itself as deals and sequences progress." class="t g6" data-g="F"
+              data-h="Target Accounts owned by the viewer, grouped by Account_status__c." data-d="All 500 of the rep's accounts by status. Updates itself as deals and sequences progress." class="t g6" data-g="F"
               style="grid-column: 1 / span 5; grid-row: 39 / span 8"
             >
               <div class="tn">F</div>
@@ -821,7 +821,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              data-h="Targets with latest ActivityDate older than 90 days or blank, sorted by List_Rank__c." data-d="High-ranked accounts the rep has not touched in three months." class="t g3" data-g="C"
+              data-h="Target accounts whose most recent Task or Event is older than 90 days, or that have none. Sorted by List_Rank__c." data-d="High-ranked accounts the rep has not touched in three months." class="t g3" data-g="C"
               style="grid-column: 6 / span 7; grid-row: 39 / span 8"
             >
               <div class="tn">C</div>
@@ -947,7 +947,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-h="Distinct count of target accounts with at least one logged activity." data-d="How many of the 1,500 have had at least one activity." class="t short g1" data-g="A"
+              data-h="Distinct Account count where at least one Task or Event exists since 8/5." data-d="How many of the 1,500 have had at least one activity." class="t short g1" data-g="A"
               style="grid-column: 5 / span 4; grid-row: 1 / span 4"
             >
               <div class="tn">A</div>
@@ -979,7 +979,7 @@
               <div class="tk">column</div>
             </div>
             <div
-              data-h="Target accounts with activity since 8/5, grouped by Account Owner." data-d="Accounts each AE has worked at least once." class="t g2" data-g="B"
+              data-h="Target accounts with at least one Task or Event since 8/5, grouped by Account.OwnerId." data-d="Accounts each AE has worked at least once." class="t g2" data-g="B"
               style="grid-column: 1 / span 4; grid-row: 13 / span 8"
             >
               <div class="tn">B</div>
@@ -987,7 +987,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-h="Targets with no activity since 8/5, grouped by Account Owner." data-d="Accounts each AE has never touched, split by owner." class="t g2" data-g="B"
+              data-h="Target accounts with no Task or Event since 8/5, grouped by Account.OwnerId." data-d="Accounts each AE has never touched, split by owner." class="t g2" data-g="B"
               style="grid-column: 5 / span 4; grid-row: 13 / span 8"
             >
               <div class="tn">B</div>
@@ -1003,7 +1003,7 @@
               <div class="tk">donut</div>
             </div>
             <div
-              data-h="Touched targets grouped by Account_Segment__c, against 500 per segment." data-d="Progress against the 500-per-segment goal, one bar per segment." class="t g3" data-g="C"
+              data-h="Target Accounts with a Task or Event since 8/5, grouped by Account_Segment__c, against 500 each." data-d="Progress against the 500-per-segment goal, one bar per segment." class="t g3" data-g="C"
               style="grid-column: 1 / span 6; grid-row: 21 / span 8"
             >
               <div class="tn">C</div>
@@ -1011,7 +1011,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-h="Activity record count per account, team-wide. Counts activities, not contacts." data-d="Accounts absorbing the most activity team-wide. Counts activities, not people." class="t g3" data-g="C"
+              data-h="Row count of Tasks and Events per account across all owners. One row per activity, not per Contact." data-d="Accounts absorbing the most activity team-wide. Counts activities, not people." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 21 / span 8"
             >
               <div class="tn">C</div>
@@ -1019,7 +1019,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-h="Touched target count as a gauge from 0 to 1,500." data-d="Progress toward working every target account before the quarter closes." class="t g3" data-g="C"
+              data-h="Count of target accounts with any Task or Event since 8/5, shown against a 1,500 ceiling." data-d="Progress toward working every target account before the quarter closes." class="t g3" data-g="C"
               style="grid-column: 1 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">C</div>
@@ -1027,7 +1027,7 @@
               <div class="tk">gauge</div>
             </div>
             <div
-              data-h="All 1,500 targets grouped by Store_Leads_Vertical__c." data-d="How the 1,500 accounts split across industry verticals." class="t g6" data-g="F"
+              data-h="All 1,500 target Accounts grouped by Store_Leads_Vertical__c." data-d="How the 1,500 accounts split across industry verticals." class="t g6" data-g="F"
               style="grid-column: 4 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">F</div>
@@ -1035,7 +1035,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-h="Installed Apps records with category containing subscription and no uninstall date." data-d="Which subscription platform each target runs today." class="t g6" data-g="F"
+              data-h="Installed_Apps__r records where Categories__c contains subscription and Uninstalled_Date__c is blank." data-d="Which subscription platform each target runs today." class="t g6" data-g="F"
               style="grid-column: 7 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">F</div>
@@ -1043,7 +1043,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-h="Distinct count of the Contact on each activity, per account." data-d="Distinct people reached per account, against the depth guide in the header." class="t g3" data-g="C"
+              data-h="Unique count of the Name (WhoId) on Tasks and Events per account. Activities with no Contact attached do not count." data-d="How many different Contacts at an account the team has logged an activity against." class="t g3" data-g="C"
               style="grid-column: 10 / span 3; grid-row: 29 / span 8"
             >
               <div class="tn">C</div>
@@ -1075,7 +1075,7 @@
               <div class="tk">metric</div>
             </div>
             <div
-              data-h="All targets grouped by Account_status__c. No blanks remain." data-d="Every target account by status. No blanks remain." class="t g6" data-g="F"
+              data-h="All 1,500 target Accounts grouped by Account_status__c." data-d="Every target account by status. No blanks remain." class="t g6" data-g="F"
               style="grid-column: 1 / span 4; grid-row: 45 / span 8"
             >
               <div class="tn">F</div>
@@ -1099,7 +1099,7 @@
               <div class="tk">bar</div>
             </div>
             <div
-              data-h="Targets with latest ActivityDate older than 90 days or blank." data-d="High-ranked accounts with no activity in three months." class="t g3" data-g="C"
+              data-h="Target accounts whose most recent Task or Event is older than 90 days, or that have none." data-d="High-ranked accounts with no activity in three months." class="t g3" data-g="C"
               style="grid-column: 1 / span 6; grid-row: 53 / span 8"
             >
               <div class="tn">C</div>
@@ -1107,7 +1107,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              data-h="Targets with latest ActivityDate older than 180 days or blank." data-d="High-ranked accounts with no activity in six months." class="t g3" data-g="C"
+              data-h="Target accounts whose most recent Task or Event is older than 180 days, or that have none." data-d="High-ranked accounts with no activity in six months." class="t g3" data-g="C"
               style="grid-column: 7 / span 6; grid-row: 53 / span 8"
             >
               <div class="tn">C</div>
@@ -1115,7 +1115,7 @@
               <div class="tk">table</div>
             </div>
             <div
-              data-h="Account field history on Account Status, grouped by who made the change. Excludes the backfill." data-d="How many accounts each rep moved between statuses each week. Excludes the one-time cleanup." class="t g4" data-g="D"
+              data-h="AccountHistory rows where Field = Account_status__c and OldValue is not blank, grouped by CreatedBy. Excludes the backfill user." data-d="How many accounts each rep moved between statuses each week. Excludes the one-time cleanup." class="t g4" data-g="D"
               style="grid-column: 1 / span 12; grid-row: 61 / span 8"
             >
               <div class="tn">D</div>
