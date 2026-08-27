@@ -714,7 +714,8 @@
         <a href="#s1"><span class="num">01</span>Rep board</a>
         <a href="#s2"><span class="num">02</span>Manager board</a>
         <a href="#s3"><span class="num">03</span>Asks covered</a>
-          <a href="#s4"><span class="num">04</span>How they connect</a>
+          <a href="#s4"><span class="num">04</span>What we built</a>
+          <a href="#s5"><span class="num">05</span>How they connect</a>
         <span class="spacer"></span>
         <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
       </div>
@@ -1242,7 +1243,44 @@
           <div class="tbl-scroll"><table><thead><tr><th>What came up</th><th>What was decided</th></tr></thead><tbody><tr><td class="name">SMB contact depth was left open on the call, pick a number</td><td>Set to one contact per SMB account. Shown in the tile header so it is easy to change.</td></tr><tr><td class="name">BDRs could not use the AE board, since their tiles read as empty</td><td>Gave BDRs their own board with the same layout, driven by the BDR Owner field.</td></tr><tr><td class="name">Most-worked was ambiguous next to the contact depth tile</td><td>Renamed to name its measure, most-worked by activity.</td></tr><tr><td class="name">Existing sheet feedback was not visible anywhere in Salesforce</td><td>Imported it onto the accounts so it shows on the boards from day one.</td></tr><tr><td class="name">Closed Lost was missing as an account status value</td><td>Added it, so the automation has somewhere to write.</td></tr><tr><td class="name">The cleanup would have polluted the movement chart</td><td>Excluded it, so status moves reflects rep activity.</td></tr></tbody></table></div>
         </section>
 
-        <section class="stream" id="s4" style="border-bottom: none">
+        
+        <section class="stream" id="s4">
+          <div class="sec-head">
+            <span class="sec-num">04</span>
+            <h2 class="sec-title">What was built behind the boards</h2>
+            <span class="pill live">Live in prod</span>
+          </div>
+          <p class="sec-sub">Two flows keep account status current. Two one-time passes filled in the data the charts needed.</p>
+
+          <h3>Flow 1, account status from opportunities <span class="tag">closed lost and disqualified</span></h3>
+          <p>Runs when someone sets an opportunity to Closed Lost or Disqualified. It looks up the other opportunities on that account. If any are still open it changes nothing. If none are open it sets the account status to match the stage. It skips accounts already set to Customer.</p>
+          <div class="callout"><div class="lbl">Why the open-deal check matters</div><p>Without it, an account with a second live deal would be marked Closed Lost while still in play. The Customer guard stops an existing customer being downgraded when one deal is lost.</p></div>
+          <div class="tbl-scroll"><table><thead><tr><th>Element</th><th>Detail</th></tr></thead><tbody>
+            <tr><td class="name">Trigger</td><td>Opportunity, on update, StageName = Closed Lost or Disqualified</td></tr>
+            <tr><td class="name">Check</td><td>Other Opportunities on the account where IsClosed = false</td></tr>
+            <tr><td class="name">Action</td><td>Sets Account_status__c to Closed Lost or Disqualified to match the stage</td></tr>
+            <tr><td class="name">Guards</td><td>Skips Account_status__c = Customer. Fault path cannot block the rep's save.</td></tr>
+          </tbody></table></div>
+
+          <h3>Flow 2, account status from sequences <span class="tag">outreach</span></h3>
+          <p>Runs when someone adds a contact to an Outreach sequence. It checks that contact's account status and sets it to Working only if the status is blank or New.</p>
+          <div class="callout"><div class="lbl">Why the blank-or-New condition matters</div><p>It stops the flow pulling an account backwards. An account already at In Opportunity or Nurture is left alone. Neither flow ever moves an account to an earlier status.</p></div>
+          <div class="tbl-scroll"><table><thead><tr><th>Element</th><th>Detail</th></tr></thead><tbody>
+            <tr><td class="name">Trigger</td><td>Contact, on create or update, Actively_Sequenced_in_Outreach__c = true</td></tr>
+            <tr><td class="name">Condition</td><td>Account_status__c is blank or New</td></tr>
+            <tr><td class="name">Action</td><td>Sets Account_status__c to Working</td></tr>
+          </tbody></table></div>
+
+          <h3>One-time passes <span class="tag">data the charts needed</span></h3>
+          <div class="tbl-scroll"><table><thead><tr><th>What</th><th>Why</th><th>Result</th></tr></thead><tbody>
+            <tr><td class="name">Status cleanup</td><td>About 1,200 target accounts had no status, so the status charts covered only part of the list</td><td>Each status set from open opportunities and sequence activity. All 1,500 now carry a status.</td></tr>
+            <tr><td class="name">Rep feedback import</td><td>Fit verdicts lived only in the Google Sheet and were invisible in Salesforce</td><td>46 accounts carry a fit verdict, most logged by Ryley. Verdicts can keep being imported, but logging on the account record is the cleaner path.</td></tr>
+            <tr><td class="name">Closed Lost status value</td><td>The picklist had no Closed Lost option for the flow to write</td><td>Added, so the automation has somewhere to write.</td></tr>
+            <tr><td class="name">Status moves exclusion</td><td>The cleanup would have shown as thousands of rep-driven moves</td><td>Excluded from the chart, so the count reflects rep activity only.</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section class="stream" id="s5" style="border-bottom: none">
         <div class="sec-head">
           <span class="sec-num">03</span>
           <h2 class="sec-title">How the two boards connect</h2>
