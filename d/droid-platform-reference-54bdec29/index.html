@@ -213,6 +213,23 @@ droid exec --cwd &lt;dir&gt; --auto low "..." --output-format json</code></pre>
     <h3>In our terminal, with the Salesforce CLI <span class="tag">low level</span></h3>
     <p>Droid runs in the terminal on a project the same way Claude Code does now. It is not a Salesforce plugin. It executes shell commands, so it invokes the Salesforce CLI (<code>sf</code> / <code>sfdx</code>) like any other tool: pull and deploy metadata, run Apex tests, run SOQL, commit. <strong>Verified</strong> that Droid executes shell commands gated by the autonomy tier, so running <code>sf</code> is just a shell command. This is the same workflow shape we use today, and Droid can run Claude under the hood.</p>
     <div class="callout warn"><div class="lbl">Guardrail</div><p>Point it at a sandbox. Keep deploys behind approval or <code>--auto high</code>, never full auto on an org that matters.</p></div>
+
+    <h3>Coming from Claude Code <span class="tag">high level</span></h3>
+    <p>Most of our Claude Code mental model transfers directly. The concepts are the same, the names and paths differ, and Droid adds two things Claude Code does not have natively: multi-model routing and Missions.</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Claude Code</th><th>Droid</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="name">CLAUDE.md</td><td><code>AGENTS.md</code></td><td>repo conventions the agent reads</td></tr>
+        <tr><td class="name">Skills (SKILL.md)</td><td>Skills (SKILL.md)</td><td>near-identical, in <code>.factory/skills/</code></td></tr>
+        <tr><td class="name">Subagents / Task tool</td><td>Custom Droids</td><td><code>.factory/droids/*.md</code>, still invoked via a Task tool</td></tr>
+        <tr><td class="name">.claude/ dir</td><td><code>.factory/</code> dir</td><td>same idea, three scopes</td></tr>
+        <tr><td class="name">.mcp.json</td><td><code>mcp.json</code></td><td>same standard, user / folder / project scopes</td></tr>
+        <tr><td class="name">Permission modes</td><td>Autonomy tiers</td><td><code>--auto none/low/medium/high</code></td></tr>
+        <tr><td class="name">Headless (print mode)</td><td><code>droid exec</code></td><td>scripting and CI</td></tr>
+        <tr><td class="name">Claude only</td><td>Model routing + BYOK</td><td>NEW: pick Claude, GPT, or Gemini per task</td></tr>
+        <tr><td class="name">Subagents you compose</td><td>Missions / Mission Control</td><td>NEW: heavier multi-agent orchestration, 1 to 500 features</td></tr>
+      </tbody>
+    </table></div>
   </section>
 
   <section class="stream" id="s3">
