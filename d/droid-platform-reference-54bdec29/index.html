@@ -319,6 +319,11 @@ droid exec --cwd &lt;dir&gt; --auto low "..." --output-format json</code></pre>
 
     <h3>Mapped to partner registration <span class="tag">low level</span></h3>
     <p><strong>Inferred design:</strong> a <strong>Salesforce MCP server</strong> (from section 05) → a <strong>custom droid</strong> "sf-partner-ops" scoped to only that MCP server plus edit and execute tools → a <strong>Skill</strong> "register-partner" encoding the intake, validate, create or update record, create task procedure → a <strong>Mission</strong> orchestrating the whole partner-program rollout across features (intake, dedup, approval tasks, notifications).</p>
+
+    <h3>What Factory expects: build with Missions <span class="tag">high level</span></h3>
+    <p>This is the reframe from the kickoff. Factory does not just want a system Droid runs later. They want us to use Droid Missions to do the build itself, pointed at their sandbox. Mission Control is the engine that runs a mission. It plans, decomposes the work into features, pulls in the skills and custom droids, orchestrates multiple agents executing the plan, and gives near-instant feedback in place of a whiteboard round.</p>
+    <div class="callout"><div class="lbl">Mark, kickoff call, 2026-08-26 (verbatim)</div><p>"Take this document, put it into a droid mission, give it the guidance that you would a developer and point it to the sandbox environment and have it go out and start to see how it might build up, to come up with a specification, to start to break it down into component parts, and start to execute on that plan."</p></div>
+    <p>So Droid plays two roles here and we keep them distinct. The runtime that partners and the team use, and the tool we build with. Mark is asking for the second one explicitly. We build the integration on their platform, using their platform.</p>
   </section>
 
   <section class="stream" id="s7">
