@@ -1,0 +1,1324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Outbound Target Dashboards — Walkthrough Guide</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>"
+    />
+    <style>
+      :root {
+        --paper: #f6f7f4;
+        --surface: #ffffff;
+        --surface-2: #eef1ec;
+        --ink: #16201d;
+        --ink-soft: #3c4a45;
+        --ink-faint: #6d7b75;
+        --line: #d7ddd4;
+        --line-soft: #e5e9e1;
+        --accent: #0d7a6e;
+        --accent-2: #0a5f56;
+        --accent-wash: #e2efeb;
+        --amber: #a35a12;
+        --amber-wash: #f4e9d9;
+        --rose: #a3323f;
+        --rose-wash: #f3e0e1;
+        --code-bg: #f0f3ee;
+        --shadow:
+          0 1px 2px rgba(22, 32, 29, 0.05),
+          0 8px 28px -18px rgba(22, 32, 29, 0.35);
+        --serif:
+          "Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+          serif;
+        --sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+          "Helvetica Neue", Arial, sans-serif;
+        --mono:
+          ui-monospace, "SF Mono", "SFMono-Regular", "Cascadia Code", Menlo,
+          Consolas, monospace;
+        --g1: #0d7a6e;
+        --g1w: #e2efeb;
+        --g2: #a35a12;
+        --g2w: #f4e9d9;
+        --g3: #4a5fa8;
+        --g3w: #e4e8f5;
+        --g4: #7a3f8f;
+        --g4w: #efe4f2;
+        --g5: #a3323f;
+        --g5w: #f3e0e1;
+        --g6: #2f6b4f;
+        --g6w: #e0efe7;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --paper: #101614;
+          --surface: #161e1b;
+          --surface-2: #1c2723;
+          --ink: #e7ede9;
+          --ink-soft: #b3c0ba;
+          --ink-faint: #7f8f88;
+          --line: #2a3631;
+          --line-soft: #222d29;
+          --accent: #4fd0be;
+          --accent-2: #6fdccb;
+          --accent-wash: #16302b;
+          --amber: #d89a4e;
+          --amber-wash: #322414;
+          --rose: #e08893;
+          --rose-wash: #331b1e;
+          --code-bg: #131b18;
+          --shadow:
+            0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 34px -20px rgba(0, 0, 0, 0.8);
+          --g1: #4fd0be;
+          --g1w: #16302b;
+          --g2: #d89a4e;
+          --g2w: #322414;
+          --g3: #8fa3e8;
+          --g3w: #1e2440;
+          --g4: #c08fd4;
+          --g4w: #2b1e33;
+          --g5: #e08893;
+          --g5w: #331b1e;
+          --g6: #6fc79a;
+          --g6w: #16301f;
+        }
+      }
+      :root[data-theme="dark"] {
+        --paper: #101614;
+        --surface: #161e1b;
+        --surface-2: #1c2723;
+        --ink: #e7ede9;
+        --ink-soft: #b3c0ba;
+        --ink-faint: #7f8f88;
+        --line: #2a3631;
+        --line-soft: #222d29;
+        --accent: #4fd0be;
+        --accent-2: #6fdccb;
+        --accent-wash: #16302b;
+        --amber: #d89a4e;
+        --amber-wash: #322414;
+        --rose: #e08893;
+        --rose-wash: #331b1e;
+        --code-bg: #131b18;
+        --shadow:
+          0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 34px -20px rgba(0, 0, 0, 0.8);
+        --g1: #4fd0be;
+        --g1w: #16302b;
+        --g2: #d89a4e;
+        --g2w: #322414;
+        --g3: #8fa3e8;
+        --g3w: #1e2440;
+        --g4: #c08fd4;
+        --g4w: #2b1e33;
+        --g5: #e08893;
+        --g5w: #331b1e;
+        --g6: #6fc79a;
+        --g6w: #16301f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          transition: none !important;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      .wrap {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+      header.mast {
+        border-bottom: 1px solid var(--line);
+        background:
+          radial-gradient(
+            120% 140% at 88% -20%,
+            var(--accent-wash) 0%,
+            transparent 55%
+          ),
+          var(--surface);
+      }
+      .mast-inner {
+        padding: 52px 0 40px;
+      }
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-2);
+        margin: 0 0 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .eyebrow .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      h1.title {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: clamp(2.3rem, 5.4vw, 3.5rem);
+        line-height: 1.04;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+        text-wrap: balance;
+      }
+      h1.title span {
+        color: var(--accent-2);
+      }
+      .lede {
+        font-size: 1.12rem;
+        color: var(--ink-soft);
+        max-width: 62ch;
+        margin: 0 0 30px;
+        line-height: 1.6;
+      }
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .meta-cell {
+        background: var(--surface);
+        padding: 14px 16px;
+      }
+      .meta-cell .k {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 5px;
+      }
+      .meta-cell .v {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .meta-cell .v.mono {
+        font-family: var(--mono);
+        font-weight: 500;
+        font-size: 0.82rem;
+      }
+      nav.toc {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: color-mix(in srgb, var(--paper) 86%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .toc-inner {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        padding: 10px 0;
+        align-items: center;
+      }
+      .toc a {
+        font-size: 0.82rem;
+        color: var(--ink-soft);
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-weight: 500;
+        transition:
+          background 0.15s,
+          color 0.15s;
+        white-space: nowrap;
+      }
+      .toc a:hover {
+        background: var(--surface-2);
+        color: var(--ink);
+      }
+      .toc a .num {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--accent-2);
+        margin-right: 6px;
+      }
+      .toc .spacer {
+        flex: 1;
+      }
+      #themeToggle {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: var(--surface-2);
+        color: var(--ink-soft);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+      #themeToggle:hover {
+        color: var(--ink);
+        border-color: var(--accent);
+      }
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      section.stream {
+        padding: 56px 0 12px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .sec-head {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+      .sec-num {
+        font-family: var(--mono);
+        font-size: 0.9rem;
+        color: var(--accent-2);
+        font-weight: 600;
+      }
+      h2.sec-title {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: clamp(1.7rem, 3.6vw, 2.25rem);
+        letter-spacing: -0.01em;
+        margin: 0;
+        line-height: 1.1;
+        text-wrap: balance;
+      }
+      .sec-sub {
+        color: var(--ink-faint);
+        font-size: 0.95rem;
+        margin: 6px 0 24px;
+        max-width: 66ch;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .pill::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .pill.live {
+        color: var(--accent-2);
+        background: var(--accent-wash);
+        border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+      }
+      .pill.sandbox {
+        color: var(--amber);
+        background: var(--amber-wash);
+        border-color: color-mix(in srgb, var(--amber) 30%, transparent);
+      }
+      h3 {
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: 1.06rem;
+        letter-spacing: -0.005em;
+        margin: 34px 0 12px;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      h3 .tag {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 2px 7px;
+        font-weight: 500;
+      }
+      p {
+        margin: 0 0 14px;
+      }
+      p,
+      li {
+        color: var(--ink-soft);
+      }
+      strong {
+        color: var(--ink);
+        font-weight: 650;
+      }
+      ul.tight {
+        margin: 0 0 16px;
+        padding-left: 20px;
+      }
+      ul.tight li {
+        margin-bottom: 7px;
+      }
+      code {
+        font-family: var(--mono);
+        font-size: 0.84em;
+        background: var(--code-bg);
+        padding: 1.5px 6px;
+        border-radius: 5px;
+        color: var(--ink);
+        border: 1px solid var(--line-soft);
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 22px 24px;
+        box-shadow: var(--shadow);
+        margin: 18px 0;
+      }
+      .callout {
+        border-left: 3px solid var(--accent);
+        background: var(--accent-wash);
+        padding: 14px 18px;
+        border-radius: 0 10px 10px 0;
+        margin: 18px 0;
+      }
+      .callout.warn {
+        border-left-color: var(--amber);
+        background: var(--amber-wash);
+      }
+      .callout .lbl {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--ink);
+      }
+      .callout p {
+        margin: 0;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+      }
+      footer {
+        padding: 44px 0 60px;
+        color: var(--ink-faint);
+        font-size: 0.84rem;
+      }
+      footer .fmono {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+      }
+
+      /* ---- dashboard map ---- */
+      .mapwrap {
+        overflow-x: auto;
+        margin: 22px 0 8px;
+        padding-bottom: 4px;
+      }
+      .map {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: 9.5px;
+        gap: 4px;
+        min-width: 660px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px;
+      }
+      .t {
+        border-radius: 6px;
+        padding: 5px 7px;
+        overflow: hidden;
+        border: 1.5px solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .t .tn {
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        opacity: 0.85;
+        line-height: 1.2;
+      }
+      .t .tl {
+        font-size: 10.5px;
+        font-weight: 600;
+        line-height: 1.25;
+        margin-top: 2px;
+        overflow: hidden;
+      }
+      .t .tk {
+        font-family: var(--mono);
+        font-size: 8.5px;
+        opacity: 0.7;
+        margin-top: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .g1 {
+        background: var(--g1w);
+        border-color: var(--g1);
+        color: var(--g1);
+      }
+      .g2 {
+        background: var(--g2w);
+        border-color: var(--g2);
+        color: var(--g2);
+      }
+      .g3 {
+        background: var(--g3w);
+        border-color: var(--g3);
+        color: var(--g3);
+      }
+      .g4 {
+        background: var(--g4w);
+        border-color: var(--g4);
+        color: var(--g4);
+      }
+      .g5 {
+        background: var(--g5w);
+        border-color: var(--g5);
+        color: var(--g5);
+      }
+      .g6 {
+        background: var(--g6w);
+        border-color: var(--g6);
+        color: var(--g6);
+      }
+      .t .tl {
+        color: var(--ink);
+      }
+      .legend {
+        display: grid;
+        gap: 12px;
+        margin: 26px 0 8px;
+      }
+      .lg {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        align-items: start;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-left-width: 4px;
+        border-radius: 10px;
+        padding: 14px 18px;
+        box-shadow: var(--shadow);
+      }
+      .lg .badge {
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        padding: 4px 9px;
+        border-radius: 6px;
+        white-space: nowrap;
+        margin-top: 2px;
+      }
+      .lg .nm {
+        font-weight: 700;
+        color: var(--ink);
+        font-size: 0.98rem;
+        margin-bottom: 3px;
+      }
+      .lg .ds {
+        font-size: 0.9rem;
+        color: var(--ink-soft);
+        margin: 0 0 6px;
+      }
+      .lg .tiles {
+        font-family: var(--mono);
+        font-size: 0.76rem;
+        color: var(--ink-faint);
+        line-height: 1.5;
+      }
+      .lg .say {
+        font-size: 0.88rem;
+        color: var(--ink);
+        background: var(--surface-2);
+        border-radius: 7px;
+        padding: 8px 11px;
+        margin-top: 8px;
+      }
+      .lg .say b {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        display: block;
+        margin-bottom: 3px;
+      }
+      .lg1 {
+        border-left-color: var(--g1);
+      }
+      .lg1 .badge {
+        background: var(--g1w);
+        color: var(--g1);
+      }
+      .lg2 {
+        border-left-color: var(--g2);
+      }
+      .lg2 .badge {
+        background: var(--g2w);
+        color: var(--g2);
+      }
+      .lg3 {
+        border-left-color: var(--g3);
+      }
+      .lg3 .badge {
+        background: var(--g3w);
+        color: var(--g3);
+      }
+      .lg4 {
+        border-left-color: var(--g4);
+      }
+      .lg4 .badge {
+        background: var(--g4w);
+        color: var(--g4);
+      }
+      .lg5 {
+        border-left-color: var(--g5);
+      }
+      .lg5 .badge {
+        background: var(--g5w);
+        color: var(--g5);
+      }
+      .lg6 {
+        border-left-color: var(--g6);
+      }
+      .lg6 .badge {
+        background: var(--g6w);
+        color: var(--g6);
+      }
+      .maphint {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--ink-faint);
+        letter-spacing: 0.05em;
+        text-align: center;
+        margin: 0 0 14px;
+      }
+    
+      .t.short { padding: 4px 7px; justify-content: flex-start; }
+      .t.short .tk { display: none; }
+      .t.short .tl { font-size: 10px; margin-top: 1px; }
+</style>
+  </head>
+  <body>
+    <header class="mast">
+      <div class="wrap mast-inner">
+        <p class="eyebrow">
+          <span class="dot"></span> Stay AI · Outbound Targets · Walkthrough
+          Guide
+        </p>
+        <h1 class="title">
+          A guided tour of the <span>rep and manager boards</span>
+        </h1>
+        <p class="lede">
+          Each board is mapped section by section, in the order the tiles appear
+          on screen. Every coloured block below matches a real group of tiles,
+          with a note on what that group answers and how to use it.
+        </p>
+        <div class="meta-grid">
+          <div class="meta-cell">
+            <div class="k">Boards covered</div>
+            <div class="v">Rep (AE) and Management</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Target list</div>
+            <div class="v">1,500 accounts</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Activity window</div>
+            <div class="v">Since 8/5</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Compiled</div>
+            <div class="v mono">2026-08-27</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <div class="wrap toc-inner">
+        <a href="#s1"><span class="num">01</span>Rep board</a>
+        <a href="#s2"><span class="num">02</span>Manager board</a>
+        <a href="#s3"><span class="num">03</span>How they connect</a>
+        <span class="spacer"></span>
+        <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+      </div>
+    </nav>
+
+    <main class="wrap">
+      <section class="stream" id="s1">
+        <div class="sec-head">
+          <span class="sec-num">01</span>
+          <h2 class="sec-title">Rep board (for AEs)</h2>
+          <span class="pill live">Live</span>
+        </div>
+        <p class="sec-sub">
+          Loads as whoever opens it. Every tile is already filtered to that
+          person's own accounts, so there is nothing to set up and nothing to
+          filter.
+        </p>
+
+        <p class="maphint">
+          Board layout, top to bottom. Colours group the tiles into the five
+          things the board answers.
+        </p>
+        <div class="mapwrap">
+          <div class="map">
+            <div
+              class="t short g1"
+              style="grid-column: 1 / span 6; grid-row: 1 / span 4"
+            >
+              <div class="tn">A</div>
+              <div class="tl">Activities on my targets since 8/5</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t short g1"
+              style="grid-column: 7 / span 6; grid-row: 1 / span 4"
+            >
+              <div class="tn">A</div>
+              <div class="tl">My untouched targets</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t g2"
+              style="grid-column: 1 / span 6; grid-row: 5 / span 8"
+            >
+              <div class="tn">B</div>
+              <div class="tl">Weekly activity on my targets</div>
+              <div class="tk">column chart</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 7 / span 6; grid-row: 5 / span 8"
+            >
+              <div class="tn">C</div>
+              <div class="tl">My next targets by segment</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g4"
+              style="grid-column: 1 / span 6; grid-row: 13 / span 8"
+            >
+              <div class="tn">D</div>
+              <div class="tl">My fit verdicts logged</div>
+              <div class="tk">donut</div>
+            </div>
+            <div
+              class="t short g5"
+              style="grid-column: 7 / span 6; grid-row: 13 / span 4"
+            >
+              <div class="tn">E</div>
+              <div class="tl">My open deals on targets</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t short g5"
+              style="grid-column: 7 / span 6; grid-row: 17 / span 4"
+            >
+              <div class="tn">E</div>
+              <div class="tl">My deals created since 8/5</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t g2"
+              style="grid-column: 1 / span 12; grid-row: 21 / span 8"
+            >
+              <div class="tn">B</div>
+              <div class="tl">My most-worked accounts (by activity)</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 1 / span 12; grid-row: 29 / span 10"
+            >
+              <div class="tn">C</div>
+              <div class="tl">
+                My next accounts (by List Rank, work top down)
+              </div>
+              <div class="tk">table</div>
+            </div>
+            <div
+              class="t g6"
+              style="grid-column: 1 / span 5; grid-row: 39 / span 8"
+            >
+              <div class="tn">F</div>
+              <div class="tl">My portfolio by account status</div>
+              <div class="tk">donut</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 6 / span 7; grid-row: 39 / span 8"
+            >
+              <div class="tn">C</div>
+              <div class="tl">My top targets untouched 90+ days</div>
+              <div class="tk">table</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="legend">
+          <div class="lg lg1">
+            <div class="badge">A</div>
+            <div>
+              <div class="nm">Where I stand right now</div>
+              <p class="ds">
+                The two numbers at the top. How much work has gone into the
+                target list, and how much of the book has never been touched.
+              </p>
+              <div class="tiles">
+                Activities on my targets since 8/5 · My untouched targets
+              </div>
+              <div class="say">
+                <b>On the call</b>These two are the whole board in one line. The
+                second number is the one that should shrink week over week.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg2">
+            <div class="badge">B</div>
+            <div>
+              <div class="nm">
+                Am I keeping pace, and where is the effort landing
+              </div>
+              <p class="ds">
+                The weekly trend shows whether activity is steady or lumpy. The
+                most-worked chart shows which accounts absorbed that effort,
+                counted by number of logged activities.
+              </p>
+              <div class="tiles">
+                Weekly activity on my targets · My most-worked accounts (by
+                activity)
+              </div>
+              <div class="say">
+                <b>Worth flagging</b>Most-worked counts activities, not people.
+                Depth of contacts is a separate question on the manager board.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg3">
+            <div class="badge">C</div>
+            <div>
+              <div class="nm">What to work next</div>
+              <p class="ds">
+                Three tiles that answer the same question at increasing detail.
+                The segment bar shows where the untouched accounts sit, the
+                ranked table names them in priority order, and the 90-day table
+                surfaces accounts that have gone cold.
+              </p>
+              <div class="tiles">
+                My next targets by segment · My next accounts (by List Rank) ·
+                My top targets untouched 90+ days
+              </div>
+              <div class="say">
+                <b>On the call</b>This is the daily driver. Open the ranked
+                table and work top down. No sorting or thinking required.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg4">
+            <div class="badge">D</div>
+            <div>
+              <div class="nm">What I have judged so far</div>
+              <p class="ds">
+                Fit verdicts logged on the account record. Good fit, bad fit, or
+                maybe, plus the written reasoning where it was given.
+              </p>
+              <div class="tiles">My fit verdicts logged</div>
+              <div class="say">
+                <b>Ask of the team</b>Log verdicts on the account record from
+                here on. They feed this tile and the next list refresh
+                automatically.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg5">
+            <div class="badge">E</div>
+            <div>
+              <div class="nm">What the work has produced</div>
+              <p class="ds">
+                Deals currently open on target accounts, and deals created since
+                the list went live. The second number is the clearest read on
+                whether outbound is generating pipeline.
+              </p>
+              <div class="tiles">
+                My open deals on targets · My deals created since 8/5
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg6">
+            <div class="badge">F</div>
+            <div>
+              <div class="nm">Shape of my book</div>
+              <p class="ds">
+                Every account in the portfolio by status. New, working, in
+                opportunity, nurture, disqualified, closed lost.
+              </p>
+              <div class="tiles">My portfolio by account status</div>
+              <div class="say">
+                <b>Worth flagging</b>Status now updates itself as deals close
+                and contacts get sequenced, so this stays current without anyone
+                maintaining it.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stream" id="s2">
+        <div class="sec-head">
+          <span class="sec-num">02</span>
+          <h2 class="sec-title">Manager board</h2>
+          <span class="pill live">Live</span>
+        </div>
+        <p class="sec-sub">
+          The whole team in one view. Same questions as the rep board, asked
+          across every rep, plus the pacing and pipeline tiles a manager needs.
+        </p>
+
+        <p class="maphint">
+          Board layout, top to bottom. Six groups, twenty-three tiles.
+        </p>
+        <div class="mapwrap">
+          <div class="map">
+            <div
+              class="t short g1"
+              style="grid-column: 1 / span 4; grid-row: 1 / span 4"
+            >
+              <div class="tn">A</div>
+              <div class="tl">Activities on targets since 8/5</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t short g1"
+              style="grid-column: 5 / span 4; grid-row: 1 / span 4"
+            >
+              <div class="tn">A</div>
+              <div class="tl">Targets touched since 8/5</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t short g1"
+              style="grid-column: 9 / span 4; grid-row: 1 / span 4"
+            >
+              <div class="tn">A</div>
+              <div class="tl">Rep fit verdicts logged</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t g2"
+              style="grid-column: 1 / span 6; grid-row: 5 / span 8"
+            >
+              <div class="tn">B</div>
+              <div class="tl">Activities by team member</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g2"
+              style="grid-column: 7 / span 6; grid-row: 5 / span 8"
+            >
+              <div class="tn">B</div>
+              <div class="tl">Weekly activity trend on targets</div>
+              <div class="tk">column</div>
+            </div>
+            <div
+              class="t g2"
+              style="grid-column: 1 / span 4; grid-row: 13 / span 8"
+            >
+              <div class="tn">B</div>
+              <div class="tl">Touched targets by AE</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g2"
+              style="grid-column: 5 / span 4; grid-row: 13 / span 8"
+            >
+              <div class="tn">B</div>
+              <div class="tl">Untouched targets by AE</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g4"
+              style="grid-column: 9 / span 4; grid-row: 13 / span 8"
+            >
+              <div class="tn">D</div>
+              <div class="tl">Verdicts by outcome</div>
+              <div class="tk">donut</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 1 / span 6; grid-row: 21 / span 8"
+            >
+              <div class="tn">C</div>
+              <div class="tl">Coverage: touched by segment (of 500 each)</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 7 / span 6; grid-row: 21 / span 8"
+            >
+              <div class="tn">C</div>
+              <div class="tl">Most-worked target accounts (by activity)</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 1 / span 3; grid-row: 29 / span 8"
+            >
+              <div class="tn">C</div>
+              <div class="tl">Pace: all 1,500 by quarter end</div>
+              <div class="tk">gauge</div>
+            </div>
+            <div
+              class="t g6"
+              style="grid-column: 4 / span 3; grid-row: 29 / span 8"
+            >
+              <div class="tn">F</div>
+              <div class="tl">Targets by vertical</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g6"
+              style="grid-column: 7 / span 3; grid-row: 29 / span 8"
+            >
+              <div class="tn">F</div>
+              <div class="tl">Targets by current sub platform</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 10 / span 3; grid-row: 29 / span 8"
+            >
+              <div class="tn">C</div>
+              <div class="tl">Contacts engaged (5 ENT / 3 MM / 1 SMB)</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t short g5"
+              style="grid-column: 1 / span 4; grid-row: 37 / span 4"
+            >
+              <div class="tn">E</div>
+              <div class="tl">Open deals on target accounts</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t g5"
+              style="grid-column: 5 / span 4; grid-row: 37 / span 8"
+            >
+              <div class="tn">E</div>
+              <div class="tl">Open pipeline from targets by stage</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t short g5"
+              style="grid-column: 9 / span 4; grid-row: 37 / span 4"
+            >
+              <div class="tn">E</div>
+              <div class="tl">Deals created since 8/5</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t g6"
+              style="grid-column: 1 / span 4; grid-row: 45 / span 8"
+            >
+              <div class="tn">F</div>
+              <div class="tl">Account status distribution (all 1,500)</div>
+              <div class="tk">donut</div>
+            </div>
+            <div
+              class="t short g5"
+              style="grid-column: 5 / span 4; grid-row: 45 / span 4"
+            >
+              <div class="tn">E</div>
+              <div class="tl">Target accounts with an open deal</div>
+              <div class="tk">metric</div>
+            </div>
+            <div
+              class="t g5"
+              style="grid-column: 9 / span 4; grid-row: 45 / span 8"
+            >
+              <div class="tn">E</div>
+              <div class="tl">Open pipeline by sub platform</div>
+              <div class="tk">bar</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 1 / span 6; grid-row: 53 / span 8"
+            >
+              <div class="tn">C</div>
+              <div class="tl">Top targets untouched 90+ days</div>
+              <div class="tk">table</div>
+            </div>
+            <div
+              class="t g3"
+              style="grid-column: 7 / span 6; grid-row: 53 / span 8"
+            >
+              <div class="tn">C</div>
+              <div class="tl">Top targets untouched 180+ days</div>
+              <div class="tk">table</div>
+            </div>
+            <div
+              class="t g4"
+              style="grid-column: 1 / span 12; grid-row: 61 / span 8"
+            >
+              <div class="tn">D</div>
+              <div class="tl">Status moves by rep</div>
+              <div class="tk">bar</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="legend">
+          <div class="lg lg1">
+            <div class="badge">A</div>
+            <div>
+              <div class="nm">The three headline numbers</div>
+              <p class="ds">
+                Total activity on the list, how many of the 1,500 have been
+                touched, and how many fit verdicts the team has logged. The
+                whole programme in one row.
+              </p>
+              <div class="tiles">
+                Activities since 8/5 · Targets touched since 8/5 · Rep fit
+                verdicts logged
+              </div>
+              <div class="say">
+                <b>On the call</b>Start here every week. If touched is flat and
+                activity is up, the team is working the same accounts over
+                again.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg2">
+            <div class="badge">B</div>
+            <div>
+              <div class="nm">Who is working, and how much</div>
+              <p class="ds">
+                Activity split by team member, the weekly trend across everyone,
+                and touched against untouched for each AE side by side. This is
+                the per-rep accountability view.
+              </p>
+              <div class="tiles">
+                Activities by team member · Weekly activity trend · Touched
+                targets by AE · Untouched targets by AE
+              </div>
+              <div class="say">
+                <b>On the call</b>The two AE bars read as a pair. A rep with
+                high touched and low untouched is through their book.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg3">
+            <div class="badge">C</div>
+            <div>
+              <div class="nm">Coverage, depth and pace against the goal</div>
+              <p class="ds">
+                Whether the team will get through all 1,500 by quarter end, how
+                coverage is distributed across the three segments, how deep the
+                team goes at each account, and which top-ranked accounts have
+                gone cold at 90 and 180 days.
+              </p>
+              <div class="tiles">
+                Coverage by segment · Most-worked accounts · Pace gauge ·
+                Contacts engaged · Untouched 90+ and 180+ tables
+              </div>
+              <div class="say">
+                <b>Worth flagging</b>Contacts engaged carries the depth guide of
+                five contacts for enterprise, three for mid-market and one for
+                SMB. The SMB number is a starting assumption and can change.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg4">
+            <div class="badge">D</div>
+            <div>
+              <div class="nm">Judgement and movement</div>
+              <p class="ds">
+                What the team is concluding about the list, and how many
+                accounts each rep moved between statuses each week. Movement is
+                the closest thing to a real activity signal, because it needs
+                something to actually change.
+              </p>
+              <div class="tiles">Verdicts by outcome · Status moves by rep</div>
+              <div class="say">
+                <b>On the call</b>Status moves excludes the one-time data
+                cleanup, so the count reflects rep activity only.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg5">
+            <div class="badge">E</div>
+            <div>
+              <div class="nm">Pipeline the list has produced</div>
+              <p class="ds">
+                Open deals sourced from target accounts, the value behind them
+                by stage, how many distinct accounts carry a deal, and how many
+                new deals have been created since the list went live.
+              </p>
+              <div class="tiles">
+                Open deals · Open pipeline by stage · Deals created since 8/5 ·
+                Accounts with an open deal · Open pipeline by sub platform
+              </div>
+              <div class="say">
+                <b>Worth flagging</b>Pipeline by sub platform fills in as that
+                field gets populated on deals. It reads light today.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg lg6">
+            <div class="badge">F</div>
+            <div>
+              <div class="nm">Shape of the whole list</div>
+              <p class="ds">
+                Every one of the 1,500 targets by status, by vertical, and by
+                the subscription platform they run today. Useful for planning
+                and for messaging, less for weekly management.
+              </p>
+              <div class="tiles">
+                Account status distribution · Targets by vertical · Targets by
+                current sub platform
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stream" id="s3" style="border-bottom: none">
+        <div class="sec-head">
+          <span class="sec-num">03</span>
+          <h2 class="sec-title">How the two boards connect</h2>
+        </div>
+        <p class="sec-sub">
+          Same underlying list, same definitions, two audiences.
+        </p>
+
+        <h3>The short version <span class="tag">for the call</span></h3>
+        <ul class="tight">
+          <li>
+            <strong
+              >Leaders see the whole picture, reps operate out of it.</strong
+            >
+            Every manager tile has a rep-level counterpart scoped to that
+            person.
+          </li>
+          <li>
+            <strong>Touched means any logged activity since 8/5</strong>, the
+            day the target list went live. Anything before that date sat on
+            accounts chosen before the list existed.
+          </li>
+          <li>
+            <strong>List Rank is the priority order.</strong> The ranked tables
+            are built to be worked top down.
+          </li>
+          <li>
+            <strong>Account status updates itself</strong> as deals close and
+            contacts enter sequences, so the status charts stay accurate without
+            manual upkeep.
+          </li>
+          <li>
+            <strong>Fit verdicts logged on the account record</strong> flow to
+            both boards and into the next list refresh.
+          </li>
+        </ul>
+
+        <div class="callout">
+          <div class="lbl">The one ask</div>
+          <p>
+            Log fit verdicts and reasoning directly on the account record rather
+            than in the sheet. Everything else on these boards updates on its
+            own.
+          </p>
+        </div>
+
+        <h3>Reading the maps above <span class="tag">reference</span></h3>
+        <p>
+          Each block in the two maps sits in the same position and relative size
+          as the real tile on screen, so the layout above matches what opens in
+          the browser. Letters and colours group tiles by the question they
+          answer rather than by where they happen to sit.
+        </p>
+
+        <footer>
+          <p class="fmono">
+            Compiled 2026-08-27 · Rep board 11 tiles · Manager board 23 tiles
+          </p>
+          <p>
+            Both boards are live and shared with the whole team. This guide is a
+            walkthrough reference and carries no account data.
+          </p>
+        </footer>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        var btn = document.getElementById("themeToggle"),
+          root = document.documentElement;
+        btn.addEventListener("click", function () {
+          var cur = root.getAttribute("data-theme");
+          if (!cur)
+            cur = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          var next = cur === "dark" ? "light" : "dark";
+          root.setAttribute("data-theme", next);
+          btn.textContent = next === "dark" ? "Light" : "Dark";
+        });
+      })();
+    </script>
+  </body>
+</html>
