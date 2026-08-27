@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<title>Factory Droid — Engineering Reference</title>
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:52px 0 40px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
+    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .meta-cell{background:var(--surface); padding:14px 16px;}
+  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
+  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
+  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
+    border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
+    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
+  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
+  h4{font-size:.95rem; font-weight:700; margin:22px 0 8px; color:var(--ink);}
+  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
+  a.inl:hover{border-bottom-color:var(--accent);}
+  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout.stop{border-left-color:var(--rose); background:var(--rose-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:16px 18px; overflow-x:auto; margin:16px 0;}
+  pre code{background:none; border:none; padding:0; font-size:.82rem; line-height:1.7; color:var(--ink);}
+  .cm{color:var(--ink-faint);} .kw{color:var(--accent-2); font-weight:600;}
+  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
+  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
+  td.name{color:var(--ink); font-weight:600;}
+  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
+  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
+  .metric{background:var(--surface); padding:18px 16px;}
+  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
+  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
+  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
+  .src-list{display:grid; gap:10px;}
+  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
+  .src:hover{border-color:var(--accent); transform:translateX(2px);}
+  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
+  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
+  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
+  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+  hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; margin-top:16px;}
+  .legend span{font-family:var(--mono); font-size:11px; color:var(--ink-faint); display:inline-flex; align-items:center; gap:6px;}
+  .legend .sw{width:9px; height:9px; border-radius:50%;}
+</style>
+</head><body>
+
+<header class="mast"><div class="wrap mast-inner">
+  <p class="eyebrow"><span class="dot"></span> Factory.ai · Droid Platform · Internal Reference</p>
+  <h1 class="title">Factory Droid, and how we wire it to <span>Salesforce</span></h1>
+  <p class="lede">One place for what Droid is, how its CLI and MCP work, and the end-to-end pattern for the layer we proposed: Salesforce as the source of truth with an MCP connection and actions Droid invokes to run the partner program. For the project team, going into Phase 1.</p>
+  <div class="meta-grid">
+    <div class="meta-cell"><div class="k">Client</div><div class="v">factory.ai · the Forge</div></div>
+    <div class="meta-cell"><div class="k">Phase</div><div class="v">1 · discovery (read only)</div></div>
+    <div class="meta-cell"><div class="k">Our approach</div><div class="v mono">SF source of truth + MCP</div></div>
+    <div class="meta-cell"><div class="k">Sources</div><div class="v mono">docs.factory.ai</div></div>
+    <div class="meta-cell"><div class="k">Compiled</div><div class="v mono">2026-08-27</div></div>
+  </div>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--accent)"></span> Verified from docs</span>
+    <span><span class="sw" style="background:var(--rose)"></span> Inferred / our design, confirm in discovery</span>
+    <span><span class="sw" style="background:var(--amber)"></span> Caution / watch-out</span>
+  </div>
+</div></header>
+
+<nav class="toc"><div class="wrap toc-inner">
+  <a href="#s1"><span class="num">01</span>Bottom line</a>
+  <a href="#s2"><span class="num">02</span>Droid + CLI</a>
+  <a href="#s3"><span class="num">03</span>Cost + vouchers</a>
+  <a href="#s4"><span class="num">04</span>MCP setup</a>
+  <a href="#s5"><span class="num">05</span>Droid → Salesforce</a>
+  <a href="#s6"><span class="num">06</span>Missions/Skills/Droids</a>
+  <a href="#s7"><span class="num">07</span>Auth + security</a>
+  <a href="#s8"><span class="num">08</span>Gotchas</a>
+  <span class="spacer"></span>
+  <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+</div></nav>
+
+<main class="wrap">
+
+  <section class="stream" id="s1">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Bottom line for the engagement</h2><span class="pill live">Orientation</span></div>
+    <p class="sec-sub">The five things that actually change how we plan and message this.</p>
+    <ul class="tight">
+      <li><strong>Droid is not a model, it is an agent harness</strong> (Factory's Claude-Code / Cursor competitor) that runs Claude, GPT, or Gemini per task. So building with Droid is not a downgrade from Claude. It can run on Claude.</li>
+      <li><strong>Mark wants both roles.</strong> Droid as the runtime the partners and team use, and Droid as the tool we build with. Keep the two separate when we talk. Describing what we deliver, Droid is the runtime. Describing how we build, Droid is our tool.</li>
+      <li><strong>Our layer = one MCP server over Salesforce.</strong> No native Salesforce connector exists, so we stand it up. Salesforce's own REST is the plumbing underneath. We are not building two APIs.</li>
+      <li><strong>Cost resolves if Factory holds the seats.</strong> Vouchers grant a Factory plan with all models included, so usage runs on their subscription, not our API bill. Vouchers now redeem with no payment method required.</li>
+      <li><strong>Partner registration maps cleanly</strong> to Missions, Skills, and Custom Droids. The architecture is known now. The specific actions come out of discovery.</li>
+    </ul>
+    <div class="callout"><div class="lbl">What we told Factory</div><p>Salesforce as the source of truth, an MCP connection and actions Droid invokes to run the program, shape of the actions defined in discovery, run by them before anything is built. This doc is the technical backing for that message.</p></div>
+  </section>
+
+  <section class="stream" id="s2">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">What Droid is, and the CLI</h2><span class="pill live">Verified · docs</span></div>
+    <p class="sec-sub">Yes, there is a CLI like Claude Code. Interactive and headless.</p>
+
+    <h3>The idea <span class="tag">high level</span></h3>
+    <p>Droid is Factory's agent-native coding tool. It spans an IDE plugin (VS Code, JetBrains, Vim), a terminal CLI, browser, Slack, and Jira. It routes across Claude, GPT, and Gemini per task. The design point Factory makes: agent design, not just the model, drives quality.</p>
+
+    <h3>The CLI, end to end <span class="tag">low level</span></h3>
+    <ul class="tight">
+      <li><strong>Install:</strong> Homebrew (macOS / Linux), npm (Windows, and Linux needs <code>xdg-utils</code>).</li>
+      <li><strong>Interactive:</strong> <code>cd &lt;project&gt; &amp;&amp; droid</code> opens a full-screen TUI showing mode, autonomy, and MCP status.</li>
+      <li><strong>Auth:</strong> browser sign-in on first run, or headless via <code>export FACTORY_API_KEY=fk-...</code> (generated at app.factory.ai/settings/api-keys), persisted in the shell profile.</li>
+      <li><strong>Headless / CI:</strong> the <code>droid exec</code> path, for scripting and pipelines.</li>
+    </ul>
+<pre><code><span class="cm"># headless usage</span>
+droid exec "prompt"                    <span class="cm"># direct</span>
+droid exec -f prompt.md                <span class="cm"># from a file</span>
+echo "task" | droid exec               <span class="cm"># piped</span>
+droid exec --cwd &lt;dir&gt; --auto low "..." --output-format json</code></pre>
+    <h4>Autonomy tiers</h4>
+    <p>none (read only) → <code>--auto low</code> (edits) → <code>--auto medium</code> (installs, builds, tests, commits) → <code>--auto high</code> (deploys, db writes) → <code>--skip-permissions-unsafe</code> (sandboxes only). Output formats: text, json, stream-json, stream-jsonrpc. Exit codes 0 / 1 / 2 like a normal CLI.</p>
+    <h4>Config locations</h4>
+    <ul class="tight">
+      <li><code>AGENTS.md</code> in a repo, for conventions the agent should follow.</li>
+      <li><code>~/.factory/settings.json</code> global config (BYOK models and more).</li>
+      <li><code>.factory/</code> dirs at project, folder, and user levels hold <code>skills</code>, <code>droids</code>, and <code>mcp.json</code>.</li>
+    </ul>
+  </section>
+
+  <section class="stream" id="s3">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Cost, billing, and vouchers</h2><span class="pill live">Verified</span></div>
+    <p class="sec-sub">Who pays for model usage, and the one gotcha at redemption.</p>
+
+    <h3>Two ways to pay <span class="tag">high level</span></h3>
+    <p>Factory sells subscription seats with pooled tokens, and separately supports BYOK where you bring your own model key. A plan's Standard Usage gives access to all models and is consumed first. Vouchers grant a plan, so all models are available out of the gate with no key of your own.</p>
+
+    <h3>The numbers <span class="tag">low level</span></h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Plan</th><th>Price</th><th>Tokens / notes</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Pro</td><td>$20 / mo</td><td>~20M standard tokens</td></tr>
+        <tr><td class="name">Plus</td><td>$100 / mo</td><td>~5x Pro</td></tr>
+        <tr><td class="name">Max</td><td>$200 / mo</td><td>~200M standard tokens</td></tr>
+        <tr><td class="name">Business</td><td>Contact sales</td><td>up to 150 seats, custom limits</td></tr>
+        <tr><td class="name">Enterprise</td><td>Contact sales</td><td>unlimited seats, custom</td></tr>
+        <tr><td class="name">BYOK</td><td>Your provider bill</td><td>free up to an allowance, then metered by the provider</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tight">
+      <li>Rate limits are rolling across 5-hour, weekly, and monthly windows.</li>
+      <li>Extra Usage prepaid credits: $10 minimum, no expiration.</li>
+      <li><strong>Inferred:</strong> a consumer Claude Pro / Max subscription is not usable as a Droid key. BYOK needs standard API keys.</li>
+    </ul>
+    <div class="callout"><div class="lbl">Update · 2026-08-27</div><p>Vouchers now redeem with no payment method required. The earlier card-on-file blocker is fixed. Redeeming grants the plan directly and shows what it includes before you confirm. If we expect heavy use, confirm the token allotment on the codes with Ashley.</p></div>
+  </section>
+
+  <section class="stream" id="s4">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">MCP setup</h2><span class="pill live">Verified · docs</span></div>
+    <p class="sec-sub">How Droid connects to external tools and data. This is the mechanism our Salesforce layer plugs into.</p>
+
+    <h3>The idea <span class="tag">high level</span></h3>
+    <p>MCP, the Model Context Protocol, is the open standard for giving an agent tools and data. An MCP server exposes actions (find record, update record, run query) that Droid calls. Droid is the client. Any MCP-capable agent can use the same server, which keeps our layer agent-agnostic.</p>
+
+    <h3>Configuring it <span class="tag">low level</span></h3>
+    <p>Config file is <code>mcp.json</code> at three scopes: user <code>~/.factory/mcp.json</code>, folder <code>.factory/mcp.json</code> (shared by nested projects), and project <code>.factory/mcp.json</code> at the repo root, committed. <code>droid mcp add</code> always writes to user config. Transports: <code>stdio</code>, <code>http</code> (recommended), <code>sse</code> (legacy).</p>
+<pre><code>{
+  "mcpServers": {
+    "my-server": {
+      "type": "http",
+      "url": "https://...",
+      "headers": { "Authorization": "Bearer ${MY_TOKEN}" },
+      "disabled": false,
+      "disabledTools": ["tool1"],
+      "timeout": 30000,
+      "connectTimeout": 10000
+    }
+  }
+}</code></pre>
+    <ul class="tight">
+      <li><strong>Secrets:</strong> <code>${NAME}</code> expands from shell env, only in <code>env</code>, <code>headers</code>, and oauth fields, never in <code>command</code>, <code>args</code>, or <code>url</code>. Keeps secrets out of the committed file.</li>
+      <li><strong>Remote OAuth</strong> works zero-config via Dynamic Client Registration. Set <code>oauth:false</code> for header or API-key auth.</li>
+      <li><code>/mcp</code> in-session lists the exposed tool names. Enterprise <code>mcpPolicy</code> can allowlist servers org-wide.</li>
+    </ul>
+  </section>
+
+  <section class="stream" id="s5">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Connecting Droid to Salesforce</h2><span class="pill pending">Our design · confirm</span><span class="pill sandbox">Real scope</span></div>
+    <p class="sec-sub">There is no native Salesforce connector. This is the layer we build.</p>
+
+    <h3>Where it stands <span class="tag">high level</span></h3>
+    <p><strong>Inferred:</strong> a docs search turns up Salesforce only as a SAML identity provider, not as a data integration. Factory's curated Connectors catalog (GitHub, Linear, Notion, Slack, Sentry, Google Workspace) does not list Salesforce. So this goes through a custom MCP server we stand up. That is real build-and-maintain scope, not a doc-covered integration.</p>
+
+    <h3>The end-to-end pattern <span class="tag">low level</span></h3>
+    <ul class="tight">
+      <li>Stand up a <strong>Salesforce MCP server</strong> (stdio or http) exposing tools for record CRUD, SOQL, and the partner-program domain actions.</li>
+      <li>Register it in project <code>.factory/mcp.json</code> with <code>type:"http"</code> and <code>headers.Authorization</code> referencing an env-var token, or <code>type:"stdio"</code> run locally with <code>env</code> holding the Salesforce credentials.</li>
+      <li>Scope which droid or subagent can see it via that droid's frontmatter <code>mcpServers</code> field.</li>
+      <li>Use <code>disabledTools</code> to trim the tool surface Droid loads into context.</li>
+    </ul>
+    <div class="callout"><div class="lbl">The honest framing</div><p>Salesforce is the source of truth. The MCP server is the thin layer Droid operates through. Salesforce's native REST is the plumbing underneath. One layer, not two. The specific tools and actions come from discovery.</p></div>
+  </section>
+
+  <section class="stream" id="s6">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Missions, Skills, Custom Droids</h2><span class="pill live">Verified · mechanics</span><span class="pill pending">Our mapping</span></div>
+    <p class="sec-sub">How an agent-driven partner registration workflow is structured.</p>
+
+    <h3>The building blocks <span class="tag">high level</span></h3>
+    <div class="grid-2">
+      <div class="card"><h4>Missions</h4><p><code>/missions</code>, a 5-phase orchestration for multi-feature work: planning, feature decomposition, skill integration, orchestrated execution via Mission Control. Scoped for 1 to 500 features. MCP, skills, and custom droids carry in unchanged.</p></div>
+      <div class="card"><h4>Skills</h4><p>Reusable <code>SKILL.md</code> procedures at <code>.factory/skills/&lt;name&gt;/SKILL.md</code>, with YAML frontmatter (<code>name</code>, <code>description</code>, <code>allowed-tools</code>, <code>user-invocable</code>). Auto-matched or slash-invoked.</p></div>
+      <div class="card"><h4>Custom Droids</h4><p>Subagents defined as <code>.md</code> files in <code>.factory/droids/</code>, frontmatter <code>name</code>, <code>model</code>, <code>tools</code>, <code>reasoningEffort</code>, <code>mcpServers</code>. Run non-interactively in isolated context.</p></div>
+      <div class="card"><h4>AGENTS.md</h4><p>Repo conventions the agent reads. Where we would encode the partner-program rules and guardrails.</p></div>
+    </div>
+
+    <h3>Mapped to partner registration <span class="tag">low level</span></h3>
+    <p><strong>Inferred design:</strong> a <strong>Salesforce MCP server</strong> (from section 05) → a <strong>custom droid</strong> "sf-partner-ops" scoped to only that MCP server plus edit and execute tools → a <strong>Skill</strong> "register-partner" encoding the intake, validate, create or update record, create task procedure → a <strong>Mission</strong> orchestrating the whole partner-program rollout across features (intake, dedup, approval tasks, notifications).</p>
+  </section>
+
+  <section class="stream" id="s7">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Auth, security, deployment</h2><span class="pill live">Verified · docs</span></div>
+    <p class="sec-sub">How Droid safely acts on an external system, and where it can run.</p>
+    <ul class="tight">
+      <li><strong>MCP remote auth:</strong> OAuth via Dynamic Client Registration (zero-config), or header API keys via <code>${VAR}</code> env expansion. System keyring stores OAuth tokens.</li>
+      <li><strong>BYOK keys stay local,</strong> never uploaded to Factory. <code>apiKeyHelper</code> supports short-lived org-managed creds.</li>
+      <li><strong>Deployment tiers:</strong> cloud-managed, hybrid (in your infra, your LLM gateway, your telemetry), or fully airgapped (no outbound internet, on-prem model endpoints).</li>
+      <li><strong>Sandbox guidance:</strong> run higher <code>--auto</code> levels only in devcontainers, isolated VMs, or ephemeral CI, never a dev host directly.</li>
+      <li><strong>Enterprise:</strong> <code>mcpPolicy</code> allowlists, autonomy URL overrides, custom CAs and mTLS, HTTPS_PROXY, EU data residency. Platform certs: SOC 2, ISO 42001, GDPR / CCPA, HIPAA-eligible, no training on your code.</li>
+    </ul>
+  </section>
+
+  <section class="stream" id="s8">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Gotchas going in</h2><span class="pill sandbox">Watch-outs</span></div>
+    <p class="sec-sub">The things worth knowing before we scope the build.</p>
+    <ul class="tight">
+      <li><strong>Token budget:</strong> once a Salesforce MCP server exposes many tools, <code>disabledTools</code> matters. Every tool Droid loads costs context.</li>
+      <li><strong>Governor limits are ours to handle:</strong> Droid's <code>timeout</code> and <code>connectTimeout</code> are client-side waits only. Salesforce API and governor-limit handling lives in the MCP server, not Droid config.</li>
+      <li><strong>Project <code>mcp.json</code> entries cannot be removed via <code>droid mcp remove</code></strong>, only by editing the file. Plan for how the client manages that repo file.</li>
+      <li><strong>No native Salesforce connector.</strong> Budget the MCP server as real, ongoing build-and-maintain scope.</li>
+      <li><strong>Vouchers redeem cleanly now,</strong> no payment method required (fixed 2026-08-27). Confirm the token allotment on the codes if heavy use is expected.</li>
+    </ul>
+  </section>
+
+  <section class="stream" id="sources" style="border-bottom:none">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Source Index</h2></div>
+    <p class="kicker">Factory docs read for this reference</p>
+    <div class="src-list">
+      <a class="src" href="https://docs.factory.ai/droid-cli/quickstart"><span class="gid">cli</span><span class="st"><div class="nm">Droid CLI quickstart + reference</div><div class="dt">docs.factory.ai/droid-cli</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/droid-exec/overview"><span class="gid">exec</span><span class="st"><div class="nm">droid exec (headless / CI)</div><div class="dt">docs.factory.ai/droid-exec/overview</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/docs/harness/mcp"><span class="gid">mcp</span><span class="st"><div class="nm">MCP configuration (mcp.json, transports, secrets, OAuth)</div><div class="dt">docs.factory.ai/docs/harness/mcp</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/docs/harness/connectors"><span class="gid">conn</span><span class="st"><div class="nm">Connectors catalog (no Salesforce)</div><div class="dt">docs.factory.ai/docs/harness/connectors</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/docs/missions/overview"><span class="gid">msn</span><span class="st"><div class="nm">Missions overview</div><div class="dt">docs.factory.ai/docs/missions/overview</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/docs/harness/skills"><span class="gid">skl</span><span class="st"><div class="nm">Skills</div><div class="dt">docs.factory.ai/docs/harness/skills</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/docs/harness/subagents"><span class="gid">drd</span><span class="st"><div class="nm">Custom Droids / subagents</div><div class="dt">docs.factory.ai/docs/harness/subagents</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/pricing"><span class="gid">$</span><span class="st"><div class="nm">Plans and pricing + individual plans</div><div class="dt">docs.factory.ai/pricing</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/cli/byok/overview"><span class="gid">byok</span><span class="st"><div class="nm">Custom models (BYOK)</div><div class="dt">docs.factory.ai/cli/byok/overview</div></span><span class="arr">→</span></a>
+      <a class="src" href="https://docs.factory.ai/docs/enterprise/network-and-deployment"><span class="gid">ent</span><span class="st"><div class="nm">Enterprise network and deployment</div><div class="dt">docs.factory.ai/docs/enterprise/network-and-deployment</div></span><span class="arr">→</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <p class="fmono">Compiled 2026-08-27 · 10 Factory doc pages · two research passes</p>
+    <p>Droid is a model-agnostic harness, not a downgrade. Our deliverable is one custom Salesforce MCP server that Droid operates through, with Salesforce as the source of truth. Architecture is settled, the specific actions come from Phase 1 discovery.</p>
+  </footer>
+</main>
+
+<script>
+  (function(){
+    var btn=document.getElementById('themeToggle'), root=document.documentElement;
+    btn.addEventListener('click', function(){
+      var cur=root.getAttribute('data-theme');
+      if(!cur) cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+      var next=cur==='dark'?'light':'dark';
+      root.setAttribute('data-theme', next);
+      btn.textContent=next==='dark'?'Light':'Dark';
+    });
+  })();
+</script>
+</body></html>
