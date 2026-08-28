@@ -191,15 +191,15 @@
 <body>
 
 <header class="mast"><div class="wrap mast-inner">
-  <p class="eyebrow"><span class="dot"></span> Washington Talent · Salesforce · Call Prep</p>
-  <h1 class="title">Every open thread, with the <span>evidence ready to pull up</span></h1>
-  <p class="lede">Five workstreams in play. Two are diagnosed and waiting on a decision from Jeff, one has not been reported to him yet, one is waiting on a phone-system choice, and one is closed and holding. Each section carries the numbers, the live links, and the exact question to put to him.</p>
+  <p class="eyebrow"><span class="dot"></span> Washington Talent · Salesforce · Status</p>
+  <h1 class="title">Open threads, with the <span>evidence behind each one</span></h1>
+  <p class="lede">Five workstreams in play. Two are diagnosed with a fix proven and are waiting on a decision, one is scoped and waiting on a phone-system choice, one is closed and holding, and the contract build has two open questions. Each section carries the numbers, the live links, and what is needed to move it.</p>
   <div class="meta-grid">
     <div class="meta-cell"><div class="k">Org</div><div class="v mono">WTAProd</div></div>
     <div class="meta-cell"><div class="k">Compiled</div><div class="v">2026-08-28</div></div>
     <div class="meta-cell"><div class="k">Numbers verified</div><div class="v mono">05:05 UTC</div></div>
-    <div class="meta-cell"><div class="k">wta-salesforce</div><div class="v mono">97295c9</div></div>
-    <div class="meta-cell"><div class="k">wta-esign-demo</div><div class="v mono">e98a703</div></div>
+    <div class="meta-cell"><div class="k">Production changes</div><div class="v">None</div></div>
+    <div class="meta-cell"><div class="k">Decisions open</div><div class="v">6</div></div>
   </div>
 </div></header>
 
@@ -221,21 +221,21 @@
     <span class="sec-num">01</span>
     <h2 class="sec-title">Referred By roll up shows Ids</h2>
     <span class="pill sandbox">Fix proven in sandbox</span>
-    <span class="pill pending">Awaiting his answer</span>
+    <span class="pill pending">Decision open</span>
   </div>
-  <p class="sec-sub">Reported 8/25. Answered in full 8/28. Prod untouched.</p>
+  <p class="sec-sub">Reported 8/25. Cause confirmed and answered in full 8/28. Production untouched.</p>
 
-  <h3>Where it stands <span class="tag">high level</span></h3>
-  <p>His report grouped by Referred By Roll up and showed 18-digit Ids instead of act names. The cause is one formula inside the lead source roll up flow. He pushed back on the record count and on whether lead conversion was involved. Both answered 8/28 with queries he can run himself. He has not yet said whether to proceed.</p>
+  <h3>Summary <span class="tag">high level</span></h3>
+  <p>The Referred By report grouped by Referred By Roll up and returned 18-digit Ids instead of act names. The cause is a single formula inside the lead source roll up flow. The correction is one line. Records already holding an Id need a separate cleanup, because the formula change only affects future saves.</p>
   <div class="metrics">
-    <div class="metric"><div class="val">259</div><div class="cap">Opps with an act set, the only ones that can be affected</div></div>
+    <div class="metric"><div class="val">259</div><div class="cap">Opportunities with an act set, the only ones that can be affected</div></div>
     <div class="metric"><div class="val">162</div><div class="cap">currently holding an Id</div></div>
-    <div class="metric"><div class="val">93</div><div class="cap">visible in his report, capped by its date filter</div></div>
-    <div class="metric"><div class="val">1</div><div class="cap">line of metadata separating prod from the fix</div></div>
+    <div class="metric"><div class="val">93</div><div class="cap">visible in the report, capped by its date filter</div></div>
+    <div class="metric"><div class="val">1</div><div class="cap">line of metadata separating production from the fix</div></div>
   </div>
 
-  <h3>The mechanism, if he wants to go deeper <span class="tag">low level</span></h3>
-  <p>The flow has <strong>two paths that write the same field</strong>. The correct one already exists and has always worked. The formula is the outlier sitting beside it.</p>
+  <h3>The mechanism <span class="tag">low level</span></h3>
+  <p>The flow contains <strong>two paths that write the same field</strong>. One is correct and has always worked. The formula is the outlier sitting beside it.</p>
   <div class="tbl-scroll"><table>
     <thead><tr><th>Flow element</th><th>Writes</th><th>Result</th></tr></thead>
     <tbody>
@@ -243,25 +243,25 @@
       <tr><td class="name">Assign_Referred_By_Roll_Up_Formula / _0 / _1</td><td><code>formReferredByRollup</code></td><td><span class="down">raw Product Id</span></td></tr>
     </tbody>
   </table></div>
-  <p>The formula is a priority ladder. Step two is the defect.</p>
+  <p>The formula is a priority ladder that takes the first populated source. Step two is the defect.</p>
   <pre><code>IF(NOT(ISBLANK(Referral_Contact_Name__c)),   formReferralContactandReferralAccount,
 IF(NOT(ISBLANK(Act_They_Saw_Heard__c)),     Act_They_Saw_Heard__c,      <span class="cm">&lt;-- writes the Id</span>
 IF(NOT(ISPICKVAL(LeadSource,"")),           TEXT(LeadSource),
 IF(NOT(ISBLANK(Refer_By_Text_temporary__c)), Refer_By_Text_temporary__c, ""))))</code></pre>
-  <p>The correct name is written only when the act is <strong>first set</strong>. Rule logic on <code>Talent_they_Saw_Heard</code> is <code>(1 AND 4 AND 5 AND 6) OR (2 AND 3)</code>, where 2 and 3 mean prior value null and current value populated. Every later save falls to the formula, which is why a record starts correct and flips to an Id.</p>
+  <p>The correct name is written only when the act is <strong>first set</strong>. The rule logic on <code>Talent_they_Saw_Heard</code> is <code>(1 AND 4 AND 5 AND 6) OR (2 AND 3)</code>, where conditions 2 and 3 mean the prior value was empty and the current value is populated. Every later save falls through to the formula, so a record starts correct and changes to an Id the next time the Opportunity is saved for any reason.</p>
 
-  <h3>How 259 breaks down <span class="tag">low level</span></h3>
+  <h3>How the 259 breaks down <span class="tag">low level</span></h3>
   <div class="tbl-scroll"><table>
-    <thead><tr><th>Group</th><th class="num">Count</th><th>Why</th></tr></thead>
+    <thead><tr><th>Group</th><th class="num">Count</th><th>Reason</th></tr></thead>
     <tbody>
-      <tr><td class="name">Referral Contact Name populated</td><td class="num">92</td><td>stops at ladder step one, never reaches the act</td></tr>
+      <tr><td class="name">Referral Contact Name populated</td><td class="num">92</td><td>stops at ladder step one and never reaches the act</td></tr>
       <tr><td class="name">Last save was the act being first set</td><td class="num">5</td><td>took the correct branch, all created July to August</td></tr>
       <tr><td class="name">Last save was any other edit</td><td class="num">162</td><td>fell through to the formula</td></tr>
       <tr><td class="name">Total with an act set</td><td class="num">259</td><td>reconciles exactly</td></tr>
     </tbody>
   </table></div>
 
-  <h3>Queries to run live <span class="tag">low level</span></h3>
+  <h3>Queries to confirm any of this <span class="tag">low level</span></h3>
   <pre><code><span class="kw">SELECT</span> COUNT(Id) <span class="kw">FROM</span> Opportunity
 <span class="kw">WHERE</span> Act_They_Saw_Heard__c != null                          <span class="cm">-- 259</span>
 
@@ -272,32 +272,32 @@ IF(NOT(ISBLANK(Refer_By_Text_temporary__c)), Refer_By_Text_temporary__c, ""))))<
 <span class="kw">WHERE</span> Referred_By_Roll_up__c <span class="kw">LIKE</span> '01t%'
 <span class="kw">AND</span> Event_Start_Date_Date_Only__c &gt;= TODAY                   <span class="cm">-- 93</span></code></pre>
 
-  <h3>Two things he raised that are already answered <span class="tag">high level</span></h3>
+  <h3>Two related points <span class="tag">high level</span></h3>
   <ul class="tight">
-    <li><strong>Why his report disagrees.</strong> The Referred By report filters to events from today forward, so it is capped at 93 of the 162. The other 69 are past events. Its report type is <code>Opportunities_with_Products__c</code>, a custom one despite the standard-sounding name, which answers his separate question about the two report types.</li>
-    <li><strong>Referred By Rollup Report.</strong> Not a second defect. He commented out his own CONTAINS block and left a direct reference to the broken field, so it corrects itself once the flow is fixed and the records are backfilled.</li>
+    <li><strong>Why the report shows fewer than 162.</strong> The Referred By report filters to events from today forward, so it is capped at 93. The other 69 are past events. Its report type is <code>Opportunities_with_Products__c</code>, a custom report type despite the standard-sounding name.</li>
+    <li><strong>Referred By Rollup Report.</strong> That formula now copies Referred By Roll up directly, so it shows the same Id. It corrects itself once the flow is fixed and the records are cleaned up, with no separate change needed.</li>
   </ul>
 
-  <div class="callout warn"><div class="lbl">The risk is the backfill, not the formula</div><p>Prod carries 94 active flows plus a managed Apex trigger, OpportunityGenerateDocument, whose body cannot be read. In an org that generates and sends contracts off Opportunity saves, a 162-record save is not a safe blind batch. Sequence is: export current values to CSV, deploy the formula, save one low-risk record, inspect for new documents, eSign records, email and calendar rows, then batch the rest.</p></div>
+  <div class="callout warn"><div class="lbl">The cleanup carries the risk, not the formula</div><p>Correcting the 162 existing records means saving each one. Production carries 94 active flows plus a managed document trigger whose contents cannot be inspected. In an org that generates and sends contracts from Opportunity saves, that is not a safe blind batch. The sequence is: export the current values first, deploy the formula, save one low-risk record, check for any new documents, eSign records, email or calendar rows, then run the rest.</p></div>
 
-  <p><a class="inl" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000SvBhlYAF">Open the prod flow, v19 active</a> · <a class="inl" href="https://wtaevents.lightning.force.com/lightning/r/Report/00OUN000002ISBB2A4/view">Open the Referred By report</a> · <a class="inl" href="https://great-blue-inc.github.io/docs/d/wta-referred-by-fix-16f92c50/">The walkthrough already sent to him</a></p>
+  <p><a class="inl" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000SvBhlYAF">Open the flow, v19 active</a> · <a class="inl" href="https://wtaevents.lightning.force.com/lightning/r/Report/00OUN000002ISBB2A4/view">Open the Referred By report</a> · <a class="inl" href="https://great-blue-inc.github.io/docs/d/wta-referred-by-fix-16f92c50/">Earlier walkthrough of the same issue</a></p>
 </section>
 <section class="stream" id="s2">
   <div class="sec-head">
     <span class="sec-num">02</span>
     <h2 class="sec-title">Invoice reminder alert links nowhere</h2>
     <span class="pill sandbox">Fix proven in sandbox</span>
-    <span class="pill pending">Not yet reported to him</span>
+    <span class="pill pending">Decision open</span>
   </div>
-  <p class="sec-sub">Shana forwarded the alert 8/26. Diagnosed and proven the same day. Nothing has gone back to him.</p>
+  <p class="sec-sub">Alert forwarded 8/26. Cause found and the correction proven the same day. Production untouched.</p>
 
-  <div class="callout"><div class="lbl">Lead with this</div><p>He does not know this one is solved. Three of his clients are also getting no payment reminders at all right now, which is the more urgent half and is not fixed by the flow change.</p></div>
+  <div class="callout warn"><div class="lbl">The urgent half is the data, not the link</div><p>Three invoices have no Billing Contact. Those clients are receiving no payment reminders at all right now. Setting a Billing Contact on each restores their reminders immediately. The flow correction does not fix that on its own.</p></div>
 
   <h3>What happens <span class="tag">high level</span></h3>
-  <p>Every reminder in the daily flow sends to the invoice Billing Contact. Three invoices have no Billing Contact, so the send fails with "Recipient ID is required when using templates". That failure fires the alert Shana received. The alert then builds its record link out of the same missing Billing Contact, so it has nothing to point at and arrives as a bare Salesforce address. It fails and links nowhere on exactly the occasions it fires.</p>
-  <p>Not a recent change. The formula is byte-identical back to version 21, created September 2025, and appears unchanged in two versions Jeff himself last modified.</p>
+  <p>Every reminder in the daily flow sends to the invoice Billing Contact. When an invoice has no Billing Contact the send fails with "Recipient ID is required when using templates", and that failure produces the SFR alert. The alert then builds its record link from the same missing Billing Contact, so it has nothing to point at and arrives as a bare Salesforce address. It fails and links nowhere on exactly the occasions it fires.</p>
+  <p>This is long-standing rather than recent. The formula is unchanged since version 21, created September 2025.</p>
 
-  <h3>The three invoices, which is the real client impact <span class="tag">high level</span></h3>
+  <h3>The three invoices <span class="tag">high level</span></h3>
   <div class="tbl-scroll"><table>
     <thead><tr><th>Invoice</th><th>Account</th><th class="num">Balance</th><th>Link</th></tr></thead>
     <tbody>
@@ -306,92 +306,86 @@ IF(NOT(ISBLANK(Refer_By_Text_temporary__c)), Refer_By_Text_temporary__c, ""))))<
       <tr><td class="name">INV-0000015981</td><td>Navy Federal Credit Union</td><td class="num">$2,625</td><td><a class="inl" href="https://wtaevents.lightning.force.com/lightning/r/fw1__Invoice__c/a0JUN000007ZUqQ2AW/view">open</a></td></tr>
     </tbody>
   </table></div>
-  <p>3 of 1,444 invoices currently in scope for reminders. Setting a Billing Contact on each restores their reminders immediately and stops the alerts.</p>
+  <p>Three of the 1,444 invoices currently in scope for reminders.</p>
 
-  <h3>The change <span class="tag">low level</span></h3>
-  <p>One formula resource, <code>ContactRecordLink</code>, feeding all eight fault alert bodies. A single edit, not eight. The eight send actions are untouched, so who receives customer reminders does not change.</p>
+  <h3>The correction <span class="tag">low level</span></h3>
+  <p>One formula resource, <code>ContactRecordLink</code>, feeds all eight alert bodies, so this is a single edit rather than eight. The eight send actions are untouched, so nothing changes about who receives customer reminders.</p>
   <pre><code><span class="cm">before</span>  ... &amp; {!$Record.fw1__Contact__r.Id} &amp; ...
 <span class="cm">after</span>   ... &amp; {!$Record.Id} &amp; ...  {!$Record.Name}</code></pre>
-  <p>Proven on a test invoice with no Billing Contact, using two temporary formula fields read back through SOQL. Same formula engine, real null, no flow run and no send action anywhere.</p>
+  <p>Proven on a test invoice with no Billing Contact, using two temporary formula fields read back through a query. Same formula engine and a real empty value, with no flow run and no send action involved.</p>
   <div class="tbl-scroll"><table>
-    <thead><tr><th>State</th><th>What the platform returned</th></tr></thead>
+    <thead><tr><th>State</th><th>Value returned</th></tr></thead>
     <tbody>
       <tr><td class="name">Before</td><td><code>&lt;a href="https://...salesforce.com/"&gt;https://...salesforce.com/&lt;/a&gt;</code></td></tr>
       <tr><td class="name">After</td><td><code>&lt;a href="https://...salesforce.com/a0JU8000008xJlB"&gt;INV-0000009738&lt;/a&gt;</code></td></tr>
     </tbody>
   </table></div>
-  <p>Diff against prod is two lines in a 1,900-line file. Sandbox version 33 holds the fix and is deliberately inactive. Prod stays on version 32.</p>
+  <p>The difference against production is two lines in a 1,900-line file. The corrected version sits in sandbox and is deliberately inactive. Production stays on version 32.</p>
 
-  <div class="callout warn"><div class="lbl">Optional, do not build unasked</div><p>The flow could skip invoices with no Billing Contact and route straight to the alert, instead of letting the send fail and burn five retries a day. Worth raising, not worth building without his word.</p></div>
+  <div class="callout"><div class="lbl">Optional improvement</div><p>The flow could skip invoices with no Billing Contact and go straight to the alert, rather than letting the send fail and retry five times a day. Available if wanted, not included in the correction above.</p></div>
 
-  <p><a class="inl" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000hz4FdYAI">Open the prod flow, v32 active</a></p>
+  <p><a class="inl" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000hz4FdYAI">Open the flow, v32 active</a></p>
 </section>
 
 <section class="stream" id="s3">
   <div class="sec-head">
     <span class="sec-num">03</span>
     <h2 class="sec-title">eSign contract build</h2>
-    <span class="pill pending">Two questions with him</span>
-    <span class="pill pending">Contract with Josh</span>
+    <span class="pill pending">Two questions open</span>
   </div>
-  <p class="sec-sub">Schedule 1 sent to Josh 8/24. Full document-action list sent to Jeff 8/26.</p>
+  <p class="sec-sub">Scope written and in contract drafting. Full document-action list circulated 8/26.</p>
 
-  <h3>Where it stands <span class="tag">high level</span></h3>
-  <p>Scope is settled and written. Jeff signed off on the wet-sign design in his own words, and the remaining questions are narrow. Josh is drafting the contract body.</p>
+  <h3>Settled <span class="tag">high level</span></h3>
   <ul class="tight">
-    <li><strong>Wet sign, agreed.</strong> Edit restriction rather than an open password, a checkbox on the contract defaulting from one on the Account, its own email template, reminders that link a document the client can actually open, and the thanks-for-signing email when a user records the returned copy.</li>
-    <li><strong>All 16 document actions mapped</strong> and sent to him for sign-off, split into six sent for signature and seven generated only.</li>
-    <li><strong>Migration includes the attached files</strong>, not only the records.</li>
-    <li><strong>Off-Salesforce daily backup</strong> stays a separate optional piece.</li>
+    <li><strong>Wet sign.</strong> Edit restriction rather than an open password. A checkbox on the contract defaulting from one on the Account, its own email template, reminders that link a document the client can open, and the thanks-for-signing email once a returned copy is recorded.</li>
+    <li><strong>All 16 document actions mapped</strong>, split into six sent for signature and seven generated only.</li>
+    <li><strong>Migration includes the attached contract files</strong>, not only the records.</li>
+    <li><strong>A daily copy of signed contracts off Salesforce</strong> stays a separate optional piece.</li>
   </ul>
 
   <h3>The two open questions <span class="tag">low level</span></h3>
   <div class="tbl-scroll"><table>
-    <thead><tr><th>#</th><th>Document action</th><th>Question</th><th>If he wants it</th></tr></thead>
+    <thead><tr><th>#</th><th>Document action</th><th>Question</th></tr></thead>
     <tbody>
-      <tr><td class="name">#8</td><td>[Invoices] Invoice, built on the oPay object</td><td>Covered, or retired along with oPay?</td><td>Absorbable, no line moves</td></tr>
-      <tr><td class="name">#27</td><td>[Proposals] With Pricing no Subtotal, Editable</td><td>Word output covered as well?</td><td>Only answer that moves a line</td></tr>
+      <tr><td class="name">#8</td><td>[Invoices] Invoice, built on the oPay object</td><td>Covered, or retired along with oPay?</td></tr>
+      <tr><td class="name">#27</td><td>[Proposals] With Pricing no Subtotal, Editable</td><td>Should the Word output be covered as well?</td></tr>
     </tbody>
   </table></div>
-  <p>Usage measured from the files actually produced: <strong>561 PDF proposals in the last year against 2 Word ones</strong>, most recent in May. Word has no native path on the platform, and an editable contract contradicts the wet-sign requirement he just agreed to. Recommendation stays PDF only.</p>
+  <p>Measured from the files actually generated: <strong>561 PDF proposals in the last year against 2 Word ones</strong>, the most recent in May. Word output has no native path on the Salesforce platform, and an editable contract works against the edit-restriction requirement already agreed for wet sign. The recommendation is PDF only.</p>
 
-  <div class="callout warn"><div class="lbl">One correction already made internally</div><p>His answer confirmed where invoices are generated, Payment Center rather than Concord. It never said the Concord invoice document is out of scope. That inference was ours and has been converted into question #8 rather than left as an assumption.</p></div>
-
-  <h3>Facts worth having ready <span class="tag">low level</span></h3>
+  <h3>Facts behind the plan <span class="tag">low level</span></h3>
   <ul class="tight">
-    <li><strong>Uninstalling Concord deletes the data.</strong> Roughly 12,000 documents and their attachments go with it, and the platform export lives only two days. Migration must run before any cancellation.</li>
-    <li><strong>Storage is a non-issue.</strong> Signed PDFs average about 450KB, roughly 3.2GB a year against 43.5GB free.</li>
-    <li><strong>Auto counter-sign is the real journey.</strong> 8,559 automatic against 2 manual, all time.</li>
-    <li><strong>Sending addresses.</strong> 66 verified addresses already in the org.</li>
+    <li><strong>Uninstalling Concord deletes the data.</strong> Roughly 12,000 documents and their attachments go with it, and the platform export is available for only two days. Migration has to run before any cancellation.</li>
+    <li><strong>Storage is not a constraint.</strong> Signed PDFs average about 450KB, roughly 3.2GB a year against 43.5GB free.</li>
+    <li><strong>Automatic counter-sign is the real journey.</strong> 8,559 automatic against 2 manual, all time.</li>
+    <li><strong>Sending addresses.</strong> 66 verified addresses already exist in the org.</li>
   </ul>
 </section>
 <section class="stream" id="s4">
   <div class="sec-head">
     <span class="sec-num">04</span>
     <h2 class="sec-title">Email and text matching</h2>
-    <span class="pill pending">Paused on the phone decision</span>
+    <span class="pill pending">Waiting on the phone decision</span>
   </div>
-  <p class="sec-sub">Schedule 1 with Josh since 8/18. No work in flight.</p>
+  <p class="sec-sub">Scope written since 8/18. No build in flight.</p>
 
   <h3>Where it stands <span class="tag">high level</span></h3>
-  <p>Scope is written and sitting with Josh. The build is paused waiting on the phone system choice, which is Jeff's call and is not urgent. The matching engine is channel-agnostic, so starting the email half early carries no rework risk.</p>
+  <p>The build is paused pending the phone system choice. The matching engine is channel-agnostic, so the email half can start independently and starting it early carries no rework risk.</p>
   <ul class="tight">
     <li>Matching is to opportunity only, with criteria adjustable during implementation.</li>
-    <li>MMS, bulk sending, and historical backfill are excluded in the text. Carrier registration fees sit with the client.</li>
-    <li>Jeff's stated posture in his email to Josh is to replace phones first, and he is open to starting the email half early.</li>
+    <li>MMS, bulk sending and historical backfill are excluded. Carrier registration fees sit with the client.</li>
   </ul>
 
   <h3>Provider research, all verified <span class="tag">low level</span></h3>
   <div class="tbl-scroll"><table>
-    <thead><tr><th>Provider</th><th>Verified</th><th>Note</th></tr></thead>
+    <thead><tr><th>Provider</th><th>Verified</th><th>Finding</th></tr></thead>
     <tbody>
-      <tr><td class="name">Aircall</td><td>8/19</td><td>David's recommendation. Message webhooks carry body and sender. API needs the Professional plan, three seats minimum. Porting supported, one number for calls and texts.</td></tr>
-      <tr><td class="name">RingCentral</td><td>workable</td><td>Inbound webhooks carry content. Their own Salesforce app logs only single-number matches, which the build covers past.</td></tr>
-      <tr><td class="name">Quo</td><td>corrected</td><td>API is included on all plans, corrected mid-thread.</td></tr>
-      <tr><td class="name">Twilio</td><td>8/14</td><td>Answers sent with every claim source-linked.</td></tr>
+      <tr><td class="name">Aircall</td><td>8/19</td><td>Message webhooks carry the body and sender. API access needs the Professional plan, three seats minimum. Porting supported, one number for calls and texts.</td></tr>
+      <tr><td class="name">RingCentral</td><td>8/14</td><td>Inbound webhooks carry content. Its own Salesforce app logs only single-number matches, which the build covers past.</td></tr>
+      <tr><td class="name">Quo</td><td>8/14</td><td>API included on all plans.</td></tr>
+      <tr><td class="name">Twilio</td><td>8/14</td><td>Answers provided with every claim source-linked.</td></tr>
     </tbody>
   </table></div>
-  <p>Nothing here needs a decision on the call unless he raises it.</p>
 </section>
 
 <section class="stream" id="s5">
@@ -400,66 +394,56 @@ IF(NOT(ISBLANK(Refer_By_Text_temporary__c)), Refer_By_Text_temporary__c, ""))))<
     <h2 class="sec-title">Calendar reliability</h2>
     <span class="pill live">Closed and holding</span>
   </div>
-  <p class="sec-sub">Crash fixed 8/16. Clean since. Raise only if he does.</p>
+  <p class="sec-sub">Crash fixed 16 August. Clean on live traffic since.</p>
 
-  <h3>If it comes up <span class="tag">high level</span></h3>
-  <p>The Saturday invite job hit a platform limit on the first ever batch over 25 rows. The fix raised the existing recursion guard around the write-backs in all three queueables, so the trigger cannot re-enter from inside a job. Deployed to prod 8/16 with 145 of 145 tests passing and rollback source captured first.</p>
-  <p>Proven three ways: red and green in sandbox on parity code, the exact failing load replayed clean, and live traffic since. Jeff confirmed the event links from the CSV.</p>
+  <h3>What happened and what changed <span class="tag">high level</span></h3>
+  <p>The Saturday invite job hit a platform limit on the first batch ever to exceed 25 rows. The fix raised the existing recursion guard around the write-backs in all three queueable jobs, so the trigger cannot re-enter from inside a job. Deployed 16 August with 145 of 145 tests passing and the rollback source captured beforehand.</p>
+  <p>Proven three ways: red and green in sandbox on matching code, the exact failing load replayed clean, and live traffic since. The event links were confirmed against the calendar.</p>
 
-  <h3>The "third time" framing, if he raises it <span class="tag">low level</span></h3>
-  <p>Three different failure modes in one pipeline, not one problem recurring. April was a duplicate-events race, fixed by dedup. July was write-back loss under record lock, fixed by retry and the 25-row cap. August was chaining meeting an armed email flag on the first oversized batch. April's dedup work is what saved August, since the 25 orphaned events were reused and no duplicate was ever visible to a user.</p>
+  <h3>Why the three incidents were different <span class="tag">low level</span></h3>
+  <p>Three separate failure modes in one pipeline rather than one problem recurring. April was a duplicate-events race, resolved by deduplication. July was write-back loss under record lock, resolved by a retry and the 25-row cap. August was job chaining meeting an armed email flag on the first oversized batch. The April deduplication work is what contained August, since the 25 orphaned events were reused and no duplicate was ever visible to a user.</p>
 </section>
 
 <section class="stream" id="s6">
   <div class="sec-head">
     <span class="sec-num">06</span>
-    <h2 class="sec-title">Decisions needed</h2>
-    <span class="pill pending">Six open</span>
+    <h2 class="sec-title">Decisions open</h2>
+    <span class="pill pending">Six</span>
   </div>
-  <p class="sec-sub">Nothing on this list has been actioned. Prod is untouched on both flows.</p>
+  <p class="sec-sub">Nothing on this list has been actioned. Production is untouched on both flows.</p>
 
   <div class="tbl-scroll"><table>
-    <thead><tr><th>#</th><th>Decision</th><th>Owner</th><th>Recommendation</th></tr></thead>
+    <thead><tr><th>#</th><th>Decision</th><th>Recommendation</th></tr></thead>
     <tbody>
-      <tr><td class="name">1</td><td>Deploy the Referred By formula fix to prod</td><td>Jeff</td><td>Yes. One line, both versions stay in the org, rollback is one click.</td></tr>
-      <tr><td class="name">2</td><td>Backfill the 162 affected opportunities</td><td>Jeff</td><td>Yes, but only after the single-record probe. Do not batch blind.</td></tr>
-      <tr><td class="name">3</td><td>Deploy the invoice alert link fix to prod</td><td>Jeff</td><td>Yes. Two lines, rollback is reactivating v32.</td></tr>
-      <tr><td class="name">4</td><td>Set a Billing Contact on the three invoices</td><td>Jeff or Shana</td><td>Their data and their choice of contact. More urgent than the link fix.</td></tr>
-      <tr><td class="name">5</td><td>eSign #8 and #27</td><td>Jeff</td><td>Retire #8 with oPay, leave #27 as PDF only.</td></tr>
-      <tr><td class="name">6</td><td>Phone system, which unpauses the text half</td><td>Jeff</td><td>No pressure. Email half can start independently.</td></tr>
+      <tr><td class="name">1</td><td>Deploy the Referred By formula correction</td><td>Proceed. One line, both versions stay in the org, rollback is a single step.</td></tr>
+      <tr><td class="name">2</td><td>Clean up the 162 affected opportunities</td><td>Proceed, after the single-record check described in section 01. Not a blind batch.</td></tr>
+      <tr><td class="name">3</td><td>Deploy the invoice alert link correction</td><td>Proceed. Two lines, rollback is reactivating version 32.</td></tr>
+      <tr><td class="name">4</td><td>Set a Billing Contact on the three invoices</td><td>More urgent than the link correction. Needs the right contact chosen internally.</td></tr>
+      <tr><td class="name">5</td><td>eSign document actions #8 and #27</td><td>Retire #8 with oPay. Keep #27 as PDF only.</td></tr>
+      <tr><td class="name">6</td><td>Phone system, which unpauses the text half</td><td>No time pressure. The email half can start independently.</td></tr>
     </tbody>
   </table></div>
-
-  <div class="callout"><div class="lbl">Standing constraint</div><p>Neither flow fix has been deployed and no production record has been modified. Both fixes are proven in sandbox only, and both wait on an explicit yes.</p></div>
 </section>
 
 <section class="stream" id="sources" style="border-bottom:none">
-  <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Source Index</h2></div>
+  <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Links</h2></div>
 
   <p class="kicker">Flows and records</p>
   <div class="src-list">
-    <a class="src" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000SvBhlYAF"><span class="gid">v19</span><span class="st"><div class="nm">Opportunity Lead Source Roll Up, prod active</div><div class="dt">flow · the Referred By formula</div></span><span class="arr">&rarr;</span></a>
-    <a class="src" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000hz4FdYAI"><span class="gid">v32</span><span class="st"><div class="nm">Invoice Daily Payment Reminders, prod active</div><div class="dt">flow · the alert link formula</div></span><span class="arr">&rarr;</span></a>
-    <a class="src" href="https://wtaevents.lightning.force.com/lightning/r/Report/00OUN000002ISBB2A4/view"><span class="gid">rpt</span><span class="st"><div class="nm">Referred By report</div><div class="dt">report · capped at 93 by its date filter</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000SvBhlYAF"><span class="gid">v19</span><span class="st"><div class="nm">Opportunity Lead Source Roll Up</div><div class="dt">flow · contains the Referred By formula</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000hz4FdYAI"><span class="gid">v32</span><span class="st"><div class="nm">Invoice Daily Payment Reminders</div><div class="dt">flow · contains the alert link formula</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://wtaevents.lightning.force.com/lightning/r/Report/00OUN000002ISBB2A4/view"><span class="gid">rpt</span><span class="st"><div class="nm">Referred By report</div><div class="dt">report · capped at 93 rows by its date filter</div></span><span class="arr">&rarr;</span></a>
   </div>
 
-  <p class="kicker">Already sent to Jeff</p>
+  <p class="kicker">Related</p>
   <div class="src-list">
-    <a class="src" href="https://great-blue-inc.github.io/docs/d/wta-referred-by-fix-16f92c50/"><span class="gid">8/25</span><span class="st"><div class="nm">Referred By fix walkthrough</div><div class="dt">hosted doc · cause, fix, before and after</div></span><span class="arr">&rarr;</span></a>
-  </div>
-
-  <p class="kicker">Repo docs, for detail behind any answer</p>
-  <div class="src-list">
-    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-25_REFERRED-BY-REPORT-ID-BUG.md"><span class="gid">01</span><span class="st"><div class="nm">Referred By report Id bug</div><div class="dt">wta-salesforce · full mechanism and corrections</div></span><span class="arr">&rarr;</span></a>
-    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-26_INVOICE-REMINDER-FAULT-LINK-BUG.md"><span class="gid">02</span><span class="st"><div class="nm">Invoice reminder fault link bug</div><div class="dt">wta-salesforce · proof and deploy plan</div></span><span class="arr">&rarr;</span></a>
-    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-16_CALENDAR-QUEUEABLE-LIMIT-CRASH.md"><span class="gid">05</span><span class="st"><div class="nm">Calendar queueable limit crash</div><div class="dt">wta-salesforce · incident and fix</div></span><span class="arr">&rarr;</span></a>
-    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-19_TEXT-PROVIDER-RESEARCH.md"><span class="gid">04</span><span class="st"><div class="nm">Text provider research</div><div class="dt">wta-salesforce · Aircall, RingCentral, Quo, Twilio</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://great-blue-inc.github.io/docs/d/wta-referred-by-fix-16f92c50/"><span class="gid">8/25</span><span class="st"><div class="nm">Referred By walkthrough</div><div class="dt">cause, correction, before and after</div></span><span class="arr">&rarr;</span></a>
   </div>
 </section>
 
 <footer>
-  <p class="fmono">Compiled 2026-08-28 · numbers verified 05:05 UTC · wta-salesforce 97295c9 · wta-esign-demo e98a703</p>
-  <p>Two fixes are proven and waiting on a yes, three clients are missing payment reminders today, two eSign questions sit with Jeff, and the text half stays paused until the phone system is chosen.</p>
+  <p class="fmono">Compiled 2026-08-28 · numbers verified 05:05 UTC · no production changes made</p>
+  <p>Two corrections are proven and awaiting a decision, three invoices are missing payment reminders today, two document-action questions remain open, and the text half stays paused until the phone system is chosen.</p>
 </footer>
 </main>
 
