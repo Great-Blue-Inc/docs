@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>WTA Open Threads Call Prep</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>üìã</text></svg>">
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="light"]{
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec; --ink:#16201d; --ink-soft:#3c4a45;
+    --ink-faint:#6d7b75; --line:#d7ddd4; --line-soft:#e5e9e1; --accent:#0d7a6e; --accent-2:#0a5f56;
+    --accent-wash:#e2efeb; --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee; --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+  }
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+
+  /* masthead */
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:52px 0 40px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
+    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .meta-cell{background:var(--surface); padding:14px 16px;}
+  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
+  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+
+  /* sticky TOC */
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+
+  /* sections */
+  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
+  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+
+  /* status pills */
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
+    border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+
+  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
+    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
+  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
+  h4{font-size:.95rem; font-weight:700; margin:22px 0 8px; color:var(--ink);}
+  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
+  a.inl:hover{border-bottom-color:var(--accent);}
+  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+
+  /* cards + grid */
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
+  .card.flush{padding:0; overflow:hidden;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+
+  /* callouts */
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+
+  /* code block */
+  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:16px 18px; overflow-x:auto; margin:16px 0;}
+  pre code{background:none; border:none; padding:0; font-size:.82rem; line-height:1.7; color:var(--ink);}
+  .cm{color:var(--ink-faint);} .kw{color:var(--accent-2); font-weight:600;}
+
+  /* tables */
+  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
+  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
+  td.name{color:var(--ink); font-weight:600;}
+  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
+  .up{color:var(--accent-2); font-weight:600;} .down{color:var(--rose); font-weight:600;}
+
+  /* drill-down table — collapsible roll-up with aligned numeric columns (native details/summary, no JS).
+     .drill-head labels the columns even when every group is collapsed. Fixed-width right-aligned
+     .dnums .c/.v keep numbers in one straight column at every depth; left-padding steps (20 -> 34 -> 46)
+     signal hierarchy while right padding stays 20 so the number columns line up across all levels.
+     Inherits every doc-identity token, so it themes light/dark for free. */
+  .drill-head{display:flex; justify-content:flex-end; gap:22px; padding:2px 20px 8px; color:var(--ink-faint);
+    font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
+  .dnums{font-family:var(--mono); font-variant-numeric:tabular-nums; display:inline-flex; gap:22px;}
+  .dnums .c,.drill-head .c{width:56px; text-align:right;} .dnums .v,.drill-head .v{width:132px; text-align:right;}
+  details.drill{border:1px solid var(--line); border-radius:12px; margin:12px 0; background:var(--surface); box-shadow:var(--shadow); overflow:hidden;}
+  details.drill>summary{cursor:pointer; padding:14px 20px; font-family:var(--serif); font-size:1.15rem; font-weight:600;
+    color:var(--ink); list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:baseline; background:var(--surface-2);}
+  details.drill>summary::-webkit-details-marker{display:none;} details.drill>summary .dnums{color:var(--ink-soft);}
+  details.drill-2>summary{cursor:pointer; padding:10px 20px 10px 34px; font-weight:600; color:var(--ink-soft);
+    list-style:none; display:flex; justify-content:space-between; gap:16px; border-top:1px solid var(--line-soft);}
+  details.drill-2>summary::-webkit-details-marker{display:none;} details.drill-2[open]>summary{color:var(--ink);}
+  .drill-leaf{display:flex; justify-content:space-between; gap:16px; padding:8px 20px 8px 46px;
+    border-top:1px solid var(--line-soft); color:var(--ink-soft); font-size:.9rem;}
+
+  /* metric tiles */
+  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
+  .metric{background:var(--surface); padding:18px 16px;}
+  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
+  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
+  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+
+  /* field-reference rows */
+  .fields{display:flex; flex-direction:column; gap:0;}
+  .field-row{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,2fr); gap:18px; padding:13px 0; border-bottom:1px solid var(--line-soft);}
+  .field-row:last-child{border-bottom:none;}
+  .field-row .api{font-family:var(--mono); font-size:.8rem; color:var(--accent-2); word-break:break-word;}
+  .field-row .api .obj{color:var(--ink-faint);}
+  .field-row .desc{font-size:.88rem; color:var(--ink-soft);}
+  @media (max-width:640px){ .field-row{grid-template-columns:1fr; gap:4px;} }
+
+  /* source index */
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
+  .src-list{display:grid; gap:10px;}
+  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
+  .src:hover{border-color:var(--accent); transform:translateX(2px);}
+  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
+  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
+  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
+  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+
+  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+  hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
+</style></head>
+<body>
+
+<header class="mast"><div class="wrap mast-inner">
+  <p class="eyebrow"><span class="dot"></span> Washington Talent · Salesforce · Call Prep</p>
+  <h1 class="title">Every open thread, with the <span>evidence ready to pull up</span></h1>
+  <p class="lede">Five workstreams in play. Two are diagnosed and waiting on a decision from Jeff, one has not been reported to him yet, one is waiting on a phone-system choice, and one is closed and holding. Each section carries the numbers, the live links, and the exact question to put to him.</p>
+  <div class="meta-grid">
+    <div class="meta-cell"><div class="k">Org</div><div class="v mono">WTAProd</div></div>
+    <div class="meta-cell"><div class="k">Compiled</div><div class="v">2026-08-28</div></div>
+    <div class="meta-cell"><div class="k">Numbers verified</div><div class="v mono">05:05 UTC</div></div>
+    <div class="meta-cell"><div class="k">wta-salesforce</div><div class="v mono">97295c9</div></div>
+    <div class="meta-cell"><div class="k">wta-esign-demo</div><div class="v mono">e98a703</div></div>
+  </div>
+</div></header>
+
+<nav class="toc"><div class="wrap toc-inner">
+  <a href="#s1"><span class="num">01</span>Referred By</a>
+  <a href="#s2"><span class="num">02</span>Invoice reminders</a>
+  <a href="#s3"><span class="num">03</span>eSign build</a>
+  <a href="#s4"><span class="num">04</span>Matching</a>
+  <a href="#s5"><span class="num">05</span>Calendar</a>
+  <a href="#s6"><span class="num">06</span>Decisions</a>
+  <span class="spacer"></span>
+  <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+</div></nav>
+
+<main class="wrap">
+
+<section class="stream" id="s1">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">Referred By roll up shows Ids</h2>
+    <span class="pill sandbox">Fix proven in sandbox</span>
+    <span class="pill pending">Awaiting his answer</span>
+  </div>
+  <p class="sec-sub">Reported 8/25. Answered in full 8/28. Prod untouched.</p>
+
+  <h3>Where it stands <span class="tag">high level</span></h3>
+  <p>His report grouped by Referred By Roll up and showed 18-digit Ids instead of act names. The cause is one formula inside the lead source roll up flow. He pushed back on the record count and on whether lead conversion was involved. Both answered 8/28 with queries he can run himself. He has not yet said whether to proceed.</p>
+  <div class="metrics">
+    <div class="metric"><div class="val">259</div><div class="cap">Opps with an act set, the only ones that can be affected</div></div>
+    <div class="metric"><div class="val">162</div><div class="cap">currently holding an Id</div></div>
+    <div class="metric"><div class="val">93</div><div class="cap">visible in his report, capped by its date filter</div></div>
+    <div class="metric"><div class="val">1</div><div class="cap">line of metadata separating prod from the fix</div></div>
+  </div>
+
+  <h3>The mechanism, if he wants to go deeper <span class="tag">low level</span></h3>
+  <p>The flow has <strong>two paths that write the same field</strong>. The correct one already exists and has always worked. The formula is the outlier sitting beside it.</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Flow element</th><th>Writes</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Assign_Talent_In_Referred_By_Roll_Up</td><td><code>$Record.Act_They_Saw_Heard__r.Name</code></td><td><span class="up">correct name</span></td></tr>
+      <tr><td class="name">Assign_Referred_By_Roll_Up_Formula / _0 / _1</td><td><code>formReferredByRollup</code></td><td><span class="down">raw Product Id</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>The formula is a priority ladder. Step two is the defect.</p>
+  <pre><code>IF(NOT(ISBLANK(Referral_Contact_Name__c)),   formReferralContactandReferralAccount,
+IF(NOT(ISBLANK(Act_They_Saw_Heard__c)),     Act_They_Saw_Heard__c,      <span class="cm">&lt;-- writes the Id</span>
+IF(NOT(ISPICKVAL(LeadSource,"")),           TEXT(LeadSource),
+IF(NOT(ISBLANK(Refer_By_Text_temporary__c)), Refer_By_Text_temporary__c, ""))))</code></pre>
+  <p>The correct name is written only when the act is <strong>first set</strong>. Rule logic on <code>Talent_they_Saw_Heard</code> is <code>(1 AND 4 AND 5 AND 6) OR (2 AND 3)</code>, where 2 and 3 mean prior value null and current value populated. Every later save falls to the formula, which is why a record starts correct and flips to an Id.</p>
+
+  <h3>How 259 breaks down <span class="tag">low level</span></h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Group</th><th class="num">Count</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Referral Contact Name populated</td><td class="num">92</td><td>stops at ladder step one, never reaches the act</td></tr>
+      <tr><td class="name">Last save was the act being first set</td><td class="num">5</td><td>took the correct branch, all created July to August</td></tr>
+      <tr><td class="name">Last save was any other edit</td><td class="num">162</td><td>fell through to the formula</td></tr>
+      <tr><td class="name">Total with an act set</td><td class="num">259</td><td>reconciles exactly</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Queries to run live <span class="tag">low level</span></h3>
+  <pre><code><span class="kw">SELECT</span> COUNT(Id) <span class="kw">FROM</span> Opportunity
+<span class="kw">WHERE</span> Act_They_Saw_Heard__c != null                          <span class="cm">-- 259</span>
+
+<span class="kw">SELECT</span> COUNT(Id) <span class="kw">FROM</span> Opportunity
+<span class="kw">WHERE</span> Referred_By_Roll_up__c <span class="kw">LIKE</span> '01t%'                    <span class="cm">-- 162</span>
+
+<span class="kw">SELECT</span> COUNT(Id) <span class="kw">FROM</span> Opportunity
+<span class="kw">WHERE</span> Referred_By_Roll_up__c <span class="kw">LIKE</span> '01t%'
+<span class="kw">AND</span> Event_Start_Date_Date_Only__c &gt;= TODAY                   <span class="cm">-- 93</span></code></pre>
+
+  <h3>Two things he raised that are already answered <span class="tag">high level</span></h3>
+  <ul class="tight">
+    <li><strong>Why his report disagrees.</strong> The Referred By report filters to events from today forward, so it is capped at 93 of the 162. The other 69 are past events. Its report type is <code>Opportunities_with_Products__c</code>, a custom one despite the standard-sounding name, which answers his separate question about the two report types.</li>
+    <li><strong>Referred By Rollup Report.</strong> Not a second defect. He commented out his own CONTAINS block and left a direct reference to the broken field, so it corrects itself once the flow is fixed and the records are backfilled.</li>
+  </ul>
+
+  <div class="callout warn"><div class="lbl">The risk is the backfill, not the formula</div><p>Prod carries 94 active flows plus a managed Apex trigger, OpportunityGenerateDocument, whose body cannot be read. In an org that generates and sends contracts off Opportunity saves, a 162-record save is not a safe blind batch. Sequence is: export current values to CSV, deploy the formula, save one low-risk record, inspect for new documents, eSign records, email and calendar rows, then batch the rest.</p></div>
+
+  <p><a class="inl" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000SvBhlYAF">Open the prod flow, v19 active</a> · <a class="inl" href="https://wtaevents.lightning.force.com/lightning/r/Report/00OUN000002ISBB2A4/view">Open the Referred By report</a> · <a class="inl" href="https://great-blue-inc.github.io/docs/d/wta-referred-by-fix-16f92c50/">The walkthrough already sent to him</a></p>
+</section>
+<section class="stream" id="s2">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Invoice reminder alert links nowhere</h2>
+    <span class="pill sandbox">Fix proven in sandbox</span>
+    <span class="pill pending">Not yet reported to him</span>
+  </div>
+  <p class="sec-sub">Shana forwarded the alert 8/26. Diagnosed and proven the same day. Nothing has gone back to him.</p>
+
+  <div class="callout"><div class="lbl">Lead with this</div><p>He does not know this one is solved. Three of his clients are also getting no payment reminders at all right now, which is the more urgent half and is not fixed by the flow change.</p></div>
+
+  <h3>What happens <span class="tag">high level</span></h3>
+  <p>Every reminder in the daily flow sends to the invoice Billing Contact. Three invoices have no Billing Contact, so the send fails with "Recipient ID is required when using templates". That failure fires the alert Shana received. The alert then builds its record link out of the same missing Billing Contact, so it has nothing to point at and arrives as a bare Salesforce address. It fails and links nowhere on exactly the occasions it fires.</p>
+  <p>Not a recent change. The formula is byte-identical back to version 21, created September 2025, and appears unchanged in two versions Jeff himself last modified.</p>
+
+  <h3>The three invoices, which is the real client impact <span class="tag">high level</span></h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Invoice</th><th>Account</th><th class="num">Balance</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td class="name">INV-0000014805</td><td>Howard Hughes Medical Institute</td><td class="num">$600</td><td><a class="inl" href="https://wtaevents.lightning.force.com/lightning/r/fw1__Invoice__c/a0JUN000006gWxh2AE/view">open</a></td></tr>
+      <tr><td class="name">INV-0000014853</td><td>Angelica Carliner</td><td class="num">$3,950</td><td><a class="inl" href="https://wtaevents.lightning.force.com/lightning/r/fw1__Invoice__c/a0JUN000006huoI2AQ/view">open</a></td></tr>
+      <tr><td class="name">INV-0000015981</td><td>Navy Federal Credit Union</td><td class="num">$2,625</td><td><a class="inl" href="https://wtaevents.lightning.force.com/lightning/r/fw1__Invoice__c/a0JUN000007ZUqQ2AW/view">open</a></td></tr>
+    </tbody>
+  </table></div>
+  <p>3 of 1,444 invoices currently in scope for reminders. Setting a Billing Contact on each restores their reminders immediately and stops the alerts.</p>
+
+  <h3>The change <span class="tag">low level</span></h3>
+  <p>One formula resource, <code>ContactRecordLink</code>, feeding all eight fault alert bodies. A single edit, not eight. The eight send actions are untouched, so who receives customer reminders does not change.</p>
+  <pre><code><span class="cm">before</span>  ... &amp; {!$Record.fw1__Contact__r.Id} &amp; ...
+<span class="cm">after</span>   ... &amp; {!$Record.Id} &amp; ...  {!$Record.Name}</code></pre>
+  <p>Proven on a test invoice with no Billing Contact, using two temporary formula fields read back through SOQL. Same formula engine, real null, no flow run and no send action anywhere.</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>State</th><th>What the platform returned</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Before</td><td><code>&lt;a href="https://...salesforce.com/"&gt;https://...salesforce.com/&lt;/a&gt;</code></td></tr>
+      <tr><td class="name">After</td><td><code>&lt;a href="https://...salesforce.com/a0JU8000008xJlB"&gt;INV-0000009738&lt;/a&gt;</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>Diff against prod is two lines in a 1,900-line file. Sandbox version 33 holds the fix and is deliberately inactive. Prod stays on version 32.</p>
+
+  <div class="callout warn"><div class="lbl">Optional, do not build unasked</div><p>The flow could skip invoices with no Billing Contact and route straight to the alert, instead of letting the send fail and burn five retries a day. Worth raising, not worth building without his word.</p></div>
+
+  <p><a class="inl" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000hz4FdYAI">Open the prod flow, v32 active</a></p>
+</section>
+
+<section class="stream" id="s3">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">eSign contract build</h2>
+    <span class="pill pending">Two questions with him</span>
+    <span class="pill pending">Contract with Josh</span>
+  </div>
+  <p class="sec-sub">Schedule 1 sent to Josh 8/24. Full document-action list sent to Jeff 8/26.</p>
+
+  <h3>Where it stands <span class="tag">high level</span></h3>
+  <p>Scope is settled and written. Jeff signed off on the wet-sign design in his own words, and the remaining questions are narrow. Josh is drafting the contract body.</p>
+  <ul class="tight">
+    <li><strong>Wet sign, agreed.</strong> Edit restriction rather than an open password, a checkbox on the contract defaulting from one on the Account, its own email template, reminders that link a document the client can actually open, and the thanks-for-signing email when a user records the returned copy.</li>
+    <li><strong>All 16 document actions mapped</strong> and sent to him for sign-off, split into six sent for signature and seven generated only.</li>
+    <li><strong>Migration includes the attached files</strong>, not only the records.</li>
+    <li><strong>Off-Salesforce daily backup</strong> stays a separate optional piece.</li>
+  </ul>
+
+  <h3>The two open questions <span class="tag">low level</span></h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>#</th><th>Document action</th><th>Question</th><th>If he wants it</th></tr></thead>
+    <tbody>
+      <tr><td class="name">#8</td><td>[Invoices] Invoice, built on the oPay object</td><td>Covered, or retired along with oPay?</td><td>Absorbable, no line moves</td></tr>
+      <tr><td class="name">#27</td><td>[Proposals] With Pricing no Subtotal, Editable</td><td>Word output covered as well?</td><td>Only answer that moves a line</td></tr>
+    </tbody>
+  </table></div>
+  <p>Usage measured from the files actually produced: <strong>561 PDF proposals in the last year against 2 Word ones</strong>, most recent in May. Word has no native path on the platform, and an editable contract contradicts the wet-sign requirement he just agreed to. Recommendation stays PDF only.</p>
+
+  <div class="callout warn"><div class="lbl">One correction already made internally</div><p>His answer confirmed where invoices are generated, Payment Center rather than Concord. It never said the Concord invoice document is out of scope. That inference was ours and has been converted into question #8 rather than left as an assumption.</p></div>
+
+  <h3>Facts worth having ready <span class="tag">low level</span></h3>
+  <ul class="tight">
+    <li><strong>Uninstalling Concord deletes the data.</strong> Roughly 12,000 documents and their attachments go with it, and the platform export lives only two days. Migration must run before any cancellation.</li>
+    <li><strong>Storage is a non-issue.</strong> Signed PDFs average about 450KB, roughly 3.2GB a year against 43.5GB free.</li>
+    <li><strong>Auto counter-sign is the real journey.</strong> 8,559 automatic against 2 manual, all time.</li>
+    <li><strong>Sending addresses.</strong> 66 verified addresses already in the org.</li>
+  </ul>
+</section>
+<section class="stream" id="s4">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Email and text matching</h2>
+    <span class="pill pending">Paused on the phone decision</span>
+  </div>
+  <p class="sec-sub">Schedule 1 with Josh since 8/18. No work in flight.</p>
+
+  <h3>Where it stands <span class="tag">high level</span></h3>
+  <p>Scope is written and sitting with Josh. The build is paused waiting on the phone system choice, which is Jeff's call and is not urgent. The matching engine is channel-agnostic, so starting the email half early carries no rework risk.</p>
+  <ul class="tight">
+    <li>Matching is to opportunity only, with criteria adjustable during implementation.</li>
+    <li>MMS, bulk sending, and historical backfill are excluded in the text. Carrier registration fees sit with the client.</li>
+    <li>Jeff's stated posture in his email to Josh is to replace phones first, and he is open to starting the email half early.</li>
+  </ul>
+
+  <h3>Provider research, all verified <span class="tag">low level</span></h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Provider</th><th>Verified</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Aircall</td><td>8/19</td><td>David's recommendation. Message webhooks carry body and sender. API needs the Professional plan, three seats minimum. Porting supported, one number for calls and texts.</td></tr>
+      <tr><td class="name">RingCentral</td><td>workable</td><td>Inbound webhooks carry content. Their own Salesforce app logs only single-number matches, which the build covers past.</td></tr>
+      <tr><td class="name">Quo</td><td>corrected</td><td>API is included on all plans, corrected mid-thread.</td></tr>
+      <tr><td class="name">Twilio</td><td>8/14</td><td>Answers sent with every claim source-linked.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Nothing here needs a decision on the call unless he raises it.</p>
+</section>
+
+<section class="stream" id="s5">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Calendar reliability</h2>
+    <span class="pill live">Closed and holding</span>
+  </div>
+  <p class="sec-sub">Crash fixed 8/16. Clean since. Raise only if he does.</p>
+
+  <h3>If it comes up <span class="tag">high level</span></h3>
+  <p>The Saturday invite job hit a platform limit on the first ever batch over 25 rows. The fix raised the existing recursion guard around the write-backs in all three queueables, so the trigger cannot re-enter from inside a job. Deployed to prod 8/16 with 145 of 145 tests passing and rollback source captured first.</p>
+  <p>Proven three ways: red and green in sandbox on parity code, the exact failing load replayed clean, and live traffic since. Jeff confirmed the event links from the CSV.</p>
+
+  <h3>The "third time" framing, if he raises it <span class="tag">low level</span></h3>
+  <p>Three different failure modes in one pipeline, not one problem recurring. April was a duplicate-events race, fixed by dedup. July was write-back loss under record lock, fixed by retry and the 25-row cap. August was chaining meeting an armed email flag on the first oversized batch. April's dedup work is what saved August, since the 25 orphaned events were reused and no duplicate was ever visible to a user.</p>
+</section>
+
+<section class="stream" id="s6">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">Decisions needed</h2>
+    <span class="pill pending">Six open</span>
+  </div>
+  <p class="sec-sub">Nothing on this list has been actioned. Prod is untouched on both flows.</p>
+
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>#</th><th>Decision</th><th>Owner</th><th>Recommendation</th></tr></thead>
+    <tbody>
+      <tr><td class="name">1</td><td>Deploy the Referred By formula fix to prod</td><td>Jeff</td><td>Yes. One line, both versions stay in the org, rollback is one click.</td></tr>
+      <tr><td class="name">2</td><td>Backfill the 162 affected opportunities</td><td>Jeff</td><td>Yes, but only after the single-record probe. Do not batch blind.</td></tr>
+      <tr><td class="name">3</td><td>Deploy the invoice alert link fix to prod</td><td>Jeff</td><td>Yes. Two lines, rollback is reactivating v32.</td></tr>
+      <tr><td class="name">4</td><td>Set a Billing Contact on the three invoices</td><td>Jeff or Shana</td><td>Their data and their choice of contact. More urgent than the link fix.</td></tr>
+      <tr><td class="name">5</td><td>eSign #8 and #27</td><td>Jeff</td><td>Retire #8 with oPay, leave #27 as PDF only.</td></tr>
+      <tr><td class="name">6</td><td>Phone system, which unpauses the text half</td><td>Jeff</td><td>No pressure. Email half can start independently.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout"><div class="lbl">Standing constraint</div><p>Neither flow fix has been deployed and no production record has been modified. Both fixes are proven in sandbox only, and both wait on an explicit yes.</p></div>
+</section>
+
+<section class="stream" id="sources" style="border-bottom:none">
+  <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Source Index</h2></div>
+
+  <p class="kicker">Flows and records</p>
+  <div class="src-list">
+    <a class="src" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000SvBhlYAF"><span class="gid">v19</span><span class="st"><div class="nm">Opportunity Lead Source Roll Up, prod active</div><div class="dt">flow · the Referred By formula</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://wtaevents.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301UN00000hz4FdYAI"><span class="gid">v32</span><span class="st"><div class="nm">Invoice Daily Payment Reminders, prod active</div><div class="dt">flow · the alert link formula</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://wtaevents.lightning.force.com/lightning/r/Report/00OUN000002ISBB2A4/view"><span class="gid">rpt</span><span class="st"><div class="nm">Referred By report</div><div class="dt">report · capped at 93 by its date filter</div></span><span class="arr">&rarr;</span></a>
+  </div>
+
+  <p class="kicker">Already sent to Jeff</p>
+  <div class="src-list">
+    <a class="src" href="https://great-blue-inc.github.io/docs/d/wta-referred-by-fix-16f92c50/"><span class="gid">8/25</span><span class="st"><div class="nm">Referred By fix walkthrough</div><div class="dt">hosted doc · cause, fix, before and after</div></span><span class="arr">&rarr;</span></a>
+  </div>
+
+  <p class="kicker">Repo docs, for detail behind any answer</p>
+  <div class="src-list">
+    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-25_REFERRED-BY-REPORT-ID-BUG.md"><span class="gid">01</span><span class="st"><div class="nm">Referred By report Id bug</div><div class="dt">wta-salesforce · full mechanism and corrections</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-26_INVOICE-REMINDER-FAULT-LINK-BUG.md"><span class="gid">02</span><span class="st"><div class="nm">Invoice reminder fault link bug</div><div class="dt">wta-salesforce · proof and deploy plan</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-16_CALENDAR-QUEUEABLE-LIMIT-CRASH.md"><span class="gid">05</span><span class="st"><div class="nm">Calendar queueable limit crash</div><div class="dt">wta-salesforce · incident and fix</div></span><span class="arr">&rarr;</span></a>
+    <a class="src" href="https://github.com/Great-Blue-Inc/wta-salesforce/blob/master/docs/2026-08-19_TEXT-PROVIDER-RESEARCH.md"><span class="gid">04</span><span class="st"><div class="nm">Text provider research</div><div class="dt">wta-salesforce · Aircall, RingCentral, Quo, Twilio</div></span><span class="arr">&rarr;</span></a>
+  </div>
+</section>
+
+<footer>
+  <p class="fmono">Compiled 2026-08-28 · numbers verified 05:05 UTC · wta-salesforce 97295c9 · wta-esign-demo e98a703</p>
+  <p>Two fixes are proven and waiting on a yes, three clients are missing payment reminders today, two eSign questions sit with Jeff, and the text half stays paused until the phone system is chosen.</p>
+</footer>
+</main>
+
+<script>
+  (function(){
+    var btn=document.getElementById('themeToggle'), root=document.documentElement;
+    btn.addEventListener('click', function(){
+      var cur=root.getAttribute('data-theme');
+      if(!cur) cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+      var next=cur==='dark'?'light':'dark';
+      root.setAttribute('data-theme', next);
+      btn.textContent=next==='dark'?'Light':'Dark';
+    });
+  })();
+</script>
+</body>
+</html>
