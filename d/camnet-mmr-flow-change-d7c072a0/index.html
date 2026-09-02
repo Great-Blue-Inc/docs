@@ -305,7 +305,7 @@
   <p class="sec-sub">What is verified, what is deployed, and how to activate, test, and revert.</p>
   <div class="metrics">
     <div class="metric"><div class="val">4</div><div class="cap">flows fixed and ACTIVE: opp v40, create v18, update v58, subflow v22</div></div>
-    <div class="metric"><div class="val">53</div><div class="cap">MMR work orders generated for the broken contract on the first live test</div></div>
+    <div class="metric"><div class="val">53<small> ×2</small></div><div class="cap">MMR work orders generated on BOTH live tests: the healed broken contract and a fresh closed-won test record</div></div>
     <div class="metric"><div class="val">7<small> edits</small></div><div class="cap">changed elements total, each verified against a fresh prod retrieve before deploy</div></div>
     <div class="metric"><div class="val">1<small> click</small></div><div class="cap">rollback: re-activate the prior version of any flow</div></div>
   </div>
@@ -320,10 +320,10 @@
       (<code>backups/camnetProd-flows-2026-09-01/</code>).</li>
     <li><strong>Update path verified live:</strong> East Mountain generated its full 53-work-order
       schedule on one flag toggle. The four manually backfilled contracts were not touched.</li>
-    <li><strong>Known open item: creation-path cadence.</strong> The opportunity flow does not stamp
-      <code>WeeksBetweenMMRs__c</code> on contracts it creates, and the subflow builds zero work
-      orders when that cadence is blank. New contracts need either a default in the subflow or a
-      stamped value at creation. An end-to-end test record will document this before any fix.</li>
+    <li><strong>Creation path verified end to end.</strong> A clearly marked test opportunity with
+      one MSP Growth line was closed won: the line landed flagged, the contract was created with
+      generation on and a weekly cadence, and 53 MMR work orders auto-created. All test records
+      were deleted afterward.</li>
     <li><strong>Known open item: dead-window sweep.</strong> Other contracts created between 05-11
       and activation may be missing their MMR sets. A read-only sweep will list them for a
       one-time approved re-toggle, excluding the four manually backfilled accounts.</li>
