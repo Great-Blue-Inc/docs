@@ -207,14 +207,15 @@
   <p class="lede">MSP Growth, Elite, and Strategic plans stopped producing monthly maintenance
   review work orders. The requested condition change is in, and the investigation found the
   larger fault behind it: the work-order generator has been silently dead for every contract
-  since May 11. Three flow fixes are deployed to production as inactive drafts, awaiting
-  activation.</p>
+  since May 11. Four flow fixes are live in production, and the repair is proven: the broken
+  East Mountain contract generated its full 53-work-order schedule through the fixed
+  automation.</p>
   <div class="meta-grid">
     <div class="meta-cell"><div class="k">Org</div><div class="v mono">camnetProd</div></div>
-    <div class="meta-cell"><div class="k">Deploy</div><div class="v mono">0Af7y000002sek5CAA</div></div>
-    <div class="meta-cell"><div class="k">New versions</div><div class="v mono">v40 · v18 · v58</div></div>
-    <div class="meta-cell"><div class="k">State</div><div class="v">Inactive drafts</div></div>
-    <div class="meta-cell"><div class="k">Compiled</div><div class="v mono">2026-09-01</div></div>
+    <div class="meta-cell"><div class="k">New versions</div><div class="v mono">v40 · v18 · v58 · sub v22</div></div>
+    <div class="meta-cell"><div class="k">State</div><div class="v">Active, test passed</div></div>
+    <div class="meta-cell"><div class="k">Verified</div><div class="v">53 work orders generated</div></div>
+    <div class="meta-cell"><div class="k">Updated</div><div class="v mono">2026-09-02</div></div>
   </div>
 </div></header>
 
@@ -229,7 +230,7 @@
 <main class="wrap">
 <section class="stream" id="s1">
   <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Request and root cause</h2>
-    <span class="pill pending">Awaiting activation</span></div>
+    <span class="pill live">Live, verified</span></div>
   <p class="sec-sub">One requested condition change, plus the org-wide fault found while proving it.</p>
   <div class="tbl-scroll"><table>
     <thead><tr><th>Requirement</th><th>Solution</th></tr></thead>
@@ -279,39 +280,61 @@
   Included, mapped to Triggering ServiceContract &gt; Owner ID. The contract create flow
   (<code>RTF_Service_Contract_On_Create_After_Save</code>, v17 to v18) received the identical
   five-line addition, so brand-new MSP contracts generate on creation again.</p>
+
+  <h3>The subflow itself: two wrong wirings <span class="tag">Subflow_Create_MMR_Work_Orders · v21 to v22</span></h3>
+  <p>Activating the three flows above exposed one more fault. The subflow located its service
+  contract through an input named <code>recordId</code> that no caller supplies, including the
+  screen flow staff use by hand, and then wrote that same value into the work order's
+  Opportunity lookup, where a contract id can never be valid. No caller could satisfy both.
+  Two element-level corrections:</p>
+  <pre><code><span class="cm">Get Triggering Service Contract, lookup filter:</span>
+  Id Equals {!recordId}            <span class="cm">before: an input nothing passes</span>
+  Id Equals {!ServiceContractId}   <span class="cm">after: the input every caller passes</span>
+
+<span class="cm">Build WO In Memory, Opportunity field:</span>
+  Opportunity__c = {!recordId}     <span class="cm">before: a contract id in an Opportunity lookup, faults the insert</span>
+  Opportunity__c = {!OppId}        <span class="cm">after: the real opportunity input, null when absent</span></code></pre>
+  <div class="callout"><div class="lbl">Verified live</div>
+    <p>With v22 active, one toggle of the East Mountain contract's generation flag produced its
+    complete 53-work-order weekly schedule (MMR #1 through #53, owners set) through the
+    product's own automation. Zero manual inserts.</p></div>
 </section>
 
 <section class="stream" id="s3">
   <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Proof and deploy state</h2></div>
   <p class="sec-sub">What is verified, what is deployed, and how to activate, test, and revert.</p>
   <div class="metrics">
-    <div class="metric"><div class="val">3</div><div class="cap">flows fixed, deployed as inactive drafts</div></div>
-    <div class="metric"><div class="val">0</div><div class="cap">behavior changes until activation</div></div>
-    <div class="metric"><div class="val">5<small> edits</small></div><div class="cap">total changed elements across 3 flows, verified against a fresh prod retrieve</div></div>
-    <div class="metric"><div class="val">1<small> click</small></div><div class="cap">rollback: re-activate the prior version</div></div>
+    <div class="metric"><div class="val">4</div><div class="cap">flows fixed and ACTIVE: opp v40, create v18, update v58, subflow v22</div></div>
+    <div class="metric"><div class="val">53</div><div class="cap">MMR work orders generated for the broken contract on the first live test</div></div>
+    <div class="metric"><div class="val">7<small> edits</small></div><div class="cap">changed elements total, each verified against a fresh prod retrieve before deploy</div></div>
+    <div class="metric"><div class="val">1<small> click</small></div><div class="cap">rollback: re-activate the prior version of any flow</div></div>
   </div>
   <h3>Deploy state <span class="tag">honest</span></h3>
   <ul class="tight">
-    <li><strong>Production is untouched behaviorally.</strong> Deploy <code>0Af7y000002sek5CAA</code>
-      succeeded and created inactive drafts only: opportunity flow v40, contract create v18,
-      contract update v58. The active versions (v39, v17, v57) keep running.</li>
-    <li><strong>Overwrite check passed clean.</strong> The pre-deploy guard retrieved and archived the
-      org's running copies, diffed element by element, and confirmed the deploy drops nothing.
-      Full pre-change XML of all three flows is committed to the repo
+    <li><strong>All four fixes are ACTIVE in production</strong> (deploys
+      <code>0Af7y000002sek5CAA</code> and the subflow follow-up). Prior versions v39, v17, v57,
+      v21 remain in the org for one-click rollback.</li>
+    <li><strong>Every overwrite check passed clean.</strong> The pre-deploy guard archived the org's
+      running copies and confirmed element by element that nothing is dropped. Full pre-change
+      XML of all four flows is committed to the repo
       (<code>backups/camnetProd-flows-2026-09-01/</code>).</li>
-    <li><strong>Not yet tested end to end.</strong> Activation is the test: activate the three drafts,
-      re-toggle the East Mountain contract's generation flag, and ~53 weekly MMR work orders should
-      appear with owners set. Any problem, re-activate the prior versions.</li>
-    <li><strong>Known open item.</strong> Other contracts created in the dead window (05-11 to
-      activation) may also be missing their MMR sets. A read-only sweep after activation will list
-      them for a one-time approved re-toggle, excluding the four manually backfilled accounts.</li>
+    <li><strong>Update path verified live:</strong> East Mountain generated its full 53-work-order
+      schedule on one flag toggle. The four manually backfilled contracts were not touched.</li>
+    <li><strong>Known open item: creation-path cadence.</strong> The opportunity flow does not stamp
+      <code>WeeksBetweenMMRs__c</code> on contracts it creates, and the subflow builds zero work
+      orders when that cadence is blank. New contracts need either a default in the subflow or a
+      stamped value at creation. An end-to-end test record will document this before any fix.</li>
+    <li><strong>Known open item: dead-window sweep.</strong> Other contracts created between 05-11
+      and activation may be missing their MMR sets. A read-only sweep will list them for a
+      one-time approved re-toggle, excluding the four manually backfilled accounts.</li>
   </ul>
 </section>
 
 <footer>
-  <p class="fmono">Compiled 2026-09-01 · camnetProd · deploy 0Af7y000002sek5CAA · repo doc docs/2026-09-01_MMR-MSP-FLOW-CHANGE.md</p>
-  <p>Three-flow fix deployed inactive and fully reversible. Activation plus one flag toggle brings
-  automatic MMR generation back for the new MSP plans and everyone else.</p>
+  <p class="fmono">Updated 2026-09-02 · camnetProd · deploys 0Af7y000002sek5CAA + subflow v22 · repo doc docs/2026-09-01_MMR-MSP-FLOW-CHANGE.md</p>
+  <p>Four-flow fix live and verified: automatic MMR generation is back, proven by the broken
+  contract generating its full schedule. Creation-path cadence and the dead-window sweep are the
+  two named follow-ups.</p>
 </footer>
 </main>
 
