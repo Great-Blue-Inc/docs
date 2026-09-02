@@ -206,7 +206,7 @@
   <h1 class="title">MMR auto-creation for the <span>new MSP plans</span></h1>
   <p class="lede">MSP Growth, Elite, and Strategic plans now trigger monthly maintenance review work
   orders the same way the MMR line item did. Alongside the requested condition change, the
-  work order generation path was hardened so schedules create automatically again for every
+  work order generation path was also corrected so schedules create automatically for every
   qualifying contract. Four flow updates are live in production and verified: the East
   Mountain contract generated its full 53-work-order schedule through the automation.</p>
   <div class="meta-grid">
@@ -236,7 +236,7 @@
     <tbody>
       <tr><td class="name">MMR should auto-create for MSP Growth, Elite, and Strategic the way it does for an MMR line item</td>
           <td>The opportunity close flow's two product-name checks now match all four product names instead of <code>MMR</code> alone</td></tr>
-      <tr><td class="name">Work order generation hardened (found during verification)</td>
+      <tr><td class="name">Work order generation corrected (found during verification)</td>
           <td>The work order subflow required inputs its calling flows did not supply, so automatic runs could exit without creating schedules. Both calling flows now pass the contract owner, and the subflow's contract lookup and opportunity reference were corrected.</td></tr>
       <tr><td class="name">Contracts missing their schedules</td>
           <td>East Mountain High Charter (contract 00011116) had no MMR schedule. Its generation flag and weekly cadence are set (full row backed up first), and the fixed automation generated its complete schedule. A short list of similar contracts is ready for one-time generation on approval.</td></tr>
