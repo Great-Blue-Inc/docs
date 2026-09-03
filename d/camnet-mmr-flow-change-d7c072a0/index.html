@@ -217,6 +217,22 @@
     <div class="meta-cell"><div class="k">Updated</div><div class="v mono">2026-09-02</div></div>
   </div>
 </div></header>
+<section class="stream" id="context" style="padding:34px 0 6px; border-bottom:1px solid var(--line-soft);">
+  <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">What this document covers</h2></div>
+  <p>MMR stands for monthly maintenance review. Each qualifying service contract gets one
+  work order per month. Technicians work from these work orders. Billing depends on them.</p>
+  <p>Before this change, only one path created these work orders. A contract qualified when
+  it contained a line item named MMR. Contracts sold as MSP Growth, MSP Elite, or MSP
+  Strategic plans did not qualify, so their monthly work orders were never created.</p>
+  <p>The request: treat MSP Growth, Elite, and Strategic the same as the MMR line item.</p>
+  <p>The change: four flows now carry the added conditions, and the work order creation
+  step was corrected so every qualifying contract builds its full monthly schedule.</p>
+  <p>The proof: a full test exercised all three plan types end to end. The East Mountain
+  contract then generated its complete 53 work order schedule. Live contract traffic has
+  since flowed through the updated flows with correct results and no errors.</p>
+  <p>The sections below show each flow before and after, with the exact edit outlined in
+  red on real screenshots.</p>
+</section>
 
 <nav class="toc"><div class="wrap toc-inner">
   <a href="#s1"><span class="num">01</span>Request &amp; root cause</a>
