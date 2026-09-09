@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bid Quoting, team walk 2026-09-09</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --bg:#f7f6f3;
+    --ink:#191a1c;
+    --dim:#5c6066;
+    --rule:#d6d3cc;
+    --accent:#1f4e79;
+    --panel:#efece6;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:20px;
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
+  .deck{height:100vh;width:100vw;overflow:hidden;position:relative;cursor:pointer;}
+  .slide{
+    display:none;
+    position:absolute;
+    inset:0;
+    padding:5vh 6vw 9vh 6vw;
+    overflow:auto;
+  }
+  .slide.on{display:flex;flex-direction:column;justify-content:center;}
+  .inner{width:100%;max-width:1180px;margin:0 auto;}
+
+  h1{font-size:64px;line-height:1.08;margin:0 0 24px 0;letter-spacing:-0.5px;font-weight:700;}
+  h2{font-size:44px;line-height:1.12;margin:0 0 8px 0;letter-spacing:-0.3px;font-weight:700;}
+  .kicker{
+    font-size:16px;text-transform:uppercase;letter-spacing:2px;
+    color:var(--accent);font-weight:700;margin:0 0 14px 0;
+  }
+  .sub{font-size:26px;color:var(--dim);margin:0 0 28px 0;max-width:1060px;}
+  .lead{font-size:30px;line-height:1.35;margin:22px 0 0 0;max-width:960px;}
+  .rule{height:3px;background:var(--accent);width:96px;margin:20px 0 28px 0;}
+
+  ul{margin:22px 0 0 0;padding:0;list-style:none;}
+  li{
+    font-size:27px;line-height:1.3;margin:0 0 18px 0;
+    padding-left:30px;position:relative;max-width:980px;
+  }
+  li:before{
+    content:"";position:absolute;left:0;top:14px;
+    width:12px;height:3px;background:var(--accent);
+  }
+  li .note{display:block;font-size:20px;color:var(--dim);margin-top:6px;line-height:1.35;}
+
+  table{border-collapse:collapse;margin:24px 0 0 0;width:100%;max-width:1080px;}
+  caption{text-align:left;font-size:18px;color:var(--dim);padding-bottom:8px;}
+  th,td{
+    text-align:left;padding:9px 16px 9px 0;
+    border-bottom:1px solid var(--rule);font-size:21px;
+  }
+  th{font-size:15px;text-transform:uppercase;letter-spacing:1.4px;color:var(--dim);font-weight:700;}
+  td.num,th.num{text-align:right;padding-right:26px;font-variant-numeric:tabular-nums;}
+  tr.total td{font-weight:700;border-bottom:3px solid var(--accent);}
+
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:34px 0 0 0;}
+  .step{
+    flex:1 1 150px;min-width:140px;background:var(--panel);
+    border:1px solid var(--rule);border-left:4px solid var(--accent);
+    padding:16px 14px;
+  }
+  .step .n{font-size:13px;letter-spacing:1.6px;color:var(--accent);font-weight:700;}
+  .step .t{font-size:21px;line-height:1.2;margin-top:8px;font-weight:700;}
+  .step .d{font-size:16px;color:var(--dim);margin-top:8px;line-height:1.3;}
+
+  .cols{display:flex;gap:44px;flex-wrap:wrap;margin-top:20px;}
+  .col{flex:1 1 380px;min-width:320px;}
+  .col h3{font-size:17px;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);margin:0 0 10px 0;}
+
+  .flag{
+    border-left:4px solid var(--accent);background:var(--panel);
+    padding:16px 20px;margin:28px 0 0 0;font-size:22px;max-width:1000px;line-height:1.35;
+  }
+  .src{
+    position:absolute;left:6vw;right:6vw;bottom:3.4vh;
+    font-size:14px;color:var(--dim);border-top:1px solid var(--rule);
+    padding-top:8px;line-height:1.4;
+  }
+  .pageno{
+    position:fixed;right:2vw;bottom:2.2vh;font-size:14px;color:var(--dim);
+    font-variant-numeric:tabular-nums;
+  }
+  .title-meta{font-size:20px;color:var(--dim);margin-top:40px;line-height:1.6;}
+  @media (max-height:900px){
+    h1{font-size:50px;margin-bottom:18px;}
+    h2{font-size:35px;}
+    .sub{font-size:22px;margin-bottom:20px;}
+    .lead{font-size:25px;margin-top:16px;}
+    li{font-size:23px;margin-bottom:13px;}
+    li .note{font-size:17px;}
+    li:before{top:12px;}
+    td,th{font-size:18px;padding:7px 14px 7px 0;}
+    caption{font-size:16px;}
+    table{margin-top:18px;}
+    .flag{font-size:19px;padding:13px 18px;margin-top:20px;}
+    .step .t{font-size:19px;}
+    .step .d{font-size:15px;}
+    .flow{margin-top:26px;}
+    .title-meta{margin-top:28px;font-size:18px;}
+    .col p{font-size:18px !important;}
+    .col li{font-size:19px !important;}
+  }
+  @media (max-width:900px){
+    h1{font-size:42px;} h2{font-size:32px;} li{font-size:21px;} .sub{font-size:20px;}
+    td,th{font-size:17px;}
+  }
+</style>
+<style>
+html,body,#deck,.slide{background:#111417!important;color:#e8e6e1!important}
+.slide h2,.slide h1{color:#f3f1ec!important}
+.slide .kicker{color:#7fb3ff!important}
+.slide li,.slide p,.slide .sub,.slide td,.slide th{color:#d9d6cf!important}
+.slide li::before,.slide li::marker{color:#7fb3ff!important}
+.slide .note,.slide .src,.counter,.page,.slide-num{color:#8a8f98!important}
+hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
+.slide li{font-size:24px;line-height:1.35;margin-bottom:14px;max-width:1080px}
+@media (max-height:900px){.slide li{font-size:21px;margin-bottom:11px}}
+@media (max-width:700px){.slide{padding:4vh 5vw 8vh 5vw;justify-content:flex-start !important}.slide h2{font-size:26px}.slide li{font-size:17px;line-height:1.4;margin-bottom:10px;padding-left:22px}.slide li:before{top:10px;width:10px}.kicker{font-size:12px}.pageno{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<section class="slide">
+<div class="kicker">BID QUOTING</div>
+<h2>Bid Quoting</h2>
+<ul>
+<li>Contractors that install network cabling, access control, cameras and alarms bid on construction projects. The bid starts from the project's spec book.</li>
+<li>Today an estimator reads hundreds of pages, matches each item to the catalog, looks up past prices, counts devices on the drawings, and builds the quote by hand.</li>
+<li>Bid Quoting does that work and produces a quote draft for the estimator to review.</li>
+<li>Every number on the draft traces to a spec sentence, a won job, or a drawing tag.</li>
+</ul>
+</section>
+<section class="slide">
+<div class="kicker">STEP 1</div>
+<h2>From posting to requirements</h2>
+<ul>
+<li>A Python script, run by hand, scans the Texas Department of Transportation bid postings month by month. It keeps a list of postings already seen and flags any spec with a Division 27 or 28 section (cabling and security).</li>
+<li>A second script slices those pages out of the PDF and opens them as a record in the app. A spec can also be uploaded by hand.</li>
+<li>Claude reads the PDF in 20-page pieces and returns text. The text is cached.</li>
+<li>Claude reads each piece against a fixed schema and returns the requirements: product, approved manufacturers, section, stated quantity, source sentence.</li>
+<li>Daingerfield: 30 pages, 275 requirements, 4 minutes, 60 cents.</li>
+</ul>
+</section>
+<section class="slide">
+<div class="kicker">STEP 2</div>
+<h2>Matching, price and quantity</h2>
+<ul>
+<li>Each requirement is searched against three catalog fields: part number, description, manufacturer. Products on won jobs rank higher. A part number in the spec matches its SKU directly.</li>
+<li>Claude picks from the shortlist based on product type, performance category, approved manufacturer, then won history. If nothing passes, no product is drafted and the requirement goes to the Needs your call list with its closest candidates.</li>
+<li>Price: most recent won job for the SKU, then catalog list price, else Enter price.</li>
+<li>Quantity is set only when the sentence states a count. Cable is per foot with footage blank.</li>
+<li>Labor is an estimate: material times the company's labor-to-material ratio on won jobs. Graded today against CamNet's history: not reliable yet. The fix is the labor roster and a ratio per job type.</li>
+</ul>
+</section>
+<section class="slide">
+<div class="kicker">STEP 3</div>
+<h2>Review and drawings</h2>
+<ul>
+<li>One status per line. Enter footage: cable with no length. Enter price: no won or list price. Confirm quantity: spec states no count. Confirm price: list price, not a won price. Verify: matched without enough certainty.</li>
+<li>A line opens to its spec sentence, price source, and five alternatives. One click swaps.</li>
+<li>The counter reads the text layer of the plans, the standard takeoff method. A vision model was tried and misread arrows, scale bars and callouts as devices.</li>
+<li>Always counted: WAP, IFP, card readers, workstations, motion sensors. Door contacts and camera angles only with a legend. Single letters flagged.</li>
+<li>Use count puts a drawing count onto a line. Nothing commits on its own.</li>
+</ul>
+</section>
+<section class="slide">
+<div class="kicker">STEP 4</div>
+<h2>Quote and web build</h2>
+<ul>
+<li>Pick the account, press Create quote. Lines write to Salesforce CPQ, or the standard Quote if CPQ is absent. The draft locks.</li>
+<li>Web build, for a client without Salesforce: the React front end ported from the Salesforce app, a Python API server (FastAPI), a SQLite database, one machine, the client's own Claude key.</li>
+<li>The client brings three CSV files: catalog with prices, accounts, won history. Headers map by name and are shown before use. Spec and drawings upload the same way. Export to PDF or CSV.</li>
+<li>Not built: hosting, logins, billing, CPQ push.</li>
+</ul>
+</section>
+<section class="slide">
+<div class="kicker">RESULTS</div>
+<h2>Measured</h2>
+<ul>
+<li>Graded past bids: 86 percent of won material dollars covered on Watson, 85 percent on Zuni.</li>
+<li>Counter across six books: 5 classes exact, 5 explained, 4 misses fixed by rule, 5 with no reference.</li>
+<li>Daingerfield: 24 lines, 250 no match, on a 340-product sample catalog.</li>
+<li>Every model output stays marked until a person acts on it.</li>
+</ul>
+</section>
+</div>
+<div class="pageno" id="pageno"></div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var pageno = document.getElementById('pageno');
+
+  function show(n){
+    if (n < 0) n = 0;
+    if (n > slides.length - 1) n = slides.length - 1;
+    slides[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('on');
+    slides[i].scrollTop = 0;
+    pageno.textContent = (i + 1) + ' / ' + slides.length;
+    if (location.hash !== '#' + (i + 1)) {
+      history.replaceState(null, '', '#' + (i + 1));
+    }
+  }
+
+  function next(){ show(i + 1); }
+  function prev(){ show(i - 1); }
+
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === ' ' || k === 'Enter'){
+      next(); e.preventDefault();
+    } else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || k === 'Backspace'){
+      prev(); e.preventDefault();
+    } else if (k === 'Home'){ show(0); e.preventDefault(); }
+    else if (k === 'End'){ show(slides.length - 1); e.preventDefault(); }
+  });
+
+  document.getElementById('deck').addEventListener('click', function(e){
+    if (e.shiftKey) { prev(); } else { next(); }
+  });
+
+  var tx=null, ty=null;
+  document.addEventListener('touchstart', function(e){ var t=e.changedTouches[0]; tx=t.clientX; ty=t.clientY; }, {passive:true});
+  document.addEventListener('touchend', function(e){ if (tx===null) return; var t=e.changedTouches[0]; var dx=t.clientX-tx, dy=t.clientY-ty; tx=null; if (Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)) { if (dx<0) next(); else prev(); } }, {passive:true});
+  var start = parseInt((location.hash || '').replace('#',''), 10);
+  slides[0].classList.add('on');
+  show(isNaN(start) ? 0 : start - 1);
+})();
+</script>
+</body>
+</html>
