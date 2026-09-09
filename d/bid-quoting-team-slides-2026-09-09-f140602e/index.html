@@ -138,20 +138,20 @@ hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
 <div class="kicker">BID QUOTING</div>
 <h2>Bid Quoting</h2>
 <ul>
-<li>Contractors bid projects from the spec book.</li>
-<li>Estimators build each quote by hand today.</li>
-<li>Bid Quoting drafts the quote for review.</li>
-<li>Every number traces to a sentence, a job, or a drawing.</li>
+<li>Contractors that install network cabling, access control, cameras and alarms bid on construction projects. The bid starts from the project's spec book.</li>
+<li>Today an estimator reads hundreds of pages, matches each item to the catalog, looks up past prices, counts devices on the drawings, and builds the quote by hand.</li>
+<li>Bid Quoting does that work and produces a quote draft for the estimator to review.</li>
+<li>Every number on the draft traces to a spec sentence, a won job, or a drawing tag.</li>
 </ul>
 </section>
 <section class="slide">
 <div class="kicker">STEP 1</div>
 <h2>From posting to requirements</h2>
 <ul>
-<li>A script scans Texas DOT postings for Division 27 and 28.</li>
-<li>Those pages open as a record, or upload by hand.</li>
-<li>Claude reads the PDF in 20-page pieces. Text is cached.</li>
-<li>Claude returns each requirement with its section and sentence.</li>
+<li>A Python script, run by hand, scans the Texas Department of Transportation bid postings month by month. It keeps a list of postings already seen and flags any spec with a Division 27 or 28 section (cabling and security).</li>
+<li>A second script slices those pages out of the PDF and opens them as a record in the app. A spec can also be uploaded by hand.</li>
+<li>Claude reads the PDF in 20-page pieces and returns text. The text is cached.</li>
+<li>Claude reads each piece against a fixed schema and returns the requirements: product, approved manufacturers, section, stated quantity, source sentence.</li>
 <li>Daingerfield: 30 pages, 275 requirements, 4 minutes, 60 cents.</li>
 </ul>
 </section>
@@ -159,52 +159,49 @@ hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
 <div class="kicker">STEP 2</div>
 <h2>Matching, price and quantity</h2>
 <ul>
-<li>Search by part number, description, manufacturer. Won jobs rank higher.</li>
-<li>Claude picks on type, category, manufacturer, then won history.</li>
-<li>No fit: nothing drafted, requirement goes to Needs your call.</li>
-<li>Price: last won job, then list price, else Enter price.</li>
-<li>Quantity only when the spec states a count.</li>
-<li>Labor is an estimate. Graded today: not reliable yet.</li>
+<li>Each requirement is searched against three catalog fields: part number, description, manufacturer. Products on won jobs rank higher. A part number in the spec matches its SKU directly.</li>
+<li>Claude picks from the shortlist based on product type, performance category, approved manufacturer, then won history. If nothing passes, no product is drafted and the requirement goes to the Needs your call list with its closest candidates.</li>
+<li>Price: most recent won job for the SKU, then catalog list price, else Enter price.</li>
+<li>Quantity is set only when the sentence states a count. Cable is per foot with footage blank.</li>
+<li>Labor is an estimate: material times the company's labor-to-material ratio on won jobs. Graded today against CamNet's history: not reliable yet. The fix is the labor roster and a ratio per job type.</li>
 </ul>
 </section>
 <section class="slide">
 <div class="kicker">STEP 3</div>
 <h2>Review and drawings</h2>
 <ul>
-<li>One status per line says what a person must do.</li>
-<li>A line opens to its sentence, price source, alternatives.</li>
-<li>The counter reads the text layer of the plans.</li>
-<li>Vision was tried. It misread arrows and callouts as devices.</li>
-<li>Use count puts a count onto a line. Nothing commits alone.</li>
+<li>One status per line. Enter footage: cable with no length. Enter price: no won or list price. Confirm quantity: spec states no count. Confirm price: list price, not a won price. Verify: matched without enough certainty.</li>
+<li>A line opens to its spec sentence, price source, and five alternatives. One click swaps.</li>
+<li>The counter reads the text layer of the plans, the standard takeoff method. A vision model was tried and misread arrows, scale bars and callouts as devices.</li>
+<li>Always counted: WAP, IFP, card readers, workstations, motion sensors. Door contacts and camera angles only with a legend. Single letters flagged.</li>
+<li>Use count puts a drawing count onto a line. Nothing commits on its own.</li>
 </ul>
 </section>
 <section class="slide">
 <div class="kicker">STEP 4</div>
 <h2>Create the quote</h2>
 <ul>
-<li>Pick the account, press Create quote.</li>
-<li>Lines write to CPQ or the standard Quote.</li>
-<li>The draft locks. The quote is the record.</li>
+<li>Pick the account, press Create quote. Lines write to Salesforce CPQ, or the standard Quote if CPQ is absent.</li>
+<li>The draft locks. The quote is the record from then on.</li>
 </ul>
 </section>
 <section class="slide">
 <div class="kicker">WEB BUILD</div>
 <h2>The same engine without Salesforce</h2>
 <ul>
-<li>React front end ported from the Salesforce app.</li>
-<li>Python API server (FastAPI), SQLite, one machine, client's key.</li>
-<li>Client brings three CSVs: catalog, accounts, won history.</li>
-<li>Spec and drawings upload the same way. Export PDF or CSV.</li>
+<li>The React front end ported from the Salesforce app, a Python API server (FastAPI), a SQLite database, one machine, the client's own Claude key.</li>
+<li>The client brings three CSV files: catalog with prices, accounts, won history. Headers map by name and are shown before use.</li>
+<li>Spec and drawings upload the same way. Quotes export to PDF or CSV.</li>
 </ul>
 </section>
 <section class="slide">
 <div class="kicker">RESULTS</div>
 <h2>Measured</h2>
 <ul>
-<li>Graded bids: 86 percent of won dollars on Watson, 85 on Zuni.</li>
-<li>Counter across six books: 5 exact, 5 explained, 4 fixed, 5 unverifiable.</li>
-<li>Daingerfield: 24 lines, 250 no match, 340-product sample catalog.</li>
-<li>Every model output stays marked until a person acts.</li>
+<li>Graded past bids: 86 percent of won material dollars covered on Watson, 85 percent on Zuni.</li>
+<li>Counter across six books: 5 classes exact, 5 explained, 4 misses fixed by rule, 5 with no reference.</li>
+<li>Daingerfield: 24 lines, 250 no match, on a 340-product sample catalog.</li>
+<li>Every model output stays marked until a person acts on it.</li>
 </ul>
 </section>
 </div>
