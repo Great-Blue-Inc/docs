@@ -158,7 +158,7 @@ hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
 <h2>From posting to requirements</h2>
 <div class="split"><ul>
 <li>A script scans the Texas Department of Transportation bid postings month by month. It keeps a list of postings already seen and flags any spec with a Division 27 or 28 section (cabling and security).</li>
-<li>A second script slices those pages out of the PDF and opens them as a record in the app. A spec can also be uploaded by hand.</li>
+<li>A second script cuts the Division 27 or 28 pages out of the posting's PDF, creates a spec record in Salesforce with a link back to the posting, and starts the same pipeline an upload starts. The record shows up in the app's list with its draft when the run finishes. A spec can also be uploaded by hand.</li>
 <li>Claude reads the PDF in 20-page pieces and returns text. The text is cached.</li>
 <li>Claude reads each piece against a fixed schema and returns the requirements: product, approved manufacturers, section, stated quantity, source sentence.</li>
 <li>Daingerfield: 30 pages, 275 requirements, 4 minutes, 60 cents.</li>
