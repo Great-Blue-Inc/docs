@@ -179,11 +179,19 @@ hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
 </section>
 <section class="slide">
 <div class="kicker">STEP 4</div>
-<h2>Quote and web build</h2>
+<h2>Create the quote</h2>
 <ul>
-<li>Pick the account, press Create quote. Lines write to Salesforce CPQ, or the standard Quote if CPQ is absent. The draft locks.</li>
-<li>Web build, for a client without Salesforce: the React front end ported from the Salesforce app, a Python API server (FastAPI), a SQLite database, one machine, the client's own Claude key.</li>
-<li>The client brings three CSV files: catalog with prices, accounts, won history. Headers map by name and are shown before use. Spec and drawings upload the same way. Export to PDF or CSV.</li>
+<li>Pick the account, press Create quote. Lines write to Salesforce CPQ, or the standard Quote if CPQ is absent.</li>
+<li>The draft locks. The quote is the record from then on.</li>
+</ul>
+</section>
+<section class="slide">
+<div class="kicker">WEB BUILD</div>
+<h2>The same engine without Salesforce</h2>
+<ul>
+<li>The React front end ported from the Salesforce app, a Python API server (FastAPI), a SQLite database, one machine, the client's own Claude key.</li>
+<li>The client brings three CSV files: catalog with prices, accounts, won history. Headers map by name and are shown before use.</li>
+<li>Spec and drawings upload the same way. Quotes export to PDF or CSV.</li>
 </ul>
 </section>
 <section class="slide">
