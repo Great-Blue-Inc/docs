@@ -139,6 +139,11 @@ hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
 @media (max-height:900px){.split li{font-size:19px;margin-bottom:10px}}
 @media (max-width:700px){.split{flex-direction:column;gap:14px}.split ul{flex:none;width:100%}.split .shot{flex:none;max-width:100%;width:100%;margin-top:6px}.split li{font-size:17px}}
 @media (max-width:700px){.deck{width:100%}.slide{overflow-x:hidden;padding-left:16px;padding-right:16px}.split,.split>*{min-width:0;max-width:100%;width:100%}.split li,.slide li{max-width:100%;overflow-wrap:anywhere}.slide h2{overflow-wrap:anywhere}}
+.split .shot img{cursor:zoom-in}
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:50;align-items:center;justify-content:center;padding:3vh 3vw;cursor:zoom-out}
+#lightbox.on{display:flex}
+#lightbox img{max-width:100%;max-height:100%;border:1px solid #2a3038;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+#lightbox .hint{position:fixed;bottom:2vh;left:0;right:0;text-align:center;color:#8a8f98;font-size:14px}
 </style>
 </head>
 <body>
@@ -206,6 +211,7 @@ hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
 </section>
 </div>
 <div class="pageno" id="pageno"></div>
+<div id="lightbox"><img alt=""><div class="hint">Click or press Escape to close</div></div>
 
 <script>
 (function(){
@@ -247,6 +253,15 @@ hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
   var tx=null, ty=null;
   document.addEventListener('touchstart', function(e){ var t=e.changedTouches[0]; tx=t.clientX; ty=t.clientY; }, {passive:true});
   document.addEventListener('touchend', function(e){ if (tx===null) return; var t=e.changedTouches[0]; var dx=t.clientX-tx, dy=t.clientY-ty; tx=null; if (Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)) { if (dx<0) next(); else prev(); } }, {passive:true});
+
+  var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
+  function openLb(src, alt){ lbImg.src = src; lbImg.alt = alt || ''; lb.classList.add('on'); }
+  function closeLb(){ lb.classList.remove('on'); }
+  Array.prototype.forEach.call(document.querySelectorAll('.split .shot img'), function(im){
+    im.addEventListener('click', function(e){ e.stopPropagation(); openLb(im.src, im.alt); });
+  });
+  lb.addEventListener('click', function(e){ e.stopPropagation(); closeLb(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && lb.classList.contains('on')) { closeLb(); e.preventDefault(); e.stopImmediatePropagation(); } }, true);
   var start = parseInt((location.hash || '').replace('#',''), 10);
   slides[0].classList.add('on');
   show(isNaN(start) ? 0 : start - 1);
