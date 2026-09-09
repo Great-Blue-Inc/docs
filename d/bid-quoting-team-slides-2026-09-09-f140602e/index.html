@@ -157,7 +157,7 @@ hr,.rule{background:#7fb3ff!important;border-color:#7fb3ff!important}
 <div class="kicker">STEP 1</div>
 <h2>From posting to requirements</h2>
 <div class="split"><ul>
-<li>A Python script, run by hand, scans the Texas Department of Transportation bid postings month by month. It keeps a list of postings already seen and flags any spec with a Division 27 or 28 section (cabling and security).</li>
+<li>A script scans the Texas Department of Transportation bid postings month by month. It keeps a list of postings already seen and flags any spec with a Division 27 or 28 section (cabling and security).</li>
 <li>A second script slices those pages out of the PDF and opens them as a record in the app. A spec can also be uploaded by hand.</li>
 <li>Claude reads the PDF in 20-page pieces and returns text. The text is cached.</li>
 <li>Claude reads each piece against a fixed schema and returns the requirements: product, approved manufacturers, section, stated quantity, source sentence.</li>
