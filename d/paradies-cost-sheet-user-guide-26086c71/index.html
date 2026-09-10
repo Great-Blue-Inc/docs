@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Cost Sheet Builder — User Guide</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>"
+    />
+    <style>
+      :root {
+        --paper: #f6f7f4;
+        --surface: #ffffff;
+        --surface-2: #eef1ec;
+        --ink: #16201d;
+        --ink-soft: #3c4a45;
+        --ink-faint: #6d7b75;
+        --line: #d7ddd4;
+        --line-soft: #e5e9e1;
+        --accent: #0d7a6e;
+        --accent-2: #0a5f56;
+        --accent-wash: #e2efeb;
+        --amber: #a35a12;
+        --amber-wash: #f4e9d9;
+        --rose: #a3323f;
+        --rose-wash: #f3e0e1;
+        --code-bg: #f0f3ee;
+        --shadow:
+          0 1px 2px rgba(22, 32, 29, 0.05),
+          0 8px 28px -18px rgba(22, 32, 29, 0.35);
+        --serif:
+          "Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+          serif;
+        --sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+          "Helvetica Neue", Arial, sans-serif;
+        --mono:
+          ui-monospace, "SF Mono", "SFMono-Regular", "Cascadia Code", Menlo,
+          Consolas, monospace;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --paper: #101614;
+          --surface: #161e1b;
+          --surface-2: #1c2723;
+          --ink: #e7ede9;
+          --ink-soft: #b3c0ba;
+          --ink-faint: #7f8f88;
+          --line: #2a3631;
+          --line-soft: #222d29;
+          --accent: #4fd0be;
+          --accent-2: #6fdccb;
+          --accent-wash: #16302b;
+          --amber: #d89a4e;
+          --amber-wash: #322414;
+          --rose: #e08893;
+          --rose-wash: #331b1e;
+          --code-bg: #131b18;
+          --shadow:
+            0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 34px -20px rgba(0, 0, 0, 0.8);
+        }
+      }
+      :root[data-theme="dark"] {
+        --paper: #101614;
+        --surface: #161e1b;
+        --surface-2: #1c2723;
+        --ink: #e7ede9;
+        --ink-soft: #b3c0ba;
+        --ink-faint: #7f8f88;
+        --line: #2a3631;
+        --line-soft: #222d29;
+        --accent: #4fd0be;
+        --accent-2: #6fdccb;
+        --accent-wash: #16302b;
+        --amber: #d89a4e;
+        --amber-wash: #322414;
+        --rose: #e08893;
+        --rose-wash: #331b1e;
+        --code-bg: #131b18;
+        --shadow:
+          0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 34px -20px rgba(0, 0, 0, 0.8);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          transition: none !important;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      .wrap {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+      header.mast {
+        border-bottom: 1px solid var(--line);
+        background:
+          radial-gradient(
+            120% 140% at 88% -20%,
+            var(--accent-wash) 0%,
+            transparent 55%
+          ),
+          var(--surface);
+      }
+      .mast-inner {
+        padding: 52px 0 40px;
+      }
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-2);
+        margin: 0 0 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .eyebrow .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      h1.title {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: clamp(2.3rem, 5.4vw, 3.5rem);
+        line-height: 1.04;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+        text-wrap: balance;
+      }
+      h1.title span {
+        color: var(--accent-2);
+      }
+      .lede {
+        font-size: 1.12rem;
+        color: var(--ink-soft);
+        max-width: 62ch;
+        margin: 0 0 30px;
+        line-height: 1.6;
+      }
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .meta-cell {
+        background: var(--surface);
+        padding: 14px 16px;
+      }
+      .meta-cell .k {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 5px;
+      }
+      .meta-cell .v {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .meta-cell .v.mono {
+        font-family: var(--mono);
+        font-weight: 500;
+        font-size: 0.82rem;
+      }
+      nav.toc {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: color-mix(in srgb, var(--paper) 86%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .toc-inner {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        padding: 10px 0;
+        align-items: center;
+      }
+      .toc a {
+        font-size: 0.82rem;
+        color: var(--ink-soft);
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-weight: 500;
+        transition:
+          background 0.15s,
+          color 0.15s;
+        white-space: nowrap;
+      }
+      .toc a:hover {
+        background: var(--surface-2);
+        color: var(--ink);
+      }
+      .toc a .num {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--accent-2);
+        margin-right: 6px;
+      }
+      .toc .spacer {
+        flex: 1;
+      }
+      #themeToggle {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: var(--surface-2);
+        color: var(--ink-soft);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+      #themeToggle:hover {
+        color: var(--ink);
+        border-color: var(--accent);
+      }
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      section.stream {
+        padding: 48px 0 12px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .sec-head {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+      .sec-num {
+        font-family: var(--mono);
+        font-size: 0.9rem;
+        color: var(--accent-2);
+        font-weight: 600;
+      }
+      h2.sec-title {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: clamp(1.7rem, 3.6vw, 2.25rem);
+        letter-spacing: -0.01em;
+        margin: 0;
+        line-height: 1.1;
+        text-wrap: balance;
+      }
+      .sec-sub {
+        color: var(--ink-faint);
+        font-size: 0.95rem;
+        margin: 6px 0 22px;
+        max-width: 66ch;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .pill::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .pill.live {
+        color: var(--accent-2);
+        background: var(--accent-wash);
+        border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+      }
+      .pill.sandbox {
+        color: var(--amber);
+        background: var(--amber-wash);
+        border-color: color-mix(in srgb, var(--amber) 30%, transparent);
+      }
+      h3 {
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: 1.06rem;
+        letter-spacing: -0.005em;
+        margin: 30px 0 12px;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      h3 .tag {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 2px 7px;
+        font-weight: 500;
+      }
+      p {
+        margin: 0 0 14px;
+      }
+      p,
+      li {
+        color: var(--ink-soft);
+      }
+      strong {
+        color: var(--ink);
+        font-weight: 650;
+      }
+      ul.tight,
+      ol.tight {
+        margin: 0 0 16px;
+        padding-left: 20px;
+      }
+      ul.tight li,
+      ol.tight li {
+        margin-bottom: 7px;
+      }
+      code {
+        font-family: var(--mono);
+        font-size: 0.84em;
+        background: var(--code-bg);
+        padding: 1.5px 6px;
+        border-radius: 5px;
+        color: var(--ink);
+        border: 1px solid var(--line-soft);
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 22px 24px;
+        box-shadow: var(--shadow);
+        margin: 18px 0;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      @media (max-width: 720px) {
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      .callout {
+        border-left: 3px solid var(--accent);
+        background: var(--accent-wash);
+        padding: 14px 18px;
+        border-radius: 0 10px 10px 0;
+        margin: 18px 0;
+      }
+      .callout.warn {
+        border-left-color: var(--amber);
+        background: var(--amber-wash);
+      }
+      .callout .lbl {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--ink);
+      }
+      .callout p {
+        margin: 0;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        margin: 16px 0;
+      }
+      pre code {
+        background: none;
+        border: none;
+        padding: 0;
+        font-size: 0.82rem;
+        line-height: 1.7;
+        color: var(--ink);
+      }
+      .tbl-scroll {
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        margin: 16px 0;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+        min-width: 460px;
+      }
+      thead th {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        text-align: left;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-2);
+        font-weight: 600;
+      }
+      tbody td {
+        padding: 11px 16px;
+        border-bottom: 1px solid var(--line-soft);
+        color: var(--ink-soft);
+        vertical-align: top;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      td.num,
+      th.num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        font-family: var(--mono);
+        font-size: 0.84rem;
+      }
+      td.name {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0;
+      }
+      .metric {
+        background: var(--surface);
+        padding: 18px 16px;
+      }
+      .metric .val {
+        font-family: var(--serif);
+        font-size: 1.9rem;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .metric .cap {
+        font-size: 0.78rem;
+        color: var(--ink-faint);
+        margin-top: 7px;
+        line-height: 1.35;
+      }
+      footer {
+        padding: 44px 0 60px;
+        color: var(--ink-faint);
+        font-size: 0.84rem;
+      }
+      footer .fmono {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="mast">
+      <div class="wrap mast-inner">
+        <p class="eyebrow">
+          <span class="dot"></span> Paradies &amp; Company · Cost Sheet Builder
+          · User Guide
+        </p>
+        <h1 class="title">
+          The cost sheet workbook, <span>moved into Salesforce</span>
+        </h1>
+        <p class="lede">
+          This guide shows how to price a job in the Cost Sheet Builder. The
+          math is the same math as the Excel cost sheet. The rates are the same
+          rates. The difference is where they live and who can change them.
+        </p>
+        <div class="meta-grid">
+          <div class="meta-cell">
+            <div class="k">Where</div>
+            <div class="v">Development Item → Cost sheets card</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Pricing modes</div>
+            <div class="v">Full Package · Contract · Third Party</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Rates</div>
+            <div class="v">Rate set RS-0000, version 23</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Status</div>
+            <div class="v">Sandbox testing</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Updated</div>
+            <div class="v mono">2026-09-10</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <div class="wrap toc-inner">
+        <a href="#s1"><span class="num">01</span>Start a cost sheet</a>
+        <a href="#s2"><span class="num">02</span>The five pages</a>
+        <a href="#s3"><span class="num">03</span>Pricing modes</a>
+        <a href="#s4"><span class="num">04</span>How the price is built</a>
+        <a href="#s5"><span class="num">05</span>The rate set</a>
+        <a href="#s6"><span class="num">06</span>Lists you maintain</a>
+        <a href="#s7"><span class="num">07</span>Drafts, quotes, production</a>
+        <a href="#s8"><span class="num">08</span>Where the numbers print</a>
+        <a href="#s9"
+          ><span class="num">09</span>Differences from the workbook</a
+        >
+        <span class="spacer"></span>
+        <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+      </div>
+    </nav>
+
+    <main class="wrap">
+      <section class="stream" id="s1">
+        <div class="sec-head">
+          <span class="sec-num">01</span>
+          <h2 class="sec-title">Start a cost sheet</h2>
+          <span class="pill sandbox">Sandbox</span>
+        </div>
+        <p class="sec-sub">
+          A cost sheet always belongs to a Development Item.
+        </p>
+        <ol class="tight">
+          <li>Open the Development Item.</li>
+          <li>
+            Find the <strong>Cost sheets</strong> card. Click
+            <strong>Open cost sheet builder</strong>.
+          </li>
+          <li>Click <strong>New cost sheet</strong>.</li>
+          <li>
+            Turn on <strong>Guided mode</strong> if you want the builder to walk
+            you through each step. Guided mode does not change the builder. It
+            adds a card that tells you what to do next and stops you when a
+            required field is empty.
+          </li>
+        </ol>
+        <div class="callout">
+          <div class="lbl">Where the item details come from</div>
+          <p>
+            Design ID, Padneck ID, blank style, description, colour and the comp
+            come from the Art Request. The customer comes from the Development
+            Item's account. The builder copies them when the sheet is created.
+            Hover the <strong>(i)</strong> next to any field to see its source
+            and how it is used.
+          </p>
+        </div>
+      </section>
+
+      <section class="stream" id="s2">
+        <div class="sec-head">
+          <span class="sec-num">02</span>
+          <h2 class="sec-title">The five pages</h2>
+        </div>
+        <p class="sec-sub">Same order as the workbook, top to bottom.</p>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Page</th>
+                <th>What you enter</th>
+                <th>Workbook equivalent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">1 · Header &amp; mode</td>
+                <td>
+                  Garment type. Pricing mode. MOQ. Margin target (starts at 35).
+                  Blank cost and vendor. Freight per piece.
+                </td>
+                <td>The header block and the blank line</td>
+              </tr>
+              <tr>
+                <td class="name">2 · Decoration</td>
+                <td>
+                  One line per print: location, colours, name drops, treatments.
+                  Applied elements (patch, hem tag) with their own cost.
+                </td>
+                <td>Print and treatment rows</td>
+              </tr>
+              <tr>
+                <td class="name">3 · Tiers &amp; sizes</td>
+                <td>
+                  One row per quantity you want to price. The quoted price for
+                  each. Size upcharges for extended sizes.
+                </td>
+                <td>The quantity columns and the size rows</td>
+              </tr>
+              <tr>
+                <td class="name">4 · Samples, packing &amp; other</td>
+                <td>
+                  Sample pieces by recipient and size. Standard packing bundle
+                  on or off. Packing add-ons. Other costs, per piece or one
+                  time.
+                </td>
+                <td>Packing rows and the notes</td>
+              </tr>
+              <tr>
+                <td class="name">5 · Quote summary</td>
+                <td>
+                  A name for the sheet. Estimated quantity. Check the figures.
+                  Accept the quote.
+                </td>
+                <td>The totals at the bottom</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The builder saves as you go. Click <strong>Save draft</strong> on any
+          page to stop and come back later.
+        </p>
+      </section>
+
+      <section class="stream" id="s3">
+        <div class="sec-head">
+          <span class="sec-num">03</span>
+          <h2 class="sec-title">Pricing modes</h2>
+        </div>
+        <p class="sec-sub">
+          Pick the mode on page 1. It decides which calculator runs.
+        </p>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Mode</th>
+                <th>What it prices</th>
+                <th>What you must enter</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">Full Package</td>
+                <td>
+                  Paradies buys the blank, decorates and packs. Cost = blank +
+                  decoration + treatments + packing + freight + other.
+                </td>
+                <td>Blank cost</td>
+              </tr>
+              <tr>
+                <td class="name">Contract</td>
+                <td>
+                  The customer supplies the goods. Paradies decorates only. Cost
+                  comes from one cell of the contract grid: the quantity band
+                  row and the colour count column.
+                </td>
+                <td>Decoration line and quantity</td>
+              </tr>
+              <tr>
+                <td class="name">Third Party</td>
+                <td>
+                  An outside vendor makes the finished item. Cost = vendor price
+                  + freight and duty per piece. Paradies adds margin.
+                </td>
+                <td>Vendor finished cost</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="stream" id="s4">
+        <div class="sec-head">
+          <span class="sec-num">04</span>
+          <h2 class="sec-title">How the price is built</h2>
+        </div>
+        <p class="sec-sub">
+          Every figure is per piece. Every rate comes from the rate set.
+        </p>
+        <pre><code>total cost      = blank + decoration + treatments + packing + freight + other
+suggested sell  = total cost ÷ (1 − margin target), rounded up to the next $0.05
+margin est.     = (quoted price − total cost) ÷ quoted price</code></pre>
+        <h3>Decoration, screen print <span class="tag">detail</span></h3>
+        <ul class="tight">
+          <li>
+            <strong>Print run.</strong> Pieces per hour for the colour count.
+            Print cost per hour divided by pieces per hour.
+          </li>
+          <li>
+            <strong>Setup.</strong> Minutes per screen, plus extra minutes from
+            the third screen. Times the setup rate. Divided by the quantity.
+            This is why the cost per piece falls as the quantity rises.
+          </li>
+          <li>
+            <strong>Ink.</strong> One rate per location. Screen-print locations
+            2 to 4 get the location discount. Digital Squeegee uses its own ink
+            rate and adds five screens.
+          </li>
+          <li>
+            <strong>Name drops.</strong> Each adds name-drop minutes to setup.
+          </li>
+          <li>
+            <strong>Treatments.</strong> The treatment rate, times hits. Foil =
+            flat charge + per-inch charge × (height + 1).
+          </li>
+        </ul>
+        <h3>The reference job <span class="tag">example</span></h3>
+        <p>
+          144 pieces, Gildan 2000, one screen print, front, 3 colours, standard
+          packing, 35% target.
+        </p>
+        <div class="metrics">
+          <div class="metric">
+            <div class="val">$2.88</div>
+            <div class="cap">Blank</div>
+          </div>
+          <div class="metric">
+            <div class="val">$1.58</div>
+            <div class="cap">Decoration</div>
+          </div>
+          <div class="metric">
+            <div class="val">$0.18</div>
+            <div class="cap">Packing</div>
+          </div>
+          <div class="metric">
+            <div class="val">$4.64</div>
+            <div class="cap">Total cost</div>
+          </div>
+          <div class="metric">
+            <div class="val">$7.15</div>
+            <div class="cap">Suggested sell</div>
+          </div>
+          <div class="metric">
+            <div class="val">35.1%</div>
+            <div class="cap">Margin at $7.15</div>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="lbl">Why 35.1 and not 35</div>
+          <p>
+            4.64 ÷ 0.65 = 7.1385. The workbook rounds the sell price up to the
+            next $0.05, so the price is $7.15. At $7.15 the margin earned is
+            35.1%. The builder shows the earned margin, not the target. Hover
+            the <strong>(i)</strong> on Margin est. to see the formula.
+          </p>
+        </div>
+      </section>
+
+      <section class="stream" id="s5">
+        <div class="sec-head">
+          <span class="sec-num">05</span>
+          <h2 class="sec-title">The rate set</h2>
+        </div>
+        <p class="sec-sub">
+          Every number the workbook kept in a hidden cell is now a record you
+          can open and edit.
+        </p>
+        <h3>How it carried over <span class="tag">high level</span></h3>
+        <p>
+          A <strong>rate set</strong> is one version of the workbook's rate
+          tables. It holds <strong>rate lines</strong>. Each rate line is one
+          number the workbook used: a print speed, an ink rate, a treatment
+          charge, a packing price. Version 23 of the workbook became rate set
+          <strong>RS-0000</strong>, 228 lines. Only one rate set is Active at a
+          time. New cost sheets always price from the Active one.
+        </p>
+        <h3>What the rate set controls <span class="tag">detail</span></h3>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Lines</th>
+                <th>What the lines hold</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">Print</td>
+                <td class="num">15</td>
+                <td>
+                  Pieces per hour and print cost per hour, per garment type.
+                  Setup minutes per screen and the extra minutes from the third
+                  screen. Setup rate under and over six screens. Name-drop
+                  minutes. Minimum print cost. Cost per colour. The volume tier
+                  threshold and its speed.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Ink</td>
+                <td class="num">7</td>
+                <td>
+                  One ink rate per location: front, back, front pocket, sleeve,
+                  spine. The Digital Squeegee ink rate.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Treatment</td>
+                <td class="num">19</td>
+                <td>
+                  One rate per treatment: high density, flock, dry and wet
+                  glitter, glitter flock, heat transfer, pad print transfer,
+                  custom label, top load, dye fee. Foil's three lines: flat
+                  charge, per-inch charge, the inch divisor. Contract
+                  treatments.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Packing</td>
+                <td class="num">31</td>
+                <td>
+                  The standard bundle per garment type: fold, box, pallet, price
+                  ticket. Every add-on price: poly bags, size strip, hangtag,
+                  sticker, hanger, hat and tee combo. Contract finishing prices.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Contract grid</td>
+                <td class="num">140</td>
+                <td>
+                  The contract decoration charge by quantity band and colour
+                  count. DS by band. DTF by band and square inches. Embroidery
+                  by band and stitch count. Adders and colour change.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Rush</td>
+                <td class="num">4</td>
+                <td>Rush charges for 1, 2, 3 and 4 days.</td>
+              </tr>
+              <tr>
+                <td class="name">Digitizing</td>
+                <td class="num">3</td>
+                <td>Digitizing per logo and per 1,000 stitches.</td>
+              </tr>
+              <tr>
+                <td class="name">Rounding</td>
+                <td class="num">1</td>
+                <td>The $0.05 step the sell price rounds up to.</td>
+              </tr>
+              <tr>
+                <td class="name">Other</td>
+                <td class="num">8</td>
+                <td>
+                  DST edit and verification. The DTF formula. Royalties by
+                  licensor.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Change a rate <span class="tag">procedure</span></h3>
+        <ol class="tight">
+          <li>
+            Open the <strong>Rate Sets</strong> tab. Open the Active rate set.
+          </li>
+          <li>
+            Open the rate line you want to change. Edit the
+            <strong>Value</strong>. Save.
+          </li>
+          <li>Price a test sheet. The new value is used at once.</li>
+        </ol>
+        <div class="callout warn">
+          <div class="lbl">What a rate change does not touch</div>
+          <p>
+            An accepted quote keeps the rate set it was quoted on. Its numbers
+            never move. A production copy prices at the rate set that is Active
+            on the day it is created.
+          </p>
+        </div>
+      </section>
+
+      <section class="stream" id="s6">
+        <div class="sec-head">
+          <span class="sec-num">06</span>
+          <h2 class="sec-title">Lists you maintain</h2>
+        </div>
+        <p class="sec-sub">
+          Nothing in a dropdown is typed into the code. Each list has a home in
+          Setup or on a tab.
+        </p>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>List</th>
+                <th>Where to change it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">Packing add-ons</td>
+                <td>
+                  The <strong>Packing Options</strong> tab. One record per
+                  add-on. Its price is a rate line.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Sizes</td>
+                <td>
+                  Setup → Picklist Value Sets → <strong>Garment Size</strong>.
+                  Used for size upcharges and sample sizes.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Decoration locations</td>
+                <td>
+                  The locations the Active rate set has an ink rate for. Add an
+                  ink rate line to add a location.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Garment types</td>
+                <td>
+                  The garment types the Active rate set has print and packing
+                  rates for.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Treatments</td>
+                <td>The treatments the Active rate set has a rate for.</td>
+              </tr>
+              <tr>
+                <td class="name">
+                  Sample recipient · Cost type · Element type · Application
+                  method · Decoration type
+                </td>
+                <td>
+                  Setup → Object Manager → the field's picklist values. Add a
+                  value and it appears in the builder.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Price rules</td>
+                <td>
+                  The <strong>Price rules</strong> panel on the Tiers page. A
+                  rule adjusts cost or sell automatically when its conditions
+                  match.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="stream" id="s7">
+        <div class="sec-head">
+          <span class="sec-num">07</span>
+          <h2 class="sec-title">Drafts, accepted quotes, production copies</h2>
+        </div>
+        <p class="sec-sub">
+          Three states. Each one answers a different question.
+        </p>
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="margin-top: 0">Draft</h3>
+            <p>
+              You can edit everything. Save on any page. Come back any time. A
+              Development Item can hold as many drafts as you need.
+            </p>
+          </div>
+          <div class="card">
+            <h3 style="margin-top: 0">Accepted quote</h3>
+            <p>
+              Click <strong>Accept quote</strong> on the summary page. The sheet
+              freezes. It is stamped with the rate set, the person and the date.
+              Nothing on it changes again. This is what the customer was quoted.
+            </p>
+          </div>
+          <div class="card">
+            <h3 style="margin-top: 0">Production copy</h3>
+            <p>
+              When the PO arrives, click
+              <strong>Create production copy</strong> on the accepted quote. The
+              copy carries the quoted price. It re-prices the cost at today's
+              rates. Enter the order quantity, ship date, PO, blank vendor and
+              PO notes on it.
+            </p>
+          </div>
+          <div class="card">
+            <h3 style="margin-top: 0">Primary</h3>
+            <p>
+              Tick the <strong>Primary</strong> box on one sheet. That sheet's
+              estimated contract value becomes the Development Item's Amount.
+              Tick another to move it. Leave all unticked while you compare
+              options.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="stream" id="s8">
+        <div class="sec-head">
+          <span class="sec-num">08</span>
+          <h2 class="sec-title">Where the numbers print</h2>
+        </div>
+        <p class="sec-sub">Only fields with data print.</p>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Output</th>
+                <th>When</th>
+                <th>What it shows</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">Cost sheet PDF</td>
+                <td><strong>View PDF</strong> on an accepted quote</td>
+                <td>
+                  The comp, item, customer, Design ID, Padneck ID, buyer,
+                  licensing number, Customer PO. Decoration, packing, samples
+                  and other costs. Total cost, suggested sell and quoted price
+                  per tier. Prepared by and date. The rate set used.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Quote output</td>
+                <td>The page after Accept</td>
+                <td>
+                  The same content on screen, plus order quantity and ship date.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Production sheet</td>
+                <td>Opening a production copy</td>
+                <td>
+                  Blank cost and vendor, PO, ship date, shipping account,
+                  inventory pull, PO notes, samples. The quantity tier pulled at
+                  the order quantity.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="stream" id="s9">
+        <div class="sec-head">
+          <span class="sec-num">09</span>
+          <h2 class="sec-title">Differences from the workbook</h2>
+        </div>
+        <p class="sec-sub">
+          54 workbook scenarios were priced in both places. 49 match to the
+          cent. Five differ on purpose.
+        </p>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Case</th>
+                <th>Workbook</th>
+                <th>Builder</th>
+                <th>Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">Two or three print locations</td>
+                <td class="num">5.46 · 5.87</td>
+                <td class="num">5.30 · 6.05</td>
+                <td>
+                  The workbook has a fixed discount per named location and never
+                  discounts Back. The builder gives locations 2 to 4 the
+                  location discount. Confirm which rule you want. Either is a
+                  rate line change.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Standard packing turned off</td>
+                <td class="num">4.26</td>
+                <td class="num">4.08</td>
+                <td>
+                  The workbook's packing checkboxes are not connected, so it
+                  still charges $0.18. The builder honours the switch.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Bundle plus five add-ons</td>
+                <td class="num">4.65</td>
+                <td class="num">4.59</td>
+                <td>
+                  The workbook adds a $0.06 sticker apply charge that was not
+                  selected. The builder charges only what is selected.
+                </td>
+              </tr>
+              <tr>
+                <td class="name">Everything on one sheet</td>
+                <td class="num">7.19</td>
+                <td class="num">8.03</td>
+                <td>Combines the two cases above.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer>
+        <p class="fmono">
+          Updated 2026-09-10 · sandbox build · rate set RS-0000 v23
+        </p>
+        <p>
+          The builder prices what the workbook prices, from rates you can now
+          open and change yourselves.
+        </p>
+      </footer>
+    </main>
+
+    <script>
+      (function () {
+        var btn = document.getElementById("themeToggle"),
+          root = document.documentElement;
+        btn.addEventListener("click", function () {
+          var cur = root.getAttribute("data-theme");
+          if (!cur)
+            cur = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          var next = cur === "dark" ? "light" : "dark";
+          root.setAttribute("data-theme", next);
+          btn.textContent = next === "dark" ? "Light" : "Dark";
+        });
+      })();
+    </script>
+  </body>
+</html>
