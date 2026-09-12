@@ -295,7 +295,7 @@
   <h3>Deploy state <span class="tag">current</span></h3>
   <ul class="tight">
     <li><strong>Production untouched.</strong> Both old flows are active and ran normally. The new flow does not exist in production.</li>
-    <li><strong>Production validation.</strong> The September 11 shape passed validate-only (0AfUN00000AVT810AH, 0 errors). The window change from September 12 needs one more validate-only pass before deploy; it is a two-number change on the start element.</li>
+    <li><strong>Production validation.</strong> The September 11 shape passed validate-only (0AfUN00000AVT810AH, 0 errors). The September 12 window change also passed validate-only (0AfUN00000AWWTd0AP, 0 errors, September 12 at 2:45 PM ET). Nothing landed.</li>
     <li><strong>Sandbox.</strong> Version 5 (wide window, fixture filter) proven September 12 and deactivated. Nothing fires in the sandbox. Fixture data still present until cleanup is approved.</li>
     <li><strong>Open with Jeff.</strong> Yes or no on the non-booked status exclusion. If yes, one more sandbox run on the same fixtures, then validate and deploy together.</li>
     <li><strong>Cutover, on approval.</strong> Deploy and activate the new flow, then deactivate the two old flows in the same step so nothing runs twice. About 15 minutes.</li>
