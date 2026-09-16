@@ -893,7 +893,11 @@
           Schedule 1
         </p>
         <h1 class="title">Schedule 1: <span>Specifications</span></h1>
-        <p class="lede">Work Product Description and Functional Requirements for the custom online quoting and ordering application on Client's WordPress site, connected to Client's Salesforce org.</p>
+        <p class="lede">
+          Work Product Description and Functional Requirements for the custom
+          online quoting and ordering application on Client's WordPress site,
+          connected to Client's Salesforce org.
+        </p>
         <div class="meta-grid">
           <div class="meta-cell">
             <div class="k">Client</div>
@@ -951,135 +955,113 @@
         </h3>
         <ul class="tight">
           <li>
-            A quoting page embedded in Client's
-            WordPress site, carrying Client's branding and modeled on the
-            reference site Client identified, on which a customer selects a
-            product and colorway from the curated catalog, chooses a decoration
-            method from those Client offers online (screen print, DTF transfer,
-            and embroidery), enters the quantity of each size and the ink color
-            count, adds any of the add-on options Client designates from its
-            current cost workbook, and sees the price per piece and the order
-            total update as each choice is made. The customer may add more than
-            one product to the order; each product is quoted on its own and the
-            order total is the sum.
-            
+            A quoting page embedded in Client's WordPress site, carrying
+            Client's branding and modeled on the reference site Client
+            identified, on which a customer selects a product and colorway from
+            the curated catalog, chooses a decoration method from those Client
+            offers online (screen print, DTF transfer, and embroidery), enters
+            the quantity of each size and the ink color count, adds any of the
+            add-on options Client designates from its current cost workbook, and
+            sees the price per piece and the order total update as each choice
+            is made. The customer may add more than one product to the order;
+            each product is quoted on its own and the order total is the sum.
           </li>
           <li>
-            Quantity-tier pricing on the quoting
-            page, with the next lower price break shown as a prompt and a full
-            price-break table available on request. Orders start at a 24-piece
-            minimum. Quantities above the ceiling Client sets (initially 2,400
-            pieces) are routed to a custom-quote request rather than priced on
-            the page.
-            
+            Quantity-tier pricing on the quoting page, with the next lower price
+            break shown as a prompt and a full price-break table available on
+            request. Orders start at a 24-piece minimum. Quantities above the
+            ceiling Client sets (initially 2,400 pieces) are routed to a
+            custom-quote request rather than priced on the page.
           </li>
           <li>
-            A pricing engine that runs in the
-            customer's browser and reproduces the pricing logic of the quoting
-            tool Great Blue has built in Client's Salesforce org, so the price
-            shown online is the price Salesforce would calculate.
-            
+            A pricing engine that runs in the customer's browser and reproduces
+            the pricing logic of the quoting tool Great Blue has built in
+            Client's Salesforce org, so the price shown online is the price
+            Salesforce would calculate.
           </li>
           <li>
-            A scheduled publish of pricing data
-            (rates, tiers, products, colorways, add-ons, and the preset cost
-            values Client manages in Salesforce) from Salesforce to the website,
-            so Client maintains pricing and products in one place and the
-            website follows. Changes flow one way, from Salesforce to the site.
-            
+            A scheduled publish of pricing data (rates, tiers, products,
+            colorways, add-ons, and the preset cost values Client manages in
+            Salesforce) from Salesforce to the website, so Client maintains
+            pricing and products in one place and the website follows. Changes
+            flow one way, from Salesforce to the site.
           </li>
           <li>
-            An artwork step in which the customer
-            uploads their design file and sees it placed on the product image,
-            chooses one or more print locations (front, back, or sleeve) from
-            those Client offers, and can move, resize, and rotate the artwork
-            within the print area Client defines for that location, with one or
-            more artwork files per location, bring-to-front and delete controls,
-            design notes, and ink colors for each location. The placement is
-            saved with the order and shown to Client's team as the starting
-            point for the comp.
-            
+            An artwork step in which the customer uploads their design file and
+            sees it placed on the product image, chooses one or more print
+            locations (front, back, or sleeve) from those Client offers, and can
+            move, resize, and rotate the artwork within the print area Client
+            defines for that location, with one or more artwork files per
+            location, bring-to-front and delete controls, design notes, and ink
+            colors for each location. The placement is saved with the order and
+            shown to Client's team as the starting point for the comp.
           </li>
           <li>
-            A checkout step collecting the
-            customer's contact information, shipping address, and requested
-            delivery date (with Client's standard turnaround shown on the page;
-            the date is confirmed by Client's team with the comp), and the
-            customer's confirmation that they hold the rights to the artwork,
-            followed by a confirmation email to the customer stating that the
-            order is being prepared for its comp. No payment is taken at this
-            step.
-            
+            A checkout step collecting the customer's contact information,
+            shipping address, and requested delivery date (with Client's
+            standard turnaround shown on the page; the date is confirmed by
+            Client's team with the comp), and the customer's confirmation that
+            they hold the rights to the artwork, followed by a confirmation
+            email to the customer stating that the order is being prepared for
+            its comp. No payment is taken at this step.
           </li>
           <li>
-            Sales tax on web orders, calculated
-            from the shipping address once entered (destination based) through a
-            tax-rate service. Tax is charged on every web order; tax-exempt
-            customers are handled by Client's team during order review, as they
-            are today.
-            
+            Sales tax on web orders, calculated from the shipping address once
+            entered (destination based) through a tax-rate service. Tax is
+            charged on every web order; tax-exempt customers are handled by
+            Client's team during order review, as they are today.
           </li>
           <li>
-            Shipping cost on web orders, calculated
-            at checkout and shown before the order is placed, either from live
-            carrier rates through a shipping-rate service (using product weights
-            and the ship-from address supplied by Client) or from a
-            weight-and-zone rate table Client supplies, as Client elects during
-            implementation.
-            
+            Shipping cost on web orders, calculated at checkout and shown before
+            the order is placed, either from live carrier rates through a
+            shipping-rate service (using product weights and the ship-from
+            address supplied by Client) or from a weight-and-zone rate table
+            Client supplies, as Client elects during implementation.
           </li>
           <li>
-            Order intake in Salesforce: each web
-            order is created as records in Client's org, including line items,
-            artwork, and customer details, and appears in a review queue for
-            Client's team to verify stock and artwork printability. Salesforce
-            recalculates the order price on receipt and sends an email alert to
-            Client if it differs from the price the website showed. Client's
-            team is notified by email, at addresses Client configures, of each
-            new web order, comp approval, and change request.
-            
+            Order intake in Salesforce: each web order is created as records in
+            Client's org, including line items, artwork, and customer details,
+            and appears in a review queue for Client's team to verify stock and
+            artwork printability. Salesforce recalculates the order price on
+            receipt and sends an email alert to Client if it differs from the
+            price the website showed. Client's team is notified by email, at
+            addresses Client configures, of each new web order, comp approval,
+            and change request.
           </li>
           <li>
-            The order form output Client's team
-            uses to key the order into ShopWorks, produced from the Salesforce
-            order in the same format as the existing quoting tool's output.
-            
+            The order form output Client's team uses to key the order into
+            ShopWorks, produced from the Salesforce order in the same format as
+            the existing quoting tool's output.
           </li>
           <li>
-            A customer comp page, reached from an
-            email, showing the comp (the artwork on the product) prepared by
-            Client's team, the line items with pricing by size, and the total,
-            with two actions: approve, or request changes. A change request
-            returns the order to Client's team, and any change is re-priced by
-            the same engine before the comp is re-sent; an approval opens
-            payment. Reminder emails go to the customer at intervals Client sets
-            while a comp awaits approval, and a quote is valid for 30 days.
-            
+            A customer comp page, reached from an email, showing the comp (the
+            artwork on the product) prepared by Client's team, the line items
+            with pricing by size, and the total, with two actions: approve, or
+            request changes. A change request returns the order to Client's
+            team, and any change is re-priced by the same engine before the comp
+            is re-sent; an approval opens payment. Reminder emails go to the
+            customer at intervals Client sets while a comp awaits approval, and
+            a quote is valid for 30 days.
           </li>
           <li>
-            Payment collection after approval
-            through Client's existing card processor's online gateway (Paya
-            Connect), using the processor's hosted payment page or hosted card
-            fields so card data is entered on the processor's secure form and
-            never stored on Client's website or in Salesforce. The payment
-            confirmation and reference number are stored on the Salesforce order
-            so Client's team can mark the order prepaid when entering it into
-            ShopWorks. Paya Connect is not yet enabled on Client's merchant
-            account; Client will enable it, or, if Client selects a different
-            processor before payment work begins, the payment scope and hours
-            will be restated for that processor.
-            
+            Payment collection after approval through Client's existing card
+            processor's online gateway (Paya Connect), using the processor's
+            hosted payment page or hosted card fields so card data is entered on
+            the processor's secure form and never stored on Client's website or
+            in Salesforce. The payment confirmation and reference number are
+            stored on the Salesforce order so Client's team can mark the order
+            prepaid when entering it into ShopWorks. Paya Connect is not yet
+            enabled on Client's merchant account; Client will enable it, or, if
+            Client selects a different processor before payment work begins, the
+            payment scope and hours will be restated for that processor.
           </li>
           <li>
-            A "contact us" button on the quoting
-            page that sends an email to Client.
-            
+            A "contact us" button on the quoting page that sends an email to
+            Client.
           </li>
           <li>
-            Documentation covering setup, the
-            pricing publish, the order review process, and the comp and payment
-            steps.
-            
+            Documentation covering setup, the pricing publish, the order review
+            process, and the comp and payment steps.
           </li>
         </ul>
         <p>
@@ -1256,197 +1238,14 @@
           </li>
         </ul>
       </section>
-      
-      <footer><p class="fmono">Paradies and Company · Online Storefront · Schedule 1</p></footer>
+
+      <footer>
+        <p class="fmono">
+          Paradies and Company · Online Storefront · Schedule 1
+        </p>
+      </footer>
     </main>
-    <div class="player" role="region" aria-label="Listen">
-      <div class="player-inner">
-        <button id="rw" title="Back 10 seconds">&#9664;&#9664; 10s</button>
-        <button id="play" class="primary">&#9654; Play</button>
-        <button id="ff" title="Forward 10 seconds">10s &#9654;&#9654;</button>
-        <select id="rate" title="Speed">
-          <option value="0.9">0.9x</option>
-          <option value="1" selected>1.0x</option>
-          <option value="1.15">1.15x</option>
-          <option value="1.3">1.3x</option>
-        </select>
-        <span class="pos" id="pos">12.7 min</span>
-      </div>
-    </div>
-    <audio id="aud" preload="metadata" src="audio.mp3"></audio>
-    <script>
-      (function () {
-        var aud = document.getElementById("aud"),
-          play = document.getElementById("play"),
-          pos = document.getElementById("pos"),
-          rate = document.getElementById("rate");
-        var cues = [
-          { start: 0.0, end: 1.451, block: 0 },
-          { start: 1.801, end: 10.803, block: 1 },
-          { start: 11.153, end: 19.537, block: 1 },
-          { start: 19.887, end: 26.863, block: 1 },
-          { start: 27.213, end: 36.067, block: 1 },
-          { start: 36.417, end: 44.225, block: 1 },
-          { start: 44.575, end: 47.348, block: 2 },
-          { start: 47.698, end: 78.119, block: 3 },
-          { start: 78.469, end: 85.424, block: 3 },
-          { start: 85.774, end: 94.329, block: 4 },
-          { start: 94.679, end: 97.004, block: 4 },
-          { start: 97.354, end: 106.591, block: 4 },
-          { start: 106.941, end: 120.488, block: 5 },
-          { start: 120.838, end: 136.987, block: 6 },
-          { start: 137.337, end: 140.303, block: 6 },
-          { start: 140.653, end: 165.506, block: 7 },
-          { start: 165.856, end: 171.147, block: 7 },
-          { start: 171.497, end: 194.558, block: 8 },
-          { start: 194.908, end: 196.807, block: 8 },
-          { start: 197.157, end: 204.41, block: 9 },
-          { start: 204.76, end: 212.909, block: 9 },
-          { start: 213.259, end: 232.054, block: 10 },
-          { start: 232.404, end: 246.761, block: 11 },
-          { start: 247.111, end: 254.983, block: 11 },
-          { start: 255.333, end: 263.355, block: 11 },
-          { start: 263.705, end: 273.774, block: 12 },
-          { start: 274.124, end: 287.628, block: 13 },
-          { start: 287.978, end: 297.471, block: 13 },
-          { start: 297.821, end: 305.587, block: 13 },
-          { start: 305.937, end: 323.921, block: 14 },
-          { start: 324.271, end: 333.551, block: 14 },
-          { start: 333.901, end: 347.298, block: 14 },
-          { start: 347.648, end: 351.872, block: 15 },
-          { start: 352.222, end: 358.707, block: 16 },
-          { start: 359.057, end: 367.164, block: 17 },
-          { start: 367.514, end: 380.741, block: 17 },
-          { start: 381.091, end: 387.597, block: 18 },
-          { start: 387.947, end: 388.95, block: 19 },
-          { start: 389.3, end: 395.081, block: 20 },
-          { start: 395.431, end: 401.618, block: 21 },
-          { start: 401.968, end: 410.885, block: 22 },
-          { start: 411.235, end: 413.39, block: 23 },
-          { start: 413.74, end: 418.241, block: 24 },
-          { start: 418.591, end: 423.242, block: 25 },
-          { start: 423.592, end: 424.552, block: 26 },
-          { start: 424.902, end: 430.939, block: 27 },
-          { start: 431.289, end: 434.596, block: 28 },
-          { start: 434.946, end: 436.525, block: 29 },
-          { start: 436.875, end: 441.077, block: 30 },
-          { start: 441.427, end: 443.411, block: 31 },
-          { start: 443.761, end: 446.876, block: 32 },
-          { start: 447.226, end: 452.325, block: 33 },
-          { start: 452.675, end: 454.104, block: 34 },
-          { start: 454.454, end: 473.547, block: 35 },
-          { start: 473.897, end: 478.079, block: 35 },
-          { start: 478.429, end: 481.501, block: 35 },
-          { start: 481.851, end: 488.4, block: 36 },
-          { start: 488.75, end: 494.361, block: 36 },
-          { start: 494.711, end: 499.169, block: 36 },
-          { start: 499.519, end: 512.725, block: 37 },
-          { start: 513.075, end: 527.581, block: 38 },
-          { start: 527.931, end: 548.795, block: 39 },
-          { start: 549.145, end: 554.308, block: 39 },
-          { start: 554.658, end: 559.629, block: 39 },
-          { start: 559.979, end: 574.208, block: 40 },
-          { start: 574.558, end: 576.457, block: 40 },
-          { start: 576.807, end: 583.228, block: 41 },
-          { start: 583.578, end: 595.759, block: 42 },
-          { start: 596.109, end: 608.611, block: 43 },
-          { start: 608.961, end: 617.259, block: 43 },
-          { start: 617.609, end: 623.54, block: 43 },
-          { start: 623.89, end: 631.698, block: 44 },
-          { start: 632.048, end: 638.128, block: 44 },
-          { start: 638.478, end: 643.47, block: 44 },
-          { start: 643.82, end: 653.228, block: 45 },
-          { start: 653.578, end: 662.389, block: 46 },
-          { start: 662.739, end: 674.707, block: 46 },
-          { start: 675.057, end: 713.99, block: 47 },
-          { start: 714.34, end: 725.199, block: 48 },
-          { start: 725.549, end: 736.365, block: 48 },
-          { start: 736.715, end: 747.573, block: 49 },
-          { start: 747.923, end: 761.811, block: 49 }
-        ];
-        // Readable blocks in page order, same order the cue map was built in.
-        var blocks = [].slice.call(
-          document.querySelectorAll(
-            "#s1 h3, #s1 p, #s1 li, #s2 h3, #s2 p, #s2 li"
-          )
-        );
-        var sec = [].slice.call(
-          document.querySelectorAll("#s1 .sec-title, #s2 .sec-title")
-        );
-        // cue.block indexes: 0 = section 1 title, then its h3/p/li in order, then section 2 title, then its blocks.
-        var ordered = [sec[0]]
-          .concat(
-            [].slice.call(document.querySelectorAll("#s1 h3, #s1 p, #s1 li"))
-          )
-          .concat([sec[1]])
-          .concat(
-            [].slice.call(document.querySelectorAll("#s2 h3, #s2 p, #s2 li"))
-          );
-        var lastEl = null;
-        function fmt(t) {
-          t = Math.max(0, t | 0);
-          return Math.floor(t / 60) + ":" + ("0" + (t % 60)).slice(-2);
-        }
-        function tick() {
-          var t = aud.currentTime,
-            c = null;
-          for (var i = 0; i < cues.length; i++) {
-            if (t >= cues[i].start - 0.05 && t < cues[i].end + 0.2) {
-              c = cues[i];
-              break;
-            }
-          }
-          var el = c ? ordered[c.block] : null;
-          if (el !== lastEl) {
-            if (lastEl) lastEl.classList.remove("reading");
-            if (el) {
-              el.classList.add("reading");
-              el.scrollIntoView({ block: "center", behavior: "smooth" });
-            }
-            lastEl = el;
-          }
-          pos.textContent = fmt(t) + " / " + fmt(aud.duration || 762);
-        }
-        aud.addEventListener("timeupdate", tick);
-        aud.addEventListener("seeked", tick);
-        aud.addEventListener("play", function () {
-          play.innerHTML = "&#10074;&#10074; Pause";
-        });
-        aud.addEventListener("pause", function () {
-          play.innerHTML = "&#9654; Play";
-        });
-        aud.addEventListener("ended", function () {
-          if (lastEl) lastEl.classList.remove("reading");
-          lastEl = null;
-        });
-        play.onclick = function () {
-          aud.paused ? aud.play() : aud.pause();
-        };
-        document.getElementById("rw").onclick = function () {
-          aud.currentTime = Math.max(0, aud.currentTime - 10);
-        };
-        document.getElementById("ff").onclick = function () {
-          aud.currentTime = Math.min(aud.duration || 1e9, aud.currentTime + 10);
-        };
-        rate.onchange = function () {
-          aud.playbackRate = parseFloat(rate.value);
-        };
-        // tap a paragraph to jump there
-        ordered.forEach(function (el, idx) {
-          if (!el) return;
-          el.style.cursor = "pointer";
-          el.addEventListener("click", function () {
-            var c = cues.filter(function (c) {
-              return c.block === idx;
-            })[0];
-            if (c) {
-              aud.currentTime = c.start;
-              aud.play();
-            }
-          });
-        });
-      })();
-    </script>
+    
     <script>
       (function () {
         var btn = document.getElementById("themeToggle"),
