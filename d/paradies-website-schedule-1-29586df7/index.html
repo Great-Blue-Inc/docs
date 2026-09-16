@@ -187,6 +187,14 @@
   ul.tight li{margin-bottom:14px; line-height:1.6;}
   .hrs{display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--amber); background:var(--amber-wash); border:1px solid color-mix(in srgb, var(--amber) 30%, transparent); border-radius:6px; padding:1px 7px; margin-right:6px; vertical-align:middle;}
   .hnote{font-size:.86rem; color:var(--ink-faint); margin-top:5px;}
+  .reading{background:var(--accent-wash); outline:2px solid var(--accent); outline-offset:6px; border-radius:6px;}
+  .player{position:fixed; left:0; right:0; bottom:0; z-index:30; background:color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter:blur(10px); border-top:1px solid var(--line); padding:10px 16px calc(10px + env(safe-area-inset-bottom));}
+  .player-inner{max-width:1060px; margin:0 auto; display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:wrap;}
+  .player button{font-family:var(--mono); font-size:.8rem; letter-spacing:.04em; background:var(--surface-2); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:10px 16px; cursor:pointer; min-width:64px;}
+  .player button.primary{background:var(--accent); color:#fff; border-color:var(--accent); min-width:96px; font-weight:700;}
+  .player .pos{font-family:var(--mono); font-size:.72rem; color:var(--ink-faint); min-width:90px; text-align:center;}
+  .player select{font-family:var(--mono); font-size:.78rem; background:var(--surface-2); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:9px 10px;}
+  main.wrap{padding-bottom:110px;}
   @media (max-width:640px){ .wrap{padding:0 18px;} body{font-size:17px;} table{min-width:0;} }
 </style></head><body>
 <header class="mast"><div class="wrap mast-inner">
@@ -246,5 +254,41 @@
 <section class="stream" id="s3"><div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Hours</h2><span class="pill sandbox">Internal, not sent</span></div><p class="sec-sub">Each line of the Work Product above shows its hours. The second group is people time: meetings, testing with Paradies, accounts and access, and releases. Every hour of review, testing, meetings and releases is in the total.</p><div class="metrics"><div class="metric"><div class="val">95</div><div class="cap">build and review</div></div><div class="metric"><div class="val">45</div><div class="cap">meetings, testing, accounts, releases</div></div><div class="metric"><div class="val">140<small> h</small></div><div class="cap">one number to quote</div></div></div><div class="tbl-scroll"><table><thead><tr><th>Line</th><th>What it covers</th><th class=num>Hours</th></tr></thead><tbody><tr><td class=name>A quoting page embedded</td><td>The page where the customer picks a product, colour, decoration, sizes and add-ons and sees the price. Includes the cart for more than one product, and the rounds of changes after Paradies reviews it.</td><td class=num>16</td></tr><tr><td class=name>Quantity-tier pricing</td><td>Price breaks, the prompt for the next break, the full price table, the 24 minimum, and sending large orders to a custom quote.</td><td class=num>4</td></tr><tr><td class=name>A pricing engine that runs</td><td>The price maths, copied from the Salesforce cost sheet builder so both give the same answer. Checked against the 54 test jobs from the workbook, automatically, every time the code changes.</td><td class=num>8</td></tr><tr><td class=name>A scheduled publish</td><td>Products, colours and prices set up in Salesforce, and the job that copies them to the website on a schedule.</td><td class=num>8</td></tr><tr><td class=name>An artwork step</td><td>Upload the art, see it on the shirt, move it, resize it, turn it, keep it inside the print area. Works with a finger on a phone. Saves where the art was placed.</td><td class=num>14</td></tr><tr><td class=name>A checkout step</td><td>Contact details, address, requested date, the artwork rights tick box, and the confirmation email.</td><td class=num>5</td></tr><tr><td class=name>Sales tax on web orders</td><td>Connect a tax service so tax is worked out from the delivery address.</td><td class=num>4</td></tr><tr><td class=name>Shipping cost on web orders</td><td>Shipping cost at checkout, either from a table Paradies gives us or live from the carrier. Priced for the harder case.</td><td class=num>5</td></tr><tr><td class=name>Order intake in Salesforce</td><td>The web order arrives in Salesforce as records, lands in the review list, is re-priced, and emails the team if the price differs or when a new order, approval or change request comes in.</td><td class=num>9</td></tr><tr><td class=name>The order form output</td><td>Reuse the order form the cost sheet builder already makes.</td><td class=num>2</td></tr><tr><td class=name>A customer comp page</td><td>The page the customer opens from an email to approve the comp or ask for changes. Re-prices changes, sends reminders, and expires after 30 days.</td><td class=num>7</td></tr><tr><td class=name>Payment collection after approval</td><td>Connect Paya so the customer pays on Paya's secure page after approval, and the payment shows on the Salesforce order. Includes testing against Paya's test account.</td><td class=num>8</td></tr><tr><td class=name>A "contact us" button</td><td>A button that emails Paradies.</td><td class=num>1</td></tr><tr><td class=name>Documentation covering setup</td><td>Written guide for setup, publishing prices, reviewing orders, and the comp and payment steps.</td><td class=num>4</td></tr><tr><td class=name><strong>Build subtotal</strong></td><td></td><td class=num><strong>95</strong></td></tr><tr><td class=name>Getting started on their website: check the login, set up the test copy of the site, put the empty plugin in place, and set up the way we push updates to it</td><td>People time. Set by Paradies, not by how fast we build.</td><td class=num>4</td></tr><tr><td class=name>Meetings with Paradies: kickoff, 8 to 10 weekly calls at 1 to 2 hours each, the demo, testing walkthroughs, the go-live call, and preparing for and writing up each one</td><td>People time. Set by Paradies, not by how fast we build.</td><td class=num>20</td></tr><tr><td class=name>Paradies testing: three rounds of collecting their feedback, fixing it, and re-testing with them on the test copy of the site</td><td>People time. Set by Paradies, not by how fast we build.</td><td class=num>12</td></tr><tr><td class=name>Accounts and access: their WordPress admin, Paya test and live accounts, the tax and shipping services, the Salesforce connection user, and setting up their email domain</td><td>People time. Set by Paradies, not by how fast we build.</td><td class=num>4</td></tr><tr><td class=name>Releases: pushing each update to the test site, the final push to the live site, a way to undo it, and a check after go-live</td><td>People time. Set by Paradies, not by how fast we build.</td><td class=num>5</td></tr><tr><td class=name><strong>People-time subtotal</strong></td><td></td><td class=num><strong>45</strong></td></tr><tr><td class=name><strong>Total</strong></td><td></td><td class=num><strong>140</strong></td></tr></tbody></table></div></section>
 <footer><p class="fmono">Compiled 2026-09-16 · source docs/2026-09-03_SCHEDULE-1-WEBSITE-CLEAN.md · hours docs/strategy/website_schedule1_hours.json</p><p>Internal review copy. Hours tags, notes and section 03 are removed before the client copy goes out.</p></footer>
 </main>
+<div class="player" role="region" aria-label="Read aloud"><div class="player-inner">
+  <button id="rw" title="Back 10 seconds">&#9664;&#9664; 10s</button>
+  <button id="play" class="primary">&#9654; Play</button>
+  <button id="ff" title="Forward 10 seconds">10s &#9654;&#9654;</button>
+  <button id="stop" title="Stop">&#9632;</button>
+  <select id="rate" title="Speed"><option value="0.9">0.9x</option><option value="1" selected>1.0x</option><option value="1.15">1.15x</option><option value="1.3">1.3x</option></select>
+  <span class="pos" id="pos"></span>
+</div></div>
+<script>
+(function(){
+  var synth=window.speechSynthesis; if(!synth){document.querySelector('.player').hidden=true;return;}
+  // Units: one sentence each, taken from the contract text only (no hour tags, no notes, not section 03).
+  var blocks=[].slice.call(document.querySelectorAll('#s1 p, #s1 li, #s1 h3, #s2 p, #s2 li, #s2 h3'));
+  var units=[]; blocks.forEach(function(b){
+    var clone=b.cloneNode(true); clone.querySelectorAll('.hrs,.hnote,.tag').forEach(function(e){e.remove();});
+    var text=clone.textContent.replace(/\s+/g,' ').trim(); if(!text) return;
+    text.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g).forEach(function(sn){ sn=sn.trim(); if(sn) units.push({el:b, text:sn, words:sn.split(' ').length}); });
+  });
+  var i=0, playing=false, cur=null, WPS=2.5; // ~150 words per minute
+  var play=document.getElementById('play'), pos=document.getElementById('pos'), rate=document.getElementById('rate');
+  function mark(){ blocks.forEach(function(b){b.classList.remove('reading');}); if(units[i]){ units[i].el.classList.add('reading'); units[i].el.scrollIntoView({block:'center', behavior:'smooth'}); } pos.textContent=(i+1)+' / '+units.length; }
+  function speak(){ if(i>=units.length){ stop(); return; } mark(); synth.cancel(); var u=new SpeechSynthesisUtterance(units[i].text); u.rate=parseFloat(rate.value); u.lang='en-US'; cur=u;
+    u.onend=function(){ if(cur!==u||!playing) return; i++; speak(); }; u.onerror=function(){ if(cur!==u||!playing) return; i++; speak(); }; synth.speak(u); }
+  function start(){ playing=true; play.innerHTML='&#10074;&#10074; Pause'; speak(); }
+  function pause(){ playing=false; cur=null; synth.cancel(); play.innerHTML='&#9654; Play'; }
+  function stop(){ pause(); i=0; blocks.forEach(function(b){b.classList.remove('reading');}); pos.textContent=''; }
+  function skip(seconds){ var words=Math.abs(seconds)*WPS*parseFloat(rate.value), n=0; if(seconds<0){ while(i>0&&n<words){ i--; n+=units[i].words; } } else { while(i<units.length-1&&n<words){ n+=units[i].words; i++; } } if(playing) speak(); else mark(); }
+  play.onclick=function(){ playing?pause():start(); };
+  document.getElementById('stop').onclick=stop;
+  document.getElementById('rw').onclick=function(){ skip(-10); };
+  document.getElementById('ff').onclick=function(){ skip(10); };
+  rate.onchange=function(){ if(playing) speak(); };
+  // iOS Safari: keep the queue alive across long reads
+  setInterval(function(){ if(playing && synth.paused) synth.resume(); }, 5000);
+})();
+</script>
 <script>(function(){var btn=document.getElementById('themeToggle'),root=document.documentElement;btn.addEventListener('click',function(){var cur=root.getAttribute('data-theme');if(!cur)cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var next=cur==='dark'?'light':'dark';root.setAttribute('data-theme',next);btn.textContent=next==='dark'?'Light':'Dark';});})();</script>
 </body></html>
