@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Paradies Storefront — Schedule 1</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="light"]{
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec; --ink:#16201d; --ink-soft:#3c4a45;
+    --ink-faint:#6d7b75; --line:#d7ddd4; --line-soft:#e5e9e1; --accent:#0d7a6e; --accent-2:#0a5f56;
+    --accent-wash:#e2efeb; --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee; --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+  }
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+
+  /* masthead */
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:52px 0 40px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
+    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .meta-cell{background:var(--surface); padding:14px 16px;}
+  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
+  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+
+  /* sticky TOC */
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+
+  /* sections */
+  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
+  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+
+  /* status pills */
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
+    border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+
+  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
+    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
+  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
+  h4{font-size:.95rem; font-weight:700; margin:22px 0 8px; color:var(--ink);}
+  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
+  a.inl:hover{border-bottom-color:var(--accent);}
+  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+
+  /* cards + grid */
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
+  .card.flush{padding:0; overflow:hidden;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+
+  /* callouts */
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+
+  /* code block */
+  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:16px 18px; overflow-x:auto; margin:16px 0;}
+  pre code{background:none; border:none; padding:0; font-size:.82rem; line-height:1.7; color:var(--ink);}
+  .cm{color:var(--ink-faint);} .kw{color:var(--accent-2); font-weight:600;}
+
+  /* tables */
+  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
+  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
+  td.name{color:var(--ink); font-weight:600;}
+  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
+  .up{color:var(--accent-2); font-weight:600;} .down{color:var(--rose); font-weight:600;}
+
+  /* drill-down table — collapsible roll-up with aligned numeric columns (native details/summary, no JS).
+     .drill-head labels the columns even when every group is collapsed. Fixed-width right-aligned
+     .dnums .c/.v keep numbers in one straight column at every depth; left-padding steps (20 -> 34 -> 46)
+     signal hierarchy while right padding stays 20 so the number columns line up across all levels.
+     Inherits every doc-identity token, so it themes light/dark for free. */
+  .drill-head{display:flex; justify-content:flex-end; gap:22px; padding:2px 20px 8px; color:var(--ink-faint);
+    font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
+  .dnums{font-family:var(--mono); font-variant-numeric:tabular-nums; display:inline-flex; gap:22px;}
+  .dnums .c,.drill-head .c{width:56px; text-align:right;} .dnums .v,.drill-head .v{width:132px; text-align:right;}
+  details.drill{border:1px solid var(--line); border-radius:12px; margin:12px 0; background:var(--surface); box-shadow:var(--shadow); overflow:hidden;}
+  details.drill>summary{cursor:pointer; padding:14px 20px; font-family:var(--serif); font-size:1.15rem; font-weight:600;
+    color:var(--ink); list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:baseline; background:var(--surface-2);}
+  details.drill>summary::-webkit-details-marker{display:none;} details.drill>summary .dnums{color:var(--ink-soft);}
+  details.drill-2>summary{cursor:pointer; padding:10px 20px 10px 34px; font-weight:600; color:var(--ink-soft);
+    list-style:none; display:flex; justify-content:space-between; gap:16px; border-top:1px solid var(--line-soft);}
+  details.drill-2>summary::-webkit-details-marker{display:none;} details.drill-2[open]>summary{color:var(--ink);}
+  .drill-leaf{display:flex; justify-content:space-between; gap:16px; padding:8px 20px 8px 46px;
+    border-top:1px solid var(--line-soft); color:var(--ink-soft); font-size:.9rem;}
+
+  /* metric tiles */
+  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
+  .metric{background:var(--surface); padding:18px 16px;}
+  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
+  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
+  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+
+  /* field-reference rows */
+  .fields{display:flex; flex-direction:column; gap:0;}
+  .field-row{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,2fr); gap:18px; padding:13px 0; border-bottom:1px solid var(--line-soft);}
+  .field-row:last-child{border-bottom:none;}
+  .field-row .api{font-family:var(--mono); font-size:.8rem; color:var(--accent-2); word-break:break-word;}
+  .field-row .api .obj{color:var(--ink-faint);}
+  .field-row .desc{font-size:.88rem; color:var(--ink-soft);}
+  @media (max-width:640px){ .field-row{grid-template-columns:1fr; gap:4px;} }
+
+  /* source index */
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
+  .src-list{display:grid; gap:10px;}
+  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
+  .src:hover{border-color:var(--accent); transform:translateX(2px);}
+  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
+  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
+  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
+  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+
+  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+  hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
+
+  ul.tight li{margin-bottom:12px; line-height:1.6;}
+  @media (max-width:640px){ .wrap{padding:0 18px;} body{font-size:17px;} }
+</style>
+</head>
+<body>
+<header class="mast"><div class="wrap mast-inner">
+  <p class="eyebrow"><span class="dot"></span> Paradies and Company · Online Storefront · Schedule 1</p>
+  <h1 class="title">Schedule 1: <span>Specifications</span></h1>
+  <p class="lede">Work Product Description and Functional Requirements for the custom online quoting and ordering application on Client's WordPress site, connected to Client's Salesforce org.</p>
+  <div class="meta-grid">
+    <div class="meta-cell"><div class="k">Client</div><div class="v">Paradies and Company</div></div>
+    <div class="meta-cell"><div class="k">Provider</div><div class="v">Great Blue</div></div>
+    <div class="meta-cell"><div class="k">Version</div><div class="v mono">2026-09-16 review draft</div></div>
+    <div class="meta-cell"><div class="k">Status</div><div class="v"><span class="pill pending">Draft for review</span></div></div>
+  </div>
+</div></header>
+<nav class="toc"><div class="wrap toc-inner">
+  <a href="#s1"><span class="num">01</span>Work Product</a>
+  <a href="#s2"><span class="num">02</span>Functional Requirements</a>
+  <span class="spacer"></span>
+  <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
+</div></nav>
+<main class="wrap">
+<section class="stream" id="s1"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Work Product Description</h2></div>
+<p>A custom online quoting and ordering application (the "Storefront") for Client's existing WordPress website, connected to Client's Salesforce org. The Storefront lets a customer choose a product and decoration, see the price change as they make choices, upload artwork, and place an order. Every order is recorded in Client's Salesforce org, which is the system of record for products, pricing, and orders. Client's team reviews each order in Salesforce, approves the comp with the customer, and collects payment through Client's existing card processor. Order entry into Client's production system (ShopWorks) remains a manual step performed by Client's team, as it is today.</p>
+<h3>The Storefront consists of the following components <span class="tag">components</span></h3>
+<ul class="tight">
+<li>A quoting page embedded in Client's WordPress site, carrying Client's branding and modeled on the</li>
+</ul>
+<p>reference site Client identified, on which a customer selects a product and colorway from the curated catalog, chooses a decoration method from those Client offers online (screen print, DTF transfer, and embroidery), enters the quantity of each size and the ink color count, adds any of the add-on options Client designates from its current cost workbook, and sees the price per piece and the order total update as each choice is made. The customer may add more than one product to the order; each product is quoted on its own and the order total is the sum.</p>
+<ul class="tight">
+<li>Quantity-tier pricing on the quoting page, with the next lower price break shown as a prompt and</li>
+</ul>
+<p>a full price-break table available on request. Orders start at a 24-piece minimum. Quantities above the ceiling Client sets (initially 2,400 pieces) are routed to a custom-quote request rather than priced on the page.</p>
+<ul class="tight">
+<li>A pricing engine that runs in the customer's browser and reproduces the pricing logic of the</li>
+</ul>
+<p>quoting tool Great Blue has built in Client's Salesforce org, so the price shown online is the price Salesforce would calculate.</p>
+<ul class="tight">
+<li>A scheduled publish of pricing data (rates, tiers, products, colorways, add-ons, and the preset</li>
+</ul>
+<p>cost values Client manages in Salesforce) from Salesforce to the website, so Client maintains pricing and products in one place and the website follows. Changes flow one way, from Salesforce to the site.</p>
+<ul class="tight">
+<li>An artwork step in which the customer uploads their design file and sees it placed on the</li>
+</ul>
+<p>product image, chooses one or more print locations (front, back, or sleeve) from those Client offers, adds design notes, and selects ink colors for each location. Positioning and sizing follow Client's standard print areas; the customer does not drag, resize, or edit the artwork on the page.</p>
+<ul class="tight">
+<li>A checkout step collecting the customer's contact information, shipping address, and requested</li>
+</ul>
+<p>delivery date (with Client's standard turnaround shown on the page; the date is confirmed by Client's team with the comp), and the customer's confirmation that they hold the rights to the artwork, followed by a confirmation email to the customer stating that the order is being prepared for its comp. No payment is taken at this step.</p>
+<ul class="tight">
+<li>Sales tax on web orders, calculated from the shipping address once entered (destination based)</li>
+</ul>
+<p>through a tax-rate service. Tax is charged on every web order; tax-exempt customers are handled by Client's team during order review, as they are today.</p>
+<ul class="tight">
+<li>Shipping cost on web orders, calculated at checkout and shown before the order is placed, either</li>
+</ul>
+<p>from live carrier rates through a shipping-rate service (using product weights and the ship-from address supplied by Client) or from a weight-and-zone rate table Client supplies, as Client elects during implementation.</p>
+<ul class="tight">
+<li>Order intake in Salesforce: each web order is created as records in Client's org, including line</li>
+</ul>
+<p>items, artwork, and customer details, and appears in a review queue for Client's team to verify stock and artwork printability. Salesforce recalculates the order price on receipt and sends an email alert to Client if it differs from the price the website showed. Client's team is notified by email, at addresses Client configures, of each new web order, comp approval, and change request.</p>
+<ul class="tight">
+<li>The order form output Client's team uses to key the order into ShopWorks, produced from the</li>
+</ul>
+<p>Salesforce order in the same format as the existing quoting tool's output.</p>
+<ul class="tight">
+<li>A customer comp page, reached from an email, showing the comp (the artwork on the product) prepared by Client's</li>
+</ul>
+<p>team, the line items with pricing by size, and the total, with two actions: approve, or request changes. A change request returns the order to Client's team, and any change is re-priced by the same engine before the comp is re-sent; an approval opens payment. Reminder emails go to the customer at intervals Client sets while a comp awaits approval, and a quote is valid for 30 days.</p>
+<ul class="tight">
+<li>Payment collection after approval through Client's existing card processor's online gateway</li>
+</ul>
+<p>(Paya Connect), using the processor's hosted payment page or hosted card fields so card data is entered on the processor's secure form and never stored on Client's website or in Salesforce. The payment confirmation and reference number are stored on the Salesforce order so Client's team can mark the order prepaid when entering it into ShopWorks. Paya Connect is not yet enabled on Client's merchant account; Client will enable it, or, if Client selects a different processor before payment work begins, the payment scope and hours will be restated for that processor.</p>
+<ul class="tight">
+<li>A "contact us" button on the quoting page that sends an email to Client.</li>
+<li>Documentation covering setup, the pricing publish, the order review process, and the comp and</li>
+</ul>
+<p>payment steps.</p>
+<p>The Storefront is built as a plugin for Client's WordPress site and does not require replacing Client's theme, page builder, or hosting. Product photos (a front and back image for each colorway offered, on which artwork is previewed), product descriptions, the curated product list, and the list of add-on options offered online are supplied by Client.</p>
+<p>The Work Product covers online quoting, ordering, comp approval, and payment collection as described above.</p><h3>Not included <span class="tag">exclusions</span></h3><ul class="tight"><li>entry of orders into ShopWorks or any integration with ShopWorks or with Client's accounting.</li><li>posting of payments to Client's accounting system (reconciliation remains Client's manual process).</li><li>an on-page design editor for moving, resizing, or editing artwork (the customer places art by choosing a location.</li><li>the comp is prepared by Client's team).</li><li>decoration methods Client does not offer online (including digital screen).</li><li>automated analysis of artwork for color count or recommended print method.</li><li>live chat.</li><li>supplier catalog or inventory integrations (Alphabroder, S&amp;S, Sanmar, or others).</li><li>customer accounts, order history, or a customer portal.</li><li>real-time stock levels.</li><li>promo codes, discounts, gift cards, deposits, or partial payments.</li><li>sales tax filing or remittance.</li><li>shipping label purchase or carrier account management.</li><li>changes to Client's existing website pages other than adding the Storefront pages.</li></ul>
+</section>
+<section class="stream" id="s2"><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Functional Requirements</h2></div>
+<ul class="tight">
+<li>A customer must be able to open the quoting page on Client's website in the current versions of</li>
+</ul>
+<p>Chrome, Edge, Firefox, and Safari on desktop and mobile, without an account, and see product, decoration, quantity by size, color-count, and add-on choices with the price per piece and total updating as each choice changes. Extended sizes carry the upcharges Client maintains in Salesforce. More than one product may be added to a single order.</p>
+<ul class="tight">
+<li>The price shown on the website must equal the price Client's Salesforce quoting tool calculates for</li>
+</ul>
+<p>the same inputs. Great Blue will verify this against the same test scenarios used for the Salesforce quoting tool. Any difference found on a received order must be reported to Client by email.</p>
+<ul class="tight">
+<li>Pricing, products, colorways, add-ons, and preset cost values must be maintained by Client in</li>
+</ul>
+<p>Salesforce only, and the website must reflect changes after the next scheduled publish, without code changes.</p>
+<ul class="tight">
+<li>Quantity tiers must begin at a 24-piece minimum and extend the price-break structure of Client's</li>
+</ul>
+<p>existing pricing model to lower quantities; quantities above Client's configured ceiling must be routed to a custom-quote request.</p>
+<ul class="tight">
+<li>The customer must be able to upload an artwork file, see it placed on the product image, choose</li>
+</ul>
+<p>one or more print locations, add design notes, and select ink colors, and the file, locations, and notes must be stored with the order in Salesforce. Additional locations are priced by the same rules as Client's Salesforce quoting tool. Accepted file types and the size limit will be set with Client during implementation.</p>
+<ul class="tight">
+<li>Checkout must collect contact information, shipping address, requested delivery date, and the</li>
+</ul>
+<p>customer's artwork-rights confirmation, create the order in Salesforce, notify Client's team, and send the customer a confirmation email. No payment is taken at checkout.</p>
+<ul class="tight">
+<li>Checkout must show sales tax and shipping cost, calculated from the shipping address, before the</li>
+</ul>
+<p>order is placed.</p>
+<ul class="tight">
+<li>Each web order must appear in a Salesforce review queue with its line items, artwork, and customer</li>
+</ul>
+<p>details, and Client's team must be able to produce the order form used for ShopWorks entry from it.</p>
+<ul class="tight">
+<li>Client's team must be able to attach the comp to the order and send the customer a link to</li>
+</ul>
+<p>a comp page showing the comp, line-item pricing by size, and the total, with approve and request-changes actions. A change request must return the order to Client's team with the customer's notes and re-price any change; an approval must open payment. The customer must receive reminder emails while a comp awaits approval, at intervals Client sets.</p>
+<ul class="tight">
+<li>Payment must be collected after comp approval through Client's Paya Connect gateway, with card</li>
+</ul>
+<p>entry on the processor's hosted form. The payment confirmation and reference must be stored on the Salesforce order and visible to Client's team. Refunds, voids, and disputes are handled by Client in the processor's own tools.</p>
+<ul class="tight">
+<li>The customer confirmation email, the comp email, and the payment receipt must carry Client's</li>
+</ul>
+<p>branding and wording approved by Client during implementation.</p>
+<ul class="tight">
+<li>The Storefront must run on Client's existing WordPress site and hosting plan and must not require</li>
+</ul>
+<p>a change of theme, page builder, or host. Deployment to Client's site is performed by Great Blue through the hosting provider's supported deployment tools, first to a staging copy for Client's review and then to the live site on Client's approval.</p>
+<ul class="tight">
+<li>Client will provide and maintain: administrator access to the WordPress site and a current hosting</li>
+</ul>
+<p>plan that supports plugins and staging; a Paya Connect gateway account with test credentials; Salesforce access; the curated product list with descriptions and a front and back photo for each colorway; the list of add-on options offered online; standard turnaround wording; notification addresses; the tax-rate service account; the shipping-rate service account or the shipping rate table; product weights and the ship-from address; and approval of page copy, email wording, and the comp page layout.</p>
+<ul class="tight">
+<li>User acceptance testing will verify each Functional Requirement in this Schedule on the staging</li>
+</ul>
+<p>copy of Client's site using representative products and Client's actual pricing. Acceptance requires successful completion of all material Functional Requirements, subject to the acceptance, defect-cure, and deemed-acceptance procedures in the Agreement.</p>
+<ul class="tight">
+<li>During implementation, Great Blue will make configuration adjustments to page copy, email wording,</li>
+</ul>
+<p>tier boundaries, and publish timing as needed to conform to this Schedule. Requests introducing new decoration methods, products beyond the curated list's structure, integrations, or functionality not listed in this Schedule are outside the Work Product and available under a separate scope and estimate.</p>
+</section>
+<footer><p class="fmono">Compiled 2026-09-16 · source docs/2026-09-03_SCHEDULE-1-WEBSITE-CLEAN.md</p><p>Draft for internal review before it goes to the client. Hours live in the project plan, not in this Schedule.</p></footer>
+</main>
+<script>
+(function(){var btn=document.getElementById('themeToggle'),root=document.documentElement;btn.addEventListener('click',function(){var cur=root.getAttribute('data-theme');if(!cur)cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var next=cur==='dark'?'light':'dark';root.setAttribute('data-theme',next);btn.textContent=next==='dark'?'Light':'Dark';});})();
+</script>
+</body></html>
