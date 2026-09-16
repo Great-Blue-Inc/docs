@@ -1,9 +1,5 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
 <title>Paradies Storefront — Schedule 1</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
 <style>
@@ -190,9 +186,7 @@
 
   ul.tight li{margin-bottom:12px; line-height:1.6;}
   @media (max-width:640px){ .wrap{padding:0 18px;} body{font-size:17px;} }
-</style>
-</head>
-<body>
+</style></head><body>
 <header class="mast"><div class="wrap mast-inner">
   <p class="eyebrow"><span class="dot"></span> Paradies and Company · Online Storefront · Schedule 1</p>
   <h1 class="title">Schedule 1: <span>Specifications</span></h1>
@@ -200,16 +194,11 @@
   <div class="meta-grid">
     <div class="meta-cell"><div class="k">Client</div><div class="v">Paradies and Company</div></div>
     <div class="meta-cell"><div class="k">Provider</div><div class="v">Great Blue</div></div>
-    <div class="meta-cell"><div class="k">Version</div><div class="v mono">2026-09-16 review draft</div></div>
+    <div class="meta-cell"><div class="k">Version</div><div class="v mono">2026-09-16 review draft (design canvas in scope)</div></div>
     <div class="meta-cell"><div class="k">Status</div><div class="v"><span class="pill pending">Draft for review</span></div></div>
   </div>
 </div></header>
-<nav class="toc"><div class="wrap toc-inner">
-  <a href="#s1"><span class="num">01</span>Work Product</a>
-  <a href="#s2"><span class="num">02</span>Functional Requirements</a>
-  <span class="spacer"></span>
-  <button id="themeToggle" aria-label="Toggle colour theme">Theme</button>
-</div></nav>
+<nav class="toc"><div class="wrap toc-inner"><a href="#s1"><span class="num">01</span>Work Product</a><a href="#s2"><span class="num">02</span>Functional Requirements</a><span class="spacer"></span><button id="themeToggle" aria-label="Toggle colour theme">Theme</button></div></nav>
 <main class="wrap">
 <section class="stream" id="s1"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Work Product Description</h2></div>
 <p>A custom online quoting and ordering application (the "Storefront") for Client's existing WordPress website, connected to Client's Salesforce org. The Storefront lets a customer choose a product and decoration, see the price change as they make choices, upload artwork, and place an order. Every order is recorded in Client's Salesforce org, which is the system of record for products, pricing, and orders. Client's team reviews each order in Salesforce, approves the comp with the customer, and collects payment through Client's existing card processor. Order entry into Client's production system (ShopWorks) remains a manual step performed by Client's team, as it is today.</p>
@@ -233,7 +222,7 @@
 <ul class="tight">
 <li>An artwork step in which the customer uploads their design file and sees it placed on the</li>
 </ul>
-<p>product image, chooses one or more print locations (front, back, or sleeve) from those Client offers, adds design notes, and selects ink colors for each location. Positioning and sizing follow Client's standard print areas; the customer does not drag, resize, or edit the artwork on the page.</p>
+<p>product image, chooses one or more print locations (front, back, or sleeve) from those Client offers, and can move, resize, and rotate the artwork within the print area Client defines for that location, with one or more artwork files per location, bring-to-front and delete controls, design notes, and ink colors for each location. The placement is saved with the order and shown to Client's team as the starting point for the comp.</p>
 <ul class="tight">
 <li>A checkout step collecting the customer's contact information, shipping address, and requested</li>
 </ul>
@@ -268,7 +257,7 @@
 </ul>
 <p>payment steps.</p>
 <p>The Storefront is built as a plugin for Client's WordPress site and does not require replacing Client's theme, page builder, or hosting. Product photos (a front and back image for each colorway offered, on which artwork is previewed), product descriptions, the curated product list, and the list of add-on options offered online are supplied by Client.</p>
-<p>The Work Product covers online quoting, ordering, comp approval, and payment collection as described above.</p><h3>Not included <span class="tag">exclusions</span></h3><ul class="tight"><li>entry of orders into ShopWorks or any integration with ShopWorks or with Client's accounting.</li><li>posting of payments to Client's accounting system (reconciliation remains Client's manual process).</li><li>an on-page design editor for moving, resizing, or editing artwork (the customer places art by choosing a location.</li><li>the comp is prepared by Client's team).</li><li>decoration methods Client does not offer online (including digital screen).</li><li>automated analysis of artwork for color count or recommended print method.</li><li>live chat.</li><li>supplier catalog or inventory integrations (Alphabroder, S&amp;S, Sanmar, or others).</li><li>customer accounts, order history, or a customer portal.</li><li>real-time stock levels.</li><li>promo codes, discounts, gift cards, deposits, or partial payments.</li><li>sales tax filing or remittance.</li><li>shipping label purchase or carrier account management.</li><li>changes to Client's existing website pages other than adding the Storefront pages.</li></ul>
+<p>The Work Product covers online quoting, ordering, comp approval, and payment collection as described above.</p><h3>Not included <span class="tag">exclusions</span></h3><ul class="tight"><li>entry of orders into ShopWorks or any integration with ShopWorks or with Client's accounting.</li><li>posting of payments to Client's accounting system (reconciliation remains Client's manual process).</li><li>text or shape tools, clip-art libraries, color changes to the artwork, and automated background removal (the customer places their own file.</li><li>the comp is prepared by Client's team).</li><li>decoration methods Client does not offer online (including digital screen).</li><li>automated analysis of artwork for color count or recommended print method.</li><li>live chat.</li><li>supplier catalog or inventory integrations (Alphabroder, S&amp;S, Sanmar, or others).</li><li>customer accounts, order history, or a customer portal.</li><li>real-time stock levels.</li><li>promo codes, discounts, gift cards, deposits, or partial payments.</li><li>sales tax filing or remittance.</li><li>shipping label purchase or carrier account management.</li><li>changes to Client's existing website pages other than adding the Storefront pages.</li></ul>
 </section>
 <section class="stream" id="s2"><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Functional Requirements</h2></div>
 <ul class="tight">
@@ -290,7 +279,7 @@
 <ul class="tight">
 <li>The customer must be able to upload an artwork file, see it placed on the product image, choose</li>
 </ul>
-<p>one or more print locations, add design notes, and select ink colors, and the file, locations, and notes must be stored with the order in Salesforce. Additional locations are priced by the same rules as Client's Salesforce quoting tool. Accepted file types and the size limit will be set with Client during implementation.</p>
+<p>one or more print locations, move, resize, and rotate it within the print area for that location on desktop and on a touch screen, add design notes, and select ink colors, and the file, locations, placement, and notes must be stored with the order in Salesforce. Additional locations are priced by the same rules as Client's Salesforce quoting tool. Accepted file types and the size limit will be set with Client during implementation.</p>
 <ul class="tight">
 <li>Checkout must collect contact information, shipping address, requested delivery date, and the</li>
 </ul>
@@ -322,7 +311,7 @@
 <ul class="tight">
 <li>Client will provide and maintain: administrator access to the WordPress site and a current hosting</li>
 </ul>
-<p>plan that supports plugins and staging; a Paya Connect gateway account with test credentials; Salesforce access; the curated product list with descriptions and a front and back photo for each colorway; the list of add-on options offered online; standard turnaround wording; notification addresses; the tax-rate service account; the shipping-rate service account or the shipping rate table; product weights and the ship-from address; and approval of page copy, email wording, and the comp page layout.</p>
+<p>plan that supports plugins and staging; a Paya Connect gateway account with test credentials; Salesforce access; the curated product list with descriptions and a front and back photo for each colorway; the print-area position and size for each location on each product; the list of add-on options offered online; standard turnaround wording; notification addresses; the tax-rate service account; the shipping-rate service account or the shipping rate table; product weights and the ship-from address; and approval of page copy, email wording, and the comp page layout.</p>
 <ul class="tight">
 <li>User acceptance testing will verify each Functional Requirement in this Schedule on the staging</li>
 </ul>
@@ -334,7 +323,5 @@
 </section>
 <footer><p class="fmono">Compiled 2026-09-16 · source docs/2026-09-03_SCHEDULE-1-WEBSITE-CLEAN.md</p><p>Draft for internal review before it goes to the client. Hours live in the project plan, not in this Schedule.</p></footer>
 </main>
-<script>
-(function(){var btn=document.getElementById('themeToggle'),root=document.documentElement;btn.addEventListener('click',function(){var cur=root.getAttribute('data-theme');if(!cur)cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var next=cur==='dark'?'light':'dark';root.setAttribute('data-theme',next);btn.textContent=next==='dark'?'Light':'Dark';});})();
-</script>
+<script>(function(){var btn=document.getElementById('themeToggle'),root=document.documentElement;btn.addEventListener('click',function(){var cur=root.getAttribute('data-theme');if(!cur)cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var next=cur==='dark'?'light':'dark';root.setAttribute('data-theme',next);btn.textContent=next==='dark'?'Light':'Dark';});})();</script>
 </body></html>
