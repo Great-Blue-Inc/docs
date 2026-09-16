@@ -184,76 +184,78 @@
   footer .fmono{font-family:var(--mono); font-size:.78rem;}
   hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
 
-  ul.tight li{margin-bottom:12px; line-height:1.6;}
-  @media (max-width:640px){ .wrap{padding:0 18px;} body{font-size:17px;} }
+  ul.tight li{margin-bottom:14px; line-height:1.6;}
+  .hrs{display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--amber); background:var(--amber-wash); border:1px solid color-mix(in srgb, var(--amber) 30%, transparent); border-radius:6px; padding:1px 7px; margin-right:6px; vertical-align:middle;}
+  .hnote{font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); margin-top:4px;}
+  @media (max-width:640px){ .wrap{padding:0 18px;} body{font-size:17px;} table{min-width:0;} }
 </style></head><body>
 <header class="mast"><div class="wrap mast-inner">
-  <p class="eyebrow"><span class="dot"></span> Paradies and Company · Online Storefront · Schedule 1</p>
+  <p class="eyebrow"><span class="dot"></span> Paradies and Company · Online Storefront · Schedule 1 · internal review copy</p>
   <h1 class="title">Schedule 1: <span>Specifications</span></h1>
-  <p class="lede">Work Product Description and Functional Requirements for the custom online quoting and ordering application on Client's WordPress site, connected to Client's Salesforce org.</p>
+  <p class="lede">Work Product Description and Functional Requirements for the custom online quoting and ordering application on Client's WordPress site, connected to Client's Salesforce org. Amber tags are hours per line for internal review. They are removed from the client copy.</p>
   <div class="meta-grid">
     <div class="meta-cell"><div class="k">Client</div><div class="v">Paradies and Company</div></div>
     <div class="meta-cell"><div class="k">Provider</div><div class="v">Great Blue</div></div>
-    <div class="meta-cell"><div class="k">Version</div><div class="v mono">2026-09-16 review draft (design canvas in scope)</div></div>
+    <div class="meta-cell"><div class="k">Estimate</div><div class="v mono">140 h, single number</div></div>
     <div class="meta-cell"><div class="k">Status</div><div class="v"><span class="pill pending">Draft for review</span></div></div>
   </div>
 </div></header>
-<nav class="toc"><div class="wrap toc-inner"><a href="#s1"><span class="num">01</span>Work Product</a><a href="#s2"><span class="num">02</span>Functional Requirements</a><span class="spacer"></span><button id="themeToggle" aria-label="Toggle colour theme">Theme</button></div></nav>
+<nav class="toc"><div class="wrap toc-inner"><a href="#s1"><span class="num">01</span>Work Product</a><a href="#s2"><span class="num">02</span>Functional Requirements</a><a href="#s3"><span class="num">03</span>Hours</a><span class="spacer"></span><button id="themeToggle" aria-label="Toggle colour theme">Theme</button></div></nav>
 <main class="wrap">
 <section class="stream" id="s1"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Work Product Description</h2></div>
 <p>A custom online quoting and ordering application (the "Storefront") for Client's existing WordPress website, connected to Client's Salesforce org. The Storefront lets a customer choose a product and decoration, see the price change as they make choices, upload artwork, and place an order. Every order is recorded in Client's Salesforce org, which is the system of record for products, pricing, and orders. Client's team reviews each order in Salesforce, approves the comp with the customer, and collects payment through Client's existing card processor. Order entry into Client's production system (ShopWorks) remains a manual step performed by Client's team, as it is today.</p>
-<h3>The Storefront consists of the following components <span class="tag">components</span></h3>
+<h3>The Storefront consists of the following components <span class="tag">components · hours per line</span></h3>
 <ul class="tight">
-<li>A quoting page embedded in Client's WordPress site, carrying Client's branding and modeled on the</li>
+<li><span class="hrs" title="product, colorway, decoration, sizes, add-ons, live price, multi-product cart, review rounds">16 h</span> A quoting page embedded in Client's WordPress site, carrying Client's branding and modeled on the<div class=hnote>product, colorway, decoration, sizes, add-ons, live price, multi-product cart, review rounds</div></li>
 </ul>
 <p>reference site Client identified, on which a customer selects a product and colorway from the curated catalog, chooses a decoration method from those Client offers online (screen print, DTF transfer, and embroidery), enters the quantity of each size and the ink color count, adds any of the add-on options Client designates from its current cost workbook, and sees the price per piece and the order total update as each choice is made. The customer may add more than one product to the order; each product is quoted on its own and the order total is the sum.</p>
 <ul class="tight">
-<li>Quantity-tier pricing on the quoting page, with the next lower price break shown as a prompt and</li>
+<li><span class="hrs" title="breaks, next-break prompt, full table, MOQ, ceiling to custom quote">4 h</span> Quantity-tier pricing on the quoting page, with the next lower price break shown as a prompt and<div class=hnote>breaks, next-break prompt, full table, MOQ, ceiling to custom quote</div></li>
 </ul>
 <p>a full price-break table available on request. Orders start at a 24-piece minimum. Quantities above the ceiling Client sets (initially 2,400 pieces) are routed to a custom-quote request rather than priced on the page.</p>
 <ul class="tight">
-<li>A pricing engine that runs in the customer's browser and reproduces the pricing logic of the</li>
+<li><span class="hrs" title="JS port of the Apex engine, 54-scenario oracle in CI, multi-location rules">8 h</span> A pricing engine that runs in the customer's browser and reproduces the pricing logic of the<div class=hnote>JS port of the Apex engine, 54-scenario oracle in CI, multi-location rules</div></li>
 </ul>
 <p>quoting tool Great Blue has built in Client's Salesforce org, so the price shown online is the price Salesforce would calculate.</p>
 <ul class="tight">
-<li>A scheduled publish of pricing data (rates, tiers, products, colorways, add-ons, and the preset</li>
+<li><span class="hrs" title="catalog and presets in Salesforce, publish job, site-side loader">8 h</span> A scheduled publish of pricing data (rates, tiers, products, colorways, add-ons, and the preset<div class=hnote>catalog and presets in Salesforce, publish job, site-side loader</div></li>
 </ul>
 <p>cost values Client manages in Salesforce) from Salesforce to the website, so Client maintains pricing and products in one place and the website follows. Changes flow one way, from Salesforce to the site.</p>
 <ul class="tight">
-<li>An artwork step in which the customer uploads their design file and sees it placed on the</li>
+<li><span class="hrs" title="Konva canvas: move, resize, rotate in print areas, multi-art, touch, placement and preview PNG">14 h</span> An artwork step in which the customer uploads their design file and sees it placed on the<div class=hnote>Konva canvas: move, resize, rotate in print areas, multi-art, touch, placement and preview PNG</div></li>
 </ul>
 <p>product image, chooses one or more print locations (front, back, or sleeve) from those Client offers, and can move, resize, and rotate the artwork within the print area Client defines for that location, with one or more artwork files per location, bring-to-front and delete controls, design notes, and ink colors for each location. The placement is saved with the order and shown to Client's team as the starting point for the comp.</p>
 <ul class="tight">
-<li>A checkout step collecting the customer's contact information, shipping address, and requested</li>
+<li><span class="hrs" title="contact, address, date, rights checkbox, confirmation email">5 h</span> A checkout step collecting the customer's contact information, shipping address, and requested<div class=hnote>contact, address, date, rights checkbox, confirmation email</div></li>
 </ul>
 <p>delivery date (with Client's standard turnaround shown on the page; the date is confirmed by Client's team with the comp), and the customer's confirmation that they hold the rights to the artwork, followed by a confirmation email to the customer stating that the order is being prepared for its comp. No payment is taken at this step.</p>
 <ul class="tight">
-<li>Sales tax on web orders, calculated from the shipping address once entered (destination based)</li>
+<li><span class="hrs" title="tax-rate service integration">4 h</span> Sales tax on web orders, calculated from the shipping address once entered (destination based)<div class=hnote>tax-rate service integration</div></li>
 </ul>
 <p>through a tax-rate service. Tax is charged on every web order; tax-exempt customers are handled by Client's team during order review, as they are today.</p>
 <ul class="tight">
-<li>Shipping cost on web orders, calculated at checkout and shown before the order is placed, either</li>
+<li><span class="hrs" title="rate table or live carrier rates, worst case priced">5 h</span> Shipping cost on web orders, calculated at checkout and shown before the order is placed, either<div class=hnote>rate table or live carrier rates, worst case priced</div></li>
 </ul>
 <p>from live carrier rates through a shipping-rate service (using product weights and the ship-from address supplied by Client) or from a weight-and-zone rate table Client supplies, as Client elects during implementation.</p>
 <ul class="tight">
-<li>Order intake in Salesforce: each web order is created as records in Client's org, including line</li>
+<li><span class="hrs" title="integration user, REST intake, records, review queue, recalc and mismatch email, team notifications">9 h</span> Order intake in Salesforce: each web order is created as records in Client's org, including line<div class=hnote>integration user, REST intake, records, review queue, recalc and mismatch email, team notifications</div></li>
 </ul>
 <p>items, artwork, and customer details, and appears in a review queue for Client's team to verify stock and artwork printability. Salesforce recalculates the order price on receipt and sends an email alert to Client if it differs from the price the website showed. Client's team is notified by email, at addresses Client configures, of each new web order, comp approval, and change request.</p>
 <ul class="tight">
-<li>The order form output Client's team uses to key the order into ShopWorks, produced from the</li>
+<li><span class="hrs" title="reuse of the existing output">2 h</span> The order form output Client's team uses to key the order into ShopWorks, produced from the<div class=hnote>reuse of the existing output</div></li>
 </ul>
 <p>Salesforce order in the same format as the existing quoting tool's output.</p>
 <ul class="tight">
-<li>A customer comp page, reached from an email, showing the comp (the artwork on the product) prepared by Client's</li>
+<li><span class="hrs" title="approve and change request, re-price, reminders, 30-day validity, comp email">7 h</span> A customer comp page, reached from an email, showing the comp (the artwork on the product) prepared by Client's<div class=hnote>approve and change request, re-price, reminders, 30-day validity, comp email</div></li>
 </ul>
 <p>team, the line items with pricing by size, and the total, with two actions: approve, or request changes. A change request returns the order to Client's team, and any change is re-priced by the same engine before the comp is re-sent; an approval opens payment. Reminder emails go to the customer at intervals Client sets while a comp awaits approval, and a quote is valid for 30 days.</p>
 <ul class="tight">
-<li>Payment collection after approval through Client's existing card processor's online gateway</li>
+<li><span class="hrs" title="Paya Connect hosted page or PayForm, postback, stored reference, gateway sandbox testing">8 h</span> Payment collection after approval through Client's existing card processor's online gateway<div class=hnote>Paya Connect hosted page or PayForm, postback, stored reference, gateway sandbox testing</div></li>
 </ul>
 <p>(Paya Connect), using the processor's hosted payment page or hosted card fields so card data is entered on the processor's secure form and never stored on Client's website or in Salesforce. The payment confirmation and reference number are stored on the Salesforce order so Client's team can mark the order prepaid when entering it into ShopWorks. Paya Connect is not yet enabled on Client's merchant account; Client will enable it, or, if Client selects a different processor before payment work begins, the payment scope and hours will be restated for that processor.</p>
 <ul class="tight">
-<li>A "contact us" button on the quoting page that sends an email to Client.</li>
-<li>Documentation covering setup, the pricing publish, the order review process, and the comp and</li>
+<li><span class="hrs" title="email to Client">1 h</span> A "contact us" button on the quoting page that sends an email to Client.<div class=hnote>email to Client</div></li>
+<li><span class="hrs" title="setup, publish, review process, comp and payment steps">4 h</span> Documentation covering setup, the pricing publish, the order review process, and the comp and<div class=hnote>setup, publish, review process, comp and payment steps</div></li>
 </ul>
 <p>payment steps.</p>
 <p>The Storefront is built as a plugin for Client's WordPress site and does not require replacing Client's theme, page builder, or hosting. Product photos (a front and back image for each colorway offered, on which artwork is previewed), product descriptions, the curated product list, and the list of add-on options offered online are supplied by Client.</p>
@@ -321,7 +323,8 @@
 </ul>
 <p>tier boundaries, and publish timing as needed to conform to this Schedule. Requests introducing new decoration methods, products beyond the curated list's structure, integrations, or functionality not listed in this Schedule are outside the Work Product and available under a separate scope and estimate.</p>
 </section>
-<footer><p class="fmono">Compiled 2026-09-16 · source docs/2026-09-03_SCHEDULE-1-WEBSITE-CLEAN.md</p><p>Draft for internal review before it goes to the client. Hours live in the project plan, not in this Schedule.</p></footer>
+<section class="stream" id="s3"><div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Hours reconciliation</h2><span class="pill sandbox">Internal, not sent</span></div><p class="sec-sub">Every component line above carries its hours. Cross-cutting lines are the human load that exists regardless of build speed. Basis: Claude builds through supervised lanes; every human hour (review, meetings at real length, UAT rounds, environments, deploys) is in the number.</p><div class="metrics"><div class="metric"><div class="val">95</div><div class="cap">component build + review</div></div><div class="metric"><div class="val">45</div><div class="cap">meetings, UAT, environments, deploys</div></div><div class="metric"><div class="val">140<small> h</small></div><div class="cap">single conservative number to quote</div></div></div><div class="tbl-scroll"><table><thead><tr><th>Line</th><th>Covers</th><th class=num>Hours</th></tr></thead><tbody><tr><td class=name>A quoting page embedded</td><td>product, colorway, decoration, sizes, add-ons, live price, multi-product cart, review rounds</td><td class=num>16</td></tr><tr><td class=name>Quantity-tier pricing</td><td>breaks, next-break prompt, full table, MOQ, ceiling to custom quote</td><td class=num>4</td></tr><tr><td class=name>A pricing engine that runs</td><td>JS port of the Apex engine, 54-scenario oracle in CI, multi-location rules</td><td class=num>8</td></tr><tr><td class=name>A scheduled publish</td><td>catalog and presets in Salesforce, publish job, site-side loader</td><td class=num>8</td></tr><tr><td class=name>An artwork step</td><td>Konva canvas: move, resize, rotate in print areas, multi-art, touch, placement and preview PNG</td><td class=num>14</td></tr><tr><td class=name>A checkout step</td><td>contact, address, date, rights checkbox, confirmation email</td><td class=num>5</td></tr><tr><td class=name>Sales tax on web orders</td><td>tax-rate service integration</td><td class=num>4</td></tr><tr><td class=name>Shipping cost on web orders</td><td>rate table or live carrier rates, worst case priced</td><td class=num>5</td></tr><tr><td class=name>Order intake in Salesforce</td><td>integration user, REST intake, records, review queue, recalc and mismatch email, team notifications</td><td class=num>9</td></tr><tr><td class=name>The order form output</td><td>reuse of the existing output</td><td class=num>2</td></tr><tr><td class=name>A customer comp page</td><td>approve and change request, re-price, reminders, 30-day validity, comp email</td><td class=num>7</td></tr><tr><td class=name>Payment collection after approval</td><td>Paya Connect hosted page or PayForm, postback, stored reference, gateway sandbox testing</td><td class=num>8</td></tr><tr><td class=name>A "contact us" button</td><td>email to Client</td><td class=num>1</td></tr><tr><td class=name>Documentation covering setup</td><td>setup, publish, review process, comp and payment steps</td><td class=num>4</td></tr><tr><td class=name><strong>Components subtotal</strong></td><td></td><td class=num><strong>95</strong></td></tr><tr><td class=name>Survey, staging site, plugin skeleton, deploy pipeline</td><td>human time, set by Paradies not by build speed</td><td class=num>4</td></tr><tr><td class=name>Client meetings: kickoff, 8 to 10 weekly calls at 1 to 2 hours, demo, UAT walkthroughs, go-live, prep and recap</td><td>human time, set by Paradies not by build speed</td><td class=num>20</td></tr><tr><td class=name>UAT: three rounds of triage, fixes, re-test on staging</td><td>human time, set by Paradies not by build speed</td><td class=num>12</td></tr><tr><td class=name>Environments and credentials: WordPress admin, Paya sandbox and live, tax and shipping accounts, integration user, email domain</td><td>human time, set by Paradies not by build speed</td><td class=num>4</td></tr><tr><td class=name>Deployments: staging through the build, production, rollback plan, post-launch check</td><td>human time, set by Paradies not by build speed</td><td class=num>5</td></tr><tr><td class=name><strong>Cross-cutting subtotal</strong></td><td></td><td class=num><strong>45</strong></td></tr><tr><td class=name><strong>Total</strong></td><td></td><td class=num><strong>140</strong></td></tr></tbody></table></div></section>
+<footer><p class="fmono">Compiled 2026-09-16 · source docs/2026-09-03_SCHEDULE-1-WEBSITE-CLEAN.md · hours docs/strategy/website_schedule1_hours.json</p><p>Internal review copy. Hours tags and section 03 are stripped before the client copy goes out.</p></footer>
 </main>
 <script>(function(){var btn=document.getElementById('themeToggle'),root=document.documentElement;btn.addEventListener('click',function(){var cur=root.getAttribute('data-theme');if(!cur)cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var next=cur==='dark'?'light':'dark';root.setAttribute('data-theme',next);btn.textContent=next==='dark'?'Light':'Dark';});})();</script>
 </body></html>
