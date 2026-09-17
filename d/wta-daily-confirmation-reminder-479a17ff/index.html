@@ -214,13 +214,13 @@
 <header class="mast"><div class="wrap mast-inner">
   <p class="eyebrow"><span class="dot"></span> Washington Talent · Salesforce Flows · Change Summary</p>
   <h1 class="title">One nightly reminder flow replaces <span>two, and survives the record lock</span></h1>
-  <p class="lede">The 1:00 AM confirmation reminder still runs per line item, in groups of 20, and skips non-booked statuses. When a group hits a record lock, it retries once and carries on instead of failing. The September 11 failure was reproduced in the sandbox and the new flow recovered from it. Not deployed to production.</p>
+  <p class="lede">The 1:00 AM confirmation reminder still runs per line item, in groups of 20, and skips non-booked statuses. When a group hits a record lock, it retries once and carries on instead of failing. The September 11 failure was reproduced in the sandbox and the new flow recovered from it. Deployed to production September 17.</p>
   <div class="meta-grid">
-    <div class="meta-cell"><div class="k">Production</div><div class="v">Old flows still active</div></div>
+    <div class="meta-cell"><div class="k">Production</div><div class="v">New flow live, old flows off</div></div>
     <div class="meta-cell"><div class="k">Sandbox proof</div><div class="v">lock fault reproduced; new flow recovered 5/5, 0 faults</div></div>
     <div class="meta-cell"><div class="k">New flow</div><div class="v mono">Daily_Confirmation_Reminder</div></div>
     <div class="meta-cell"><div class="k">Replaces</div><div class="v mono">Opportunity_Line_Item_10_days_out<br>Opportunity_Line_Item_5_days_out</div></div>
-    <div class="meta-cell"><div class="k">Updated</div><div class="v mono">2026-09-15</div></div>
+    <div class="meta-cell"><div class="k">Updated</div><div class="v mono">2026-09-17</div></div>
   </div>
 </div></header>
 <nav class="toc"><div class="wrap toc-inner">
@@ -260,13 +260,13 @@
     <li><strong>Second-failure path.</strong> A forced update failure on 30 line items: each retried, failed again, logged one row. 0 error emails.</li>
     <li><strong>The September 11 failure, reproduced.</strong> The parent event was locked by another process for 55 seconds while the old flow shape ran on schedule. It hit "unable to obtain exclusive access to this record", faulted, updated nothing, and sent the platform error email, the same one as September 11.</li>
     <li><strong>The fix, under the same lock.</strong> The new flow ran on schedule with the parent locked. All 5 line items hit the lock on the first attempt, retried, and updated once the lock cleared. 0 faults, no error email. Repeated 5 more times in a harness: 5 of 5 recovered.</li>
-    <li><strong>Production.</strong> Untouched. Both old flows active. The new flow passed a validate-only deploy against production with 0 errors (0AfUN00000AbNr80AF).</li>
+    <li><strong>Production.</strong> Deployed September 17 at 10:20 AM ET on Jeff's approval. The new flow is active; the days 1 to 4 and days 5 to 10 flows are deactivated. First run is 1:00 AM September 18.</li>
     <li><strong>Open item.</strong> A second failure writes an Error Handling Log row, and your alert flow emails one message per row. On a night like September 11 that would be 42 emails. Your call: skip our rows in the alert, or drop the log row.</li>
-    <li><strong>Deploy plan.</strong> On your yes: deploy the new flow and deactivate the two old flows in one step, at a time you pick. Rollback is to reactivate the old flows.</li>
+    <li><strong>Rollback.</strong> Reactivate the two old flows and deactivate the new one. No data changes to undo.</li>
   </ul>
 </section>
 <footer>
-  <p class="fmono">Compiled 2026-09-11, updated 2026-09-15</p>
+  <p class="fmono">Compiled 2026-09-11, updated 2026-09-17</p>
   <p>Built and proven in the sandbox. Production deploy waits for approval.</p>
 </footer>
 </main>
