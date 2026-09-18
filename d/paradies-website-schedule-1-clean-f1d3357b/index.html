@@ -869,9 +869,7 @@
         border-radius: 999px;
         padding: 9px 10px;
       }
-      main.wrap {
-        padding-bottom: 110px;
-      }
+
       @media (max-width: 640px) {
         .wrap {
           padding: 0 18px;
@@ -907,10 +905,7 @@
             <div class="k">Provider</div>
             <div class="v">Great Blue</div>
           </div>
-          <div class="meta-cell">
-            <div class="k">Estimate</div>
-            <div class="v mono">140 h, one number</div>
-          </div>
+
           <div class="meta-cell">
             <div class="k">Status</div>
             <div class="v">
@@ -924,7 +919,6 @@
       <div class="wrap toc-inner">
         <a href="#s1"><span class="num">01</span>Work Product</a
         ><a href="#s2"><span class="num">02</span>Functional Requirements</a
-        ><a href="#s3"><span class="num">03</span>Hours</a
         ><span class="spacer"></span
         ><button id="themeToggle" aria-label="Toggle colour theme">
           Theme
@@ -967,6 +961,13 @@
             each product is quoted on its own and the order total is the sum.
           </li>
           <li>
+            A design catalog: designs Client already owns (as in Client's
+            Kid-U-Not line), each with its art file, allowed placements, color
+            count, and licensing, maintained in Salesforce beside the product
+            catalog and published to the site the same way. On the artwork step
+            the customer either chooses a catalog design or uploads their own.
+          </li>
+          <li>
             Quantity-tier pricing on the quoting page, with the next lower price
             break shown as a prompt and a full price-break table available on
             request. Orders start at a 24-piece minimum. Quantities above the
@@ -1007,9 +1008,12 @@
           </li>
           <li>
             Sales tax on web orders, calculated from the shipping address once
-            entered (destination based) through a tax-rate service. Tax is
-            charged on every web order; tax-exempt customers are handled by
-            Client's team during order review, as they are today.
+            entered (destination based) through a tax-rate service or a rate
+            table Client elects. Tax is charged on every web order; tax-exempt
+            customers are handled by Client's team during order review, as they
+            are today. The invoice tax is calculated by ShopWorks when the order
+            is entered, so the website figure is an estimate shown to the
+            customer and may differ slightly from the invoice.
           </li>
           <li>
             Shipping cost on web orders, calculated at checkout and shown before
@@ -1019,19 +1023,25 @@
             Client supplies, as Client elects during implementation.
           </li>
           <li>
-            Order intake in Salesforce: each web order is created as records in
-            Client's org, including line items, artwork, and customer details,
-            and appears in a review queue for Client's team to verify stock and
-            artwork printability. Salesforce recalculates the order price on
-            receipt and sends an email alert to Client if it differs from the
-            price the website showed. Client's team is notified by email, at
-            addresses Client configures, of each new web order, comp approval,
-            and change request.
+            Order intake in Salesforce: each web order creates a Development
+            Item in Client's org carrying every field captured on the site that
+            Client's team needs for ShopWorks data entry (product, colorway,
+            sizes, decoration, locations, colors, add-ons, artwork, customer and
+            shipping details, price), and it appears in a review queue for
+            Client's team to verify stock and artwork printability. Uploaded
+            artwork is stored as files on the Development Item and is always
+            reviewed by a person; an Art Request is created by Client's team
+            from the review when one is needed, never automatically. Salesforce
+            recalculates the order price on receipt and sends an email alert to
+            Client if it differs from the price the website showed. Client's
+            team is notified by email, at addresses Client configures, of each
+            new web order, comp approval, and change request.
           </li>
           <li>
             The order form output Client's team uses to key the order into
-            ShopWorks, produced from the Salesforce order in the same format as
-            the existing quoting tool's output.
+            ShopWorks, produced from the Development Item in the same format as
+            the existing quoting tool's output. Entry into ShopWorks remains
+            manual.
           </li>
           <li>
             A customer comp page, reached from an email, showing the comp (the
@@ -1153,14 +1163,15 @@
             routed to a custom-quote request.
           </li>
           <li>
-            The customer must be able to upload an artwork file, see it placed
-            on the product image, choose one or more print locations, move,
-            resize, and rotate it within the print area for that location on
-            desktop and on a touch screen, add design notes, and select ink
-            colors, and the file, locations, placement, and notes must be stored
-            with the order in Salesforce. Additional locations are priced by the
-            same rules as Client's Salesforce quoting tool. Accepted file types
-            and the size limit will be set with Client during implementation.
+            The customer must be able to choose a design from Client's catalog
+            or upload an artwork file, see it placed on the product image,
+            choose one or more print locations, move, resize, and rotate it
+            within the print area for that location on desktop and on a touch
+            screen, add design notes, and select ink colors, and the file or
+            design, locations, placement, and notes must be stored with the
+            order in Salesforce. Additional locations are priced by the same
+            rules as Client's Salesforce quoting tool. Accepted file types and
+            the size limit will be set with Client during implementation.
           </li>
           <li>
             Checkout must collect contact information, shipping address,
@@ -1174,9 +1185,11 @@
             shipping address, before the order is placed.
           </li>
           <li>
-            Each web order must appear in a Salesforce review queue with its
-            line items, artwork, and customer details, and Client's team must be
-            able to produce the order form used for ShopWorks entry from it.
+            Each web order must create a Development Item in Salesforce with its
+            line items, artwork, and customer details and appear in a review
+            queue, and Client's team must be able to produce the order form used
+            for ShopWorks entry from it. Art Requests are created by Client's
+            team from the review, not automatically.
           </li>
           <li>
             Client's team must be able to attach the comp to the order and send
@@ -1212,12 +1225,14 @@
             WordPress site and a current hosting plan that supports plugins and
             staging; a Paya Connect gateway account with test credentials;
             Salesforce access; the curated product list with descriptions and a
-            front and back photo for each colorway; the print-area position and
-            size for each location on each product; the list of add-on options
-            offered online; standard turnaround wording; notification addresses;
-            the tax-rate service account; the shipping-rate service account or
-            the shipping rate table; product weights and the ship-from address;
-            and approval of page copy, email wording, and the comp page layout.
+            front and back photo for each colorway; the design catalog with art
+            files, allowed placements, and licensing; the print-area position
+            and size for each location on each product; the list of add-on
+            options offered online; standard turnaround wording; notification
+            addresses; the tax-rate service account; the shipping-rate service
+            account or the shipping rate table; product weights and the
+            ship-from address; and approval of page copy, email wording, and the
+            comp page layout.
           </li>
           <li>
             User acceptance testing will verify each Functional Requirement in
@@ -1245,7 +1260,7 @@
         </p>
       </footer>
     </main>
-    
+
     <script>
       (function () {
         var btn = document.getElementById("themeToggle"),
