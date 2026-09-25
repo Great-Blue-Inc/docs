@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cost Sheet Changes</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="light"]{
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec; --ink:#16201d; --ink-soft:#3c4a45;
+    --ink-faint:#6d7b75; --line:#d7ddd4; --line-soft:#e5e9e1; --accent:#0d7a6e; --accent-2:#0a5f56;
+    --accent-wash:#e2efeb; --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee; --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+  }
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+
+  /* masthead */
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:52px 0 40px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
+    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .meta-cell{background:var(--surface); padding:14px 16px;}
+  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
+  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+
+  /* sticky TOC */
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+
+  /* sections */
+  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
+  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+
+  /* status pills */
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
+    border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+
+  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
+    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
+  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
+  h4{font-size:.95rem; font-weight:700; margin:22px 0 8px; color:var(--ink);}
+  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
+  a.inl:hover{border-bottom-color:var(--accent);}
+  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+
+  /* cards + grid */
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
+  .card.flush{padding:0; overflow:hidden;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+
+  /* callouts */
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+
+  /* code block */
+  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:16px 18px; overflow-x:auto; margin:16px 0;}
+  pre code{background:none; border:none; padding:0; font-size:.82rem; line-height:1.7; color:var(--ink);}
+  .cm{color:var(--ink-faint);} .kw{color:var(--accent-2); font-weight:600;}
+
+  /* tables */
+  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
+  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
+  td.name{color:var(--ink); font-weight:600;}
+  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
+  .up{color:var(--accent-2); font-weight:600;} .down{color:var(--rose); font-weight:600;}
+
+  /* drill-down table — collapsible roll-up with aligned numeric columns (native details/summary, no JS).
+     .drill-head labels the columns even when every group is collapsed. Fixed-width right-aligned
+     .dnums .c/.v keep numbers in one straight column at every depth; left-padding steps (20 -> 34 -> 46)
+     signal hierarchy while right padding stays 20 so the number columns line up across all levels.
+     Inherits every doc-identity token, so it themes light/dark for free. */
+  .drill-head{display:flex; justify-content:flex-end; gap:22px; padding:2px 20px 8px; color:var(--ink-faint);
+    font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
+  .dnums{font-family:var(--mono); font-variant-numeric:tabular-nums; display:inline-flex; gap:22px;}
+  .dnums .c,.drill-head .c{width:56px; text-align:right;} .dnums .v,.drill-head .v{width:132px; text-align:right;}
+  details.drill{border:1px solid var(--line); border-radius:12px; margin:12px 0; background:var(--surface); box-shadow:var(--shadow); overflow:hidden;}
+  details.drill>summary{cursor:pointer; padding:14px 20px; font-family:var(--serif); font-size:1.15rem; font-weight:600;
+    color:var(--ink); list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:baseline; background:var(--surface-2);}
+  details.drill>summary::-webkit-details-marker{display:none;} details.drill>summary .dnums{color:var(--ink-soft);}
+  details.drill-2>summary{cursor:pointer; padding:10px 20px 10px 34px; font-weight:600; color:var(--ink-soft);
+    list-style:none; display:flex; justify-content:space-between; gap:16px; border-top:1px solid var(--line-soft);}
+  details.drill-2>summary::-webkit-details-marker{display:none;} details.drill-2[open]>summary{color:var(--ink);}
+  .drill-leaf{display:flex; justify-content:space-between; gap:16px; padding:8px 20px 8px 46px;
+    border-top:1px solid var(--line-soft); color:var(--ink-soft); font-size:.9rem;}
+
+  /* metric tiles */
+  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
+  .metric{background:var(--surface); padding:18px 16px;}
+  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
+  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
+  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+
+  /* field-reference rows */
+  .fields{display:flex; flex-direction:column; gap:0;}
+  .field-row{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,2fr); gap:18px; padding:13px 0; border-bottom:1px solid var(--line-soft);}
+  .field-row:last-child{border-bottom:none;}
+  .field-row .api{font-family:var(--mono); font-size:.8rem; color:var(--accent-2); word-break:break-word;}
+  .field-row .api .obj{color:var(--ink-faint);}
+  .field-row .desc{font-size:.88rem; color:var(--ink-soft);}
+  @media (max-width:640px){ .field-row{grid-template-columns:1fr; gap:4px;} }
+
+  /* source index */
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
+  .src-list{display:grid; gap:10px;}
+  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
+  .src:hover{border-color:var(--accent); transform:translateX(2px);}
+  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
+  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
+  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
+  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+
+  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+  hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
+</style>
+<style>
+  figure.shot{margin:14px 0 22px;} figure.shot img{display:block; max-width:100%; height:auto; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:var(--shadow);}
+  figure.shot figcaption{font-size:.9rem; color:var(--ink-soft); margin-top:8px;}
+  figure.shot .who{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
+  .note{padding:26px 0 8px; border-top:1px solid var(--line-soft);}
+  .note:first-of-type{border-top:none;}
+  .note h3{margin:0 0 6px; flex-wrap:wrap;}
+  .note h3 .n{font-family:var(--mono); color:var(--accent-2); font-size:.95rem;}
+  .ask{font-size:.95rem; color:var(--ink-faint); margin:0 0 10px; max-width:70ch; font-style:italic;}
+  .qa{padding:16px 0; border-top:1px solid var(--line-soft);} .qa:first-of-type{border-top:none;}
+</style>
+</head><body>
+<header class="mast"><div class="wrap mast-inner">
+<p class="eyebrow"><span class="dot"></span> Paradies · Cost Sheet Builder · What changed</p>
+<h1 class="title">Your 9/22 notes, <span>one by one</span></h1>
+<p class="lede">Every change from Nicole's notes and PDF markup, in the same order and numbers. Each one has a fresh screenshot, with the change outlined in red. Where it helps, your original screenshot is shown first. The changes are in the test environment and ready for you to try.</p>
+<div class="meta-grid">
+<div class="meta-cell"><div class="k">Notes</div><div class="v">26 of 26 covered</div></div>
+<div class="meta-cell"><div class="k">PDF markup</div><div class="v">9 of 9 covered</div></div>
+<div class="meta-cell"><div class="k">Still open</div><div class="v">Foil, location discount, real jobs</div></div>
+<div class="meta-cell"><div class="k">Screenshots taken</div><div class="v mono">Sep 24, 2026</div></div>
+</div></div></header>
+<nav class="toc"><div class="wrap toc-inner"><a href="#rec"><span class="num">01</span>Development Item page</a><a href="#list"><span class="num">02</span>Cost sheet list</a><a href="#s1"><span class="num">03</span>Builder, Step 1</a><a href="#s2"><span class="num">04</span>Builder, Step 2</a><a href="#s3"><span class="num">05</span>Builder, Step 3 and Step 5</a><a href="#pdf"><span class="num">06</span>PDF</a><a href="#qa"><span class="num">07</span>Your answers</a><span class="spacer"></span><button id="themeToggle" aria-label="Toggle colour theme">Theme</button></div></nav>
+<main class="wrap">
+<section class="stream" id="rec"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Development Item page</h2></div><p class="sec-sub">Notes 1 to 3</p><div class="note" id="n1"><h3><span class="n">1</span>Hide the Cost Sheets tab <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we remove the tab below? We honestly will not view the cost sheet in this format ever.</p><figure class="shot"><div class="who">Your note</div><img src="img/before-01.png" alt="Your screenshot, with the Cost Sheets tab circled." loading="lazy"><figcaption>Your screenshot, with the Cost Sheets tab circled.</figcaption></figure><figure class="shot"><div class="who">Now</div><img src="img/01-no-cost-sheets-tab.png" alt="The Cost Sheets tab is gone. The record opens straight to Development Item Information." loading="lazy"><figcaption>The Cost Sheets tab is gone. The record opens straight to Development Item Information.</figcaption></figure></div><div class="note" id="n2"><h3><span class="n">2</span>Move the builder under the details <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we move the builder so it's somewhere under the area below?</p><figure class="shot"><div class="who">Now</div><img src="img/02-card-under-details.png" alt="The Cost sheets card now sits right under Development Item Information." loading="lazy"><figcaption>The Cost sheets card now sits right under Development Item Information.</figcaption></figure></div><div class="note" id="n3"><h3><span class="n">3</span>Card: remove suggested sell, add decoration type and date created <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we remove “suggested sell price” from the preview and add “decoration type” and “date created”?</p><figure class="shot"><div class="who">Your note</div><img src="img/before-03.png" alt="Your screenshot of the old card." loading="lazy"><figcaption>Your screenshot of the old card.</figcaption></figure><figure class="shot"><div class="who">Now</div><img src="img/03-card-decoration-date.png" alt="Suggested sell is gone. Decoration type and date created now show on the card." loading="lazy"><figcaption>Suggested sell is gone. Decoration type and date created now show on the card.</figcaption></figure></div></section><section class="stream" id="list"><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Cost sheet list</h2></div><p class="sec-sub">Notes 4 to 12</p><div class="note" id="n4"><h3><span class="n">4</span>What are “Type” and “Status”? <span class="pill live">Answered</span></h3><p class="ask">When we're in the builder what are “type” and “status”?</p><p><strong>Type</strong> says whether the sheet is the original <strong>Quote</strong> or a <strong>Production copy</strong> made after the order comes in. It is set when the sheet starts.</p><p><strong>Status</strong> says where the sheet stands. It is <strong>Draft</strong> until it is finalized, then <strong>Quoted</strong>. A production copy shows its draft status as <strong>Draft (PO stage)</strong>.</p><figure class="shot"><div class="who">Now</div><img src="img/04-type-status.png" alt="The Type and Status columns, outlined in red. The second row is a production copy." loading="lazy"><figcaption>The Type and Status columns, outlined in red. The second row is a production copy.</figcaption></figure></div><div class="note" id="n5"><h3><span class="n">5</span>“Back to development item” as a button, up top <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we make “back to development item” a button and move it up here next to the other buttons?</p><figure class="shot"><div class="who">Your note</div><img src="img/before-05.png" alt="Your screenshot, with the arrow to the top bar." loading="lazy"><figcaption>Your screenshot, with the arrow to the top bar.</figcaption></figure><figure class="shot"><div class="who">Now</div><img src="img/05-back-button.png" alt="Back to development item is now a button in the top bar, next to Guided mode." loading="lazy"><figcaption>Back to development item is now a button in the top bar, next to Guided mode.</figcaption></figure></div><div class="note" id="n6"><h3><span class="n">6</span>“Suggested Sell” becomes “Quoted Price” <span class="pill sandbox">Ready to test</span></h3><p class="ask">Please change “Suggested Sell” to “Quoted Price”.</p><figure class="shot"><div class="who">Now</div><img src="img/06-quoted-price.png" alt="The column now shows the price you quoted." loading="lazy"><figcaption>The column now shows the price you quoted.</figcaption></figure></div><div class="note" id="n7"><h3><span class="n">7</span>Add the year to the created date <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we add the year to the “created by date” on this overview page?</p><figure class="shot"><div class="who">Now</div><img src="img/07-created-year.png" alt="The Created column now shows the year." loading="lazy"><figcaption>The Created column now shows the year.</figcaption></figure></div><div class="note" id="n8"><h3><span class="n">8</span>Sortable list <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we make this list sortable?</p><figure class="shot"><div class="who">Now</div><img src="img/08-sortable.png" alt="Click any column header to sort. Here the list is sorted by Quoted Price, low to high." loading="lazy"><figcaption>Click any column header to sort. Here the list is sorted by Quoted Price, low to high.</figcaption></figure></div><div class="note" id="n9"><h3><span class="n">9</span>Fixed header <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we make the header fixed so as you scroll down it stays at the top?</p><figure class="shot"><div class="who">Now</div><img src="img/09-sticky-header.png" alt="The header row stays at the top while the list scrolls. Other rows are blurred." loading="lazy"><figcaption>The header row stays at the top while the list scrolls. Other rows are blurred.</figcaption></figure></div><div class="note" id="n10"><h3><span class="n">10</span>Info “i” on Primary <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we add an info “i” to the “primary” tab like there is next to “quantity”?</p><figure class="shot"><div class="who">Now</div><img src="img/10-primary-info.png" alt="Hover the “i” next to Primary to see what a primary sheet does." loading="lazy"><figcaption>Hover the “i” next to Primary to see what a primary sheet does.</figcaption></figure></div><div class="note" id="n11"><h3><span class="n">11</span>Column order <span class="pill sandbox">Ready to test</span></h3><p class="ask">Primary, Cost Sheet, Pricing mode, Blank, Blank Price, Quantity, Quoted Price, Type, Status, Quoted By, Date.</p><figure class="shot"><div class="who">Now</div><img src="img/11-column-order.png" alt="The columns now read in the order you asked for." loading="lazy"><figcaption>The columns now read in the order you asked for.</figcaption></figure></div><div class="note" id="n12"><h3><span class="n">12</span>Hide the CS number, title under the bold title <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we make the automatically generated CS number invisible? Can we make the title underneath the main bolded title?</p><figure class="shot"><div class="who">Your note</div><img src="img/before-12.png" alt="Your markup of the old row." loading="lazy"><figcaption>Your markup of the old row.</figcaption></figure><figure class="shot"><div class="who">Now</div><img src="img/12-title-no-cs-number.png" alt="The CS number is hidden. The sheet name is the bold title, with the date under it." loading="lazy"><figcaption>The CS number is hidden. The sheet name is the bold title, with the date under it.</figcaption></figure></div></section><section class="stream" id="s1"><div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Builder, Step 1</h2></div><p class="sec-sub">Notes 13 to 16</p><div class="note" id="n13"><h3><span class="n">13</span>Pricing mode first <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we make pricing mode appear first? Above “Item details”.</p><figure class="shot"><div class="who">Now</div><img src="img/13-pricing-mode-first.png" alt="Pricing mode is now the first box on Step 1." loading="lazy"><figcaption>Pricing mode is now the first box on Step 1.</figcaption></figure></div><div class="note" id="n14"><h3><span class="n">14</span>Editable name, blank info moves to Quote details <span class="pill sandbox">Ready to test</span></h3><p class="ask">Please make the Cost Sheet name editable from this screen and move the circled information to the “Quote Details” section.</p><figure class="shot"><div class="who">Your note</div><img src="img/before-14.png" alt="Your markup of the old Step 1." loading="lazy"><figcaption>Your markup of the old Step 1.</figcaption></figure><figure class="shot"><div class="who">Now</div><img src="img/14-name-editable-quote-details.png" alt="The name box at the top is editable. Blank style, description, color and vendor now sit in Quote details." loading="lazy"><figcaption>The name box at the top is editable. Blank style, description, color and vendor now sit in Quote details.</figcaption></figure></div><div class="note" id="n15"><h3><span class="n">15</span>Remove MOQ, Margin, Licensing #, primary size and Royalty rate from Quote details <span class="pill sandbox">Ready to test</span></h3><p class="ask">From “Quote Details,” remove MOQ, Margin, Licensing #, primary size and Royalty rate.</p><figure class="shot"><div class="who">Now</div><img src="img/16-core-size-range.png" alt="Quote details no longer has MOQ, margin, licensing number, primary size or royalty rate." loading="lazy"><figcaption>Quote details no longer has MOQ, margin, licensing number, primary size or royalty rate.</figcaption></figure></div><div class="note" id="n16"><h3><span class="n">16</span>Core Size Range picklist <span class="pill sandbox">Ready to test</span></h3><p class="ask">Toddler (2T to 5T), Youth (XS to XL), Adult (XS to 5XL), No Size/One Size.</p><figure class="shot"><div class="who">Now</div><img src="img/16-core-size-range.png" alt="Core size range is a picklist with the four choices. Adult shows a blank cost box for each size." loading="lazy"><figcaption>Core size range is a picklist with the four choices. Adult shows a blank cost box for each size.</figcaption></figure></div></section><section class="stream" id="s2"><div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Builder, Step 2</h2></div><p class="sec-sub">Notes 17 to 22</p><div class="note" id="n17"><h3><span class="n">17</span>Location list: remove name drops, Custom last with a typed name <span class="pill sandbox">Ready to test</span></h3><p class="ask">Remove “number of name drops”. Move “Custom” to the bottom of the list and make this populate a typeable field.</p><figure class="shot"><div class="who">Now</div><img src="img/17-location-list-custom.png" alt="Name drops is gone from the list. Custom is last, and picking it opens a Location name box." loading="lazy"><figcaption>Name drops is gone from the list. Custom is last, and picking it opens a Location name box.</figcaption></figure></div><div class="note" id="n18"><h3><span class="n">18</span>New Labeling section, split from Treatments <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we add another similar version called “Labeling” right under it, and split the Treatments picklist?</p><figure class="shot"><div class="who">Now</div><img src="img/18-labeling-section.png" alt="Each decoration line now has a Labeling section under Treatments, with the five labeling options you listed." loading="lazy"><figcaption>Each decoration line now has a Labeling section under Treatments, with the five labeling options you listed.</figcaption></figure></div><div class="note" id="n19"><h3><span class="n">19</span>DS: remove the toggle <span class="pill sandbox">Ready to test</span></h3><p class="ask">If we're in the DS section, it should just automatically populate the correct pricing without us having to toggle the button.</p><figure class="shot"><div class="who">Your note</div><img src="img/before-19.png" alt="Your screenshot, with the toggle crossed out." loading="lazy"><figcaption>Your screenshot, with the toggle crossed out.</figcaption></figure><figure class="shot"><div class="who">Now</div><img src="img/19-ds-no-toggle.png" alt="The DS line has no toggle. Enter the colors and the price fills in." loading="lazy"><figcaption>The DS line has no toggle. Enter the colors and the price fills in.</figcaption></figure></div><div class="note" id="n20"><h3><span class="n">20</span>“Applied Element” becomes “Embellishments” <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we call “Applied Element” “Embellishments” instead?</p><figure class="shot"><div class="who">Now</div><img src="img/20-embellishments.png" alt="The button now reads Embellishments." loading="lazy"><figcaption>The button now reads Embellishments.</figcaption></figure></div><div class="note" id="n21"><h3><span class="n">21</span>Move “How this price was built” to Step 5 <span class="pill sandbox">Ready to test</span></h3><p class="ask">Let's remove “How this price was built” from section 2 and move it to step 5 under the “Summary” section.</p><figure class="shot"><div class="who">Now</div><img src="img/21-price-breakdown-step5.png" alt="The price breakdown now sits on Step 5, under the Summary." loading="lazy"><figcaption>The price breakdown now sits on Step 5, under the Summary.</figcaption></figure></div><div class="note" id="n22"><h3><span class="n">22</span>Step 2 is “Decoration and Packing”, with packing at the bottom <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we call step 2 “Decoration and Packing” and move the packing section from step 4 to the bottom of this page?</p><figure class="shot"><div class="who">Now</div><img src="img/22-step2-decoration-and-packing.png" alt="Step 2 is renamed, and Packing is now at the bottom of it." loading="lazy"><figcaption>Step 2 is renamed, and Packing is now at the bottom of it.</figcaption></figure></div></section><section class="stream" id="s3"><div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Builder, Step 3 and Step 5</h2></div><p class="sec-sub">Notes 23 to 26</p><div class="note" id="n23"><h3><span class="n">23</span>Licensing # and royalty rate on Step 3 <span class="pill sandbox">Ready to test</span></h3><p class="ask">Can we move licensing # and royalty rate to Step 3? Maybe next to the “customer retail” area.</p><figure class="shot"><div class="who">Now</div><img src="img/23-licensing-royalty-step3.png" alt="Licensing number and royalty rate now sit next to Customer retail." loading="lazy"><figcaption>Licensing number and royalty rate now sit next to Customer retail.</figcaption></figure></div><div class="note" id="n24"><h3><span class="n">24</span>Remove “price rules” from Step 3 <span class="pill sandbox">Ready to test</span></h3><p class="ask">On Step 3 can we remove the “price rules” section?</p><figure class="shot"><div class="who">Your note</div><img src="img/before-24.png" alt="Your screenshot, with Price rules crossed out." loading="lazy"><figcaption>Your screenshot, with Price rules crossed out.</figcaption></figure><figure class="shot"><div class="who">Now</div><img src="img/24-no-price-rules.png" alt="Step 3 now ends at Customer retail, licensing and royalty. The Price rules section is gone." loading="lazy"><figcaption>Step 3 now ends at Customer retail, licensing and royalty. The Price rules section is gone.</figcaption></figure></div><div class="note" id="n25"><h3><span class="n">25</span>Price per size per MOQ (Adult) <span class="pill sandbox">Ready to test</span></h3><p class="ask">On Step 3 can we enter a price per size per MOQ? This would only be for the Adult category.</p><figure class="shot"><div class="who">Now</div><img src="img/25-price-per-size-per-moq.png" alt="For Adult sheets, a price grid by size and quantity, each with its margin. Other size ranges keep one price." loading="lazy"><figcaption>For Adult sheets, a price grid by size and quantity, each with its margin. Other size ranges keep one price.</figcaption></figure></div><div class="note" id="n26"><h3><span class="n">26</span>Actual Order Quantity and est. contract value <span class="pill sandbox">Ready to test</span></h3><p class="ask">On Step 5 can we add a box that says “Actual Order Quantity”, multiplied by the selling price to give the “est. contract value”?</p><figure class="shot"><div class="who">Now</div><img src="img/26-actual-order-quantity.png" alt="500 pieces at the $12.05 price for that quantity gives $6,025.00. The estimated margin in dollars shows next to it." loading="lazy"><figcaption>500 pieces at the $12.05 price for that quantity gives $6,025.00. The estimated margin in dollars shows next to it.</figcaption></figure></div></section>
+<section class="stream" id="pdf"><div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Cost sheet PDF</h2></div>
+<p class="sec-sub">Your PDF markup, the grid request and the last note. Both PDFs below were made fresh from the Adult sizes sheet shown above.</p>
+<div class="tbl-scroll"><table><thead><tr><th>Your note</th><th>Status</th></tr></thead><tbody><tr><td class="name">Header: add Customer ID and Blank vendor</td><td><span class="pill sandbox">Ready to test</span></td></tr><tr><td class="name">“Order quantity” becomes “Actual Order Quantity”</td><td><span class="pill sandbox">Ready to test</span></td></tr><tr><td class="name">“Total Cost” becomes “Blank Cost”</td><td><span class="pill sandbox">Ready to test</span></td></tr><tr><td class="name">“Suggested sell” becomes “Decoration Cost”</td><td><span class="pill sandbox">Ready to test</span></td></tr><tr><td class="name">Add a section for packing cost</td><td><span class="pill sandbox">Ready to test</span></td></tr><tr><td class="name">Quoted price shows prices by size when Adult sizing is quoted</td><td><span class="pill sandbox">Ready to test</span></td></tr><tr><td class="name">Add margin $ (est. contract value)</td><td><span class="pill sandbox">Ready to test</span></td></tr><tr><td class="name">Sell prices as a grid, with the margin per size per quantity</td><td><span class="pill sandbox">Ready to test</span></td></tr><tr><td class="name">Second, customer-facing version: selling prices only</td><td><span class="pill sandbox">Ready to test</span></td></tr></tbody></table></div>
+<figure class="shot"><div class="who">Your note</div><img src="img/before-pdf-header.png" alt="Your markup of the old PDF header." loading="lazy"><figcaption>Your markup of the old PDF header.</figcaption></figure>
+<figure class="shot"><div class="who">Now, internal PDF</div><img src="img/pdf-01-internal-header.png" alt="Customer ID, blank vendor, Actual Order Quantity, Blank Cost, Decoration Cost, Packing Cost and the estimated contract value and margin in dollars." loading="lazy"><figcaption>Customer ID, blank vendor, Actual Order Quantity, Blank Cost, Decoration Cost, Packing Cost and the estimated contract value and margin in dollars.</figcaption></figure>
+<figure class="shot"><div class="who">Your note</div><img src="img/before-pdf-grid.png" alt="Your sketch of the price and margin grid." loading="lazy"><figcaption>Your sketch of the price and margin grid.</figcaption></figure>
+<figure class="shot"><div class="who">Now, internal PDF</div><img src="img/pdf-02-internal-size-grid.png" alt="Packing cost has its own column, and quoted prices show by size and quantity with the margin under each price." loading="lazy"><figcaption>Packing cost has its own column, and quoted prices show by size and quantity with the margin under each price.</figcaption></figure>
+<h3>Customer-facing version</h3>
+<p>A second PDF shows selling prices only. It has no costs, no margins, no blank purchasing details and no samples.</p>
+<figure class="shot"><div class="who">Now</div><img src="img/27-customer-pdf-button.png" alt="A finalized sheet has a Customer PDF button next to View PDF." loading="lazy"><figcaption>A finalized sheet has a Customer PDF button next to View PDF.</figcaption></figure>
+<figure class="shot"><div class="who">Now, customer PDF</div><img src="img/pdf-03-customer-header.png" alt="The customer PDF header shows the order quantity and the price per piece." loading="lazy"><figcaption>The customer PDF header shows the order quantity and the price per piece.</figcaption></figure>
+<figure class="shot"><div class="who">Now, customer PDF</div><img src="img/pdf-04-customer-size-grid.png" alt="The customer PDF shows the price by size, with no margins." loading="lazy"><figcaption>The customer PDF shows the price by size, with no margins.</figcaption></figure>
+</section>
+<section class="stream" id="qa" style="border-bottom:none"><div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Your answers to the six questions</h2></div><p class="sec-sub">What changed from each answer, and what is still open.</p><div class="qa"><h3><span class="n" style="font-family:var(--mono);color:var(--accent-2)">Q1</span>Full package DTF apply cost <span class="pill sandbox">Done</span></h3><p class="ask">Your answer: $0.30 to apply per placement.</p><p>Added. Full package DTF now adds $0.30 per placement.</p></div><div class="qa"><h3><span class="n" style="font-family:var(--mono);color:var(--accent-2)">Q2</span>Full package embroidery pricing <span class="pill sandbox">Done</span></h3><p class="ask">Your answer: Ignore the add 30% for contract jobs part. Yes, price from this table.</p><p>Done. Full package embroidery prices from the 2026 stitch count table, with no 30% add.</p></div><div class="qa"><h3><span class="n" style="font-family:var(--mono);color:var(--accent-2)">Q3</span>Foil <span class="pill pending">Waiting on Paradies</span></h3><p class="ask">Your answer: Let me show you this on a call.</p><p>Waiting for the call. Until then the Foil Heat Press line stays at $0.42, and the price can be changed on any line.</p></div><div class="qa"><h3><span class="n" style="font-family:var(--mono);color:var(--accent-2)">Q4</span>Metallic <span class="pill sandbox">Done</span></h3><p class="ask">Your answer: Yes it&#x27;s the same as liquid metal.</p><p>Done. Metallic is treated as Liquid Metal, and contract jobs add $0.30 for it.</p></div><div class="qa"><h3><span class="n" style="font-family:var(--mono);color:var(--accent-2)">Q5</span>Extra location discount <span class="pill pending">Waiting on Paradies</span></h3><p class="ask">Your answer: We may stop offering this discount. Christina will confirm next week.</p><p>Waiting on Christina. For now the builder keeps the current rule: the first print location is full price and the 2nd to 4th get 15% off.</p></div><div class="qa"><h3><span class="n" style="font-family:var(--mono);color:var(--accent-2)">Q6</span>Real Contract and Third Party jobs <span class="pill pending">Waiting on Paradies</span></h3><p class="ask">Your answer: We&#x27;ll run through contract print pricing and third party next week.</p><p>Ready for your test next week. The updated contract print pricing you sent is loaded, including the new cost tiers.</p></div></section>
+<footer><p class="fmono">Screenshots taken Sep 24, 2026 on the test Development Item SEA-123 (DEMO).</p>
+<p>All 26 notes and the PDF markup are ready to test. Foil, the location discount and the real contract and third party jobs wait on your side.</p></footer>
+</main>
+<script>(function(){var b=document.getElementById('themeToggle'),r=document.documentElement;b.addEventListener('click',function(){var c=r.getAttribute('data-theme');if(!c)c=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);b.textContent=n==='dark'?'Light':'Dark';});})();</script>
+</body></html>
