@@ -227,15 +227,20 @@
 <header class="mast"><div class="wrap mast-inner">
 <p class="eyebrow"><span class="dot"></span> CamNet · Bid Quoting · Quick start</p>
 <h1 class="title">One bid, <span>start to finish</span></h1>
-<p class="lede">The nine steps of one Bid Quoting run, from spec book to quote. Every picture comes from one real run on a test account: a 15-page video surveillance section of a school spec, and its drawing set. A red outline marks what each step names.</p>
+<p class="lede">The nine steps of one Bid Quoting run, from spec book to quote. The pictures come from one real run on a test account: a 15-page video surveillance section of a school spec, and its drawing set. The Settings picture shows the same app version with sample data. A red outline marks what each step names.</p>
 <div class="meta-grid">
 <div class="meta-cell"><div class="k">App</div><div class="v">Bid Quoting in Salesforce</div></div>
-<div class="meta-cell"><div class="k">Version</div><div class="v mono">0.56.91 · live now</div></div>
+<div class="meta-cell"><div class="k">Version</div><div class="v mono">0.56.94 · live now</div></div>
 <div class="meta-cell"><div class="k">For</div><div class="v">CamNet estimators</div></div>
 <div class="meta-cell"><div class="k">Steps</div><div class="v mono">9</div></div>
 </div></div></header>
-<nav class="toc"><div class="wrap toc-inner"><a href="#s1"><span class="num">01</span>Upload</a><a href="#s2"><span class="num">02</span>Start</a><a href="#s3"><span class="num">03</span>While it runs</a><a href="#s4"><span class="num">04</span>Review</a><a href="#s5"><span class="num">05</span>Needs your call</a><a href="#s6"><span class="num">06</span>Drawings</a><a href="#s7"><span class="num">07</span>Footage and prices</a><a href="#s8"><span class="num">08</span>Create quote</a><a href="#s9"><span class="num">09</span>In Salesforce</a><span class="spacer"></span><button id="themeToggle" aria-label="Toggle colour theme">Theme</button></div></nav>
-<main class="wrap"><div class="steps-wrap"><div class="note" id="s1"><h3><span class="n">1</span>Open Bid Quoting and upload the spec book</h3><p>Open Bid Quoting from Salesforce. Under <strong>Upload a spec</strong>, select <strong>Choose a PDF</strong> and pick the Division 27 and 28 section of the spec book, not the whole project manual.</p><figure class="shot">
+<nav class="toc"><div class="wrap toc-inner"><a href="#s1"><span class="num">01</span>Upload</a><a href="#s2"><span class="num">02</span>Start</a><a href="#s3"><span class="num">03</span>While it runs</a><a href="#s4"><span class="num">04</span>Review</a><a href="#s5"><span class="num">05</span>Needs your call</a><a href="#s6"><span class="num">06</span>Drawings</a><a href="#s7"><span class="num">07</span>Footage and prices</a><a href="#s8"><span class="num">08</span>Create quote</a><a href="#s9"><span class="num">09</span>In Salesforce</a><a href="#good">Good to know</a><span class="spacer"></span><button id="themeToggle" aria-label="Toggle colour theme">Theme</button></div></nav>
+<main class="wrap"><div class="steps-wrap"><div class="note" id="s1"><h3><span class="n">1</span>Open Bid Quoting and upload the spec book</h3><p>In Salesforce, open the App Launcher (the grid of dots at the top left), type <strong>Bid Quoting</strong> and select it. The app opens on <strong>Your spec books</strong>. Select <strong>Upload a new spec</strong> at the top right. From an open draft, select <strong>Upload a spec</strong> in the left rail instead.</p>
+<ul class="tight">
+<li>Select <strong>Choose a PDF</strong>, or drop a PDF on the box. Pick the Division 27 and 28 section of the spec book, not the whole project manual.</li>
+<li>The app checks the PDF for Division 27 and 28 pages. Check the page range it shows, then select <strong>Use these pages</strong>.</li>
+<li>If the range is wrong, type the pages under <strong>Or enter a different page range</strong>, for example 12-40, 88-95, and select <strong>Use this range</strong>. <strong>Process the whole file instead</strong> reads every page.</li>
+</ul><figure class="shot">
 <div class="frame">
 <a href="img/01-upload.png" target="_blank" rel="noopener">
 <img src="img/01-upload.png" alt="Choose a PDF, then the chosen spec, outlined in red." loading="lazy" width="1440" height="864">
@@ -243,7 +248,7 @@
 <span class="mark " style="left:17.99%;top:65.28%;width:79.31%;height:12.04%"><span class="mtag">chosen spec</span></span>
 </div>
 <figcaption>Choose a PDF, then the chosen spec, outlined in red.</figcaption>
-</figure></div><div class="note" id="s2"><h3><span class="n">2</span>Choose Standard or Fast and start</h3><p>Under <strong>Run speed</strong>, keep <strong>Standard</strong> or pick <strong>Fast</strong>. The note under each choice says how they differ. Then select <strong>Start upload</strong>.</p><figure class="shot">
+</figure></div><div class="note" id="s2"><h3><span class="n">2</span>Choose the run speed and start</h3><p>Under <strong>Run speed</strong> on the upload card, pick the speed for this run only. <strong>Standard</strong> is picked for you. <strong>Fast</strong> runs one at a time and costs about twice as much. The note under each choice says how they differ. Then select <strong>Start upload</strong>.</p><figure class="shot">
 <div class="frame">
 <a href="img/02-start.png" target="_blank" rel="noopener">
 <img src="img/02-start.png" alt="Run speed and Start upload, outlined in red. Standard is batched and lower cost. Fast returns sooner and costs about twice as much." loading="lazy" width="1440" height="864">
@@ -251,7 +256,28 @@
 <span class="mark " style="left:17.99%;top:78.36%;width:79.31%;height:7.87%"><span class="mtag">run speed</span></span><span class="mark tag-below tag-right" style="left:88.68%;top:89.24%;width:8.61%;height:5.32%"><span class="mtag">start upload</span></span>
 </div>
 <figcaption>Run speed and Start upload, outlined in red. Standard is batched and lower cost. Fast returns sooner and costs about twice as much.</figcaption>
-</figure></div><div class="note" id="s3"><h3><span class="n">3</span>While it runs</h3><p>The strip at the top shows each step of the run, and the pill reads <strong>In progress</strong>. There is no need to wait on the page. The book stays in <strong>Your spec books</strong>, so select <strong>Open</strong> there when it says <strong>Draft ready</strong>.</p><figure class="shot">
+</figure><h4>The org default behind Standard</h4>
+<p>Standard follows one org setting. To see it, select <strong>Settings</strong> at the bottom of the left rail and find <strong>How matching is sent to the model</strong> under <strong>How this org works</strong>.</p>
+<ul class="tight">
+<li><strong>Batched (lower cost, takes longer)</strong>: a Standard run is batched and lower cost.</li>
+<li><strong>One at a time (about twice the cost, returns sooner)</strong>: a Standard run also goes one at a time. The note under Standard on the upload card then reads <strong>Your org setting: one at a time</strong>.</li>
+<li>Only a person with the <strong>Spec Settings Admin</strong> permission set can change this and select <strong>Save changes</strong>. Everyone else can see the setting but not change it. The choice applies to everyone in the org.</li>
+</ul><figure class="shot">
+<div class="frame">
+<a href="img/10-settings.png" target="_blank" rel="noopener">
+<img src="img/10-settings.png" alt="Settings at the bottom of the left rail, Text size, and How matching is sent to the model, outlined in red." loading="lazy" width="1440" height="864">
+</a>
+<span class="mark tag-side" style="left:0.42%;top:91.32%;width:14.38%;height:5.56%"><span class="mtag">settings</span></span><span class="mark" style="left:17.85%;top:25.00%;width:19.51%;height:9.14%"><span class="mtag">text size</span></span><span class="mark" style="left:17.85%;top:82.52%;width:42.43%;height:11.69%"><span class="mtag">how matching is sent to the model</span></span>
+</div>
+<figcaption>Settings, outlined in red at the bottom of the left rail, with Text size and How matching is sent to the model. This picture shows the same app version with sample data.</figcaption>
+</figure></div><div class="note" id="s3"><h3><span class="n">3</span>While it runs</h3><p>The strip at the top shows each step of the run: <strong>Read</strong>, <strong>Find requirements</strong>, <strong>Match products</strong>, <strong>Price</strong> and <strong>Draft</strong>. The pill reads <strong>In progress</strong>. There is no need to wait on the page.</p>
+<p>To come back later, select <strong>Bid Quoting</strong> at the top of the left rail. This opens <strong>Your spec books</strong>. Type in <strong>Find a spec book</strong> to find a book by number or name, then select <strong>Open</strong>. The pill on each book says where it is:</p>
+<ul class="tight">
+<li><strong>In progress</strong>: the run is still going.</li>
+<li><strong>Draft ready</strong>: the draft is ready to review.</li>
+<li><strong>Stopped</strong>: the run stopped before it made a draft. Select <strong>See what stopped</strong>.</li>
+<li><strong>Cancelled</strong>: the run was cancelled.</li>
+</ul><figure class="shot">
 <div class="frame">
 <a href="img/03-running.png" target="_blank" rel="noopener">
 <img src="img/03-running.png" alt="The run steps and the In progress pill, outlined in red. The draft opens here when the run finishes." loading="lazy" width="1440" height="864">
@@ -259,7 +285,13 @@
 <span class="mark tag-below" style="left:16.39%;top:7.41%;width:62.78%;height:4.17%"><span class="mtag">run steps</span></span>
 </div>
 <figcaption>The run steps and the In progress pill, outlined in red. The draft opens here when the run finishes.</figcaption>
-</figure></div><div class="note" id="s4"><h3><span class="n">4</span>Review the draft</h3><p>Each draft line has a product, a quantity, a unit price, a line total and a status that says what the line needs. Select a product name to open its evidence panel, with the spec text the line answers, where the price came from and other close products.</p><figure class="shot">
+</figure></div><div class="note" id="s4"><h3><span class="n">4</span>Review the draft</h3><p>Each draft line has a <strong>Product</strong>, <strong>Qty</strong>, <strong>Unit price</strong>, <strong>Line total</strong> and a <strong>Status</strong> that says what the line needs, for example <strong>Enter price</strong>, <strong>Enter footage</strong>, <strong>Confirm quantity</strong> or <strong>Confirm price</strong>. Select a product name to open its evidence panel on the right. The panel has three tabs:</p>
+<ul class="tight">
+<li><strong>Requirement</strong>: the spec text the line answers.</li>
+<li><strong>Price source</strong>: where the price came from.</li>
+<li><strong>Alternatives</strong>: other catalog products that came close. Select <strong>Pick this</strong> on one to put it on the line instead.</li>
+</ul>
+<p>At the bottom of the panel, select <strong>Accept line</strong> when the line is right, or <strong>Flag for review</strong> to mark it for a second look. The status then reads <strong>Accepted</strong> or <strong>Flagged</strong>. Select the X at the top right of the panel to close it.</p><figure class="shot">
 <div class="frame">
 <a href="img/04-review.png" target="_blank" rel="noopener">
 <img src="img/04-review.png" alt="Selecting a product name opens its evidence panel, outlined in red." loading="lazy" width="1440" height="864">
@@ -267,7 +299,11 @@
 <span class="mark tag-right" style="left:74.86%;top:20.14%;width:25.28%;height:66.20%"><span class="mtag">evidence panel</span></span>
 </div>
 <figcaption>Selecting a product name opens its evidence panel, outlined in red.</figcaption>
-</figure></div><div class="note" id="s5"><h3><span class="n">5</span>Answer Needs your call</h3><p><strong>Needs your call</strong> in the left rail lists everything that waits on a person. For each item, select <strong>Pick this</strong> to use the product shown, <strong>Search catalog</strong> to find another, or <strong>Skip</strong> to come back to it later.</p><figure class="shot">
+</figure></div><div class="note" id="s5"><h3><span class="n">5</span>Answer Needs your call</h3><p><strong>Needs your call</strong> in the left rail lists everything that waits on a person, in groups: <strong>Confirm match</strong>, <strong>Check the drawings</strong>, <strong>Enter footage</strong>, <strong>Confirm quantity</strong> and <strong>Enter price</strong>. Select a group heading to fold it, or use <strong>Collapse all</strong> and <strong>Expand all</strong> at the top.</p>
+<ul class="tight">
+<li>On a near match, select <strong>Pick this</strong> to use the product shown, <strong>Search catalog</strong> to find another, or <strong>Skip</strong> to come back to it later.</li>
+<li>On an item that is already a draft line, select <strong>Open</strong> to go to that line.</li>
+</ul><figure class="shot">
 <div class="frame">
 <a href="img/05-pick.png" target="_blank" rel="noopener">
 <img src="img/05-pick.png" alt="After Pick this on a near match, the line joins the draft: Draft lines, outlined in red, goes from 18 to 19." loading="lazy" width="1440" height="864">
@@ -275,7 +311,14 @@
 <span class="mark tag-side" style="left:0.56%;top:6.71%;width:14.10%;height:5.79%"><span class="mtag">draft lines</span></span>
 </div>
 <figcaption>After Pick this on a near match, the line joins the draft: Draft lines, outlined in red, goes from 18 to 19.</figcaption>
-</figure></div><div class="note" id="s6"><h3><span class="n">6</span>Add lines from the drawings</h3><p>Open <strong>Drawing counts</strong>, select <strong>Attach drawing PDF</strong>, check the device counts the app finds, and select <strong>Accept all</strong>. When a card shows a <strong>From the drawings</strong> suggestion, select <strong>Add as new line</strong> to add that product to the draft with its count. For another device, pick its draft line in the list and select <strong>Place counts on line</strong>.</p><figure class="shot">
+</figure></div><div class="note" id="s6"><h3><span class="n">6</span>Add lines from the drawings</h3><p>Select <strong>Drawing counts</strong> in the left rail, then select <strong>Attach drawing PDF</strong> and pick the drawing set. The app counts the device labels it finds on the drawings.</p>
+<ul class="tight">
+<li>Check the counts, then select <strong>Accept all</strong>. It accepts every row that waits for Accept. It leaves out existing and demolition rows and rows marked <strong>Needs review</strong>.</li>
+<li>A row marked <strong>Needs review</strong> needs a person, often because the symbol is a single letter or the drawing legend does not name it. Select <strong>Accept</strong> or <strong>Reject</strong> on each of these rows.</li>
+<li>Under <strong>Devices counted</strong>, when a card shows a <strong>From the drawings</strong> suggestion, select <strong>Add as new line</strong> to add that product to the draft with its count. If the product is already on the draft, the button reads <strong>Place counts on that line</strong>.</li>
+<li>For any other device, pick its draft line in <strong>Pick the line these go on</strong>, or type in <strong>Type to filter lines</strong>, then select <strong>Place counts on line</strong>.</li>
+<li><strong>List</strong> and <strong>Map</strong> at the top switch between the table of counts and a view of where each device sits on the sheet.</li>
+</ul><figure class="shot">
 <div class="frame">
 <a href="img/06-drawings.png" target="_blank" rel="noopener">
 <img src="img/06-drawings.png" alt="After Add as new line, the camera count sits on its new line, outlined in red." loading="lazy" width="1440" height="864">
@@ -283,7 +326,11 @@
 <span class="mark " style="left:17.78%;top:29.75%;width:79.72%;height:7.64%"><span class="mtag">placed on the new line</span></span>
 </div>
 <figcaption>After Add as new line, the camera count sits on its new line, outlined in red.</figcaption>
-</figure></div><div class="note" id="s7"><h3><span class="n">7</span>Check footage and prices</h3><p>A cable priced by the foot needs its measured footage typed in the <strong>Qty</strong> box, or it is left off the quote. Type a price on any line that reads <strong>Enter price</strong>.</p><figure class="shot">
+</figure></div><div class="note" id="s7"><h3><span class="n">7</span>Check footage and prices</h3><p>Select <strong>Draft lines</strong> in the left rail to go back to the draft.</p>
+<ul class="tight">
+<li>A cable priced by the foot shows <strong>Enter footage</strong>. Type the measured footage in its <strong>Qty</strong> box, which shows <strong>ft</strong>. A cable line with no footage is left off the quote.</li>
+<li>Type a price on any line whose unit price box reads <strong>Enter price</strong>.</li>
+</ul><figure class="shot">
 <div class="frame">
 <a href="img/07-footage.png" target="_blank" rel="noopener">
 <img src="img/07-footage.png" alt="Footage typed on a cable line, and a price typed on a line that read Enter price, both outlined in red." loading="lazy" width="1440" height="864">
@@ -291,7 +338,11 @@
 <span class="mark tag-below" style="left:43.33%;top:50.93%;width:7.78%;height:3.94%"><span class="mtag">footage</span></span><span class="mark tag-below" style="left:52.22%;top:22.92%;width:9.58%;height:3.94%"><span class="mtag">price</span></span>
 </div>
 <figcaption>Footage typed on a cable line, and a price typed on a line that read Enter price, both outlined in red.</figcaption>
-</figure></div><div class="note" id="s8"><h3><span class="n">8</span>Create quote</h3><p>In the bottom bar, pick the account, then select <strong>Create quote</strong>. If a cable line still waits for its footage, the app asks first. Select <strong>Create without it</strong> to leave that line off, or <strong>Go back</strong> to type the footage. The bar then reads <strong>Quote created</strong>, with <strong>Open the quote</strong>, and the draft becomes read-only.</p><figure class="shot">
+</figure></div><div class="note" id="s8"><h3><span class="n">8</span>Create quote</h3><p>In the bottom bar, select the <strong>Select an account</strong> box, type part of the account name and pick the account from the list. Until an account is picked, the bar reads <strong>Select an account to create the quote</strong>. Then select <strong>Create quote</strong>.</p>
+<ul class="tight">
+<li>If a cable line still waits for its footage, the bar names it and asks first. Select <strong>Create without it</strong> (<strong>Create without them</strong> for more than one line) to leave it off, or <strong>Go back</strong> to type the footage.</li>
+<li>The bar then reads <strong>Quote created.</strong>, with <strong>Open the quote</strong> and <strong>Download CSV</strong>. The draft becomes read-only.</li>
+</ul><figure class="shot">
 <div class="frame">
 <a href="img/08-create.png" target="_blank" rel="noopener">
 <img src="img/08-create.png" alt="After Create without it, the bar reads Quote created, outlined in red." loading="lazy" width="1440" height="864">
@@ -299,7 +350,7 @@
 <span class="mark tag-right" style="left:73.75%;top:89.00%;width:24.79%;height:4.17%"><span class="mtag">quote created</span></span>
 </div>
 <figcaption>After Create without it, the bar reads Quote created, outlined in red.</figcaption>
-</figure></div><div class="note" id="s9"><h3><span class="n">9</span>The quote in Salesforce</h3><p><strong>Open the quote</strong> opens the quote in Salesforce, with its lines. Make any later changes there, including a price that is still blank.</p><figure class="shot">
+</figure></div><div class="note" id="s9"><h3><span class="n">9</span>The quote in Salesforce</h3><p>Select <strong>Open the quote</strong> to open the quote in Salesforce. Select the <strong>Related</strong> tab, then <strong>View All</strong> on <strong>Quote Lines</strong> to see every line with its product, price and quantity. Make any later changes there, including a price that is still blank.</p><figure class="shot">
 <div class="frame">
 <a href="img/09-salesforce.png" target="_blank" rel="noopener">
 <img src="img/09-salesforce.png" alt="The quote lines in Salesforce, with product, price and quantity, outlined in red." loading="lazy" width="1440" height="776">
@@ -307,7 +358,13 @@
 <span class="mark " style="left:2.29%;top:17.78%;width:97.15%;height:76.42%"><span class="mtag">quote lines</span></span>
 </div>
 <figcaption>The quote lines in Salesforce, with product, price and quantity, outlined in red.</figcaption>
-</figure></div></div>
+</figure></div><div class="note" id="good"><h3>Good to know</h3>
+<ul class="tight">
+<li><strong>Guided mode</strong> in the left rail turns a short guided walk through a draft on or off.</li>
+<li><strong>Settings</strong>, at the bottom of the left rail, has <strong>Text size</strong> (<strong>Small</strong>, <strong>Default</strong>, <strong>Large</strong>) and <strong>Appearance</strong> (<strong>Light</strong>, <strong>Dark</strong>, <strong>System</strong>). These two are saved in this browser only.</li>
+<li>Each person sees only the spec books they uploaded.</li>
+<li><strong>Back to Salesforce</strong>, near the bottom of the left rail, leaves the app.</li>
+</ul></div></div>
 
 </main>
 <script>(function(){var b=document.getElementById('themeToggle'),r=document.documentElement;b.addEventListener('click',function(){var c=r.getAttribute('data-theme');if(!c)c=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);b.textContent=n==='dark'?'Light':'Dark';});})();</script>
