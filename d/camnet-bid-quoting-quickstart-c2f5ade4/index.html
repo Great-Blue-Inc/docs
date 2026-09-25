@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bid Quoting Quick Start</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<style>
+  :root {
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
+    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
+    --line:#d7ddd4; --line-soft:#e5e9e1;
+    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
+    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee;
+    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
+    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
+    --line:#2a3631; --line-soft:#222d29;
+    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
+    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="light"]{
+    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec; --ink:#16201d; --ink-soft:#3c4a45;
+    --ink-faint:#6d7b75; --line:#d7ddd4; --line-soft:#e5e9e1; --accent:#0d7a6e; --accent-2:#0a5f56;
+    --accent-wash:#e2efeb; --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
+    --code-bg:#f0f3ee; --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
+  }
+  :root[data-theme="dark"]{
+    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
+    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
+    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
+    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+
+  /* masthead */
+  header.mast{border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
+  .mast-inner{padding:52px 0 40px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
+    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
+  h1.title span{color:var(--accent-2);}
+  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .meta-cell{background:var(--surface); padding:14px 16px;}
+  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
+  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+
+  /* sticky TOC */
+  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
+  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
+    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
+  .toc a:hover{background:var(--surface-2); color:var(--ink);}
+  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
+  .toc .spacer{flex:1;}
+  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+
+  /* sections */
+  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
+  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
+    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
+  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+
+  /* status pills */
+  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
+    border:1px solid transparent; white-space:nowrap;}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
+  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+
+  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
+    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
+  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
+  h4{font-size:.95rem; font-weight:700; margin:22px 0 8px; color:var(--ink);}
+  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:650;}
+  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
+  a.inl:hover{border-bottom-color:var(--accent);}
+  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
+  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+
+  /* cards + grid */
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
+  .card.flush{padding:0; overflow:hidden;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+
+  /* callouts */
+  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
+  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
+  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+
+  /* code block */
+  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:16px 18px; overflow-x:auto; margin:16px 0;}
+  pre code{background:none; border:none; padding:0; font-size:.82rem; line-height:1.7; color:var(--ink);}
+  .cm{color:var(--ink-faint);} .kw{color:var(--accent-2); font-weight:600;}
+
+  /* tables */
+  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
+  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
+  td.name{color:var(--ink); font-weight:600;}
+  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
+  .up{color:var(--accent-2); font-weight:600;} .down{color:var(--rose); font-weight:600;}
+
+  /* drill-down table: collapsible roll-up with aligned numeric columns (native details/summary, no JS).
+     .drill-head labels the columns even when every group is collapsed. Fixed-width right-aligned
+     .dnums .c/.v keep numbers in one straight column at every depth; left-padding steps (20 -> 34 -> 46)
+     signal hierarchy while right padding stays 20 so the number columns line up across all levels.
+     Inherits every doc-identity token, so it themes light/dark for free. */
+  .drill-head{display:flex; justify-content:flex-end; gap:22px; padding:2px 20px 8px; color:var(--ink-faint);
+    font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
+  .dnums{font-family:var(--mono); font-variant-numeric:tabular-nums; display:inline-flex; gap:22px;}
+  .dnums .c,.drill-head .c{width:56px; text-align:right;} .dnums .v,.drill-head .v{width:132px; text-align:right;}
+  details.drill{border:1px solid var(--line); border-radius:12px; margin:12px 0; background:var(--surface); box-shadow:var(--shadow); overflow:hidden;}
+  details.drill>summary{cursor:pointer; padding:14px 20px; font-family:var(--serif); font-size:1.15rem; font-weight:600;
+    color:var(--ink); list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:baseline; background:var(--surface-2);}
+  details.drill>summary::-webkit-details-marker{display:none;} details.drill>summary .dnums{color:var(--ink-soft);}
+  details.drill-2>summary{cursor:pointer; padding:10px 20px 10px 34px; font-weight:600; color:var(--ink-soft);
+    list-style:none; display:flex; justify-content:space-between; gap:16px; border-top:1px solid var(--line-soft);}
+  details.drill-2>summary::-webkit-details-marker{display:none;} details.drill-2[open]>summary{color:var(--ink);}
+  .drill-leaf{display:flex; justify-content:space-between; gap:16px; padding:8px 20px 8px 46px;
+    border-top:1px solid var(--line-soft); color:var(--ink-soft); font-size:.9rem;}
+
+  /* metric tiles */
+  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
+  .metric{background:var(--surface); padding:18px 16px;}
+  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
+  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
+  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+
+  /* field-reference rows */
+  .fields{display:flex; flex-direction:column; gap:0;}
+  .field-row{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,2fr); gap:18px; padding:13px 0; border-bottom:1px solid var(--line-soft);}
+  .field-row:last-child{border-bottom:none;}
+  .field-row .api{font-family:var(--mono); font-size:.8rem; color:var(--accent-2); word-break:break-word;}
+  .field-row .api .obj{color:var(--ink-faint);}
+  .field-row .desc{font-size:.88rem; color:var(--ink-soft);}
+  @media (max-width:640px){ .field-row{grid-template-columns:1fr; gap:4px;} }
+
+  /* source index */
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
+  .src-list{display:grid; gap:10px;}
+  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
+  .src:hover{border-color:var(--accent); transform:translateX(2px);}
+  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
+  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
+  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
+  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+
+  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
+  footer .fmono{font-family:var(--mono); font-size:.78rem;}
+  hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
+</style>
+<style>
+  figure.shot{margin:14px 0 26px;}
+  figure.shot .frame{position:relative; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; box-shadow:var(--shadow);}
+  figure.shot img{display:block; width:100%; height:auto;}
+  figure.shot figcaption{font-size:.9rem; color:var(--ink-soft); margin-top:8px;}
+  .mark{position:absolute; border:2.5px solid #D93025; border-radius:5px; box-shadow:0 0 0 3px rgba(217,48,37,.18), 0 0 14px rgba(217,48,37,.35); pointer-events:none;}
+  .mark .mtag{position:absolute; left:-2.5px; bottom:100%; margin-bottom:4px; background:#D93025; color:#fff; font-family:var(--mono); font-size:11px; letter-spacing:.02em; line-height:1; padding:4px 7px; border-radius:4px; white-space:nowrap;}
+  .mark.tag-below .mtag{bottom:auto; top:100%; margin-top:4px; margin-bottom:0;}
+  .mark.tag-right .mtag{left:auto; right:-2.5px;}
+  @media (max-width:700px){ .mark .mtag{display:none;} .mark{border-width:2px; border-radius:4px;} }
+  .note{padding:26px 0 8px; border-top:1px solid var(--line-soft);}
+  .note:first-of-type{border-top:none;}
+  .note h3{margin:0 0 8px; flex-wrap:wrap;}
+  .note h3 .n{font-family:var(--mono); color:var(--accent-2); font-size:.95rem;}
+  .note p{max-width:70ch;}
+  .qa{padding:16px 0; border-top:1px solid var(--line-soft);} .qa:first-of-type{border-top:none;}
+  .qa h3{margin:0 0 6px;}
+  .qa p{max-width:70ch;}
+  .legend-row{display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 14px;}
+  .chip{font-size:.8rem; font-weight:600; padding:3px 10px; border-radius:999px; border:1px solid transparent;}
+  .chip.amber{color:#8a4b0c; background:#fbefd9; border-color:#f0d6a8;}
+  .chip.grey{color:#46514d; background:#e9ecea; border-color:#d5dad7;}
+  .chip.green{color:#0a5f56; background:#dff0ea; border-color:#b8ded2;}
+  @media (max-width:640px){ .wrap{padding:0 16px;} .toc-inner{flex-wrap:nowrap; overflow-x:auto;} }
+</style>
+
+<style>
+  .steps-wrap{padding:36px 0 8px;}
+  .more{padding:28px 0 60px; border-top:1px solid var(--line-soft); font-size:.95rem;}
+  .mark.tag-side .mtag{left:100%; bottom:auto; top:50%; transform:translateY(-50%); margin:0 0 0 6px;}
+</style>
+</head><body>
+<header class="mast"><div class="wrap mast-inner">
+<p class="eyebrow"><span class="dot"></span> CamNet · Bid Quoting · Quick start</p>
+<h1 class="title">One bid, <span>start to finish</span></h1>
+<p class="lede">The nine steps of one Bid Quoting run, from spec book to quote. The part to look at in each picture is outlined in red. Steps 1 to 8 show sample spec books in a test copy of the app.</p>
+<div class="meta-grid">
+<div class="meta-cell"><div class="k">App</div><div class="v">Bid Quoting in Salesforce</div></div>
+<div class="meta-cell"><div class="k">Version</div><div class="v mono">0.56.88 · live now</div></div>
+<div class="meta-cell"><div class="k">For</div><div class="v">CamNet estimators</div></div>
+<div class="meta-cell"><div class="k">Steps</div><div class="v mono">9</div></div>
+</div></div></header>
+<nav class="toc"><div class="wrap toc-inner"><a href="#s1"><span class="num">01</span>Upload</a><a href="#s2"><span class="num">02</span>Start</a><a href="#s3"><span class="num">03</span>While it runs</a><a href="#s4"><span class="num">04</span>Review</a><a href="#s5"><span class="num">05</span>Needs your call</a><a href="#s6"><span class="num">06</span>Drawings</a><a href="#s7"><span class="num">07</span>Footage and prices</a><a href="#s8"><span class="num">08</span>Create quote</a><a href="#s9"><span class="num">09</span>In Salesforce</a><span class="spacer"></span><button id="themeToggle" aria-label="Toggle colour theme">Theme</button></div></nav>
+<main class="wrap"><div class="steps-wrap"><div class="note" id="s1"><h3><span class="n">1</span>Open Bid Quoting and upload the spec book</h3><p>Open Bid Quoting from Salesforce. Under <strong>Upload a spec</strong>, select <strong>Choose a PDF</strong> and pick the Division 27 and 28 section of the spec book, not the whole project manual.</p><figure class="shot"><div class="frame"><a href="img/01-upload-card.png" target="_blank" rel="noopener"><img src="img/01-upload-card.png" alt="Choose a PDF, outlined in red." loading="lazy" width="1440" height="900"></a><span class="mark " style="left:17.92%;top:60.94%;width:79.44%;height:10%"><span class="mtag">choose a pdf</span></span></div><figcaption>Choose a PDF, outlined in red.</figcaption></figure></div><div class="note" id="s2"><h3><span class="n">2</span>Choose Standard or Fast and start</h3><p>Under <strong>Run speed</strong>, keep <strong>Standard</strong> or pick <strong>Fast</strong>. The note under each choice says how they differ. Then select <strong>Start upload</strong>.</p><figure class="shot"><div class="frame"><a href="img/01-start-upload.png" target="_blank" rel="noopener"><img src="img/01-start-upload.png" alt="Run speed, and Start upload at the bottom of the card." loading="lazy" width="1440" height="900"></a><span class="mark " style="left:17.85%;top:77.02%;width:79.58%;height:9.89%"><span class="mtag">run speed</span></span><span class="mark tag-below tag-right" style="left:88.55%;top:89.24%;width:8.88%;height:5.78%"><span class="mtag">start upload</span></span></div><figcaption>Run speed, and Start upload at the bottom of the card.</figcaption></figure></div><div class="note" id="s3"><h3><span class="n">3</span>While it runs</h3><p>The strip at the top shows each step of the run, and the pill reads <strong>In progress</strong>. There is no need to wait on the page. The book stays in <strong>Your spec books</strong>, so select <strong>Open</strong> there when it says <strong>Draft ready</strong>.</p><figure class="shot"><div class="frame"><a href="img/02-processing.png" target="_blank" rel="noopener"><img src="img/02-processing.png" alt="The run steps, and the note that the draft opens here when it is ready." loading="lazy" width="1440" height="900"></a><span class="mark tag-below tag-right" style="left:16.2%;top:7.11%;width:63.2%;height:5.78%"><span class="mtag">run steps</span></span><span class="mark " style="left:41.3%;top:27.8%;width:32.6%;height:6.2%"><span class="mtag">draft opens here</span></span></div><figcaption>The run steps, and the note that the draft opens here when it is ready.</figcaption></figure></div><div class="note" id="s4"><h3><span class="n">4</span>Review the draft</h3><p>Each draft line has a product, a quantity, a unit price, a line total and a status that says what the line needs. Select a product name to open its evidence panel, with the spec text the line answers, where the price came from and other close products.</p><figure class="shot"><div class="frame"><a href="img/03-inspector.png" target="_blank" rel="noopener"><img src="img/03-inspector.png" alt="The draft lines, and the evidence panel for one line." loading="lazy" width="1440" height="900"></a><span class="mark " style="left:16.9%;top:33.1%;width:56.4%;height:40.2%"><span class="mtag">draft lines</span></span><span class="mark tag-right" style="left:75.0%;top:24.2%;width:24.8%;height:58.8%"><span class="mtag">evidence</span></span></div><figcaption>The draft lines, and the evidence panel for one line.</figcaption></figure></div><div class="note" id="s5"><h3><span class="n">5</span>Answer Needs your call</h3><p><strong>Needs your call</strong> in the left rail lists everything that waits on a person. For each item, select <strong>Pick this</strong> to use the product shown, <strong>Search catalog</strong> to find another, or <strong>Skip</strong> to come back to it later.</p><figure class="shot"><div class="frame"><a href="img/04-pick.png" target="_blank" rel="noopener"><img src="img/04-pick.png" alt="Needs your call, and the three choices for one item." loading="lazy" width="1440" height="900"></a><span class="mark " style="left:0.8%;top:12.0%;width:13.6%;height:4.7%"></span><span class="mark tag-right" style="left:87.85%;top:54.14%;width:9.72%;height:12.67%"><span class="mtag">your choice</span></span></div><figcaption>Needs your call, and the three choices for one item.</figcaption></figure></div><div class="note" id="s6"><h3><span class="n">6</span>Add lines from the drawings</h3><p>Open <strong>Drawing counts</strong>, select <strong>Attach drawing PDF</strong>, and check the device counts the app finds. When a card shows a <strong>From the drawings</strong> suggestion, select <strong>Add as new line</strong> to add that product to the draft with its count.</p><figure class="shot"><div class="frame"><a href="img/05-proposal.png" target="_blank" rel="noopener"><img src="img/05-proposal.png" alt="A suggested line from the drawings, with Add as new line." loading="lazy" width="1440" height="900"></a><span class="mark " style="left:0.8%;top:19.4%;width:13.6%;height:4.1%"></span><span class="mark tag-below tag-right" style="left:18.47%;top:48.89%;width:78.33%;height:15%"><span class="mtag">from the drawings</span></span></div><figcaption>A suggested line from the drawings, with Add as new line.</figcaption></figure></div><div class="note" id="s7"><h3><span class="n">7</span>Check footage and prices</h3><p>A cable priced by the foot needs its measured footage typed in the <strong>Qty</strong> box, or it is left off the quote. Type a price on any line that reads <strong>Enter price</strong>.</p><figure class="shot"><div class="frame"><a href="img/03-enter-footage.png" target="_blank" rel="noopener"><img src="img/03-enter-footage.png" alt="Footage typed on the cable line, and a line that still needs a price." loading="lazy" width="1440" height="900"></a><span class="mark " style="left:43.4%;top:35.3%;width:7.6%;height:3.8%"><span class="mtag">footage</span></span><span class="mark tag-side" style="left:52.4%;top:51.8%;width:9.1%;height:3.1%"><span class="mtag">enter price</span></span></div><figcaption>Footage typed on the cable line, and a line that still needs a price.</figcaption></figure></div><div class="note" id="s8"><h3><span class="n">8</span>Create quote</h3><p>In the bottom bar, pick the account, then select <strong>Create quote</strong>. The bar then reads <strong>Quote created</strong>, with <strong>Open the quote</strong>, and the draft becomes read-only.</p><figure class="shot"><div class="frame"><a href="img/06-created.png" target="_blank" rel="noopener"><img src="img/06-created.png" alt="Quote created, with Open the quote and Download CSV." loading="lazy" width="1440" height="900"></a><span class="mark tag-right" style="left:73.57%;top:89.11%;width:25.18%;height:10%"><span class="mtag">quote created</span></span><span class="mark tag-below" style="left:66.22%;top:7.22%;width:7.43%;height:3.78%"><span class="mtag">quote created</span></span></div><figcaption>Quote created, with Open the quote and Download CSV.</figcaption></figure></div><div class="note" id="s9"><h3><span class="n">9</span>The quote in Salesforce</h3><p><strong>Open the quote</strong> opens the quote in Salesforce, with its lines. Make any later changes there, including a price that is still blank.</p><figure class="shot"><div class="frame"><a href="img/09-sf-quote-lines.png" target="_blank" rel="noopener"><img src="img/09-sf-quote-lines.png" alt="The quote in Salesforce, with its lines." loading="lazy" width="1416" height="742"></a><span class="mark tag-side" style="left:4.2%;top:1.9%;width:9.2%;height:5.7%"><span class="mtag">quote</span></span><span class="mark tag-right" style="left:57.1%;top:13.5%;width:42.1%;height:86.2%"><span class="mtag">product, price, quantity</span></span></div><figcaption>The quote in Salesforce, with its lines.</figcaption></figure></div></div>
+<p class="more">Need more detail? See the <a class="inl" href="https://great-blue-inc.github.io/docs/d/camnet-bid-quoting-guide-17bbf315/">full guide</a>.</p>
+</main>
+<script>(function(){var b=document.getElementById('themeToggle'),r=document.documentElement;b.addEventListener('click',function(){var c=r.getAttribute('data-theme');if(!c)c=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);b.textContent=n==='dark'?'Light':'Dark';});})();</script>
+</body></html>
