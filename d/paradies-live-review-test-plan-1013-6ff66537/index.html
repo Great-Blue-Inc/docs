@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Live Review Test Plan</title>
+<style>
+:root {
+  --bg: #f7f5f0; --surface: #ffffff; --surface-alt: #f1eee6; --ink: #1f2a24; --ink-soft: #5d6862;
+  --border: #e2ddd1; --accent: #1f5c46; --accent-soft: #e3efe8; --open: #9a5b13; --open-soft: #fbefdc;
+  --new: #2d4f86; --new-soft: #e4ebf7;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141816; --surface: #1c211e; --surface-alt: #232925; --ink: #e8ece9; --ink-soft: #a3ada7;
+    --border: #2f3632; --accent: #7cc4a4; --accent-soft: #1f3329; --open: #e6b06a; --open-soft: #3a2c19;
+    --new: #9dbbeb; --new-soft: #1f2a3d;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141816; --surface: #1c211e; --surface-alt: #232925; --ink: #e8ece9; --ink-soft: #a3ada7;
+  --border: #2f3632; --accent: #7cc4a4; --accent-soft: #1f3329; --open: #e6b06a; --open-soft: #3a2c19;
+  --new: #9dbbeb; --new-soft: #1f2a3d;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 32px 16px 64px; }
+header h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -0.01em; }
+header p { margin: 0; color: var(--ink-soft); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; font-size: 13px; color: var(--ink-soft); }
+nav { display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0 8px; }
+nav a { text-decoration: none; color: var(--accent); background: var(--accent-soft); padding: 6px 14px; border-radius: 8px; font-weight: 600; font-size: 14px; }
+section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-top: 22px; }
+h2 { margin: 0 0 4px; font-size: 21px; }
+.sub { color: var(--ink-soft); margin: 0 0 18px; }
+h3 { font-size: 16px; margin: 26px 0 10px; padding-top: 14px; border-top: 1px solid var(--border); }
+h3:first-of-type { border-top: 0; padding-top: 0; margin-top: 8px; }
+ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: s; }
+ol.steps li { display: grid; grid-template-columns: 26px 34px 1fr; gap: 6px; align-items: start; padding: 9px 0; border-bottom: 1px dashed var(--border); }
+ol.steps li:last-child { border-bottom: 0; }
+ol.steps input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--accent); cursor: pointer; }
+.num { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+li.done .txt { color: var(--ink-soft); text-decoration: line-through; }
+.see { display: block; color: var(--ink-soft); font-size: 14px; margin-top: 2px; }
+.progress { font-size: 14px; color: var(--ink-soft); margin-bottom: 8px; }
+.bar { height: 6px; background: var(--surface-alt); border-radius: 99px; overflow: hidden; margin-bottom: 16px; }
+.bar span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 14px; }
+th { text-align: left; background: var(--surface-alt); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); padding: 10px 12px; position: sticky; top: 0; }
+td { padding: 10px 12px; border-top: 1px solid var(--border); vertical-align: top; }
+td.id { font-weight: 700; white-space: nowrap; }
+td .t { color: var(--ink-soft); font-size: 12.5px; white-space: nowrap; }
+tr.group td { background: var(--surface-alt); font-weight: 700; font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .04em; }
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+.ok { background: var(--accent-soft); color: var(--accent); }
+.wait { background: var(--open-soft); color: var(--open); }
+.new { background: var(--new-soft); color: var(--new); }
+ul.open { padding-left: 20px; margin: 0; }
+ul.open li { margin: 6px 0; }
+blockquote { margin: 14px 0 0; padding: 14px 16px; background: var(--surface-alt); border-radius: 10px; border: 1px solid var(--border); }
+blockquote p { margin: 0; }
+.label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); margin: 18px 0 0; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; }
+@media (max-width: 640px) {
+  section { padding: 18px 14px; }
+  header h1 { font-size: 23px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Live review prep</h1>
+  <p>Test steps for today, and every piece of 10/1 call feedback with how it was confirmed.</p>
+  <div class="meta">
+    <span class="chip">Sandbox (ParadiesDev2)</span>
+    <span class="chip">Build g147</span>
+    <span class="chip">Checked live on Oct 13, 2026</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#steps">1. Test steps</a>
+  <a href="#feedback">2. Call feedback</a>
+  <a href="#open">3. Still open</a>
+</nav>
+
+<section id="steps">
+  <h2>1. Test steps for today</h2>
+  <p class="sub">Open the sandbox, then the cost sheet app for SEA-124 (DEMO). Work in this order. Tick each step as you go (the ticks stay in this browser).</p>
+  <div class="progress"><span id="count">0</span> of <span id="total">0</span> done</div>
+  <div class="bar"><span id="fill"></span></div>
+
+  <h3>A. Full Package, start to finish (new sheet)</h3>
+  <ol class="steps">
+    <li><input type="checkbox"><span class="num">1</span><span class="txt">Click <b>New cost sheet</b>. Name it "Test 10-13 FP".<span class="see">The name box is at the top of every step.</span></span></li>
+    <li><input type="checkbox"><span class="num">2</span><span class="txt">Step 1: pick <b>Full Package</b>. Click <b>Back to cost sheets</b>, then open the sheet again.<span class="see">Call item 1.</span></span></li>
+    <li><input type="checkbox"><span class="num">3</span><span class="txt">Step 1 Quote details: enter XS-XL $5.00, 2XL $6.00, 3XL $6.50.<span class="see">One XS-XL box, then 2XL to 5XL. No "S to XL start at the XS cost" line. Item 2.</span></span></li>
+    <li><input type="checkbox"><span class="num">4</span><span class="txt">Step 1: type "S&amp;S" in Blank vendor and a note in <b>Purchasing notes</b>.<span class="see">Purchasing notes sits next to Blank vendor, and Freight per piece moved over. Item 9.</span></span></li>
+    <li><input type="checkbox"><span class="num">5</span><span class="txt">Step 2: add a <b>DS</b> line.<span class="see">Number of colors starts at 1. Help text says "colors". Items 3 and 4.</span></span></li>
+    <li><input type="checkbox"><span class="num">6</span><span class="txt">Step 2: add a <b>Screen Print</b> line, 3 colors, then add Foil with a 10 in height.<span class="see">Standard rate shows $0.76 (the workbook foil formula).</span></span></li>
+    <li><input type="checkbox"><span class="num">7</span><span class="txt">Step 3: add tiers 288, 576 and 1,200 with <b>+ Add tier</b>.<span class="see">One table. Breaks across the top, MOQ first, sizes down the side. Each box: total cost, quoted price, and "$x / y%" under it. Item 5.</span></span></li>
+    <li><input type="checkbox"><span class="num">8</span><span class="txt">Step 3: pick Licensor <b>Smokey The Bear - 10%</b>.<span class="see">Other cost factors sits between the cost stack and the table. The rate fills in and the prices and royalty update. Items 6 and 7.</span></span></li>
+    <li><input type="checkbox"><span class="num">9</span><span class="txt">Step 3: add a <b>Misc</b> cost with a description and an amount.<span class="see">No Royalty or Licensing types. No "Internal only" box. Item 8.</span></span></li>
+    <li><input type="checkbox"><span class="num">10</span><span class="txt">Step 3: type a customer retail.<span class="see">Each box shows the customer margin.</span></span></li>
+    <li><input type="checkbox"><span class="num">11</span><span class="txt">Step 5: type Actual Order Quantity <b>1,248</b>. Finalize.</span></li>
+    <li><input type="checkbox"><span class="num">12</span><span class="txt">Click <b>View PDF</b> (POM).<span class="see">Sheet name is the title. SEA-124 (DEMO) at the top of the Item column, above Design ID. 1,248 first and large, priced at the 1,200 break. One row per size: blank, P&amp;T, packing, quoted price, margin. No Est. contract value or Est. margin $. Decoration details with no location and no dollars. Purchasing notes under Blank vendor. One page. Items 11 to 17.</span></span></li>
+    <li><input type="checkbox"><span class="num">13</span><span class="txt">Click <b>Customer PDF</b>.<span class="see">One page. Sizes down the side, breaks across the top. Same title and Item column. No costs, margins or purchasing notes. No Customer PO #, Design ID or Padneck ID. Licensing # only if it has one. Items 18 to 20.</span></span></li>
+    <li><input type="checkbox"><span class="num">14</span><span class="txt">Click <b>Create production copy</b>.<span class="see">No Variance. Purchasing notes carried over. Order quantity, PO # and ship date are open. The rest is locked. Item 10.</span></span></li>
+  </ol>
+
+  <h3>B. Contract (Nicole's example)</h3>
+  <ol class="steps">
+    <li><input type="checkbox"><span class="num">15</span><span class="txt">Open <b>Contract example - 36 pcs, puff, hang tag</b>. Go to Step 3.<span class="see">Each box shows the price once. MOQ 36 = $5.60 ($5.00 print + $0.30 puff + $0.30 hang tag).</span></span></li>
+    <li><input type="checkbox"><span class="num">16</span><span class="txt">Type 6.00 over the 5.60, then clear it. Do not save.<span class="see">While typed over, "Rate card $5.60" shows under the box. Cleared, it goes back to one number.</span></span></li>
+    <li><input type="checkbox"><span class="num">17</span><span class="txt">Go to Step 5.<span class="see">The total tile reads "Rate card price $5.60", with no arrow.</span></span></li>
+    <li><input type="checkbox"><span class="num">18</span><span class="txt">New Contract sheet, 36 pcs, one DTF line. Try 5 x 5, then 5 x 10, then 10 x 10, then 10 x 10.1.<span class="see">$3.91 (25 sq in), $5.39 (50 sq in), $7.45 (100 sq in), then "needs a quote" (101 sq in).</span></span></li>
+    <li><input type="checkbox"><span class="num">19</span><span class="txt">Open the Contract POM PDF.<span class="see">Purchasing notes print in their own Purchasing column.</span></span></li>
+  </ol>
+
+  <h3>C. Third Party</h3>
+  <ol class="steps">
+    <li><input type="checkbox"><span class="num">20</span><span class="txt">New Third Party sheet: vendor price $8.50, freight/duty $0.75. Finalize and open both PDFs.<span class="see">Step 3 boxes show $9.25 total cost, the quoted price at a 35% margin, and the margin line.</span></span></li>
+  </ol>
+
+  <h3>D. Text</h3>
+  <ol class="steps">
+    <li><input type="checkbox"><span class="num">21</span><span class="txt">While you walk through, read the (i) help icons and the page text.<span class="see">No semicolons anywhere.</span></span></li>
+  </ol>
+</section>
+
+<section id="feedback">
+  <h2>2. 10/1 call feedback and how each was confirmed</h2>
+  <p class="sub">"Confirmed" means checked on the live sandbox on Oct 13, not only in code. <b>Seen</b> = seen on screen or in the PDF. <b>Data</b> = checked against the live rates. <b>Tests</b> = automated tests pass.</p>
+  <div class="legend"><span><span class="pill ok">Done</span> confirmed live</span><span><span class="pill new">New 10/13</span> added today</span><span><span class="pill wait">Open</span> waiting on Paradies</span></div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>#</th><th>They asked</th><th>What we did</th><th>How it was confirmed</th><th>Status</th><th>Test step</th></tr></thead>
+    <tbody>
+      <tr class="group"><td colspan="6">Builder</td></tr>
+      <tr><td class="id">1</td><td>Back button from an open cost sheet to the list <span class="t">12:29</span></td><td>"Back to cost sheets" at the top of every open sheet</td><td>Seen on a new test sheet (CS-38658)</td><td><span class="pill ok">Done</span></td><td>2</td></tr>
+      <tr><td class="id">2</td><td>One XS-XL blank cost, then 2XL to 5XL, and drop the "S to XL" line <span class="t">17:04 – 20:28</span></td><td>One XS-XL box plus 2XL-5XL. Line removed</td><td>Seen on CS-38658</td><td><span class="pill ok">Done</span></td><td>3</td></tr>
+      <tr><td class="id">3</td><td>DS number of colors starts at 1 <span class="t">27:50</span></td><td>Starts at 1</td><td>Seen on CS-38658</td><td><span class="pill ok">Done</span></td><td>5</td></tr>
+      <tr><td class="id">4</td><td>"Colours" becomes "colors" <span class="t">26:13</span></td><td>American spelling everywhere</td><td>Seen, and a text search of the build</td><td><span class="pill ok">Done</span></td><td>5</td></tr>
+      <tr><td class="id">5</td><td>One Step 3 table: typed breaks across the top, Add tier adds a column, MOQ first, "$ / %" in each box <span class="t">31:36 – 33:09</span></td><td>One table. Each box: total cost, quoted price, "$7.45 / 35.1%"</td><td>Seen on CS-38658. Contract boxes fixed today to show the price once</td><td><span class="pill ok">Done</span></td><td>7, 15</td></tr>
+      <tr><td class="id">6</td><td>Move Other cost factors to Step 3, above the tiers <span class="t">43:05 – 45:23</span></td><td>Between the cost stack and the table</td><td>Seen on CS-38658</td><td><span class="pill ok">Done</span></td><td>8</td></tr>
+      <tr><td class="id">7</td><td>Licensor dropdown with the rate, optional, updates the sell price like the workbook <span class="t">35:44 – 39:11</span></td><td>Licensor list from the rate set. Rate fills in. Royalty = rate × quoted price, counted in total cost</td><td>Seen: $2.13 = 10% × $21.25. Data: royalty per size $1.69 / $1.96 / $2.05</td><td><span class="pill ok">Done</span></td><td>8</td></tr>
+      <tr><td class="id">8</td><td>Misc cost with open text, drop Royalty and Licensing types, Internal only question <span class="t">40:00 – 42:48</span></td><td>Description + amount. Types and checkbox removed</td><td>Seen on CS-38658. Page layout checked in the sandbox</td><td><span class="pill ok">Done</span></td><td>9</td></tr>
+      <tr><td class="id">9</td><td>Purchasing notes in Quote details next to Blank vendor, Freight moves over <span class="t">1:11:05</span></td><td>New field on every sheet type</td><td>Seen on Full Package CS-38658 and Contract CS-38461</td><td><span class="pill ok">Done</span></td><td>4</td></tr>
+      <tr><td class="id">10</td><td>Production copy: remove Variance <span class="t">48:39</span></td><td>Removed from the copy and the page layout</td><td>Seen on production copy CS-38659. Layout pulled from the sandbox: Variance gone</td><td><span class="pill ok">Done</span></td><td>14</td></tr>
+
+      <tr class="group"><td colspan="6">POM PDF</td></tr>
+      <tr><td class="id">11</td><td>Title is the cost sheet name <span class="t">52:14</span></td><td>Name is the title</td><td>Seen in the CS-38658 POM PDF</td><td><span class="pill ok">Done</span></td><td>12</td></tr>
+      <tr><td class="id">12</td><td>Item number and description at the top of the Item column, above Design ID <span class="t">53:05</span></td><td>SEA-124 (DEMO) replaces the word "Item"</td><td>Seen in the POM PDF</td><td><span class="pill ok">Done</span></td><td>12</td></tr>
+      <tr><td class="id">13</td><td>Order quantity first and large, prices at the ordered tier, drop Est. contract value and Est. margin $, combine decoration and labeling, drop the Pricing section <span class="t">51:47 – 1:04:19</span></td><td>1,248 first, "Priced at the 1,200 break", one row per size with P&amp;T</td><td>Seen: XS-XL $16.90 at 1,200 matches the Step 3 1,200 column</td><td><span class="pill ok">Done</span></td><td>12</td></tr>
+      <tr><td class="id">14</td><td>Decoration details on page 1, treatments listed, no location, no dollars <span class="t">1:11:56</span></td><td>Decoration block under the figures</td><td>Seen in the POM PDF</td><td><span class="pill ok">Done</span></td><td>12</td></tr>
+      <tr><td class="id">15</td><td>Purchasing notes print below Blank vendor <span class="t">1:11:05</span></td><td>Below Blank vendor. On Contract and Third Party, their own Purchasing column</td><td>Seen in the POM for CS-38658 and Contract CS-38461</td><td><span class="pill ok">Done</span></td><td>12, 19</td></tr>
+      <tr><td class="id">16</td><td>Everything on page 1, the second page goes <span class="t">1:11:48, 1:17:06</span></td><td>One page. Packing add-ons and samples lists go on page 2 only when the sheet has them</td><td>Seen: 1 page on CS-38658</td><td><span class="pill ok">Done</span></td><td>12</td></tr>
+      <tr><td class="id">17</td><td>Narrower top margin, comp a little smaller <span class="t">1:15:51</span></td><td>Done</td><td>Seen in the POM PDF</td><td><span class="pill ok">Done</span></td><td>12</td></tr>
+
+      <tr class="group"><td colspan="6">Customer PDF</td></tr>
+      <tr><td class="id">18</td><td>One sheet: sizes down the side, breaks across the top <span class="t">1:18:14</span></td><td>One page, one table</td><td>Seen in the CS-38658 customer PDF</td><td><span class="pill ok">Done</span></td><td>13</td></tr>
+      <tr><td class="id">19</td><td>Same title and item changes, no added fields <span class="t">1:18:53</span></td><td>Same title and Item column. No costs, margins or purchasing notes</td><td>Seen in the customer PDF</td><td><span class="pill ok">Done</span></td><td>13</td></tr>
+      <tr><td class="id">20</td><td>Remove Customer PO, Design ID, Padneck ID. Licensing # only when filled <span class="t">1:21:52 – 1:22:40</span></td><td>Removed. Licensing # shows only when filled</td><td>Seen in the customer PDF</td><td><span class="pill ok">Done</span></td><td>13</td></tr>
+
+      <tr class="group"><td colspan="6">Details we filled in (sent for their OK)</td></tr>
+      <tr><td class="id">D1</td><td>Purchasing notes replace PO notes on the production copy</td><td>Carried over and printed for POM</td><td>Seen on CS-38659</td><td><span class="pill ok">Done</span></td><td>14</td></tr>
+      <tr><td class="id">D2</td><td>2XL and up use their own price for the royalty</td><td>Royalty per size</td><td>Data: $1.69 / $1.96 / $2.05 = 10% of each size's price</td><td><span class="pill ok">Done</span></td><td>8</td></tr>
+      <tr><td class="id">D3</td><td>Starting price allows for the royalty. A typed price is never changed</td><td>Done</td><td>Tests</td><td><span class="pill ok">Done</span></td><td>8</td></tr>
+      <tr><td class="id">D4</td><td>Misc is its own cost box and its own POM section</td><td>Done</td><td>Seen</td><td><span class="pill ok">Done</span></td><td>9, 12</td></tr>
+      <tr><td class="id">D5</td><td>Single order quantity and price per piece come off the customer PDF</td><td>Removed</td><td>Seen in the customer PDF</td><td><span class="pill ok">Done</span></td><td>13</td></tr>
+      <tr><td class="id">D6</td><td>POM Freight and Royalty columns only when the sheet has them</td><td>Shown only when present</td><td>Seen on CS-38658, absent on Contract CS-38461</td><td><span class="pill ok">Done</span></td><td>12, 19</td></tr>
+
+      <tr class="group"><td colspan="6">Other things said on the call</td></tr>
+      <tr><td class="id">E1</td><td>Contract: the catalog is the customer price, no margin <span class="t">03:17</span></td><td>Contract = catalog price + add-ons, no margin</td><td>Data: Nicole's 36 pc example = $5.60 on the live rates. Video recorded</td><td><span class="pill ok">Done</span></td><td>15</td></tr>
+      <tr><td class="id">E2</td><td>Foil uses the workbook formula <span class="t">1:23:18</span></td><td>$0.42 + ($0.373 ÷ 12) × (height + 1)</td><td>Seen: 10 in = $0.76</td><td><span class="pill ok">Done</span></td><td>6</td></tr>
+      <tr><td class="id">F1</td><td>DTF size column limits (not settled on the call)</td><td>Columns read "up to": 25 in column 1, 50 in column 2, 100 in column 3, over 100 quoted</td><td>Data: 21 of 21 price checks pass on the live rates. Tests pass. Asking Nicole to confirm in the reply</td><td><span class="pill new">New 10/13</span></td><td>18</td></tr>
+      <tr><td class="id">F2</td><td>Extra location discount: keep or stop</td><td>Still 15% off the 2nd to 4th screen print location</td><td>Question is in the 10/1 email</td><td><span class="pill wait">Open</span></td><td>–</td></tr>
+      <tr><td class="id">F3</td><td>Nicole sends the licensor list</td><td>Using None, Smokey 10%, Woodsy 10%, Coca-Cola 12%</td><td>Waiting on Nicole</td><td><span class="pill wait">Open</span></td><td>–</td></tr>
+      <tr><td class="id">F4</td><td>One real Contract job and one real Third Party job <span class="t">28:15</span></td><td>Builder is ready</td><td>Ask them to run one of each on the call</td><td><span class="pill wait">Open</span></td><td>–</td></tr>
+
+      <tr class="group"><td colspan="6">Fixed today (Oct 13)</td></tr>
+      <tr><td class="id">G1</td><td>Contract box showed the price twice (Blair)</td><td>One number per box. "Rate card $x" shows only when the price is typed over</td><td>Seen (before and after), tests pass, deployed to the sandbox</td><td><span class="pill new">New 10/13</span></td><td>15 – 17</td></tr>
+      <tr><td class="id">G2</td><td>No semicolons in any text (Blair)</td><td>44 builder texts and the Salesforce messages rewritten</td><td>Text scan of the build: none left (one in Paradies's own rate data, left as is)</td><td><span class="pill new">New 10/13</span></td><td>21</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="open">
+  <h2>3. Still open</h2>
+  <p class="sub">Not ours to close alone.</p>
+  <ul class="open">
+    <li><b>Reply to Nicole:</b> send it with the v2 clip from your Desktop and the DTF line below.</li>
+    <li><b>From Paradies:</b> extra location discount answer (F2), licensor list (F3), one real Contract and Third Party job (F4).</li>
+    <li><b>With Josh:</b> invoice description and the signed website contract.</li>
+  </ul>
+  <p class="label">DTF line for the Nicole reply (after the $5.60 sentence)</p>
+  <blockquote><p>One thing to check on DTF: we read the column headings as "up to", so a transfer of exactly 25 square inches, like a 5x5 left chest, prices in the first column, exactly 50 in the second and exactly 100 in the third. Let us know if any of those should move up a column instead.</p></blockquote>
+</section>
+</div>
+<script>
+(function () {
+  var KEY = "liveReviewSteps1013";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("ol.steps input"));
+  var saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { saved = []; }
+  function render() {
+    var done = 0;
+    boxes.forEach(function (b) { b.closest("li").classList.toggle("done", b.checked); if (b.checked) done++; });
+    document.getElementById("count").textContent = done;
+    document.getElementById("total").textContent = boxes.length;
+    document.getElementById("fill").style.width = (100 * done / boxes.length) + "%";
+  }
+  boxes.forEach(function (b, i) {
+    b.checked = saved[i] === true;
+    b.addEventListener("change", function () {
+      try { localStorage.setItem(KEY, JSON.stringify(boxes.map(function (x) { return x.checked; }))); } catch (e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
