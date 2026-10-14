@@ -109,14 +109,14 @@ blockquote p { margin: 0; }
     <li><input type="checkbox"><span class="num">11</span><span class="txt">Step 5: type Actual Order Quantity <b>1,248</b>. Finalize.</span></li>
     <li><input type="checkbox"><span class="num">12</span><span class="txt">Click <b>View PDF</b> (POM).<span class="see">Sheet name is the title. SEA-124 (DEMO) at the top of the Item column, above Design ID. 1,248 first and large, priced at the 1,200 break. One row per size: blank, P&amp;T, packing, quoted price, margin. No Est. contract value or Est. margin $. Decoration details with no location and no dollars. Purchasing notes under Blank vendor. One page. Items 11 to 17.</span></span></li>
     <li><input type="checkbox"><span class="num">13</span><span class="txt">Click <b>Customer PDF</b>.<span class="see">One page. Sizes down the side, breaks across the top. Same title and Item column. No costs, margins or purchasing notes. No Customer PO #, Design ID or Padneck ID. Licensing # only if it has one. Items 18 to 20.</span></span></li>
-    <li><input type="checkbox"><span class="num">14</span><span class="txt">Click <b>Create production copy</b>.<span class="see">No Variance. Purchasing notes carried over. Order quantity, PO # and ship date are open. The rest is locked. Item 10.</span></span></li>
+    <li><input type="checkbox"><span class="num">14</span><span class="txt">Click <b>Create production copy</b>.<span class="see">No Variance. Purchasing notes carried over. Order quantity and ship date are open, the ship date is a date picker. No Customer PO # here (Nicole, 10/14). The rest is locked. Item 10.</span></span></li>
   </ol>
 
   <h3>B. Contract (Nicole's example)</h3>
   <ol class="steps">
     <li><input type="checkbox"><span class="num">15</span><span class="txt">Open <b>Contract example - 36 pcs, puff, hang tag</b>. Go to Step 3.<span class="see">Each box shows the price once. MOQ 36 = $5.60 ($5.00 print + $0.30 puff + $0.30 hang tag).</span></span></li>
-    <li><input type="checkbox"><span class="num">16</span><span class="txt">Type 6.00 over the 5.60, then clear it. Do not save.<span class="see">While typed over, "Rate card $5.60" shows under the box. Cleared, it goes back to one number.</span></span></li>
-    <li><input type="checkbox"><span class="num">17</span><span class="txt">Go to Step 5.<span class="see">The total tile reads "Rate card price $5.60", with no arrow.</span></span></li>
+    <li><input type="checkbox"><span class="num">16</span><span class="txt">Type 6.00 over the 5.60, then clear it. Do not save.<span class="see">While typed over, "Contract Price $5.60" shows under the box. Cleared, it goes back to one number.</span></span></li>
+    <li><input type="checkbox"><span class="num">17</span><span class="txt">Go to Step 5.<span class="see">The total tile reads "Contract Price $5.60", with no arrow.</span></span></li>
     <li><input type="checkbox"><span class="num">18</span><span class="txt">New Contract sheet, 36 pcs, one DTF line. Try 5 x 5, then 5 x 10, then 10 x 10, then 10 x 10.1.<span class="see">$3.91 (25 sq in), $5.39 (50 sq in), $7.45 (100 sq in), then "needs a quote" (101 sq in).</span></span></li>
     <li><input type="checkbox"><span class="num">19</span><span class="txt">Open the Contract POM PDF.<span class="see">Purchasing notes print in their own Purchasing column.</span></span></li>
   </ol>
@@ -183,7 +183,7 @@ blockquote p { margin: 0; }
       <tr><td class="id">F4</td><td>One real Contract job and one real Third Party job <span class="t">28:15</span></td><td>Builder is ready</td><td>Ask them to run one of each on the call</td><td><span class="pill wait">Open</span></td><td>–</td></tr>
 
       <tr class="group"><td colspan="6">Fixed today (Oct 13)</td></tr>
-      <tr><td class="id">G1</td><td>Contract box showed the price twice (Blair)</td><td>One number per box. "Rate card $x" shows only when the price is typed over</td><td>Seen (before and after), tests pass, deployed to the sandbox</td><td><span class="pill new">New 10/13</span></td><td>15 – 17</td></tr>
+      <tr><td class="id">G1</td><td>Contract box showed the price twice (Blair)</td><td>One number per box. "Contract Price $x" (named Rate card until 10/14) shows only when the price is typed over</td><td>Seen (before and after), tests pass, deployed to the sandbox</td><td><span class="pill new">New 10/13</span></td><td>15 – 17</td></tr>
       <tr><td class="id">G2</td><td>No semicolons in any text (Blair)</td><td>44 builder texts and the Salesforce messages rewritten</td><td>Text scan of the build: none left (one in Paradies's own rate data, left as is)</td><td><span class="pill new">New 10/13</span></td><td>21</td></tr>
     </tbody>
   </table>
