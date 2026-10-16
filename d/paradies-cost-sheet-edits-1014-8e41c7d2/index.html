@@ -1,222 +1,3026 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Cost Sheet Edits 10/14</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
-<style>
-  :root {
-    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec;
-    --ink:#16201d; --ink-soft:#3c4a45; --ink-faint:#6d7b75;
-    --line:#d7ddd4; --line-soft:#e5e9e1;
-    --accent:#0d7a6e; --accent-2:#0a5f56; --accent-wash:#e2efeb;
-    --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
-    --code-bg:#f0f3ee;
-    --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
-    --serif:"Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
-    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
-  }
-  @media (prefers-color-scheme: dark){ :root{
-    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723;
-    --ink:#e7ede9; --ink-soft:#b3c0ba; --ink-faint:#7f8f88;
-    --line:#2a3631; --line-soft:#222d29;
-    --accent:#4fd0be; --accent-2:#6fdccb; --accent-wash:#16302b;
-    --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
-    --code-bg:#131b18;
-    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
-  }}
-  :root[data-theme="light"]{
-    --paper:#f6f7f4; --surface:#ffffff; --surface-2:#eef1ec; --ink:#16201d; --ink-soft:#3c4a45;
-    --ink-faint:#6d7b75; --line:#d7ddd4; --line-soft:#e5e9e1; --accent:#0d7a6e; --accent-2:#0a5f56;
-    --accent-wash:#e2efeb; --amber:#a35a12; --amber-wash:#f4e9d9; --rose:#a3323f; --rose-wash:#f3e0e1;
-    --code-bg:#f0f3ee; --shadow:0 1px 2px rgba(22,32,29,.05), 0 8px 28px -18px rgba(22,32,29,.35);
-  }
-  :root[data-theme="dark"]{
-    --paper:#101614; --surface:#161e1b; --surface-2:#1c2723; --ink:#e7ede9; --ink-soft:#b3c0ba;
-    --ink-faint:#7f8f88; --line:#2a3631; --line-soft:#222d29; --accent:#4fd0be; --accent-2:#6fdccb;
-    --accent-wash:#16302b; --amber:#d89a4e; --amber-wash:#322414; --rose:#e08893; --rose-wash:#331b1e;
-    --code-bg:#131b18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px -20px rgba(0,0,0,.8);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
-  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
-    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
-  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Cost Sheet Edits 10/14</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>"
+    />
+    <style>
+      :root {
+        --paper: #f6f7f4;
+        --surface: #ffffff;
+        --surface-2: #eef1ec;
+        --ink: #16201d;
+        --ink-soft: #3c4a45;
+        --ink-faint: #6d7b75;
+        --line: #d7ddd4;
+        --line-soft: #e5e9e1;
+        --accent: #0d7a6e;
+        --accent-2: #0a5f56;
+        --accent-wash: #e2efeb;
+        --amber: #a35a12;
+        --amber-wash: #f4e9d9;
+        --rose: #a3323f;
+        --rose-wash: #f3e0e1;
+        --code-bg: #f0f3ee;
+        --shadow:
+          0 1px 2px rgba(22, 32, 29, 0.05),
+          0 8px 28px -18px rgba(22, 32, 29, 0.35);
+        --serif:
+          "Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+          serif;
+        --sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+          "Helvetica Neue", Arial, sans-serif;
+        --mono:
+          ui-monospace, "SF Mono", "SFMono-Regular", "Cascadia Code", Menlo,
+          Consolas, monospace;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #101614;
+          --surface: #161e1b;
+          --surface-2: #1c2723;
+          --ink: #e7ede9;
+          --ink-soft: #b3c0ba;
+          --ink-faint: #7f8f88;
+          --line: #2a3631;
+          --line-soft: #222d29;
+          --accent: #4fd0be;
+          --accent-2: #6fdccb;
+          --accent-wash: #16302b;
+          --amber: #d89a4e;
+          --amber-wash: #322414;
+          --rose: #e08893;
+          --rose-wash: #331b1e;
+          --code-bg: #131b18;
+          --shadow:
+            0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 34px -20px rgba(0, 0, 0, 0.8);
+        }
+      }
+      :root[data-theme="light"] {
+        --paper: #f6f7f4;
+        --surface: #ffffff;
+        --surface-2: #eef1ec;
+        --ink: #16201d;
+        --ink-soft: #3c4a45;
+        --ink-faint: #6d7b75;
+        --line: #d7ddd4;
+        --line-soft: #e5e9e1;
+        --accent: #0d7a6e;
+        --accent-2: #0a5f56;
+        --accent-wash: #e2efeb;
+        --amber: #a35a12;
+        --amber-wash: #f4e9d9;
+        --rose: #a3323f;
+        --rose-wash: #f3e0e1;
+        --code-bg: #f0f3ee;
+        --shadow:
+          0 1px 2px rgba(22, 32, 29, 0.05),
+          0 8px 28px -18px rgba(22, 32, 29, 0.35);
+      }
+      :root[data-theme="dark"] {
+        --paper: #101614;
+        --surface: #161e1b;
+        --surface-2: #1c2723;
+        --ink: #e7ede9;
+        --ink-soft: #b3c0ba;
+        --ink-faint: #7f8f88;
+        --line: #2a3631;
+        --line-soft: #222d29;
+        --accent: #4fd0be;
+        --accent-2: #6fdccb;
+        --accent-wash: #16302b;
+        --amber: #d89a4e;
+        --amber-wash: #322414;
+        --rose: #e08893;
+        --rose-wash: #331b1e;
+        --code-bg: #131b18;
+        --shadow:
+          0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 34px -20px rgba(0, 0, 0, 0.8);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          transition: none !important;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      .wrap {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
 
-  /* masthead */
-  header.mast{border-bottom:1px solid var(--line);
-    background:radial-gradient(120% 140% at 88% -20%, var(--accent-wash) 0%, transparent 55%), var(--surface);}
-  .mast-inner{padding:52px 0 40px;}
-  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
-    color:var(--accent-2); margin:0 0 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
-  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
-  h1.title{font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5.4vw,3.5rem);
-    line-height:1.04; letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance;}
-  h1.title span{color:var(--accent-2);}
-  .lede{font-size:1.12rem; color:var(--ink-soft); max-width:62ch; margin:0 0 30px; line-height:1.6;}
-  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
-    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
-  .meta-cell{background:var(--surface); padding:14px 16px;}
-  .meta-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
-  .meta-cell .v{font-size:.92rem; font-weight:600; color:var(--ink);}
-  .meta-cell .v.mono{font-family:var(--mono); font-weight:500; font-size:.82rem;}
+      /* masthead */
+      header.mast {
+        border-bottom: 1px solid var(--line);
+        background:
+          radial-gradient(
+            120% 140% at 88% -20%,
+            var(--accent-wash) 0%,
+            transparent 55%
+          ),
+          var(--surface);
+      }
+      .mast-inner {
+        padding: 52px 0 40px;
+      }
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-2);
+        margin: 0 0 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .eyebrow .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      h1.title {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: clamp(2.3rem, 5.4vw, 3.5rem);
+        line-height: 1.04;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+        text-wrap: balance;
+      }
+      h1.title span {
+        color: var(--accent-2);
+      }
+      .lede {
+        font-size: 1.12rem;
+        color: var(--ink-soft);
+        max-width: 62ch;
+        margin: 0 0 30px;
+        line-height: 1.6;
+      }
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .meta-cell {
+        background: var(--surface);
+        padding: 14px 16px;
+      }
+      .meta-cell .k {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 5px;
+      }
+      .meta-cell .v {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .meta-cell .v.mono {
+        font-family: var(--mono);
+        font-weight: 500;
+        font-size: 0.82rem;
+      }
 
-  /* sticky TOC */
-  nav.toc{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
-    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
-  .toc-inner{display:flex; gap:4px; flex-wrap:wrap; padding:10px 0; align-items:center;}
-  .toc a{font-size:.82rem; color:var(--ink-soft); text-decoration:none; padding:6px 12px;
-    border-radius:999px; font-weight:500; transition:background .15s,color .15s; white-space:nowrap;}
-  .toc a:hover{background:var(--surface-2); color:var(--ink);}
-  .toc a .num{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); margin-right:6px;}
-  .toc .spacer{flex:1;}
-  #themeToggle{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
-    background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;}
-  #themeToggle:hover{color:var(--ink); border-color:var(--accent);}
-  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+      /* sticky TOC */
+      nav.toc {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: color-mix(in srgb, var(--paper) 86%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .toc-inner {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        padding: 10px 0;
+        align-items: center;
+      }
+      .toc a {
+        font-size: 0.82rem;
+        color: var(--ink-soft);
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-weight: 500;
+        transition:
+          background 0.15s,
+          color 0.15s;
+        white-space: nowrap;
+      }
+      .toc a:hover {
+        background: var(--surface-2);
+        color: var(--ink);
+      }
+      .toc a .num {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--accent-2);
+        margin-right: 6px;
+      }
+      .toc .spacer {
+        flex: 1;
+      }
+      #themeToggle {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: var(--surface-2);
+        color: var(--ink-soft);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+      #themeToggle:hover {
+        color: var(--ink);
+        border-color: var(--accent);
+      }
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
 
-  /* sections */
-  section.stream{padding:56px 0 12px; border-bottom:1px solid var(--line-soft);}
-  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
-  .sec-num{font-family:var(--mono); font-size:.9rem; color:var(--accent-2); font-weight:600;}
-  h2.sec-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.6vw,2.25rem);
-    letter-spacing:-.01em; margin:0; line-height:1.1; text-wrap:balance;}
-  .sec-sub{color:var(--ink-faint); font-size:.95rem; margin:6px 0 24px; max-width:66ch;}
+      /* sections */
+      section.stream {
+        padding: 56px 0 12px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .sec-head {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+      .sec-num {
+        font-family: var(--mono);
+        font-size: 0.9rem;
+        color: var(--accent-2);
+        font-weight: 600;
+      }
+      h2.sec-title {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: clamp(1.7rem, 3.6vw, 2.25rem);
+        letter-spacing: -0.01em;
+        margin: 0;
+        line-height: 1.1;
+        text-wrap: balance;
+      }
+      .sec-sub {
+        color: var(--ink-faint);
+        font-size: 0.95rem;
+        margin: 6px 0 24px;
+        max-width: 66ch;
+      }
 
-  /* status pills */
-  .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px;
-    letter-spacing:.05em; text-transform:uppercase; font-weight:600; padding:4px 10px; border-radius:999px;
-    border:1px solid transparent; white-space:nowrap;}
-  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
-  .pill.live{color:var(--accent-2); background:var(--accent-wash); border-color:color-mix(in srgb, var(--accent) 30%, transparent);}
-  .pill.sandbox{color:var(--amber); background:var(--amber-wash); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
-  .pill.pending{color:var(--rose); background:var(--rose-wash); border-color:color-mix(in srgb, var(--rose) 30%, transparent);}
+      /* status pills */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .pill::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .pill.live {
+        color: var(--accent-2);
+        background: var(--accent-wash);
+        border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+      }
+      .pill.sandbox {
+        color: var(--amber);
+        background: var(--amber-wash);
+        border-color: color-mix(in srgb, var(--amber) 30%, transparent);
+      }
+      .pill.pending {
+        color: var(--rose);
+        background: var(--rose-wash);
+        border-color: color-mix(in srgb, var(--rose) 30%, transparent);
+      }
 
-  h3{font-family:var(--sans); font-weight:700; font-size:1.06rem; letter-spacing:-.005em;
-    margin:34px 0 12px; color:var(--ink); display:flex; align-items:center; gap:9px;}
-  h3 .tag{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--ink-faint); border:1px solid var(--line); border-radius:5px; padding:2px 7px; font-weight:500;}
-  h4{font-size:.95rem; font-weight:700; margin:22px 0 8px; color:var(--ink);}
-  p{margin:0 0 14px;} p,li{color:var(--ink-soft);}
-  strong{color:var(--ink); font-weight:650;}
-  a.inl{color:var(--accent-2); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);}
-  a.inl:hover{border-bottom-color:var(--accent);}
-  ul.tight{margin:0 0 16px; padding-left:20px;} ul.tight li{margin-bottom:7px;}
-  code{font-family:var(--mono); font-size:.84em; background:var(--code-bg); padding:1.5px 6px; border-radius:5px; color:var(--ink); border:1px solid var(--line-soft);}
+      h3 {
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: 1.06rem;
+        letter-spacing: -0.005em;
+        margin: 34px 0 12px;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      h3 .tag {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 2px 7px;
+        font-weight: 500;
+      }
+      h4 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin: 22px 0 8px;
+        color: var(--ink);
+      }
+      p {
+        margin: 0 0 14px;
+      }
+      p,
+      li {
+        color: var(--ink-soft);
+      }
+      strong {
+        color: var(--ink);
+        font-weight: 650;
+      }
+      a.inl {
+        color: var(--accent-2);
+        text-decoration: none;
+        border-bottom: 1px solid
+          color-mix(in srgb, var(--accent) 40%, transparent);
+      }
+      a.inl:hover {
+        border-bottom-color: var(--accent);
+      }
+      ul.tight {
+        margin: 0 0 16px;
+        padding-left: 20px;
+      }
+      ul.tight li {
+        margin-bottom: 7px;
+      }
+      code {
+        font-family: var(--mono);
+        font-size: 0.84em;
+        background: var(--code-bg);
+        padding: 1.5px 6px;
+        border-radius: 5px;
+        color: var(--ink);
+        border: 1px solid var(--line-soft);
+      }
 
-  /* cards + grid */
-  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow); margin:18px 0;}
-  .card.flush{padding:0; overflow:hidden;}
-  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
-  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+      /* cards + grid */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 22px 24px;
+        box-shadow: var(--shadow);
+        margin: 18px 0;
+      }
+      .card.flush {
+        padding: 0;
+        overflow: hidden;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      @media (max-width: 720px) {
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
 
-  /* callouts */
-  .callout{border-left:3px solid var(--accent); background:var(--accent-wash); padding:14px 18px; border-radius:0 10px 10px 0; margin:18px 0;}
-  .callout.warn{border-left-color:var(--amber); background:var(--amber-wash);}
-  .callout .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:6px; color:var(--ink);}
-  .callout p{margin:0; font-size:.92rem; color:var(--ink-soft);}
+      /* callouts */
+      .callout {
+        border-left: 3px solid var(--accent);
+        background: var(--accent-wash);
+        padding: 14px 18px;
+        border-radius: 0 10px 10px 0;
+        margin: 18px 0;
+      }
+      .callout.warn {
+        border-left-color: var(--amber);
+        background: var(--amber-wash);
+      }
+      .callout .lbl {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--ink);
+      }
+      .callout p {
+        margin: 0;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+      }
 
-  /* code block */
-  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:16px 18px; overflow-x:auto; margin:16px 0;}
-  pre code{background:none; border:none; padding:0; font-size:.82rem; line-height:1.7; color:var(--ink);}
-  .cm{color:var(--ink-faint);} .kw{color:var(--accent-2); font-weight:600;}
+      /* code block */
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        margin: 16px 0;
+      }
+      pre code {
+        background: none;
+        border: none;
+        padding: 0;
+        font-size: 0.82rem;
+        line-height: 1.7;
+        color: var(--ink);
+      }
+      .cm {
+        color: var(--ink-faint);
+      }
+      .kw {
+        color: var(--accent-2);
+        font-weight: 600;
+      }
 
-  /* tables */
-  .tbl-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface); box-shadow:var(--shadow);}
-  table{width:100%; border-collapse:collapse; font-size:.88rem; min-width:460px;}
-  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
-    text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600;}
-  tbody td{padding:11px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top;}
-  tbody tr:last-child td{border-bottom:none;}
-  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.84rem;}
-  td.name{color:var(--ink); font-weight:600;}
-  tbody tr:hover td{background:color-mix(in srgb, var(--accent-wash) 40%, transparent);}
-  .up{color:var(--accent-2); font-weight:600;} .down{color:var(--rose); font-weight:600;}
+      /* tables */
+      .tbl-scroll {
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        margin: 16px 0;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+        min-width: 460px;
+      }
+      thead th {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        text-align: left;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-2);
+        font-weight: 600;
+      }
+      tbody td {
+        padding: 11px 16px;
+        border-bottom: 1px solid var(--line-soft);
+        color: var(--ink-soft);
+        vertical-align: top;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      td.num,
+      th.num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        font-family: var(--mono);
+        font-size: 0.84rem;
+      }
+      td.name {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      tbody tr:hover td {
+        background: color-mix(in srgb, var(--accent-wash) 40%, transparent);
+      }
+      .up {
+        color: var(--accent-2);
+        font-weight: 600;
+      }
+      .down {
+        color: var(--rose);
+        font-weight: 600;
+      }
 
-  /* drill-down table — collapsible roll-up with aligned numeric columns (native details/summary, no JS).
+      /* drill-down table — collapsible roll-up with aligned numeric columns (native details/summary, no JS).
      .drill-head labels the columns even when every group is collapsed. Fixed-width right-aligned
      .dnums .c/.v keep numbers in one straight column at every depth; left-padding steps (20 -> 34 -> 46)
      signal hierarchy while right padding stays 20 so the number columns line up across all levels.
      Inherits every doc-identity token, so it themes light/dark for free. */
-  .drill-head{display:flex; justify-content:flex-end; gap:22px; padding:2px 20px 8px; color:var(--ink-faint);
-    font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
-  .dnums{font-family:var(--mono); font-variant-numeric:tabular-nums; display:inline-flex; gap:22px;}
-  .dnums .c,.drill-head .c{width:56px; text-align:right;} .dnums .v,.drill-head .v{width:132px; text-align:right;}
-  details.drill{border:1px solid var(--line); border-radius:12px; margin:12px 0; background:var(--surface); box-shadow:var(--shadow); overflow:hidden;}
-  details.drill>summary{cursor:pointer; padding:14px 20px; font-family:var(--serif); font-size:1.15rem; font-weight:600;
-    color:var(--ink); list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:baseline; background:var(--surface-2);}
-  details.drill>summary::-webkit-details-marker{display:none;} details.drill>summary .dnums{color:var(--ink-soft);}
-  details.drill-2>summary{cursor:pointer; padding:10px 20px 10px 34px; font-weight:600; color:var(--ink-soft);
-    list-style:none; display:flex; justify-content:space-between; gap:16px; border-top:1px solid var(--line-soft);}
-  details.drill-2>summary::-webkit-details-marker{display:none;} details.drill-2[open]>summary{color:var(--ink);}
-  .drill-leaf{display:flex; justify-content:space-between; gap:16px; padding:8px 20px 8px 46px;
-    border-top:1px solid var(--line-soft); color:var(--ink-soft); font-size:.9rem;}
+      .drill-head {
+        display: flex;
+        justify-content: flex-end;
+        gap: 22px;
+        padding: 2px 20px 8px;
+        color: var(--ink-faint);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .dnums {
+        font-family: var(--mono);
+        font-variant-numeric: tabular-nums;
+        display: inline-flex;
+        gap: 22px;
+      }
+      .dnums .c,
+      .drill-head .c {
+        width: 56px;
+        text-align: right;
+      }
+      .dnums .v,
+      .drill-head .v {
+        width: 132px;
+        text-align: right;
+      }
+      details.drill {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        margin: 12px 0;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      details.drill > summary {
+        cursor: pointer;
+        padding: 14px 20px;
+        font-family: var(--serif);
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--ink);
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: baseline;
+        background: var(--surface-2);
+      }
+      details.drill > summary::-webkit-details-marker {
+        display: none;
+      }
+      details.drill > summary .dnums {
+        color: var(--ink-soft);
+      }
+      details.drill-2 > summary {
+        cursor: pointer;
+        padding: 10px 20px 10px 34px;
+        font-weight: 600;
+        color: var(--ink-soft);
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid var(--line-soft);
+      }
+      details.drill-2 > summary::-webkit-details-marker {
+        display: none;
+      }
+      details.drill-2[open] > summary {
+        color: var(--ink);
+      }
+      .drill-leaf {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 8px 20px 8px 46px;
+        border-top: 1px solid var(--line-soft);
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+      }
 
-  /* metric tiles */
-  .metrics{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
-    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;}
-  .metric{background:var(--surface); padding:18px 16px;}
-  .metric .val{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--ink); line-height:1; letter-spacing:-.02em;}
-  .metric .val small{font-size:.95rem; color:var(--accent-2); font-weight:600;}
-  .metric .cap{font-size:.78rem; color:var(--ink-faint); margin-top:7px; line-height:1.35;}
+      /* metric tiles */
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0;
+      }
+      .metric {
+        background: var(--surface);
+        padding: 18px 16px;
+      }
+      .metric .val {
+        font-family: var(--serif);
+        font-size: 1.9rem;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .metric .val small {
+        font-size: 0.95rem;
+        color: var(--accent-2);
+        font-weight: 600;
+      }
+      .metric .cap {
+        font-size: 0.78rem;
+        color: var(--ink-faint);
+        margin-top: 7px;
+        line-height: 1.35;
+      }
 
-  /* field-reference rows */
-  .fields{display:flex; flex-direction:column; gap:0;}
-  .field-row{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,2fr); gap:18px; padding:13px 0; border-bottom:1px solid var(--line-soft);}
-  .field-row:last-child{border-bottom:none;}
-  .field-row .api{font-family:var(--mono); font-size:.8rem; color:var(--accent-2); word-break:break-word;}
-  .field-row .api .obj{color:var(--ink-faint);}
-  .field-row .desc{font-size:.88rem; color:var(--ink-soft);}
-  @media (max-width:640px){ .field-row{grid-template-columns:1fr; gap:4px;} }
+      /* field-reference rows */
+      .fields {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .field-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 2fr);
+        gap: 18px;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .field-row:last-child {
+        border-bottom: none;
+      }
+      .field-row .api {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        color: var(--accent-2);
+        word-break: break-word;
+      }
+      .field-row .api .obj {
+        color: var(--ink-faint);
+      }
+      .field-row .desc {
+        font-size: 0.88rem;
+        color: var(--ink-soft);
+      }
+      @media (max-width: 640px) {
+        .field-row {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+      }
 
-  /* source index */
-  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin:40px 0 2px;}
-  .src-list{display:grid; gap:10px;}
-  .src{display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:1px solid var(--line);
-    border-radius:10px; text-decoration:none; transition:border-color .15s, transform .12s;}
-  .src:hover{border-color:var(--accent); transform:translateX(2px);}
-  .src .gid{font-family:var(--mono); font-size:.72rem; color:var(--accent-2); background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap; margin-top:1px;}
-  .src .st{flex:1;} .src .st .nm{color:var(--ink); font-weight:600; font-size:.92rem;}
-  .src .st .dt{color:var(--ink-faint); font-size:.78rem; font-family:var(--mono); margin-top:2px;}
-  .src .arr{color:var(--ink-faint); font-size:1.1rem;}
+      /* source index */
+      .kicker {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent-2);
+        font-weight: 600;
+        margin: 40px 0 2px;
+      }
+      .src-list {
+        display: grid;
+        gap: 10px;
+      }
+      .src {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 13px 16px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        text-decoration: none;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .src:hover {
+        border-color: var(--accent);
+        transform: translateX(2px);
+      }
+      .src .gid {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--accent-2);
+        background: var(--accent-wash);
+        padding: 3px 8px;
+        border-radius: 6px;
+        white-space: nowrap;
+        margin-top: 1px;
+      }
+      .src .st {
+        flex: 1;
+      }
+      .src .st .nm {
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 0.92rem;
+      }
+      .src .st .dt {
+        color: var(--ink-faint);
+        font-size: 0.78rem;
+        font-family: var(--mono);
+        margin-top: 2px;
+      }
+      .src .arr {
+        color: var(--ink-faint);
+        font-size: 1.1rem;
+      }
 
-  footer{padding:44px 0 60px; color:var(--ink-faint); font-size:.84rem;}
-  footer .fmono{font-family:var(--mono); font-size:.78rem;}
-  hr.soft{border:none; border-top:1px solid var(--line-soft); margin:34px 0;}
-</style>
-<style>
-  figure.shot{margin:12px 0 18px;} figure.shot img{display:block; max-width:100%; height:auto; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:var(--shadow);}
-  figure.shot figcaption{font-size:.9rem; color:var(--ink-soft); margin-top:8px;}
-  figure.shot .who{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
-  figure.shot a{display:block;}
-  .pair{display:grid; grid-template-columns:1fr; gap:0;}
-  .note{padding:26px 0 8px; border-top:1px solid var(--line-soft); scroll-margin-top:72px;}
-  .note:first-of-type{border-top:none;}
-  .note h3{margin:0 0 8px; flex-wrap:wrap;}
-  .note h3 .n{font-family:var(--mono); color:var(--accent-2); font-size:.95rem;}
-  .ask{margin:0 0 10px; max-width:72ch; font-size:.95rem; color:var(--ink-soft);}
-  .ask .k, .now .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:4px; font-style:normal;}
-  .ask .quote{font-style:italic; display:block;} .ask .ts{font-family:var(--mono); font-size:.8rem; color:var(--ink-faint); font-style:normal; margin-left:6px;}
-  .ask .para{font-style:normal; font-size:.82rem; color:var(--ink-faint);}
-  .now{margin:0 0 6px; max-width:72ch;}
-  .noshot{font-size:.9rem; color:var(--ink-faint); margin:4px 0 14px;}
-  .dec{padding:16px 0; border-top:1px solid var(--line-soft); scroll-margin-top:72px;} .dec:first-of-type{border-top:none;}
-  .dec h3{margin:0 0 4px; flex-wrap:wrap;}
-  section.stream{scroll-margin-top:72px;}
-  .toc-inner{flex-wrap:nowrap; gap:8px;}
-  .toc-links{display:flex; gap:4px; flex:1 1 auto; min-width:0; align-items:center;}
-  #themeToggle{flex:0 0 auto;}
-  .mast-inner{padding:52px 28px 40px;}
-  .toc-inner{padding:10px 28px;}
-  @media (max-width:640px){
-    .wrap{padding:0 16px;}
-    .mast-inner{padding:32px 16px 24px;}
-    .toc-inner{padding:6px 16px;}
-    .toc-links{overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
-      -webkit-mask-image:linear-gradient(to right,#000 80%,transparent); mask-image:linear-gradient(to right,#000 80%,transparent); padding-right:28px;}
-    .toc-links::-webkit-scrollbar{display:none;}
-    section.stream{padding-top:36px;}
-  }
-</style>
-</head><body><header class="mast"><div class="wrap mast-inner"><p class="eyebrow"><span class="dot"></span> Paradies · Cost Sheet Builder · Internal review</p><h1 class="title">Cost sheet edits <span>from the 10/14 note</span></h1><p class="lede">Every item in the “Cost Sheet Edits” note (N1 to N19), plus the clone question and the 4 answers emailed back. Each card quotes the exact words, with the page of the note or the answer they came from, then says what the builder or PDF does now. The screenshot from the note comes first, then the sandbox today.</p><div class="meta-grid"><div class="meta-cell"><div class="k">Items</div><div class="v">19 of 19 done</div></div><div class="meta-cell"><div class="k">Answers</div><div class="v">4 of 4 built in</div></div><div class="meta-cell"><div class="k">Suggested</div><div class="v">8 more, each undoable</div></div><div class="meta-cell"><div class="k">Where</div><div class="v">The sandbox</div></div><div class="meta-cell"><div class="k">Screenshots</div><div class="v mono">Oct 14 and 15, 2026</div></div></div></div></header><nav class="toc"><div class="wrap toc-inner"><div class="toc-links"><a href="#guide"><span class="num">01</span>Guided mode</a><a href="#summary"><span class="num">02</span>Samples</a><a href="#pdfs"><span class="num">03</span>PDFs</a><a href="#decoration"><span class="num">04</span>Decoration</a><a href="#clone"><span class="num">05</span>Copy a finalized sheet</a><a href="#suggested"><span class="num">06</span>Suggested changes</a></div><button id="themeToggle" aria-label="Toggle color theme">Theme</button></div></nav><main class="wrap"><section class="stream" id="guide"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Guided mode and help text</h2></div><p class="sec-sub">N1 to N7. Shown on the test copy of the Full Package sheet.</p><div class="note" id="n1"><h3><span class="n">N1</span>Full Package card shows once <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“In guided mode, the “full package” pop-up window comes up a second time after selecting it initially. Can we make sure this only comes up once”<span class="ts">p. 1</span></span></p><p class="now"><strong>Now:</strong> The “Pick Full Package” card now shows only while the sheet is not yet Full Package. In the note’s screenshot the mode was already selected, so today the guide skips that card, going forward and back. The list below is every card the guide shows today on a filled-in Full Package sheet, in order. There is no “Pick Full Package” card in it. (Quote details and Quantity tiers are skipped too, because they are filled in: suggested change S4.)</p><div class="tbl-scroll"><table><thead><tr><th class="num">#</th><th>Card</th></tr></thead><tbody><tr><td class="num">1</td><td class="name">Price a real job, end to end</td></tr><tr><td class="num">2</td><td class="name">Item Details come from their records</td></tr><tr><td class="num">3</td><td class="name">On to Decoration and Packing</td></tr><tr><td class="num">4</td><td class="name">Set up this line</td></tr><tr><td class="num">5</td><td class="name">Check this line</td></tr><tr><td class="num">6</td><td class="name">Another line?</td></tr><tr><td class="num">7</td><td class="name">Packing</td></tr><tr><td class="num">8</td><td class="name">On to Tiers &amp; sizes</td></tr><tr><td class="num">9</td><td class="name">Other cost factors</td></tr><tr><td class="num">10</td><td class="name">Your quoted price</td></tr><tr><td class="num">11</td><td class="name">Customer retail</td></tr><tr><td class="num">12</td><td class="name">On to Samples</td></tr><tr><td class="num">13</td><td class="name">Sample allocation</td></tr><tr><td class="num">14</td><td class="name">On to the Quote summary</td></tr><tr><td class="num">15</td><td class="name">Name the cost sheet</td></tr><tr><td class="num">16</td><td class="name">Check the figures you are quoting</td></tr><tr><td class="num">17</td><td class="name">Actual order quantity</td></tr><tr><td class="num">18</td><td class="name">How this price is built</td></tr><tr><td class="num">19</td><td class="name">The cost sheet lifecycle</td></tr><tr><td class="num">20</td><td class="name">Your price, start to finish</td></tr></tbody></table></div><figure class="shot"><div class="who">The note</div><a href="img/b01.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b01.png" alt="Screenshot from the note." width="988" height="518" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure></div><div class="note" id="n2"><h3><span class="n">N2</span>Size range card removed <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we remove this step from the blanks section in guided mode? This is popping up once all of the fields have been completed.”<span class="ts">p. 1</span></span></p><p class="now"><strong>Now:</strong> The “Size range and blank cost per size” card is gone. Step 1 no longer stops on the sizes. It goes on to On to Decoration and Packing.</p><figure class="shot"><div class="who">The note</div><a href="img/b02.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b02.png" alt="Screenshot from the note." width="988" height="386" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a02-after-quote-details.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a02-after-quote-details.png" alt="Step 1 with the blank costs filled in. The guide passes the size row (outlined) with no card and stops on On to Decoration and Packing (outlined)." width="1412" height="679" loading="lazy"></a><figcaption>Step 1 with the blank costs filled in. The guide passes the size row (outlined) with no card and stops on On to Decoration and Packing (outlined).</figcaption></figure></div><div class="note" id="n3"><h3><span class="n">N3</span>Name drops help text <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“On this step of the process, when scrolling over the “I” information button can we have it say “Number of additional name drops””<span class="ts">p. 2</span></span></p><p class="now"><strong>Now:</strong> The help icon next to Number of name drops reads exactly “Number of additional name drops”.</p><figure class="shot"><div class="who">The note</div><a href="img/b03.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b03.png" alt="Screenshot from the note." width="988" height="530" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a03-name-drops-help.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a03-name-drops-help.png" alt="Hovering the help icon shows the wording from the note." width="760" height="260" loading="lazy"></a><figcaption>Hovering the help icon shows the wording from the note.</figcaption></figure></div><div class="note" id="n4"><h3><span class="n">N4</span>Set up this line is the first decoration card <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we make thisstep in the decoration section step 1?”<span class="ts">p. 2</span></span></p><p class="now"><strong>Now:</strong> On Step 2 the guide opens on “Set up this line”. The old “Add the decoration” card is gone.</p><figure class="shot"><div class="who">The note</div><a href="img/b04.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b04.png" alt="Screenshot from the note." width="988" height="445" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a04-set-up-this-line.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a04-set-up-this-line.png" alt="First card on Decoration and Packing, outlined in red." width="1440" height="620" loading="lazy"></a><figcaption>First card on Decoration and Packing, outlined in red.</figcaption></figure></div><div class="note" id="n5"><h3><span class="n">N5</span>Packing help text <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we add in the information scroll-over section that the standard packaging includes a printer fold, box, pallet, and price ticket?”<span class="ts">p. 3</span></span></p><p class="now"><strong>Now:</strong> The help icon next to Standard bundle adds “Includes a printer fold, box, pallet, and price ticket.”</p><figure class="shot"><div class="who">The note</div><a href="img/b05.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b05.png" alt="Screenshot from the note." width="988" height="178" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a05-packing-help.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a05-packing-help.png" alt="Hovering the help icon on Standard bundle." width="900" height="280" loading="lazy"></a><figcaption>Hovering the help icon on Standard bundle.</figcaption></figure></div><div class="note" id="n6"><h3><span class="n">N6</span>Cost / Quote / Margin labels beside the sizes <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we add these labels next to the sizes as another column and have them labeled as follows : - Cost - Quote - Margin”<span class="ts">p. 3</span></span></p><p class="now"><strong>Now:</strong> Step 3 has a new column between the size and the first price break. Each size reads Cost, Quote, Margin. The “Each box: Total cost · Quoted price · Margin $ / Margin %” line underlined in the note is gone, because the new column says the same thing. Its help icons and the required mark for the quoted price sit on the Quote and Margin labels now.</p><figure class="shot"><div class="who">The note</div><a href="img/b06.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b06.png" alt="Screenshot from the note." width="988" height="270" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a06-cost-quote-margin.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a06-cost-quote-margin.png" alt="Step 3 on the test Full Package sheet. The label column, outlined, carries the help icons and the required mark. The line above the table is gone." width="1366" height="373" loading="lazy"></a><figcaption>Step 3 on the test Full Package sheet. The label column, outlined, carries the help icons and the required mark. The line above the table is gone.</figcaption></figure></div><div class="note" id="n7"><h3><span class="n">N7</span>Cost stack card removed <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we get rid of this section of the guided mode?”<span class="ts">p. 3</span></span></p><p class="now"><strong>Now:</strong> The “Cost stack at your quantity” card is gone. Step 3 now starts at Other cost factors.</p><div class="callout"><div class="lbl">Also done</div><p>The same card is gone from the Contract and Third Party guides too (suggested change S3, below).</p></div><figure class="shot"><div class="who">The note</div><a href="img/b07.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b07.png" alt="Screenshot from the note." width="988" height="363" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a07-step3-first-card.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a07-step3-first-card.png" alt="Step 3 in guided mode now opens on Other cost factors. The cost stack stays on the page with no card on it." width="1440" height="1000" loading="lazy"></a><figcaption>Step 3 in guided mode now opens on Other cost factors. The cost stack stays on the page with no card on it.</figcaption></figure></div></section><section class="stream" id="summary"><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Samples and quote summary</h2></div><p class="sec-sub">N8 to N11.</p><div class="note" id="n8"><h3><span class="n">N8</span>Display renamed to Control <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we rename “display” as “control””<span class="ts">p. 4</span></span></p><p class="now"><strong>Now:</strong> The sample recipient list reads Licensor, Buyer, Control, Other. The 6 existing sandbox samples marked Display now read Control.</p><figure class="shot"><div class="who">The note</div><a href="img/b08.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b08.png" alt="Screenshot from the note." width="988" height="192" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a08-control.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a08-control.png" alt="The recipient list, opened, with Control outlined." width="1408" height="402" loading="lazy"></a><figcaption>The recipient list, opened, with Control outlined.</figcaption></figure></div><div class="note" id="n9"><h3><span class="n">N9</span>Other gets a box <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“If we select “other,” can we add a box to qualify what that is?”<span class="ts">p. 4</span></span><span class="quote">“When &quot;Other&quot; is picked for a sample, should what you type print on the PDFs too? - Yes!”<span class="ts">Answer 3 (email)</span></span></p><p class="now"><strong>Now:</strong> Picking Other shows a text box under it. What is typed there saves with the sample and prints on the View PDF as “Other: …”. The customer PDF has no Samples section, so nothing about samples shows there.</p><figure class="shot"><div class="who">The note</div><a href="img/b09.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b09.png" alt="Screenshot from the note." width="988" height="183" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a09-other-box.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a09-other-box.png" alt="A sheet with an Other sample." width="1408" height="264" loading="lazy"></a><figcaption>A sheet with an Other sample.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a09-pdf-samples.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a09-pdf-samples.png" alt="The View PDF of a sheet with an Other sample, Samples section." width="895" height="110" loading="lazy"></a><figcaption>The View PDF of a sheet with an Other sample, Samples section.</figcaption></figure></div><div class="note" id="n10"><h3><span class="n">N10</span>Table left, pie chart on the right <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“On this section, can we left-justify the table information and instead of a bar graph on top, can we have a pie chart on the right?”<span class="ts">p. 5</span></span></p><p class="now"><strong>Now:</strong> On Step 5 the table sits on the left and a pie chart on the right. The bar is gone. Every slice is labeled with its name and share, and the shares match the table. Every row of the table lines up, Royalty included. The chart widens to fit a long slice name such as “Decoration (rate card)” (see N14). The pie’s title names no figure, because the total already shows in the table beside it. The color palette has 7 shades, so on a sheet with 8 parts two neighbors share one (Labeling and Packing here). Their labels tell them apart.</p><figure class="shot"><div class="who">The note</div><a href="img/b10.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b10.png" alt="Screenshot from the note." width="988" height="756" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a10-pie.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a10-pie.png" alt="Step 5 on the test Full Package sheet. The pie’s title is outlined." width="1392" height="677" loading="lazy"></a><figcaption>Step 5 on the test Full Package sheet. The pie’s title is outlined.</figcaption></figure></div><div class="note" id="n11"><h3><span class="n">N11</span>Finalize wording <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we reword this to say “Finalizing the cost sheet makes it permanent and cannot be edited.””<span class="ts">p. 5</span></span></p><p class="now"><strong>Now:</strong> The lifecycle card reads the sentence from the note word for word.</p><figure class="shot"><div class="who">The note</div><a href="img/b11.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b11.png" alt="Screenshot from the note." width="988" height="400" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a11-finalize-card-marked.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a11-finalize-card-marked.png" alt="The cost sheet lifecycle card in guided mode, with the new sentence outlined." width="1020" height="380" loading="lazy"></a><figcaption>The cost sheet lifecycle card in guided mode, with the new sentence outlined.</figcaption></figure></div></section><section class="stream" id="pdfs"><div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">PDFs and Contract wording</h2></div><p class="sec-sub">N12 to N15.</p><div class="note" id="n12"><h3><span class="n">N12</span>PDF size table headers centered <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“On this section of the PDF can we center justify the headers”<span class="ts">p. 6</span></span></p><p class="now"><strong>Now:</strong> The column headers over the size table are centered on their columns.</p><figure class="shot"><div class="who">The note</div><a href="img/b12.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b12.png" alt="Screenshot from the note." width="738" height="195" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a12-pom-headers-marked.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a12-pom-headers-marked.png" alt="View PDF of the test Full Package sheet. The centered headers are outlined." width="895" height="145" loading="lazy"></a><figcaption>View PDF of the test Full Package sheet. The centered headers are outlined.</figcaption></figure></div><div class="note" id="n13"><h3><span class="n">N13</span>PDF file name is the cost sheet name <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“When we export/save a pdf is is possible to have it generate the cost sheet name as the file name? For the customer PDF can it also download with the suffix “CUST””<span class="ts">p. 6</span></span></p><p class="now"><strong>Now:</strong> Saving a PDF suggests the cost sheet name as the file name. The customer PDF adds “ CUST”. Read from the live sandbox:</p><div class="tbl-scroll"><table><thead><tr><th>Sheet</th><th>View PDF saves as</th><th>Customer PDF saves as</th></tr></thead><tbody><tr><td class="name">Full Package sheet</td><td><code>Live check 10-13 - Full Package.pdf</code></td><td><code>Live check 10-13 - Full Package CUST.pdf</code></td></tr><tr><td class="name">Contract sheet</td><td><code>Contract example - 36 pcs, puff, hang tag.pdf</code></td><td><code>Contract example - 36 pcs, puff, hang tag CUST.pdf</code></td></tr></tbody></table></div><figure class="shot"><div class="who">The note</div><a href="img/b13.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b13.png" alt="Screenshot from the note. Chrome offers “CostSheetQuotePdf”." width="988" height="535" loading="lazy"></a><figcaption>Screenshot from the note. Chrome offers “CostSheetQuotePdf”.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a13-view-pdf-name.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a13-view-pdf-name.png" alt="View PDF of the test Full Package sheet. Chrome shows the sheet name, outlined in red." width="1280" height="250" loading="lazy"></a><figcaption>View PDF of the test Full Package sheet. Chrome shows the sheet name, outlined in red.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a13-cust-pdf-name.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a13-cust-pdf-name.png" alt="Customer PDF of the same sheet. The name ends in CUST." width="1280" height="250" loading="lazy"></a><figcaption>Customer PDF of the same sheet. The name ends in CUST.</figcaption></figure></div><div class="note" id="n14"><h3><span class="n">N14</span>“Rate card price” is now “Contract Price” <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we change “rate card price” to “Contract Price””<span class="ts">p. 7</span></span></p><p class="now"><strong>Now:</strong> Contract Price everywhere: the Step 5 table, the Step 3 cost stack, the production copy, and the PDF. The PDF prints the Contract Price only when a typed quoted price differs from it (S9).</p><figure class="shot"><div class="who">The note</div><a href="img/b14.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b14.png" alt="Screenshot from the note." width="988" height="310" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a14-contract-price-step5.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a14-contract-price-step5.png" alt="Step 5 table on the Contract example sheet, MOQ selected. The total row reads Contract Price (outlined)." width="1392" height="512" loading="lazy"></a><figcaption>Step 5 table on the Contract example sheet, MOQ selected. The total row reads Contract Price (outlined).</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a14-contract-price-step3.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a14-contract-price-step3.png" alt="Step 3 cost stack on the same sheet." width="1370" height="102" loading="lazy"></a><figcaption>Step 3 cost stack on the same sheet.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a14-contract-production-copy.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a14-contract-production-copy.png" alt="A Contract production copy. The total row reads Contract Price." width="576" height="283" loading="lazy"></a><figcaption>A Contract production copy. The total row reads Contract Price.</figcaption></figure></div><div class="note" id="n15"><h3><span class="n">N15</span>Contract PDF: sentence removed, add-ons under Decoration <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Can we remove the sentence under the MOQ breakdown? Can we also move the add-on prices below the decoration section? This way, all pricing and breakdowns are together, and the comp is at the bottom?”<span class="ts">p. 9</span></span></p><p class="now"><strong>Now:</strong> The sentence under the MOQ is gone. Add-ons sit right under Decoration, and the comp is at the bottom. The “Add-on” column header crossed out on page 8 is blank.</p><figure class="shot"><div class="who">The note</div><a href="img/b15.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b15.png" alt="The markup of the Contract PDF in the note (page 8)." width="988" height="1188" loading="lazy"></a><figcaption>The markup of the Contract PDF in the note (page 8).</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a15-contract-pdf.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a15-contract-pdf.png" alt="View PDF of the Contract example sheet." width="816" height="881" loading="lazy"></a><figcaption>View PDF of the Contract example sheet.</figcaption></figure></div></section><section class="stream" id="decoration"><div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Decoration and production copy</h2></div><p class="sec-sub">N16 to N18.</p><div class="note" id="n16"><h3><span class="n">N16</span>Embroidery and DTF show their standard rate <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“When we’re in the embroidery and DTF section, is there a way for the price to show up when we enter the stitch count/width and height? Like we see with the foil section where it shows the standard rate!”<span class="ts">p. 9</span></span></p><p class="now"><strong>Now:</strong> Embroidery shows its standard rate as soon as a stitch count is typed. DTF shows it once width and height are typed. The rate matches what the sheet prices (checked 12 of 12 against the pricing engine).</p><figure class="shot"><div class="who">The note</div><a href="img/b16.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b16.png" alt="Screenshot from the note." width="988" height="342" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">The note</div><a href="img/b16b.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b16b.png" alt="The foil row the note pointed to." width="988" height="153" loading="lazy"></a><figcaption>The foil row the note pointed to.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a16-embroidery-rate.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a16-embroidery-rate.png" alt="An Embroidery line: 8,000 stitches shows $2.59 at 144 pcs (outlined)." width="1370" height="423" loading="lazy"></a><figcaption>An Embroidery line: 8,000 stitches shows $2.59 at 144 pcs (outlined).</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a16-dtf-rate.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a16-dtf-rate.png" alt="DTF: 5 in by 5 in shows $0.60 at 144 pcs." width="900" height="107" loading="lazy"></a><figcaption>DTF: 5 in by 5 in shows $0.60 at 144 pcs.</figcaption></figure></div><div class="note" id="n17"><h3><span class="n">N17</span>Embroidery uses the same locations <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“It looks like the locations for just embroidery are different than everything else! Can we match these across the board?”<span class="ts">p. 10</span></span><span class="quote">“For matching embroidery locations, should embroidery use the same location list as screen print? - Yes!”<span class="ts">Answer 2 (email)</span></span></p><p class="now"><strong>Now:</strong> Embroidery now lists Screen Print’s locations. Saved lines that use Wearer’s Left or Right still open.</p><figure class="shot"><div class="who">The note</div><a href="img/b17.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b17.png" alt="Screenshot from the note: embroidery had its own short list." width="988" height="480" loading="lazy"></a><figcaption>Screenshot from the note: embroidery had its own short list.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a17-embroidery-locations.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a17-embroidery-locations.png" alt="A new embroidery line, list opened." width="700" height="242" loading="lazy"></a><figcaption>A new embroidery line, list opened.</figcaption></figure></div><div class="note" id="n18"><h3><span class="n">N18</span>Ship date picker, date on the PDF, no Customer PO # <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“Is there a specific date format we should be entering in here? I’ve tried a couple, but I keep getting this error message! Can this date also reflect on the PDF generated? Can we also remove “customer PO #” from this section?”<span class="ts">p. 10</span></span></p><p class="now"><strong>Now:</strong> Requested ship date is a date picker, so there is no format to type and no error. The date prints on the PDF. Customer PO # is gone from the section.</p><figure class="shot"><div class="who">The note</div><a href="img/b18.png" target="_blank" rel="noopener" title="Open full size"><img src="img/b18.png" alt="Screenshot from the note." width="988" height="457" loading="lazy"></a><figcaption>Screenshot from the note.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a18-order-section.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a18-order-section.png" alt="The production copy’s Order-specific information. Ship date is a date picker, and Customer PO # is gone." width="1404" height="425" loading="lazy"></a><figcaption>The production copy’s Order-specific information. Ship date is a date picker, and Customer PO # is gone.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a18-ship-date-pdf.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a18-ship-date-pdf.png" alt="The PDF of the same production copy shows Requested ship date 10/26/2026." width="895" height="225" loading="lazy"></a><figcaption>The PDF of the same production copy shows Requested ship date 10/26/2026.</figcaption></figure></div></section><section class="stream" id="clone"><div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Copy a finalized sheet</h2></div><p class="sec-sub">N19, from the email question and answers 1 and 4.</p><div class="note" id="n19"><h3><span class="n">N19</span>Copy to new draft <span class="pill live">Done</span></h3><p class="ask"><span class="k">From the note</span><span class="quote">“One question as well, is there any way to clone a cost sheet after it has been finalized? So we don&#x27;t have to create a new one each time and it can pull over anything we have added previously?”<span class="ts">Email question</span></span><span class="quote">“When cloning a finalized cost sheet, should the copy stay on the same development item? - Yes!”<span class="ts">Answer 1 (email)</span></span><span class="quote">“Should a cloned cost sheet keep the original quoted prices, or recalculate them at current rates? - Yes to keeping the quoted prices BUT if we have different costs (say a one color print got more expensive) it should show that the margin is lower now if the quoted price is based on costs. I hope that makes sense!”<span class="ts">Answer 4 (email)</span></span></p><p class="now"><strong>Now:</strong> A finalized quote has a Copy to new draft button. It opens a new draft on the same development item, named with “(copy)”. Every quoted price carries over as it was, typed or a starting price, and stays put on the copy. Costs are worked out at today’s rates, so if a cost went up, the margin on the copy reads lower. A price break with no price at all takes today’s starting price. Prices for the bigger sizes follow the same rule.</p><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a19-copy-button.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a19-copy-button.png" alt="Step 5 of a finalized quote." width="694" height="220" loading="lazy"></a><figcaption>Step 5 of a finalized quote.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a19-the-copy.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a19-the-copy.png" alt="The draft it made: the name ends “(copy)” and the status is Draft." width="1440" height="230" loading="lazy"></a><figcaption>The draft it made: the name ends “(copy)” and the status is Draft.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a4-source.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a4-source.png" alt="Step 3 of a finalized QA quote. Every price is a starting price nobody typed over." width="1362" height="245" loading="lazy"></a><figcaption>Step 3 of a finalized QA quote. Every price is a starting price nobody typed over.</figcaption></figure><figure class="shot"><div class="who">Now, in the sandbox</div><a href="img/a4-copy.png" target="_blank" rel="noopener" title="Open full size"><img src="img/a4-copy.png" alt="Step 3 of its copy: the same prices, XS-XL and 2XL, now kept as typed. The margin is measured against today’s cost." width="1362" height="245" loading="lazy"></a><figcaption>Step 3 of its copy: the same prices, XS-XL and 2XL, now kept as typed. The margin is measured against today’s cost.</figcaption></figure></div></section><section class="stream" id="suggested"><div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Suggested changes</h2></div><p class="sec-sub">Not in the note. Each one applies the same feedback in more places, or removes a number shown twice. None changes how a price is worked out. Each can be undone on its own.</p><div class="note" id="s1"><h3><span class="n">S1</span>DTF and DS use the same locations <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>The note asked to match the locations “across the board” (N17). Embroidery now matches Screen Print. DTF and DS still had their own shorter lists.</p><p class="now"><strong>Change:</strong> DTF and DS offer the Screen Print list. For DTF that adds Front Pocket and Spine. For DS it adds Front Pocket, Spine, Custom and both wearer sleeves. Location does not change a DTF price (its size does). A DS line prices its ink by location the same way a Screen Print line does.</p><figure class="shot"><div class="who">Before</div><a href="img/sb-s1-dtf-locations.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s1-dtf-locations.png" alt="DTF locations before: 7." width="700" height="210" loading="lazy"></a><figcaption>DTF locations before: 7.</figcaption></figure><figure class="shot"><div class="who">After</div><a href="img/sa-s1-dtf-locations.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sa-s1-dtf-locations.png" alt="DTF locations after: the same 9 as Screen Print and Embroidery." width="700" height="242" loading="lazy"></a><figcaption>DTF locations after: the same 9 as Screen Print and Embroidery.</figcaption></figure><figure class="shot"><div class="who">After</div><a href="img/sa-s1-ds-locations.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sa-s1-ds-locations.png" alt="DS locations after: the same 9. DS had 4 before (Front #1, Back #1, Back Neck, Left Chest)." width="700" height="242" loading="lazy"></a><figcaption>DS locations after: the same 9. DS had 4 before (Front #1, Back #1, Back Neck, Left Chest).</figcaption></figure></div><div class="note" id="s2"><h3><span class="n">S2</span>No Size range card in Contract and Third Party <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>The note removed this card from the Full Package guide (N2). The Contract and Third Party guides still showed it.</p><p class="now"><strong>Change:</strong> The card is gone from those two guides too. The sizes are still set in Quote details.</p><div class="tbl-scroll"><table><thead><tr><th>Contract guide</th><th>Cards, in order (struck out = removed by S2 to S4)</th></tr></thead><tbody><tr><td class="name">Before</td><td>Contract: the rate card is the price › Item Details come from their records › Quote details › <s>Size range</s> › On to Decoration and Packing › Check this line › Another line? › Finishing services › On to Tiers &amp; sizes › Other cost factors › <s>Quantity tiers</s> › Your quoted price › <s>Price stack at your quantity</s> › Customer retail › On to Samples › Sample allocation › On to the Quote summary</td></tr><tr><td class="name">After</td><td>Contract: the rate card is the price › Item Details come from their records › Quote details › On to Decoration and Packing › Check this line › Another line? › Finishing services › On to Tiers &amp; sizes › Other cost factors › Your quoted price › Customer retail › On to Samples › Sample allocation › On to the Quote summary</td></tr></tbody></table></div><figure class="shot"><div class="who">Before</div><a href="img/sb-s2-contract-size-range.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s2-contract-size-range.png" alt="Contract guide before." width="1440" height="1000" loading="lazy"></a><figcaption>Contract guide before.</figcaption></figure><figure class="shot"><div class="who">Before</div><a href="img/sb-s2-tp-size-range.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s2-tp-size-range.png" alt="Third Party guide before." width="1440" height="1000" loading="lazy"></a><figcaption>Third Party guide before.</figcaption></figure></div><div class="note" id="s3"><h3><span class="n">S3</span>No cost stack card in Contract and Third Party <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>The note removed this card from the Full Package guide (N7). Contract (“Price stack at your quantity”) and Third Party still showed it.</p><p class="now"><strong>Change:</strong> The card is gone from those two guides too. The figures stay on the page.</p><div class="tbl-scroll"><table><thead><tr><th>Third Party guide</th><th>Cards, in order (struck out = removed by S2 to S4)</th></tr></thead><tbody><tr><td class="name">Before</td><td>Third Party: a finished item › Item Details come from their records › <s>Quote details</s> › <s>Size range</s> › On to Decoration and Packing › Decoration does not apply › Packing › On to Tiers &amp; sizes › Other cost factors › <s>Quantity tiers</s> › Your quoted price › <s>Cost stack at your quantity</s> › Customer retail › On to Samples › Sample allocation › On to the Quote summary</td></tr><tr><td class="name">After</td><td>Third Party: a finished item › Item Details come from their records › On to Decoration and Packing › Decoration does not apply › Packing › On to Tiers &amp; sizes › Other cost factors › Your quoted price › Customer retail › On to Samples › Sample allocation › On to the Quote summary</td></tr></tbody></table></div><figure class="shot"><div class="who">Before</div><a href="img/sb-s3-contract-price-stack.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s3-contract-price-stack.png" alt="Contract guide before." width="1440" height="1000" loading="lazy"></a><figcaption>Contract guide before.</figcaption></figure><figure class="shot"><div class="who">Before</div><a href="img/sb-s3-tp-cost-stack.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s3-tp-cost-stack.png" alt="Third Party guide before." width="1440" height="1000" loading="lazy"></a><figcaption>Third Party guide before.</figcaption></figure></div><div class="note" id="s4"><h3><span class="n">S4</span>Cards for filled-in steps are skipped <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>The note asked that a card stop popping up once its fields are done (N1, N2).</p><p class="now"><strong>Change:</strong> Quote details and Quantity tiers are skipped once they are filled in, going forward and back. On a new sheet they still show. In Contract, Quote details is an information card with nothing to fill in, so it still shows.</p><div class="tbl-scroll"><table><thead><tr><th>Full Package (filled in) guide</th><th>Cards, in order (struck out = removed by S2 to S4)</th></tr></thead><tbody><tr><td class="name">Before</td><td>Price a real job, end to end › Item Details come from their records › <s>Quote details</s> › On to Decoration and Packing › Set up this line › Check this line › Another line? › Packing › On to Tiers &amp; sizes › Other cost factors › <s>Quantity tiers</s> › Your quoted price › Customer retail › On to Samples › Sample allocation › On to the Quote summary</td></tr><tr><td class="name">After</td><td>Price a real job, end to end › Item Details come from their records › On to Decoration and Packing › Set up this line › Check this line › Another line? › Packing › On to Tiers &amp; sizes › Other cost factors › Your quoted price › Customer retail › On to Samples › Sample allocation › On to the Quote summary</td></tr></tbody></table></div><figure class="shot"><div class="who">Before</div><a href="img/sb-s4-quote-details-card.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s4-quote-details-card.png" alt="Before: Quote details on a filled-in Full Package sheet." width="1440" height="1000" loading="lazy"></a><figcaption>Before: Quote details on a filled-in Full Package sheet.</figcaption></figure><figure class="shot"><div class="who">Before</div><a href="img/sb-s4-quantity-tiers-card.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s4-quantity-tiers-card.png" alt="Before: Quantity tiers on the same sheet." width="1440" height="1000" loading="lazy"></a><figcaption>Before: Quantity tiers on the same sheet.</figcaption></figure></div><div class="note" id="s5"><h3><span class="n">S5</span>Packing “Other” says what it is <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>The note asked for a box to say what a sample’s “Other” is (N9). The packing add-on “Other” had no box either.</p><p class="now"><strong>Change:</strong> Turning on the packing add-on Other shows a box under it. What is typed there saves with the sheet, carries onto the production copy and prints on the PDF. The $0.07 charge does not change.</p><figure class="shot"><div class="who">Before</div><a href="img/sb-s5-packing-other.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s5-packing-other.png" alt="Before: Other, outlined, with no box." width="1404" height="266" loading="lazy"></a><figcaption>Before: Other, outlined, with no box.</figcaption></figure><figure class="shot"><div class="who">After</div><a href="img/sa-s5-packing-other.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sa-s5-packing-other.png" alt="After: Other turned on, with “Hang tags in bulk” typed in its box." width="1404" height="316" loading="lazy"></a><figcaption>After: Other turned on, with “Hang tags in bulk” typed in its box.</figcaption></figure><figure class="shot"><div class="who">After</div><a href="img/sa-s5-pdf-packing.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sa-s5-pdf-packing.png" alt="After: the View PDF of that sheet prints it." width="886" height="125" loading="lazy"></a><figcaption>After: the View PDF of that sheet prints it.</figcaption></figure></div><div class="note" id="s6"><h3><span class="n">S6</span>The summary no longer repeats the breakdown <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>The Step 5 summary listed every part of the cost, and the breakdown right below listed them again.</p><p class="now"><strong>Change:</strong> The summary states the total. The breakdown below keeps every part.</p><figure class="shot"><div class="who">Before</div><a href="img/sb-s67-summary-fp.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s67-summary-fp.png" alt="Before: Full Package summary, every part plus “$10.96 → $16.90”." width="1392" height="317" loading="lazy"></a><figcaption>Before: Full Package summary, every part plus “$10.96 → $16.90”.</figcaption></figure><figure class="shot"><div class="who">After</div><a href="img/sa-s67-summary-fp.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sa-s67-summary-fp.png" alt="After: one Total cost tile (outlined). The quoted price shows once, in its own box." width="1392" height="261" loading="lazy"></a><figcaption>After: one Total cost tile (outlined). The quoted price shows once, in its own box.</figcaption></figure></div><div class="note" id="s7"><h3><span class="n">S7</span>The quoted price shows once <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>The summary tile ended in the quoted price, and the Quoted price box showed it again. A Contract sheet showed $5.60 twice in the summary.</p><p class="now"><strong>Change:</strong> The tile states the cost only. The quoted price shows in its own box, with its Change link. On a Contract sheet at its Contract Price, the summary shows $5.60 once, in the Quoted price box. The price breakdown below the summary shows it again, as its Contract Price total.</p><figure class="shot"><div class="who">Before</div><a href="img/sb-s67-summary-contract.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s67-summary-contract.png" alt="Before: Contract summary, $5.60 in the tile and in the Quoted price box." width="1392" height="261" loading="lazy"></a><figcaption>Before: Contract summary, $5.60 in the tile and in the Quoted price box.</figcaption></figure><figure class="shot"><div class="who">After</div><a href="img/sa-s67-summary-contract.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sa-s67-summary-contract.png" alt="After: $5.60 once in the summary, in the Quoted price box (outlined)." width="1392" height="170" loading="lazy"></a><figcaption>After: $5.60 once in the summary, in the Quoted price box (outlined).</figcaption></figure></div><div class="note" id="s8"><h3><span class="n">S8</span>Contract production copy: one number per box <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>Each box showed the Contract Price and the quoted price, the same number unless typed over. The builder already shows one number.</p><p class="now"><strong>Change:</strong> Each box shows the quoted price. The Contract Price shows under it only when a typed price differs.</p><figure class="shot"><div class="who">Before</div><a href="img/sb-s8-contract-production-tiers.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s8-contract-production-tiers.png" alt="Before: each price twice." width="1392" height="277" loading="lazy"></a><figcaption>Before: each price twice.</figcaption></figure><figure class="shot"><div class="who">After</div><a href="img/sa-s8-contract-production-tiers.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sa-s8-contract-production-tiers.png" alt="After: each price once (outlined)." width="1392" height="258" loading="lazy"></a><figcaption>After: each price once (outlined).</figcaption></figure></div><div class="note" id="s9"><h3><span class="n">S9</span>Contract PDF: one price <span class="pill sandbox">Suggested</span></h3><p class="ask"><span class="k">Why</span>The figure block on the Contract View PDF printed the Contract Price and the quoted price side by side, the same number unless typed over.</p><p class="now"><strong>Change:</strong> The PDF prints the quoted price. The Contract Price column prints too only when a typed quoted price differs from it. Same rule as S8.</p><figure class="shot"><div class="who">Before</div><a href="img/sb-s9-contract-pdf.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sb-s9-contract-pdf.png" alt="Before: Contract Price $5.60 and Quoted price $5.60." width="895" height="580" loading="lazy"></a><figcaption>Before: Contract Price $5.60 and Quoted price $5.60.</figcaption></figure><figure class="shot"><div class="who">After</div><a href="img/sa-s9-contract-pdf.png" target="_blank" rel="noopener" title="Open full size"><img src="img/sa-s9-contract-pdf.png" alt="After: $5.60 once, as the Quoted price (outlined)." width="816" height="881" loading="lazy"></a><figcaption>After: $5.60 once, as the Quoted price (outlined).</figcaption></figure></div></section><footer><p class="fmono">Sandbox screenshots taken Oct 14 and 15, 2026 as Christina, on test sheets only. They are on the item SEA-124 (DEMO), except these, which are on SEA-123 (DEMO): the Contract production copy (N14), the finalized QA quote and its copy (N19, last two), the Third Party guide (S2, S3) and the Contract production copy boxes (S8).</p></footer></main><script>(function(){var b=document.getElementById('themeToggle'),r=document.documentElement;b.addEventListener('click',function(){var c=r.getAttribute('data-theme');if(!c)c=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);b.textContent=n==='dark'?'Light':'Dark';});})();</script></body></html>
+      footer {
+        padding: 44px 0 60px;
+        color: var(--ink-faint);
+        font-size: 0.84rem;
+      }
+      footer .fmono {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+      }
+      hr.soft {
+        border: none;
+        border-top: 1px solid var(--line-soft);
+        margin: 34px 0;
+      }
+    </style>
+    <style>
+      figure.shot {
+        margin: 12px 0 18px;
+      }
+      figure.shot img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: var(--shadow);
+      }
+      figure.shot figcaption {
+        font-size: 0.9rem;
+        color: var(--ink-soft);
+        margin-top: 8px;
+      }
+      figure.shot .who {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 6px;
+      }
+      figure.shot a {
+        display: block;
+      }
+      .pair {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .note {
+        padding: 26px 0 8px;
+        border-top: 1px solid var(--line-soft);
+        scroll-margin-top: 72px;
+      }
+      .note:first-of-type {
+        border-top: none;
+      }
+      .note h3 {
+        margin: 0 0 8px;
+        flex-wrap: wrap;
+      }
+      .note h3 .n {
+        font-family: var(--mono);
+        color: var(--accent-2);
+        font-size: 0.95rem;
+      }
+      .ask {
+        margin: 0 0 10px;
+        max-width: 72ch;
+        font-size: 0.95rem;
+        color: var(--ink-soft);
+      }
+      .ask .k,
+      .now .k {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        display: block;
+        margin-bottom: 4px;
+        font-style: normal;
+      }
+      .ask .quote {
+        font-style: italic;
+        display: block;
+      }
+      .ask .ts {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        color: var(--ink-faint);
+        font-style: normal;
+        margin-left: 6px;
+      }
+      .ask .para {
+        font-style: normal;
+        font-size: 0.82rem;
+        color: var(--ink-faint);
+      }
+      .now {
+        margin: 0 0 6px;
+        max-width: 72ch;
+      }
+      .noshot {
+        font-size: 0.9rem;
+        color: var(--ink-faint);
+        margin: 4px 0 14px;
+      }
+      .dec {
+        padding: 16px 0;
+        border-top: 1px solid var(--line-soft);
+        scroll-margin-top: 72px;
+      }
+      .dec:first-of-type {
+        border-top: none;
+      }
+      .dec h3 {
+        margin: 0 0 4px;
+        flex-wrap: wrap;
+      }
+      section.stream {
+        scroll-margin-top: 72px;
+      }
+      .toc-inner {
+        flex-wrap: nowrap;
+        gap: 8px;
+      }
+      .toc-links {
+        display: flex;
+        gap: 4px;
+        flex: 1 1 auto;
+        min-width: 0;
+        align-items: center;
+      }
+      #themeToggle {
+        flex: 0 0 auto;
+      }
+      .mast-inner {
+        padding: 52px 28px 40px;
+      }
+      .toc-inner {
+        padding: 10px 28px;
+      }
+      @media (max-width: 640px) {
+        .wrap {
+          padding: 0 16px;
+        }
+        .mast-inner {
+          padding: 32px 16px 24px;
+        }
+        .toc-inner {
+          padding: 6px 16px;
+        }
+        .toc-links {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(to right, #000 80%, transparent);
+          mask-image: linear-gradient(to right, #000 80%, transparent);
+          padding-right: 28px;
+        }
+        .toc-links::-webkit-scrollbar {
+          display: none;
+        }
+        section.stream {
+          padding-top: 36px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="mast">
+      <div class="wrap mast-inner">
+        <p class="eyebrow">
+          <span class="dot"></span> Paradies · Cost Sheet Builder · Internal
+          review
+        </p>
+        <h1 class="title">Cost sheet edits <span>from the 10/14 note</span></h1>
+        <p class="lede">
+          Every item in the “Cost Sheet Edits” note (N1 to N18), the clone
+          question (N19) and the 4 answers emailed back. Each card quotes the
+          exact words, with the page of the note or the answer they came from,
+          then says what the builder or PDF does now. The screenshot from the
+          note comes first, then the sandbox today.
+        </p>
+        <div class="meta-grid">
+          <div class="meta-cell">
+            <div class="k">Items</div>
+            <div class="v">19 of 19 done</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Answers</div>
+            <div class="v">4 of 4 built in</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Suggested</div>
+            <div class="v">9 more, each undoable</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Where</div>
+            <div class="v">The sandbox</div>
+          </div>
+          <div class="meta-cell">
+            <div class="k">Screenshots</div>
+            <div class="v mono">Oct 14 and 15, 2026</div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <nav class="toc">
+      <div class="wrap toc-inner">
+        <div class="toc-links">
+          <a href="#guide"><span class="num">01</span>Guided mode</a
+          ><a href="#summary"><span class="num">02</span>Samples</a
+          ><a href="#pdfs"><span class="num">03</span>PDFs</a
+          ><a href="#decoration"><span class="num">04</span>Decoration</a
+          ><a href="#clone"><span class="num">05</span>Copy a finalized sheet</a
+          ><a href="#suggested"><span class="num">06</span>Suggested changes</a>
+        </div>
+        <button id="themeToggle" aria-label="Toggle color theme">Theme</button>
+      </div>
+    </nav>
+    <main class="wrap">
+      <section class="stream" id="guide">
+        <div class="sec-head">
+          <span class="sec-num">01</span>
+          <h2 class="sec-title">Guided mode and help text</h2>
+        </div>
+        <p class="sec-sub">
+          N1 to N7. Shown on the test copy of the Full Package sheet.
+        </p>
+        <div class="note" id="n1">
+          <h3>
+            <span class="n">N1</span>Full Package card shows once
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“In guided mode, the “full package” pop-up window comes up a
+              second time after selecting it initially. Can we make sure this
+              only comes up once”<span class="ts">p. 1</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The “Pick Full Package” card now shows only
+            while the sheet is not yet Full Package. In the note’s screenshot
+            the mode was already selected, so today the guide skips that card,
+            going forward and back. The list below is every card the guide shows
+            today on a filled-in Full Package sheet, in order. There is no “Pick
+            Full Package” card in it. (Quote details and Quantity tiers are
+            skipped too, because they are filled in: suggested change S4.)
+          </p>
+          <div class="tbl-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th class="num">#</th>
+                  <th>Card</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="num">1</td>
+                  <td class="name">Price a real job, end to end</td>
+                </tr>
+                <tr>
+                  <td class="num">2</td>
+                  <td class="name">Item Details come from their records</td>
+                </tr>
+                <tr>
+                  <td class="num">3</td>
+                  <td class="name">On to Decoration and Packing</td>
+                </tr>
+                <tr>
+                  <td class="num">4</td>
+                  <td class="name">Set up this line</td>
+                </tr>
+                <tr>
+                  <td class="num">5</td>
+                  <td class="name">Check this line</td>
+                </tr>
+                <tr>
+                  <td class="num">6</td>
+                  <td class="name">Another line?</td>
+                </tr>
+                <tr>
+                  <td class="num">7</td>
+                  <td class="name">Packing</td>
+                </tr>
+                <tr>
+                  <td class="num">8</td>
+                  <td class="name">On to Tiers &amp; sizes</td>
+                </tr>
+                <tr>
+                  <td class="num">9</td>
+                  <td class="name">Other cost factors</td>
+                </tr>
+                <tr>
+                  <td class="num">10</td>
+                  <td class="name">Your quoted price</td>
+                </tr>
+                <tr>
+                  <td class="num">11</td>
+                  <td class="name">Customer retail</td>
+                </tr>
+                <tr>
+                  <td class="num">12</td>
+                  <td class="name">On to Samples</td>
+                </tr>
+                <tr>
+                  <td class="num">13</td>
+                  <td class="name">Sample allocation</td>
+                </tr>
+                <tr>
+                  <td class="num">14</td>
+                  <td class="name">On to the Quote summary</td>
+                </tr>
+                <tr>
+                  <td class="num">15</td>
+                  <td class="name">Name the cost sheet</td>
+                </tr>
+                <tr>
+                  <td class="num">16</td>
+                  <td class="name">Check the figures you are quoting</td>
+                </tr>
+                <tr>
+                  <td class="num">17</td>
+                  <td class="name">Actual order quantity</td>
+                </tr>
+                <tr>
+                  <td class="num">18</td>
+                  <td class="name">How this price is built</td>
+                </tr>
+                <tr>
+                  <td class="num">19</td>
+                  <td class="name">The cost sheet lifecycle</td>
+                </tr>
+                <tr>
+                  <td class="num">20</td>
+                  <td class="name">Your price, start to finish</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b01.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b01.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="518"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/n1-no-pick-card.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/n1-no-pick-card.png"
+                alt="Step 1 of the test Full Package sheet in guided mode. Full Package is already picked, so after the opening card the guide goes straight to Item Details (outlined)."
+                width="1440"
+                height="700"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Step 1 of the test Full Package sheet in guided mode. Full Package
+              is already picked, so after the opening card the guide goes
+              straight to Item Details (outlined).
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n2">
+          <h3>
+            <span class="n">N2</span>Size range card removed
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we remove this step from the blanks section in guided mode?
+              This is popping up once all of the fields have been
+              completed.”<span class="ts">p. 1</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The “Size range and blank cost per size” card
+            is gone. Step 1 no longer stops on the sizes. It goes on to the “On
+            to Decoration and Packing” card.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b02.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b02.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="386"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a02-after-quote-details.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a02-after-quote-details.png"
+                alt="Step 1 with the blank costs filled in. The guide passes the size row (outlined) with no card and stops on On to Decoration and Packing (outlined)."
+                width="1412"
+                height="679"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Step 1 with the blank costs filled in. The guide passes the size
+              row (outlined) with no card and stops on On to Decoration and
+              Packing (outlined).
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n3">
+          <h3>
+            <span class="n">N3</span>Name drops help text
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“On this step of the process, when scrolling over the “I”
+              information button can we have it say “Number of additional name
+              drops””<span class="ts">p. 2</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The help icon next to Number of name drops
+            reads exactly “Number of additional name drops”.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b03.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b03.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="530"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a03-name-drops-help.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a03-name-drops-help.png"
+                alt="Hovering the help icon shows the wording from the note."
+                width="760"
+                height="260"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Hovering the help icon shows the wording from the note.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n4">
+          <h3>
+            <span class="n">N4</span>Set up this line is the first decoration
+            card <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we make thisstep in the decoration section step 1?”<span
+                class="ts"
+                >p. 2</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> On Step 2 the guide opens on “Set up this
+            line”. The old “Add the decoration” card is gone.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b04.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b04.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="445"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a04-set-up-this-line.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a04-set-up-this-line.png"
+                alt="First card on Decoration and Packing, outlined in red."
+                width="1440"
+                height="620"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              First card on Decoration and Packing, outlined in red.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n5">
+          <h3>
+            <span class="n">N5</span>Packing help text
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we add in the information scroll-over section that the
+              standard packaging includes a printer fold, box, pallet, and price
+              ticket?”<span class="ts">p. 3</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The help icon next to Standard bundle adds
+            “Includes a printer fold, box, pallet, and price ticket.”
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b05.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b05.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="178"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a05-packing-help.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a05-packing-help.png"
+                alt="Hovering the help icon on Standard bundle."
+                width="900"
+                height="280"
+                loading="lazy"
+            /></a>
+            <figcaption>Hovering the help icon on Standard bundle.</figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n6">
+          <h3>
+            <span class="n">N6</span>Cost / Quote / Margin labels beside the
+            sizes <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we add these labels next to the sizes as another column and
+              have them labeled as follows : - Cost - Quote - Margin”<span
+                class="ts"
+                >p. 3</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> Step 3 has a new column between the size and
+            the first price break. Each size reads Cost, Quote, Margin. The
+            “Each box: Total cost · Quoted price · Margin $ / Margin %” line
+            underlined in the note is gone, because the new column says the same
+            thing. Its help icons and the required mark for the quoted price sit
+            on the Quote and Margin labels now.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b06.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b06.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="270"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a06-cost-quote-margin.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a06-cost-quote-margin.png"
+                alt="Step 3 on the test Full Package sheet. The label column, outlined, carries the help icons and the required mark. The line above the table is gone."
+                width="1366"
+                height="373"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Step 3 on the test Full Package sheet. The label column, outlined,
+              carries the help icons and the required mark. The line above the
+              table is gone.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n7">
+          <h3>
+            <span class="n">N7</span>Cost stack card removed
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we get rid of this section of the guided mode?”<span
+                class="ts"
+                >p. 3</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The “Cost stack at your quantity” card is
+            gone. Step 3 now starts at Other cost factors.
+          </p>
+          <div class="callout">
+            <div class="lbl">Also done</div>
+            <p>
+              The same card is gone from the Contract and Third Party guides too
+              (suggested change S3, below).
+            </p>
+          </div>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b07.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b07.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="363"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a07-step3-first-card.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a07-step3-first-card.png"
+                alt="Step 3 in guided mode now opens on Other cost factors. The cost stack stays on the page with no card on it."
+                width="1440"
+                height="1000"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Step 3 in guided mode now opens on Other cost factors. The cost
+              stack stays on the page with no card on it.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="stream" id="summary">
+        <div class="sec-head">
+          <span class="sec-num">02</span>
+          <h2 class="sec-title">Samples and quote summary</h2>
+        </div>
+        <p class="sec-sub">N8 to N11.</p>
+        <div class="note" id="n8">
+          <h3>
+            <span class="n">N8</span>Display renamed to Control
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we rename “display” as “control””<span class="ts"
+                >p. 4</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The sample recipient list reads Licensor,
+            Buyer, Control, Other. The 6 existing samples in the sandbox marked
+            Display now read Control.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b08.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b08.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="192"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a08-control.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a08-control.png"
+                alt="The recipient list, opened, with Control outlined."
+                width="1408"
+                height="402"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              The recipient list, opened, with Control outlined.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n9">
+          <h3>
+            <span class="n">N9</span>Other gets a box
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“If we select “other,” can we add a box to qualify what that
+              is?”<span class="ts">p. 4</span></span
+            ><span class="quote"
+              >“When &quot;Other&quot; is picked for a sample, should what you
+              type print on the PDFs too? - Yes!”<span class="ts"
+                >Answer 3 (email)</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> Picking Other shows a text box under it. What
+            is typed there saves with the sample and prints on the View PDF as
+            “Other: …”. The customer PDF has no Samples section, so nothing
+            about samples shows there.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b09.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b09.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="183"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a09-other-box.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a09-other-box.png"
+                alt="A sheet with an Other sample."
+                width="1408"
+                height="264"
+                loading="lazy"
+            /></a>
+            <figcaption>A sheet with an Other sample.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a09-pdf-samples.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a09-pdf-samples.png"
+                alt="The View PDF of a sheet with an Other sample, Samples section."
+                width="895"
+                height="110"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              The View PDF of a sheet with an Other sample, Samples section.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n10">
+          <h3>
+            <span class="n">N10</span>Table left, pie chart on the right
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“On this section, can we left-justify the table information and
+              instead of a bar graph on top, can we have a pie chart on the
+              right?”<span class="ts">p. 5</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> On Step 5 the table sits on the left and a pie
+            chart on the right. The bar is gone. Every slice is labeled with its
+            name and share, and the shares match the table. Every row of the
+            table lines up, Royalty included. The chart widens to fit a long
+            slice name such as “Decoration (rate card)” (see N14). The pie’s
+            title names no figure, because the total already shows in the table
+            beside it. The color palette has 7 shades, so on a sheet with 8
+            parts two neighbors share one (Labeling and Packing here). Their
+            labels tell them apart.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b10.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b10.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="756"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a10-pie.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a10-pie.png"
+                alt="Step 5 on the test Full Package sheet. The pie’s title is outlined."
+                width="1392"
+                height="677"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Step 5 on the test Full Package sheet. The pie’s title is
+              outlined.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n11">
+          <h3>
+            <span class="n">N11</span>Finalize wording
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we reword this to say “Finalizing the cost sheet makes it
+              permanent and cannot be edited.””<span class="ts"
+                >p. 5</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The lifecycle card reads the sentence from the
+            note word for word.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b11.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b11.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="400"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a11-finalize-card-marked.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a11-finalize-card-marked.png"
+                alt="The cost sheet lifecycle card in guided mode, with the new sentence outlined."
+                width="1020"
+                height="380"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              The cost sheet lifecycle card in guided mode, with the new
+              sentence outlined.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="stream" id="pdfs">
+        <div class="sec-head">
+          <span class="sec-num">03</span>
+          <h2 class="sec-title">PDFs and Contract wording</h2>
+        </div>
+        <p class="sec-sub">N12 to N15.</p>
+        <div class="note" id="n12">
+          <h3>
+            <span class="n">N12</span>PDF size table headers centered
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“On this section of the PDF can we center justify the
+              headers”<span class="ts">p. 6</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The column headers over the size table are
+            centered on their columns.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b12.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b12.png"
+                alt="Screenshot from the note."
+                width="738"
+                height="195"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a12-pom-headers-marked.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a12-pom-headers-marked.png"
+                alt="View PDF of the test Full Package sheet. The centered headers are outlined."
+                width="895"
+                height="145"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              View PDF of the test Full Package sheet. The centered headers are
+              outlined.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n13">
+          <h3>
+            <span class="n">N13</span>PDF file name is the cost sheet name
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“When we export/save a pdf is is possible to have it generate the
+              cost sheet name as the file name? For the customer PDF can it also
+              download with the suffix “CUST””<span class="ts">p. 6</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> Saving a PDF suggests the cost sheet name as
+            the file name. The customer PDF adds “ CUST”. Read from the live
+            sandbox:
+          </p>
+          <div class="tbl-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sheet</th>
+                  <th>View PDF saves as</th>
+                  <th>Customer PDF saves as</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="name">Full Package sheet</td>
+                  <td><code>Live check 10-13 - Full Package.pdf</code></td>
+                  <td><code>Live check 10-13 - Full Package CUST.pdf</code></td>
+                </tr>
+                <tr>
+                  <td class="name">Contract sheet</td>
+                  <td>
+                    <code>Contract example - 36 pcs, puff, hang tag.pdf</code>
+                  </td>
+                  <td>
+                    <code
+                      >Contract example - 36 pcs, puff, hang tag CUST.pdf</code
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b13.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b13.png"
+                alt="Screenshot from the note. Chrome offers “CostSheetQuotePdf”."
+                width="988"
+                height="535"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Screenshot from the note. Chrome offers “CostSheetQuotePdf”.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a13-view-pdf-name.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a13-view-pdf-name.png"
+                alt="View PDF of the test Full Package sheet. Chrome shows the sheet name, outlined in red."
+                width="1280"
+                height="250"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              View PDF of the test Full Package sheet. Chrome shows the sheet
+              name, outlined in red.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a13-cust-pdf-name.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a13-cust-pdf-name.png"
+                alt="Customer PDF of the same sheet. The name ends in CUST."
+                width="1280"
+                height="250"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Customer PDF of the same sheet. The name ends in CUST.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n14">
+          <h3>
+            <span class="n">N14</span>“Rate card price” is now “Contract Price”
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we change “rate card price” to “Contract Price””<span
+                class="ts"
+                >p. 7</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> Contract Price everywhere: the Step 5 table,
+            the Step 3 cost stack, the production copy, and the PDF. The PDF
+            prints the Contract Price only when a typed quoted price differs
+            from it (S9).
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b14.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b14.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="310"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a14-contract-price-step5.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a14-contract-price-step5.png"
+                alt="Step 5 table on the Contract example sheet, MOQ selected. The total row reads Contract Price (outlined)."
+                width="1392"
+                height="512"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Step 5 table on the Contract example sheet, MOQ selected. The
+              total row reads Contract Price (outlined).
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a14-contract-price-step3.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a14-contract-price-step3.png"
+                alt="Step 3 cost stack on the same sheet."
+                width="1370"
+                height="102"
+                loading="lazy"
+            /></a>
+            <figcaption>Step 3 cost stack on the same sheet.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a14-contract-production-copy.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a14-contract-production-copy.png"
+                alt="A Contract production copy. The total row reads Contract Price."
+                width="576"
+                height="283"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              A Contract production copy. The total row reads Contract Price.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n15">
+          <h3>
+            <span class="n">N15</span>Contract PDF: sentence removed, add-ons
+            under Decoration <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Can we remove the sentence under the MOQ breakdown? Can we also
+              move the add-on prices below the decoration section? This way, all
+              pricing and breakdowns are together, and the comp is at the
+              bottom?”<span class="ts">p. 9</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> The sentence under the MOQ is gone. Add-ons
+            sit right under Decoration, and the comp is at the bottom. The
+            “Add-on” column header crossed out on page 8 is blank.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b15.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b15.png"
+                alt="The markup of the Contract PDF in the note (page 8)."
+                width="988"
+                height="1188"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              The markup of the Contract PDF in the note (page 8).
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a15-contract-pdf-marked.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a15-contract-pdf-marked.png"
+                alt="View PDF of the Contract example sheet. The figures with no sentence under them, and Add-ons right under Decoration, are outlined."
+                width="816"
+                height="881"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              View PDF of the Contract example sheet. The figures with no
+              sentence under them, and Add-ons right under Decoration, are
+              outlined.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="stream" id="decoration">
+        <div class="sec-head">
+          <span class="sec-num">04</span>
+          <h2 class="sec-title">Decoration and production copy</h2>
+        </div>
+        <p class="sec-sub">N16 to N18.</p>
+        <div class="note" id="n16">
+          <h3>
+            <span class="n">N16</span>Embroidery and DTF show their standard
+            rate <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“When we’re in the embroidery and DTF section, is there a way for
+              the price to show up when we enter the stitch count/width and
+              height? Like we see with the foil section where it shows the
+              standard rate!”<span class="ts">p. 9</span></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> Embroidery shows its standard rate as soon as
+            a stitch count is typed. DTF shows it once width and height are
+            typed. The rate matches what the sheet prices (checked 12 of 12
+            against the pricing engine).
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b16.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b16.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="342"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b16b.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b16b.png"
+                alt="The foil row the note pointed to."
+                width="988"
+                height="153"
+                loading="lazy"
+            /></a>
+            <figcaption>The foil row the note pointed to.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a16-embroidery-rate.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a16-embroidery-rate.png"
+                alt="An Embroidery line: 8,000 stitches shows $2.59 at 144 pcs (outlined)."
+                width="1370"
+                height="423"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              An Embroidery line: 8,000 stitches shows $2.59 at 144 pcs
+              (outlined).
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a16-dtf-rate.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a16-dtf-rate.png"
+                alt="A DTF line: 4 in by 5 in shows $0.55 at 144 pcs (outlined)."
+                width="1360"
+                height="160"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              A DTF line: 4 in by 5 in shows $0.55 at 144 pcs (outlined).
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n17">
+          <h3>
+            <span class="n">N17</span>Embroidery uses the same locations
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“It looks like the locations for just embroidery are different
+              than everything else! Can we match these across the board?”<span
+                class="ts"
+                >p. 10</span
+              ></span
+            ><span class="quote"
+              >“For matching embroidery locations, should embroidery use the
+              same location list as screen print? - Yes!”<span class="ts"
+                >Answer 2 (email)</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> Embroidery now lists Screen Print’s locations.
+            Saved lines that use Wearer’s Left or Right still open.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b17.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b17.png"
+                alt="Screenshot from the note: embroidery had its own short list."
+                width="988"
+                height="480"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Screenshot from the note: embroidery had its own short list.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a17-embroidery-locations.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a17-embroidery-locations.png"
+                alt="A new embroidery line, list opened."
+                width="700"
+                height="242"
+                loading="lazy"
+            /></a>
+            <figcaption>A new embroidery line, list opened.</figcaption>
+          </figure>
+        </div>
+        <div class="note" id="n18">
+          <h3>
+            <span class="n">N18</span>Ship date picker, date on the PDF, no
+            Customer PO # <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“Is there a specific date format we should be entering in here?
+              I’ve tried a couple, but I keep getting this error message! Can
+              this date also reflect on the PDF generated? Can we also remove
+              “customer PO #” from this section?”<span class="ts"
+                >p. 10</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> Requested ship date is a date picker, so there
+            is no format to type and no error. The date prints on the PDF.
+            Customer PO # is gone from the section.
+          </p>
+          <figure class="shot">
+            <div class="who">The note</div>
+            <a
+              href="img/b18.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/b18.png"
+                alt="Screenshot from the note."
+                width="988"
+                height="457"
+                loading="lazy"
+            /></a>
+            <figcaption>Screenshot from the note.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a18-order-section.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a18-order-section.png"
+                alt="The production copy’s Order-specific information. Ship date is a date picker, and Customer PO # is gone."
+                width="1404"
+                height="425"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              The production copy’s Order-specific information. Ship date is a
+              date picker, and Customer PO # is gone.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a18-ship-date-pdf.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a18-ship-date-pdf.png"
+                alt="The PDF of the same production copy shows Requested ship date 10/26/2026."
+                width="895"
+                height="225"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              The PDF of the same production copy shows Requested ship date
+              10/26/2026.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="stream" id="clone">
+        <div class="sec-head">
+          <span class="sec-num">05</span>
+          <h2 class="sec-title">Copy a finalized sheet</h2>
+        </div>
+        <p class="sec-sub">N19, from the email question and answers 1 and 4.</p>
+        <div class="note" id="n19">
+          <h3>
+            <span class="n">N19</span>Copy to new draft
+            <span class="pill live">Done</span>
+          </h3>
+          <p class="ask">
+            <span class="k">From the note</span
+            ><span class="quote"
+              >“One question as well, is there any way to clone a cost sheet
+              after it has been finalized? So we don&#x27;t have to create a new
+              one each time and it can pull over anything we have added
+              previously?”<span class="ts">Email question</span></span
+            ><span class="quote"
+              >“When cloning a finalized cost sheet, should the copy stay on the
+              same development item? - Yes!”<span class="ts"
+                >Answer 1 (email)</span
+              ></span
+            ><span class="quote"
+              >“Should a cloned cost sheet keep the original quoted prices, or
+              recalculate them at current rates? - Yes to keeping the quoted
+              prices BUT if we have different costs (say a one color print got
+              more expensive) it should show that the margin is lower now if the
+              quoted price is based on costs. I hope that makes sense!”<span
+                class="ts"
+                >Answer 4 (email)</span
+              ></span
+            >
+          </p>
+          <p class="now">
+            <strong>Now:</strong> A finalized quote has a Copy to new draft
+            button. It opens a new draft on the same development item, named
+            with “(copy)”. Every quoted price carries over as it was, typed or a
+            starting price, and stays put on the copy. Costs are worked out at
+            today’s rates, so if a cost went up, the margin on the copy reads
+            lower. A price break with no price at all takes today’s starting
+            price. Prices for the bigger sizes follow the same rule.
+          </p>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a19-copy-button.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a19-copy-button.png"
+                alt="Step 5 of a finalized quote."
+                width="694"
+                height="220"
+                loading="lazy"
+            /></a>
+            <figcaption>Step 5 of a finalized quote.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a19-the-copy.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a19-the-copy.png"
+                alt="The draft it made: the name ends “(copy)” and the status is Draft."
+                width="1440"
+                height="230"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              The draft it made: the name ends “(copy)” and the status is Draft.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a4-source.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a4-source.png"
+                alt="Step 3 of a finalized test quote. Every price is a starting price nobody typed over."
+                width="1362"
+                height="245"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Step 3 of a finalized test quote. Every price is a starting price
+              nobody typed over.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Now, in the sandbox</div>
+            <a
+              href="img/a4-copy.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/a4-copy.png"
+                alt="Step 3 of its copy: the same prices, XS-XL and 2XL, now kept as typed. The margin is measured against today’s cost."
+                width="1362"
+                height="245"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Step 3 of its copy: the same prices, XS-XL and 2XL, now kept as
+              typed. The margin is measured against today’s cost.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="stream" id="suggested">
+        <div class="sec-head">
+          <span class="sec-num">06</span>
+          <h2 class="sec-title">Suggested changes</h2>
+        </div>
+        <p class="sec-sub">
+          Not in the note. Each one applies the same feedback in more places, or
+          removes a number shown twice. None changes how a price is worked out.
+          Each can be undone on its own.
+        </p>
+        <div class="note" id="s1">
+          <h3>
+            <span class="n">S1</span>DTF and DS use the same locations
+            <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>The note asked to match the locations
+            “across the board” (N17). Embroidery now matches Screen Print. DTF
+            and DS still had their own shorter lists.
+          </p>
+          <p class="now">
+            <strong>Change:</strong> DTF and DS offer the Screen Print list. For
+            DTF that adds Front Pocket and Spine. For DS it adds Front Pocket,
+            Spine, Custom and both wearer sleeves. Location does not change a
+            DTF price (its size does). A DS line prices its ink by location the
+            same way a Screen Print line does.
+          </p>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s1-dtf-locations.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s1-dtf-locations.png"
+                alt="DTF locations before: 7."
+                width="700"
+                height="210"
+                loading="lazy"
+            /></a>
+            <figcaption>DTF locations before: 7.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">After</div>
+            <a
+              href="img/sa-s1-dtf-locations.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sa-s1-dtf-locations.png"
+                alt="DTF locations after: the same 9 as Screen Print and Embroidery."
+                width="700"
+                height="242"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              DTF locations after: the same 9 as Screen Print and Embroidery.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">After</div>
+            <a
+              href="img/sa-s1-ds-locations.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sa-s1-ds-locations.png"
+                alt="DS locations after: the same 9. DS had 4 before (Front #1, Back #1, Back Neck, Left Chest)."
+                width="700"
+                height="242"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              DS locations after: the same 9. DS had 4 before (Front #1, Back
+              #1, Back Neck, Left Chest).
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="s2">
+          <h3>
+            <span class="n">S2</span>No Size range card in Contract and Third
+            Party <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>The note removed this card from the Full
+            Package guide (N2). The Contract and Third Party guides still showed
+            it.
+          </p>
+          <p class="now">
+            <strong>Change:</strong> The card is gone from those two guides too.
+            The sizes are still set in Quote details.
+          </p>
+          <div class="tbl-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Contract guide</th>
+                  <th>Cards, in order (struck out = removed by S2 to S4)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="name">Before</td>
+                  <td>
+                    Contract: the rate card is the price › Item Details come
+                    from their records › Quote details › <s>Size range</s> › On
+                    to Decoration and Packing › Check this line › Another line?
+                    › Finishing services › On to Tiers &amp; sizes › Other cost
+                    factors › <s>Quantity tiers</s> › Your quoted price ›
+                    <s>Price stack at your quantity</s> › Customer retail › On
+                    to Samples › Sample allocation › On to the Quote summary
+                  </td>
+                </tr>
+                <tr>
+                  <td class="name">After</td>
+                  <td>
+                    Contract: the rate card is the price › Item Details come
+                    from their records › Quote details › On to Decoration and
+                    Packing › Check this line › Another line? › Finishing
+                    services › On to Tiers &amp; sizes › Other cost factors ›
+                    Your quoted price › Customer retail › On to Samples › Sample
+                    allocation › On to the Quote summary
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s2-contract-size-range.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s2-contract-size-range.png"
+                alt="Contract guide before."
+                width="1440"
+                height="1000"
+                loading="lazy"
+            /></a>
+            <figcaption>Contract guide before.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s2-tp-size-range.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s2-tp-size-range.png"
+                alt="Third Party guide before."
+                width="1440"
+                height="1000"
+                loading="lazy"
+            /></a>
+            <figcaption>Third Party guide before.</figcaption>
+          </figure>
+        </div>
+        <div class="note" id="s3">
+          <h3>
+            <span class="n">S3</span>No cost stack card in Contract and Third
+            Party <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>The note removed this card from the Full
+            Package guide (N7). Contract (“Price stack at your quantity”) and
+            Third Party still showed it.
+          </p>
+          <p class="now">
+            <strong>Change:</strong> The card is gone from those two guides too.
+            The figures stay on the page.
+          </p>
+          <div class="tbl-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Third Party guide</th>
+                  <th>Cards, in order (struck out = removed by S2 to S4)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="name">Before</td>
+                  <td>
+                    Third Party: a finished item › Item Details come from their
+                    records › <s>Quote details</s> › <s>Size range</s> › On to
+                    Decoration and Packing › Decoration does not apply › Packing
+                    › On to Tiers &amp; sizes › Other cost factors ›
+                    <s>Quantity tiers</s> › Your quoted price ›
+                    <s>Cost stack at your quantity</s> › Customer retail › On to
+                    Samples › Sample allocation › On to the Quote summary
+                  </td>
+                </tr>
+                <tr>
+                  <td class="name">After</td>
+                  <td>
+                    Third Party: a finished item › Item Details come from their
+                    records › On to Decoration and Packing › Decoration does not
+                    apply › Packing › On to Tiers &amp; sizes › Other cost
+                    factors › Your quoted price › Customer retail › On to
+                    Samples › Sample allocation › On to the Quote summary
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s3-contract-price-stack.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s3-contract-price-stack.png"
+                alt="Contract guide before."
+                width="1440"
+                height="1000"
+                loading="lazy"
+            /></a>
+            <figcaption>Contract guide before.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s3-tp-cost-stack.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s3-tp-cost-stack.png"
+                alt="Third Party guide before."
+                width="1440"
+                height="1000"
+                loading="lazy"
+            /></a>
+            <figcaption>Third Party guide before.</figcaption>
+          </figure>
+        </div>
+        <div class="note" id="s4">
+          <h3>
+            <span class="n">S4</span>Cards for filled-in steps are skipped
+            <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>The note asked that a card stop popping up
+            once its fields are done (N1, N2).
+          </p>
+          <p class="now">
+            <strong>Change:</strong> Quote details and Quantity tiers are
+            skipped once they are filled in, going forward and back. On a new
+            sheet they still show. In Contract, Quote details is an information
+            card with nothing to fill in, so it still shows.
+          </p>
+          <div class="tbl-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Full Package (filled in) guide</th>
+                  <th>Cards, in order (struck out = removed by S2 to S4)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="name">Before</td>
+                  <td>
+                    Price a real job, end to end › Item Details come from their
+                    records › <s>Quote details</s> › On to Decoration and
+                    Packing › Set up this line › Check this line › Another line?
+                    › Packing › On to Tiers &amp; sizes › Other cost factors ›
+                    <s>Quantity tiers</s> › Your quoted price › Customer retail
+                    › On to Samples › Sample allocation › On to the Quote
+                    summary
+                  </td>
+                </tr>
+                <tr>
+                  <td class="name">After</td>
+                  <td>
+                    Price a real job, end to end › Item Details come from their
+                    records › On to Decoration and Packing › Set up this line ›
+                    Check this line › Another line? › Packing › On to Tiers
+                    &amp; sizes › Other cost factors › Your quoted price ›
+                    Customer retail › On to Samples › Sample allocation › On to
+                    the Quote summary
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s4-quote-details-card.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s4-quote-details-card.png"
+                alt="Before: Quote details on a filled-in Full Package sheet."
+                width="1440"
+                height="1000"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Before: Quote details on a filled-in Full Package sheet.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s4-quantity-tiers-card.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s4-quantity-tiers-card.png"
+                alt="Before: Quantity tiers on the same sheet."
+                width="1440"
+                height="1000"
+                loading="lazy"
+            /></a>
+            <figcaption>Before: Quantity tiers on the same sheet.</figcaption>
+          </figure>
+        </div>
+        <div class="note" id="s5">
+          <h3>
+            <span class="n">S5</span>Packing “Other” says what it is
+            <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>The note asked for a box to say what a
+            sample’s “Other” is (N9). The packing add-on “Other” had no box
+            either.
+          </p>
+          <p class="now">
+            <strong>Change:</strong> Turning on the packing add-on Other shows a
+            box under it. What is typed there saves with the sheet, carries onto
+            the production copy and prints on the PDF. The $0.07 charge does not
+            change.
+          </p>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s5-packing-other.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s5-packing-other.png"
+                alt="Before: Other, outlined, with no box."
+                width="1404"
+                height="266"
+                loading="lazy"
+            /></a>
+            <figcaption>Before: Other, outlined, with no box.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">After</div>
+            <a
+              href="img/sa-s5-packing-other.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sa-s5-packing-other.png"
+                alt="After: Other turned on, with “Hang tags in bulk” typed in its box."
+                width="1404"
+                height="316"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              After: Other turned on, with “Hang tags in bulk” typed in its box.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">After</div>
+            <a
+              href="img/sa-s5-pdf-packing.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sa-s5-pdf-packing.png"
+                alt="After: the View PDF of that sheet prints it."
+                width="886"
+                height="125"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              After: the View PDF of that sheet prints it.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="s6">
+          <h3>
+            <span class="n">S6</span>The summary no longer repeats the breakdown
+            <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>The Step 5 summary listed every part of
+            the cost, and the breakdown right below listed them again.
+          </p>
+          <p class="now">
+            <strong>Change:</strong> The summary states the total. The breakdown
+            below keeps every part.
+          </p>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s67-summary-fp.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s67-summary-fp.png"
+                alt="Before: Full Package summary, every part plus “$10.96 → $16.90”."
+                width="1392"
+                height="317"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Before: Full Package summary, every part plus “$10.96 → $16.90”.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">After</div>
+            <a
+              href="img/sa-s67-summary-fp.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sa-s67-summary-fp.png"
+                alt="After: one Total cost tile (outlined). The quoted price shows once, in its own box."
+                width="1392"
+                height="261"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              After: one Total cost tile (outlined). The quoted price shows
+              once, in its own box.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="s7">
+          <h3>
+            <span class="n">S7</span>The quoted price shows once
+            <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>The summary tile ended in the quoted
+            price, and the Quoted price box showed it again. A Contract sheet
+            showed $5.60 twice in the summary.
+          </p>
+          <p class="now">
+            <strong>Change:</strong> The tile states the cost only. The quoted
+            price shows in its own box, with its Change link. A Contract sheet
+            at its Contract Price has no tiles left in the summary, so it shows
+            $5.60 once, in the Quoted price box. The price breakdown below the
+            summary shows it again, as its Contract Price total.
+          </p>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s67-summary-contract.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s67-summary-contract.png"
+                alt="Before: Contract summary, $5.60 in the tile and in the Quoted price box."
+                width="1392"
+                height="261"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Before: Contract summary, $5.60 in the tile and in the Quoted
+              price box.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">After</div>
+            <a
+              href="img/sa-s67-summary-contract.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sa-s67-summary-contract.png"
+                alt="After: $5.60 once in the summary, in the Quoted price box (outlined)."
+                width="1392"
+                height="170"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              After: $5.60 once in the summary, in the Quoted price box
+              (outlined).
+            </figcaption>
+          </figure>
+        </div>
+        <div class="note" id="s8">
+          <h3>
+            <span class="n">S8</span>Contract production copy: one number per
+            box <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>Each box showed the Contract Price and the
+            quoted price, the same number unless typed over. The builder already
+            shows one number.
+          </p>
+          <p class="now">
+            <strong>Change:</strong> Each box shows the quoted price. The
+            Contract Price shows under it only when a typed price differs.
+          </p>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s8-contract-production-tiers.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s8-contract-production-tiers.png"
+                alt="Before: each price twice."
+                width="1392"
+                height="277"
+                loading="lazy"
+            /></a>
+            <figcaption>Before: each price twice.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">After</div>
+            <a
+              href="img/sa-s8-contract-production-tiers.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sa-s8-contract-production-tiers.png"
+                alt="After: each price once (outlined)."
+                width="1392"
+                height="258"
+                loading="lazy"
+            /></a>
+            <figcaption>After: each price once (outlined).</figcaption>
+          </figure>
+        </div>
+        <div class="note" id="s9">
+          <h3>
+            <span class="n">S9</span>Contract PDF: one price
+            <span class="pill sandbox">Suggested</span>
+          </h3>
+          <p class="ask">
+            <span class="k">Why</span>The figure block on the Contract View PDF
+            printed the Contract Price and the quoted price side by side, the
+            same number unless typed over.
+          </p>
+          <p class="now">
+            <strong>Change:</strong> The PDF prints the quoted price. The
+            Contract Price column prints too only when a typed quoted price
+            differs from it. Same rule as S8.
+          </p>
+          <figure class="shot">
+            <div class="who">Before</div>
+            <a
+              href="img/sb-s9-contract-pdf.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sb-s9-contract-pdf.png"
+                alt="Before: Contract Price $5.60 and Quoted price $5.60."
+                width="895"
+                height="580"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              Before: Contract Price $5.60 and Quoted price $5.60.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="who">After</div>
+            <a
+              href="img/sa-s9-contract-pdf.png"
+              target="_blank"
+              rel="noopener"
+              title="Open full size"
+              ><img
+                src="img/sa-s9-contract-pdf.png"
+                alt="After: $5.60 once, as the Quoted price (outlined)."
+                width="816"
+                height="530"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              After: $5.60 once, as the Quoted price (outlined).
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <footer>
+        <p class="fmono">
+          Sandbox screenshots taken Oct 14 and 15, 2026, on test sheets only.
+          They are on the item SEA-124 (DEMO), except these, which are on
+          SEA-123 (DEMO): the Contract production copy (N14), the finalized test
+          quote and its copy (N19, last two), the DTF line (N16), the Third
+          Party guide (S2, S3) and the Contract production copy boxes (S8).
+        </p>
+      </footer>
+    </main>
+    <script>
+      (function () {
+        var b = document.getElementById("themeToggle"),
+          r = document.documentElement;
+        b.addEventListener("click", function () {
+          var c = r.getAttribute("data-theme");
+          if (!c)
+            c = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          var n = c === "dark" ? "light" : "dark";
+          r.setAttribute("data-theme", n);
+          b.textContent = n === "dark" ? "Light" : "Dark";
+        });
+      })();
+    </script>
+  </body>
+</html>
